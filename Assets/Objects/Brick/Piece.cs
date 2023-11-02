@@ -16,7 +16,7 @@ public class Piece : MonoBehaviour
         {
             Instantiate(blockGO, transform.position + block.pieceLocalPosition, transform.rotation, transform);
             block.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + block.pieceLocalPosition;
-            WeightManager.Instance.UpdateWeight(block.gridPosition);
+
         }
     }
 

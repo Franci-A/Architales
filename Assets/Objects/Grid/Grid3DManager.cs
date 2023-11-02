@@ -57,13 +57,10 @@ public class Grid3DManager : MonoBehaviour
         foreach (var block in piece.Blocks)
         {
             grid.Add(block.pieceLocalPosition + gridPos, block);
+            WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).origin + Camera.main.ScreenPointToRay(Input.mousePosition).direction * maxDistance);
-    }
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
     {
@@ -86,5 +83,13 @@ public class Grid3DManager : MonoBehaviour
         }
 
         return true;
+    }
+
+
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).origin + Camera.main.ScreenPointToRay(Input.mousePosition).direction * maxDistance);
     }
 }
