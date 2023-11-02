@@ -7,9 +7,11 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
     private Vector3 cameraRotation;
-    private float currentRotation;
+    private float currentRotationx, currentRotationy;
     [SerializeField] private float speed;
-    private float previsousPosition;
+    private float previsousPositionx, previsousPositiony;
+
+    private float lockRotationx;
 
     bool updateRotation = false;
 
@@ -23,7 +25,8 @@ public class CameraManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             updateRotation = true;
-        previsousPosition = Input.mousePosition.x;
+            previsousPositiony = Input.mousePosition.x;
+            previsousPositionx = Input.mousePosition.y;
         }
         else if(Input.GetMouseButtonUp(1))
         {
@@ -32,10 +35,28 @@ public class CameraManager : MonoBehaviour
 
         if (updateRotation)
         {
-            float direction = Input.mousePosition.x - previsousPosition;
-            previsousPosition = Input.mousePosition.x;
-            currentRotation += speed * Time.deltaTime * direction;
-            cameraTransform.rotation = quaternion.Euler(cameraRotation.x, cameraRotation.y + currentRotation, cameraRotation.z);
+            float directionx = Input.mousePosition.y - previsousPositionx;
+            previsousPositionx = Input.mousePosition.y;
+            currentRotationx += speed * Time.deltaTime * directionx;
+
+            float directiony = Input.mousePosition.x - previsousPositiony;
+            previsousPositiony = Input.mousePosition.x;
+            currentRotationy += speed * Time.deltaTime * directiony;
+
+
+            if (cameraRotation.x + currentRotationx > 0.65)
+            {
+                lockRotationx = 0.65f;
+                cameraTransform.rotation = quaternion.Euler(lockRotationx, cameraRotation.y + currentRotationy, cameraRotation.z);
+            } 
+            else if (cameraRotation.x + currentRotationx < -0.8)
+            {
+                lockRotationx = -0.8f;
+                cameraTransform.rotation = quaternion.Euler(lockRotationx, cameraRotation.y + currentRotationy, cameraRotation.z);
+            } 
+            else
+                cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationx, cameraRotation.y + currentRotationy, cameraRotation.z);
+
         }
     }
 }
