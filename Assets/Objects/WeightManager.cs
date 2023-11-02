@@ -6,23 +6,36 @@ using TMPro;
 public class WeightManager : MonoBehaviour
 {
     Vector2 horizontalBalance = Vector2.zero; // x = left; y = right
-    Vector2 verticalBalance = Vector2.zero; // x = up; y = bottom
+    Vector2 verticalBalance = Vector2.zero; // x = bottom; y = top
 
+    [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
 
-    void Start()
+
+    private static WeightManager instance;
+    public static WeightManager Instance { get => instance; }
+
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else Destroy(gameObject);
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        UpdateDebug();
+    }
+
+    private void UpdateDebug()
     {
         for (int i = 0; i < DebugInfo.Count; i++)
         {
             DebugInfo[i].transform.rotation = Quaternion.LookRotation(DebugInfo[i].transform.position - Camera.main.transform.position);
 
-            switch (i) 
+            switch (i)
             {
                 case 0:
                     DebugInfo[i].text = horizontalBalance.x.ToString();
@@ -30,17 +43,25 @@ public class WeightManager : MonoBehaviour
 
                 case 1:
                     DebugInfo[i].text = horizontalBalance.y.ToString();
-                    break; 
+                    break;
 
                 case 2:
                     DebugInfo[i].text = verticalBalance.x.ToString();
-                    break; 
+                    break;
 
                 default:
                     DebugInfo[i].text = verticalBalance.y.ToString();
                     break;
             }
         }
+    }
 
+    public void UpdateWeight(Vector3 blockPosition)
+    {
+        if (blockPosition.x < 0) horizontalBalance.x += blockPosition.x;
+        else horizontalBalance.y += blockPosition.x;
+
+        if (blockPosition.z < 0) verticalBalance.x += blockPosition.z;
+        else verticalBalance.y += blockPosition.z;
     }
 }

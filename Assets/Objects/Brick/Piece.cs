@@ -10,21 +10,16 @@ public class Piece : MonoBehaviour
 
     public List<Block> Blocks { get => blocks;}
 
-    // Start is called before the first frame update
     void Start()
     {
         foreach (var block in blocks)
         {
             Instantiate(blockGO, transform.position + block.pieceLocalPosition, transform.rotation, transform);
-            block.gridPosition = Grid3DManager.WorldToGridPosition(transform.position);
+            block.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + block.pieceLocalPosition;
+            WeightManager.Instance.UpdateWeight(block.gridPosition);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 [Serializable]
