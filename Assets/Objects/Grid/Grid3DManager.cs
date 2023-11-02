@@ -8,7 +8,7 @@ public class Grid3DManager : MonoBehaviour
 {
     Dictionary<Vector3, Block> grid = new Dictionary<Vector3, Block>(); // x = right; y = up; z = forward;
 
-    [SerializeField] private float maxDistance = 10;
+    [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask blockLayer;
     [SerializeField] private Piece brick;
