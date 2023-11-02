@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a28172561418a54d912ed1af18c75a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 10
+  maxDistance: 15
   gridLayer:
     serializedVersion: 2
     m_Bits: 64

@@ -2,20 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Grid3DManager : MonoBehaviour
 {
-    Dictionary<Vector3, GameObject> grid; // x = right; y = up; z = forward;
+    Dictionary<Vector3, Block> grid = new Dictionary<Vector3, Block>(); // x = right; y = up; z = forward;
 
     [SerializeField] private float maxDistance = 10;
     [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask blockLayer;
     [SerializeField] private Piece brick;
 
-    void Start()
+    private static Grid3DManager instance;
+    public static Grid3DManager Instance { get => instance;}
+
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else Destroy(gameObject);
     }
+
 
     void Update()
     {
@@ -27,23 +36,55 @@ public class Grid3DManager : MonoBehaviour
             {
                 if (hit.normal != Vector3.up)
                 {
-
-                    PlaceBlock(hit.point + hit.normal / 2);
+                    Debug.Log("cannot place here");
+                    //PlaceBlock(hit.point + hit.normal / 2);
                 }
-                else
-                    PlaceBlock(hit.point);
+                else 
+                    PlacePiece(hit.point);
             }
         }
     }
 
-    public void PlaceBlock(Vector3 position)
+    public void PlacePiece(Vector3 position)
     {
-        position = new Vector3(Mathf.Floor(position.x) + .5f, Mathf.Floor(position.y) + .5f, Mathf.Floor(position.z) + .5f);
-        Instantiate(brick, position, Quaternion.identity);
+        Vector3 gridPos = WorldToGridPosition(position);
+        if (!IsPiecePlaceable(brick, gridPos)) return;
+
+        position = GridToWorldPosition(gridPos);
+
+        var piece = Instantiate(brick, position, Quaternion.identity);
+
+        foreach (var block in piece.Blocks)
+        {
+            grid.Add(block.pieceLocalPosition + gridPos, block);
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).origin + Camera.main.ScreenPointToRay(Input.mousePosition).direction * maxDistance);
+    }
+
+    public static Vector3 WorldToGridPosition(Vector3 worldPosition)
+    {
+        return new Vector3(Mathf.Floor(worldPosition.x), Mathf.Floor(worldPosition.y), Mathf.Floor(worldPosition.z));
+    }
+
+    public static Vector3 GridToWorldPosition(Vector3 gridPosition)
+    {
+        return new Vector3(gridPosition.x + .5f, gridPosition.y + .5f, gridPosition.z + .5f);
+    }
+
+    public static bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
+    { 
+
+        if (piece == null || instance == null) return false;
+
+        foreach (var block in piece.Blocks)
+        {
+            if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)) return false;
+        }
+
+        return true;
     }
 }
