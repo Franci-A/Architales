@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,8 @@ public class Grid3DManager : MonoBehaviour
 {
     [Header("Grid")]
     Dictionary<Vector3, Block> grid = new Dictionary<Vector3, Block>(); // x = right; y = up; z = forward;
+    // Size of a block, WorldToGrid not working with every value
+    private float cellSize = 1; // WIP. DO NOT MODIFY YET
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
@@ -14,8 +15,8 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Brick")]
     [SerializeField] private Piece brick;
-
     [SerializeField] private BrickSO brickSO;
+
     public BrickSO BrickSO { get => brickSO; }
 
     private BrickSO _brickSO;
@@ -103,18 +104,34 @@ public class Grid3DManager : MonoBehaviour
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
     {
-        return new Vector3(Mathf.Floor(worldPosition.x), Mathf.Floor(worldPosition.y), Mathf.Floor(worldPosition.z));
+        if (instance == null)
+            throw new NullSingletonException();
+
+        float size = instance.cellSize;
+        return new Vector3(
+            Mathf.Floor(worldPosition.x / size + .5f * size),
+            .5f * size + Mathf.Floor(worldPosition.y / size),
+            Mathf.Floor(worldPosition.z / size + .5f * size));
     }
 
     public static Vector3 GridToWorldPosition(Vector3 gridPosition)
     {
-        return new Vector3(gridPosition.x + .5f, gridPosition.y + .5f, gridPosition.z + .5f);
+        if (instance == null)
+            throw new NullSingletonException();
+
+        float size = instance.cellSize;
+        return new Vector3(
+            gridPosition.x * size,
+            gridPosition.y * size + .5f * size,
+            gridPosition.z * size);
     }
 
     public static bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
-    { 
+    {
+        if (instance == null)
+            throw new NullSingletonException();
 
-        if (piece == null || instance == null) return false;
+        if (piece == null) return false;
 
         foreach (var block in piece.Blocks.Blocks)
         {
@@ -133,5 +150,22 @@ public class Grid3DManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).origin + Camera.main.ScreenPointToRay(Input.mousePosition).direction * maxDistance);
+
+        if (instance != null)
+        {
+            for (int z = -1; z < 2; ++z)
+                for (int x = -1; x < 2; ++x)
+                    Gizmos.DrawWireCube(GridToWorldPosition(new Vector3(x, 0, z)) + Vector3.down * cellSize * .5f, new Vector3(cellSize, 0, cellSize));
+        }
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
+        {
+            Vector3 gridPos = WorldToGridPosition(hit.point);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(gridPos, Vector3.one * .9f * cellSize);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(gridPos + Vector3.down * cellSize * .5f, new Vector3(cellSize, 0, cellSize));
+        }
     }
 }
