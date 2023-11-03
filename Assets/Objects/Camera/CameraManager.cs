@@ -84,11 +84,20 @@ public class CameraManager : MonoBehaviour
             limitZoom = false;
 
 
-        //reset cam
+        //vertical movement
+        if (Input.GetKey(KeyCode.UpArrow))
+            cameraTransform.position = new Vector3 (0, cameraTransform.position.y + Time.deltaTime * speed, 0);
+        else if (Input.GetKey(KeyCode.DownArrow))
+            cameraTransform.position = new Vector3 (0, cameraTransform.position.y - Time.deltaTime * speed, 0);
+
+
+
+        //reset camera
         if (Input.GetKeyDown(KeyCode.R))
         {
             mainCamera.fieldOfView = 60;
             cameraTransform.rotation = quaternion.Euler(50, 0, 0);
+            cameraTransform.position = new Vector3(0, 0, 0);
         }
     }
 }
