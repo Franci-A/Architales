@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Grid3DManager : MonoBehaviour
 {
@@ -43,28 +44,9 @@ public class Grid3DManager : MonoBehaviour
 
     void Update()
     {
-        UpdateMouseDown();
         IsBlockChanged();
     }
 
-    void UpdateMouseDown()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
-            {
-                if (hit.normal != Vector3.up)
-                {
-                    Debug.Log("cannot place here");
-                    //PlaceBlock(hit.point + hit.normal / 2);
-                }
-                else
-                    PlacePiece(hit.point);
-            }
-        }
-    }
 
     void IsBlockChanged()
     {
@@ -74,7 +56,22 @@ public class Grid3DManager : MonoBehaviour
             OnBrickChange(BrickSO);
         }
     }
+    void UpdateMouseDown()
+    {
+        RaycastHit hit;
 
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
+        {
+            if (hit.normal != Vector3.up)
+            {
+                Debug.Log("cannot place here");
+                //PlaceBlock(hit.point + hit.normal / 2);
+            }
+            else
+                PlacePiece(hit.point);
+        }
+        
+    }
         
 
 
@@ -145,6 +142,14 @@ public class Grid3DManager : MonoBehaviour
     private void ChangeBrickSORandom()
     {
         brickSO = brickSOList[Random.Range(0, brickSOList.Count)];
+    }
+
+
+
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        UpdateMouseDown();
     }
 
     private void OnDrawGizmos()
