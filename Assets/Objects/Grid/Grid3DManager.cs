@@ -16,9 +16,11 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private Piece brick;
 
     [SerializeField] private BrickSO brickSO;
-    public BrickSO BrickSO { get => brickSO;}
+    public BrickSO BrickSO { get => brickSO; }
 
     private BrickSO _brickSO;
+
+    [SerializeField] List<BrickSO> brickSOList = new List<BrickSO>();
     
     public delegate void OnBrickChangeDelegate(BrickSO newBrick);
     public event OnBrickChangeDelegate OnBrickChange;
@@ -93,6 +95,8 @@ public class Grid3DManager : MonoBehaviour
             grid.Add(block.pieceLocalPosition + gridPos, block);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
         }
+
+        ChangeBrickSORandom();
     }
 
 
@@ -118,6 +122,12 @@ public class Grid3DManager : MonoBehaviour
         }
 
         return true;
+    }
+
+
+    private void ChangeBrickSORandom()
+    {
+        brickSO = brickSOList[Random.Range(0, brickSOList.Count)];
     }
 
     private void OnDrawGizmos()

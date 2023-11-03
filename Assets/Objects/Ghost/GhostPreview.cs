@@ -60,5 +60,6 @@ public class GhostPreview : MonoBehaviour
     private void OnBrickChange(BrickSO newBrick)
     {
         ghostPiece.ChangeBlocks(newBrick);
+        ghostPiece.SpawnBlock();
     }
 }
