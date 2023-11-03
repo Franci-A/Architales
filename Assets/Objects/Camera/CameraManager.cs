@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -14,6 +15,12 @@ public class CameraManager : MonoBehaviour
     private float lockRotationx;
 
     bool updateRotation = false;
+
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float zoomSpeed;
+
+    [SerializeField] private float minZoom, maxZoom;
+    private bool limitZoom = false;
 
     private void Start()
     {
@@ -29,9 +36,8 @@ public class CameraManager : MonoBehaviour
             previsousPositionx = Input.mousePosition.y;
         }
         else if(Input.GetMouseButtonUp(1))
-        {
             updateRotation = false;
-        }
+
 
         if (updateRotation)
         {
@@ -46,7 +52,7 @@ public class CameraManager : MonoBehaviour
 
             if (cameraRotation.x + currentRotationx > 0.65)
             {
-                lockRotationx = 0.65f;
+                lockRotationx = 0.60f;
                 cameraTransform.rotation = quaternion.Euler(lockRotationx, cameraRotation.y + currentRotationy, cameraRotation.z);
             } 
             else if (cameraRotation.x + currentRotationx < -0.8)
@@ -57,6 +63,32 @@ public class CameraManager : MonoBehaviour
             else
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationx, cameraRotation.y + currentRotationy, cameraRotation.z);
 
+        }
+
+
+        //zoom
+        if (!limitZoom)
+            mainCamera.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+        if (mainCamera.fieldOfView <= minZoom)
+        {
+            limitZoom = true;
+            mainCamera.fieldOfView = minZoom + 0.01f;
+        }
+        else if (mainCamera.fieldOfView >= maxZoom)
+        {
+            limitZoom = true;
+            mainCamera.fieldOfView = maxZoom - 0.01f;
+        }
+        else
+            limitZoom = false;
+
+
+        //reset cam
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            mainCamera.fieldOfView = 60;
+            cameraTransform.rotation = quaternion.Euler(50, 0, 0);
         }
     }
 }
