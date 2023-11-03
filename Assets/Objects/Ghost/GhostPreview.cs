@@ -14,7 +14,7 @@ public class GhostPreview : MonoBehaviour
     [Header("Raycast")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask gridLayer;
-    [SerializeField] private LayerMask blockLayer;
+    [SerializeField] private LayerMask cubeLayer;
 
     void Awake()
     {
@@ -23,17 +23,17 @@ public class GhostPreview : MonoBehaviour
 
     private void Start()
     {
-        Grid3DManager.Instance.OnBrickChange += OnBrickChange;
+        Grid3DManager.Instance.OnCubeChange += OnPieceChange;
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.ChangeBlocks(Grid3DManager.Instance.BrickSO);
-        ghostPiece.SpawnBlock();
+        ghostPiece.ChangeCubes(Grid3DManager.Instance.CubeList);
+        ghostPiece.SpawnCubes();
     }
 
     void Update()
     {
         RaycastHit hit;
      
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, cubeLayer))
         {
             ghostPiece.gameObject.SetActive(true);
             ghostPiece.transform.position = Grid3DManager.GridToWorldPosition(Grid3DManager.WorldToGridPosition(hit.point));
@@ -57,9 +57,9 @@ public class GhostPreview : MonoBehaviour
         }else ghostPiece.gameObject.SetActive(false);
     }
 
-    private void OnBrickChange(List<Block> newBrick)
+    private void OnPieceChange(List<Cube> newBrick)
     {
-        ghostPiece.ChangeBlocks(newBrick);
-        ghostPiece.SpawnBlock();
+        ghostPiece.ChangeCubes(newBrick);
+        ghostPiece.SpawnCubes();
     }
 }

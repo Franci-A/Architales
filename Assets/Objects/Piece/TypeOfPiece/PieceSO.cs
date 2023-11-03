@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Bricks")]
-public class BrickSO : ScriptableObject
+public class PieceSO : ScriptableObject
 {
-    public List<Block> Blocks;
+    public List<Cube> cubes;
 }

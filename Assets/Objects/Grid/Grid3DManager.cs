@@ -5,28 +5,28 @@ using UnityEngine.InputSystem;
 public class Grid3DManager : MonoBehaviour
 {
     [Header("Grid")]
-    Dictionary<Vector3, Block> grid = new Dictionary<Vector3, Block>(); // x = right; y = up; z = forward;
+    Dictionary<Vector3, Cube> grid = new Dictionary<Vector3, Cube>(); // x = right; y = up; z = forward;
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask gridLayer;
-    [SerializeField] private LayerMask blockLayer;
+    [SerializeField] private LayerMask cubeLayer;
 
-    [Header("Brick")]
-    [SerializeField] private Piece brick;
-
-
-    private List<Block> brickSO; // current list
-    public List<Block> BrickSO { get => brickSO; } // get
-    private List<Block> _brickSO; // check si ca a changer
+    [Header("Piece")]
+    [SerializeField] private Piece piece;
 
 
-    [SerializeField] List<BrickSO> brickSOList = new List<BrickSO>(); // liste des trucs random
+    private List<Cube> cubeList; // current list
+    public List<Cube> CubeList { get => cubeList; } // get
+    private List<Cube> _cubeList; // check si ca a changer
+
+
+    [SerializeField] List<PieceSO> cubeListRandom = new List<PieceSO>(); // liste des trucs random
     
-    public delegate void OnBrickChangeDelegate(List<Block> newBrick);
-    public event OnBrickChangeDelegate OnBrickChange;
+    public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
+    public event OnCubeChangeDelegate OnCubeChange;
 
 
 
@@ -42,7 +42,7 @@ public class Grid3DManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        ChangeBrickSORandom();
+        ChangePieceSORandom();
     }
 
 
@@ -54,17 +54,17 @@ public class Grid3DManager : MonoBehaviour
 
     void IsBlockChanged()
     {
-        if(_brickSO != BrickSO)
+        if(_cubeList != CubeList)
         {
-            _brickSO = BrickSO;
-            OnBrickChange(BrickSO);
-            brick.ChangeBlocks(brickSO);
+            _cubeList = CubeList;
+            OnCubeChange(CubeList);
+            piece.ChangeCubes(cubeList);
         }
     }
 
     void RotatePiece(bool rotateLeft)
     {
-        brickSO =  brick.Rotate(rotateLeft);
+        cubeList =  piece.Rotate(rotateLeft);
     }
         
 
@@ -73,7 +73,7 @@ public class Grid3DManager : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, cubeLayer))
         {
             if (hit.normal != Vector3.up)
             {
@@ -91,20 +91,20 @@ public class Grid3DManager : MonoBehaviour
 
         position = GridToWorldPosition(gridPos);
 
-        var piece = Instantiate(brick, position, Quaternion.identity);
-        piece.ChangeBlocks(BrickSO);
+        var piece = Instantiate(this.piece, position, Quaternion.identity);
+        piece.ChangeCubes(CubeList);
         
         if (!IsPiecePlaceable(piece, gridPos)) return;
         
-        piece.SpawnBlock();
+        piece.SpawnCubes();
 
-        foreach (var block in piece.Blocks)
+        foreach (var block in piece.Cubes)
         {
             grid.Add(block.pieceLocalPosition + gridPos, block);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
         }
 
-        ChangeBrickSORandom();
+        ChangePieceSORandom();
     }
 
 
@@ -140,7 +140,7 @@ public class Grid3DManager : MonoBehaviour
 
         if (piece == null) return false;
 
-        foreach (var block in piece.Blocks)
+        foreach (var block in piece.Cubes)
         {
             if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)) return false;
         }
@@ -149,9 +149,9 @@ public class Grid3DManager : MonoBehaviour
     }
 
 
-    private void ChangeBrickSORandom()
+    private void ChangePieceSORandom()
     {
-        brickSO = brickSOList[Random.Range(0, brickSOList.Count)].Blocks;
+        cubeList = cubeListRandom[Random.Range(0, cubeListRandom.Count)].cubes;
     }
 
 
@@ -182,7 +182,7 @@ public class Grid3DManager : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, cubeLayer))
         {
             Vector3 gridPos = WorldToGridPosition(hit.point);
             Gizmos.color = Color.red;

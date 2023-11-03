@@ -6,34 +6,34 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    [SerializeField] private GameObject blockGO;
+    [SerializeField] private GameObject cubeGO;
 
-    List<Block> blocks = new List<Block>();
-    public List<Block> Blocks { get => blocks; }
+    List<Cube> cubes = new List<Cube>();
+    public List<Cube> Cubes { get => cubes; }
 
-    public void SpawnBlock()
+    public void SpawnCubes()
     {
-        foreach (var block in blocks)
+        foreach (var cube in cubes)
         {
-            Instantiate(blockGO, transform.position + block.pieceLocalPosition, transform.rotation, transform);
-            block.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + block.pieceLocalPosition;
+            Instantiate(cubeGO, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
+            cube.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
         }
     }
 
-    public void ChangeBlocks(List<Block> _blocks)
+    public void ChangeCubes(List<Cube> _cubes)
     {
-        if(_blocks.Count < 0) return;
+        if(_cubes.Count < 0) return;
 
         for (int i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
 
-        blocks = _blocks;
+        cubes = _cubes;
     }
 
 
-    public List<Block> Rotate(bool rotateLeft)
+    public List<Cube> Rotate(bool rotateLeft)
     {
         Quaternion rotation;
         if (rotateLeft)
@@ -46,25 +46,23 @@ public class Piece : MonoBehaviour
         }
 
         Matrix4x4 m = Matrix4x4.TRS(Vector3.zero, rotation, Vector3.one);
-        List<Block> rotatedBlocks = new List<Block>();
+        List<Cube> rotatedBlocks = new List<Cube>();
 
-        Debug.Log(blocks.Count);
-
-        foreach (Block block in blocks)
+        foreach (Cube block in cubes)
         {
-            Block newBlock = new Block();
+            Cube newBlock = new Cube();
             newBlock.pieceLocalPosition = m.MultiplyPoint3x4(block.pieceLocalPosition);
             rotatedBlocks.Add(newBlock);
         }
 
-        ChangeBlocks(rotatedBlocks);
+        ChangeCubes(rotatedBlocks);
         return rotatedBlocks;
     }
 
 }
 
 [Serializable]
-public class Block
+public class Cube
 {
     [HideInInspector] public Vector3 gridPosition;
     public Vector3 pieceLocalPosition;

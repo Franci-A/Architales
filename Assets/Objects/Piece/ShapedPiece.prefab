@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4112810206748471390}
   - component: {fileID: 8861945640709154753}
   m_Layer: 0
-  m_Name: ShapedBrick
+  m_Name: ShapedPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02928a33f73a8a44aa2b471fa39c8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocks: {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
-  blockGO: {fileID: 1256096350784185207, guid: 7eaa6d62def1d95409c691610dee59a2, type: 3}
+  cubeGO: {fileID: 1256096350784185207, guid: 7eaa6d62def1d95409c691610dee59a2, type: 3}

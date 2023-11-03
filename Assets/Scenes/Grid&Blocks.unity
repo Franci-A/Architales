@@ -291,11 +291,11 @@ MonoBehaviour:
   gridLayer:
     serializedVersion: 2
     m_Bits: 64
-  blockLayer:
+  cubeLayer:
     serializedVersion: 2
     m_Bits: 128
-  brick: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
-  brickSOList:
+  piece: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
+  cubeListRandom:
   - {fileID: 11400000, guid: 51423ef1af112c74b9fd1a47428bcc75, type: 2}
   - {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
   - {fileID: 11400000, guid: ef054ca6e812ca24296b02afd5df8563, type: 2}
@@ -695,6 +695,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GhostBrick
       objectReference: {fileID: 0}
+    - target: {fileID: 3065538337238541913, guid: 7d8554371fd89534a8f7b1618ba68721,
+        type: 3}
+      propertyPath: cubeGO
+      value: 
+      objectReference: {fileID: 9132960200103920916, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
+        type: 3}
     - target: {fileID: 5430228627523519016, guid: 7d8554371fd89534a8f7b1618ba68721,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -787,7 +793,7 @@ MonoBehaviour:
   gridLayer:
     serializedVersion: 2
     m_Bits: 64
-  blockLayer:
+  cubeLayer:
     serializedVersion: 2
     m_Bits: 128
 --- !u!4 &1042270860
