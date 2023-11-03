@@ -5,19 +5,14 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    [SerializeField] List<Block> blocks = new List<Block>();
     [SerializeField] private GameObject blockGO;
 
-    public List<Block> Blocks { get => blocks; }
+    BrickSO blocks;
+    public BrickSO Blocks { get => blocks; }
 
-    void Start()
+    public void SpawnBlock()
     {
-        SpawnBlock();
-    }
-
-    private void SpawnBlock()
-    {
-        foreach (var block in blocks)
+        foreach (var block in blocks.Blocks)
         {
             Instantiate(blockGO, transform.position + block.pieceLocalPosition, transform.rotation, transform);
             block.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + block.pieceLocalPosition;
@@ -25,9 +20,9 @@ public class Piece : MonoBehaviour
         }
     }
 
-    public void ChangeBlocks(List<Block> _blocks)
+    public void ChangeBlocks(BrickSO _blocks)
     {
-        if(_blocks.Count < 0) return;
+        if(_blocks.Blocks.Count < 0) return;
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -35,8 +30,6 @@ public class Piece : MonoBehaviour
         }
 
         blocks = _blocks;
-        
-        SpawnBlock();
     }
 
 }

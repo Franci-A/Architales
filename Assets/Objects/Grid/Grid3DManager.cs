@@ -14,8 +14,13 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Brick")]
     [SerializeField] private Piece brick;
-    private Piece _brick;
-    public delegate void OnBrickChangeDelegate(Piece newBrick);
+
+    [SerializeField] private BrickSO brickSO;
+    public BrickSO BrickSO { get => brickSO;}
+
+    private BrickSO _brickSO;
+    
+    public delegate void OnBrickChangeDelegate(BrickSO newBrick);
     public event OnBrickChangeDelegate OnBrickChange;
 
     private static Grid3DManager instance;
@@ -29,7 +34,7 @@ public class Grid3DManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        _brick = brick;
+        _brickSO = BrickSO;
     }
 
 
@@ -60,10 +65,10 @@ public class Grid3DManager : MonoBehaviour
 
     void IsBlockChanged()
     {
-        if(_brick != brick)
+        if(_brickSO != BrickSO)
         {
-            _brick = brick;
-            OnBrickChange(brick);
+            _brickSO = BrickSO;
+            OnBrickChange(BrickSO);
         }
     }
 
@@ -73,13 +78,17 @@ public class Grid3DManager : MonoBehaviour
     public void PlacePiece(Vector3 position)
     {
         Vector3 gridPos = WorldToGridPosition(position);
-        if (!IsPiecePlaceable(brick, gridPos)) return;
 
         position = GridToWorldPosition(gridPos);
 
         var piece = Instantiate(brick, position, Quaternion.identity);
+        piece.ChangeBlocks(BrickSO);
+        
+        if (!IsPiecePlaceable(piece, gridPos)) return;
+        
+        piece.SpawnBlock();
 
-        foreach (var block in piece.Blocks)
+        foreach (var block in piece.Blocks.Blocks)
         {
             grid.Add(block.pieceLocalPosition + gridPos, block);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
@@ -103,16 +112,13 @@ public class Grid3DManager : MonoBehaviour
 
         if (piece == null || instance == null) return false;
 
-        foreach (var block in piece.Blocks)
+        foreach (var block in piece.Blocks.Blocks)
         {
             if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)) return false;
         }
 
         return true;
     }
-
-
-
 
     private void OnDrawGizmos()
     {

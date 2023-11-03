@@ -5,7 +5,8 @@ using UnityEngine;
 public class GhostPreview : MonoBehaviour
 {
     [Header("GhostObject")]
-    [SerializeField] Piece ghostPiece;
+    [SerializeField] Piece ghostPiecePrefab;
+    Piece ghostPiece;
     [SerializeField] Material ghostMaterial;
     [SerializeField] Color validColor;
     [SerializeField] Color invalidColor;
@@ -23,6 +24,9 @@ public class GhostPreview : MonoBehaviour
     private void Start()
     {
         Grid3DManager.Instance.OnBrickChange += OnBrickChange;
+        ghostPiece = Instantiate(ghostPiecePrefab, transform);
+        ghostPiece.ChangeBlocks(Grid3DManager.Instance.BrickSO);
+        ghostPiece.SpawnBlock();
     }
 
     void Update()
@@ -53,8 +57,8 @@ public class GhostPreview : MonoBehaviour
         }else ghostPiece.gameObject.SetActive(false);
     }
 
-    private void OnBrickChange(Piece newBrick)
+    private void OnBrickChange(BrickSO newBrick)
     {
-        ghostPiece.ChangeBlocks(newBrick.Blocks);
+        ghostPiece.ChangeBlocks(newBrick);
     }
 }

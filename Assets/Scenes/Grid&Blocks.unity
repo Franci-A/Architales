@@ -293,7 +293,8 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 128
-  brick: {fileID: 2689024868454782860, guid: 93fc38ba4d841d449a6f62449ff10753, type: 3}
+  brick: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
+  brickSO: {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
 --- !u!4 &290873577
 Transform:
   m_ObjectHideFlags: 0
@@ -620,7 +621,7 @@ PrefabInstance:
     - target: {fileID: 595983600034602004, guid: 7d8554371fd89534a8f7b1618ba68721,
         type: 3}
       propertyPath: m_Name
-      value: GhostLBrick
+      value: GhostBrick
       objectReference: {fileID: 0}
     - target: {fileID: 5430228627523519016, guid: 7d8554371fd89534a8f7b1618ba68721,
         type: 3}
@@ -706,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ddc37c129c245d49afe99364dbc8139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ghostPiece: {fileID: 1785745001}
+  ghostPiecePrefab: {fileID: 1785745001}
   ghostMaterial: {fileID: 2100000, guid: 2b6d564c490ab6f4c958e8e382b9a585, type: 2}
   validColor: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 0.7176471}
   invalidColor: {r: 0.764151, g: 0, b: 0, a: 0.7176471}
@@ -1671,7 +1672,7 @@ SceneRoots:
   - {fileID: 982438095}
   - {fileID: 1837025543}
   - {fileID: 604008740}
-  - {fileID: 290873577}
-  - {fileID: 1246468618}
   - {fileID: 372988760}
+  - {fileID: 1246468618}
+  - {fileID: 290873577}
   - {fileID: 1042270860}
