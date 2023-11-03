@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7972450081358713095}
-  - component: {fileID: 1770511431263820083}
+  - component: {fileID: 2998526254230526881}
   - component: {fileID: -5415228982432467357}
+  - component: {fileID: 6277860151615310332}
   m_Layer: 7
   m_Name: Block
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 8659812646941039158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1770511431263820083
+--- !u!114 &2998526254230526881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,6 +68,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6277860151615310332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328123687496956519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222e2eb1b9a489b42bc75b0a5de556fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentResident: {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
 --- !u!1001 &2809172276901848995
 PrefabInstance:
   m_ObjectHideFlags: 0
