@@ -295,7 +295,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   brick: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
-  brickSO: {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
   brickSOList:
   - {fileID: 11400000, guid: 51423ef1af112c74b9fd1a47428bcc75, type: 2}
   - {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
@@ -362,12 +361,12 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 290873576}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+        m_TargetAssemblyTypeName: Grid3DManager, Assembly-CSharp
+        m_MethodName: RotatePieceInput
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

@@ -57,7 +57,7 @@ public class GhostPreview : MonoBehaviour
         }else ghostPiece.gameObject.SetActive(false);
     }
 
-    private void OnBrickChange(BrickSO newBrick)
+    private void OnBrickChange(List<Block> newBrick)
     {
         ghostPiece.ChangeBlocks(newBrick);
         ghostPiece.SpawnBlock();

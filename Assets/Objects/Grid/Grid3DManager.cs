@@ -16,16 +16,20 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Brick")]
     [SerializeField] private Piece brick;
-    [SerializeField] private BrickSO brickSO;
 
-    public BrickSO BrickSO { get => brickSO; }
 
-    private BrickSO _brickSO;
+    private List<Block> brickSO; // current list
+    public List<Block> BrickSO { get => brickSO; } // get
+    private List<Block> _brickSO; // check si ca a changer
 
-    [SerializeField] List<BrickSO> brickSOList = new List<BrickSO>();
+
+    [SerializeField] List<BrickSO> brickSOList = new List<BrickSO>(); // liste des trucs random
     
-    public delegate void OnBrickChangeDelegate(BrickSO newBrick);
+    public delegate void OnBrickChangeDelegate(List<Block> newBrick);
     public event OnBrickChangeDelegate OnBrickChange;
+
+
+
 
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance;}
@@ -38,7 +42,7 @@ public class Grid3DManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        _brickSO = BrickSO;
+        ChangeBrickSORandom();
     }
 
 
@@ -54,9 +58,18 @@ public class Grid3DManager : MonoBehaviour
         {
             _brickSO = BrickSO;
             OnBrickChange(BrickSO);
+            brick.ChangeBlocks(brickSO);
         }
     }
-    void UpdateMouseDown()
+
+    void RotatePiece(bool rotateLeft)
+    {
+        brickSO =  brick.Rotate(rotateLeft);
+    }
+        
+
+
+    void CanPlacePiece()
     {
         RaycastHit hit;
 
@@ -72,9 +85,6 @@ public class Grid3DManager : MonoBehaviour
         }
         
     }
-        
-
-
     public void PlacePiece(Vector3 position)
     {
         Vector3 gridPos = WorldToGridPosition(position);
@@ -88,7 +98,7 @@ public class Grid3DManager : MonoBehaviour
         
         piece.SpawnBlock();
 
-        foreach (var block in piece.Blocks.Blocks)
+        foreach (var block in piece.Blocks)
         {
             grid.Add(block.pieceLocalPosition + gridPos, block);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
@@ -130,7 +140,7 @@ public class Grid3DManager : MonoBehaviour
 
         if (piece == null) return false;
 
-        foreach (var block in piece.Blocks.Blocks)
+        foreach (var block in piece.Blocks)
         {
             if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)) return false;
         }
@@ -141,7 +151,7 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangeBrickSORandom()
     {
-        brickSO = brickSOList[Random.Range(0, brickSOList.Count)];
+        brickSO = brickSOList[Random.Range(0, brickSOList.Count)].Blocks;
     }
 
 
@@ -149,8 +159,16 @@ public class Grid3DManager : MonoBehaviour
     public void LeftClickInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        UpdateMouseDown();
+        CanPlacePiece();
     }
+
+    public void RotatePieceInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (context.ReadValue<float>() < 0) RotatePiece(true);
+        else RotatePiece(false);
+    }
+
 
     private void OnDrawGizmos()
     {
