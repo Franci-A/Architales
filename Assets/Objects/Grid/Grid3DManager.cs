@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Grid3DManager : MonoBehaviour
 {
+    [Header("Grid")]
     Dictionary<Vector3, Block> grid = new Dictionary<Vector3, Block>(); // x = right; y = up; z = forward;
 
+    [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask blockLayer;
+
+    [Header("Brick")]
     [SerializeField] private Piece brick;
+    private Piece _brick;
+    public delegate void OnBrickChangeDelegate(Piece newBrick);
+    public event OnBrickChangeDelegate OnBrickChange;
 
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance;}
@@ -23,10 +28,18 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         }
         else Destroy(gameObject);
+
+        _brick = brick;
     }
 
 
     void Update()
+    {
+        UpdateMouseDown();
+        IsBlockChanged();
+    }
+
+    void UpdateMouseDown()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -39,11 +52,23 @@ public class Grid3DManager : MonoBehaviour
                     Debug.Log("cannot place here");
                     //PlaceBlock(hit.point + hit.normal / 2);
                 }
-                else 
+                else
                     PlacePiece(hit.point);
             }
         }
     }
+
+    void IsBlockChanged()
+    {
+        if(_brick != brick)
+        {
+            _brick = brick;
+            OnBrickChange(brick);
+        }
+    }
+
+        
+
 
     public void PlacePiece(Vector3 position)
     {
@@ -60,6 +85,7 @@ public class Grid3DManager : MonoBehaviour
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
         }
     }
+
 
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)

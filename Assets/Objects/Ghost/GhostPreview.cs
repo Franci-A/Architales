@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class GhostPreview : MonoBehaviour
@@ -19,6 +18,11 @@ public class GhostPreview : MonoBehaviour
     void Awake()
     {
         ghostMaterial.SetColor("_Color", Color.white);
+    }
+
+    private void Start()
+    {
+        Grid3DManager.Instance.OnBrickChange += OnBrickChange;
     }
 
     void Update()
@@ -47,5 +51,10 @@ public class GhostPreview : MonoBehaviour
             }
                 
         }else ghostPiece.gameObject.SetActive(false);
+    }
+
+    private void OnBrickChange(Piece newBrick)
+    {
+        ghostPiece.ChangeBlocks(newBrick.Blocks);
     }
 }
