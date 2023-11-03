@@ -883,6 +883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b312692f5cfac84458413ae0dec50505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxBalance: 15
   DebugInfo:
   - {fileID: 1902847802}
   - {fileID: 1734767121}

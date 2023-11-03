@@ -8,6 +8,8 @@ public class WeightManager : MonoBehaviour
     Vector2 horizontalBalance = Vector2.zero; // x = left; y = right
     Vector2 verticalBalance = Vector2.zero; // x = bottom; y = top
 
+    [SerializeField] float maxBalance;
+
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
 
@@ -38,7 +40,7 @@ public class WeightManager : MonoBehaviour
             switch (i)
             {
                 case 0:
-                    DebugInfo[i].text = horizontalBalance.x.ToString();
+                    DebugInfo[i].text = (-horizontalBalance.x).ToString();
                     break;
 
                 case 1:
@@ -46,13 +48,25 @@ public class WeightManager : MonoBehaviour
                     break;
 
                 case 2:
-                    DebugInfo[i].text = verticalBalance.x.ToString();
+                    DebugInfo[i].text = (-verticalBalance.x).ToString();
                     break;
 
                 default:
                     DebugInfo[i].text = verticalBalance.y.ToString();
                     break;
             }
+        }
+
+        if (Mathf.Abs(horizontalBalance.x) - horizontalBalance.y > maxBalance)
+        {
+            DebugInfo[0].color = Color.red;
+            DebugInfo[1].color = Color.red;
+        }
+
+        if (Mathf.Abs(verticalBalance.x) - verticalBalance.y > maxBalance)
+        {
+            DebugInfo[2].color = Color.red;
+            DebugInfo[3].color = Color.red;
         }
     }
 
