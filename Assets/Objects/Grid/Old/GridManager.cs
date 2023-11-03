@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int gridSizeX = 2;
     [SerializeField] private int gridSizeY = 2;
 
-    private List<List<GameObject>> grid;
+    [SerializeField] private List<List<GameObject>> grid;
 
     [SerializeField] private float maxDistance = 10;
     [SerializeField] private LayerMask gridLayer;
