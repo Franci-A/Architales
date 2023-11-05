@@ -155,7 +155,7 @@ public class Grid3DManager : MonoBehaviour
     }
 
 
-
+    //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
