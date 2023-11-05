@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5430228627523519016}
   - component: {fileID: 3065538337238541913}
   m_Layer: 0
-  m_Name: GhostLBrick
+  m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,13 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02928a33f73a8a44aa2b471fa39c8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocks:
-  - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 0, y: 0, z: 0}
-  - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: -1, y: 0, z: 0}
-  - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 1, y: 0, z: 0}
-  - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 1, y: 1, z: 0}
+  blocks: {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
   blockGO: {fileID: 9132960200103920916, guid: e4a2cf84d5d25e043a94b2e62ad59e6c, type: 3}
