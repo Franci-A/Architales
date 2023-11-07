@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Grid3DManager : MonoBehaviour
 {
@@ -20,10 +21,11 @@ public class Grid3DManager : MonoBehaviour
 
     private List<Cube> cubeList; // current list
     public List<Cube> CubeList { get => cubeList; } // get
-    private List<Cube> _cubeList; // check si ca a changer
+    [HideInInspector] private List<Cube> _cubeList; // check si ca a changer
 
 
-    [SerializeField] List<PieceSO> cubeListRandom = new List<PieceSO>(); // liste des trucs random
+    [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     
     public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
     public event OnCubeChangeDelegate OnCubeChange;
@@ -42,8 +44,23 @@ public class Grid3DManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        ChangePieceSORandom();
+
     }
+
+    private void Start()
+    {
+        SpawnBase(Vector3.zero);
+
+        ChangePieceSORandom();
+        
+    }
+
+    void SpawnBase(Vector3 position)
+    {
+        cubeList = lobbyPiece.cubes;
+        PlacePiece(position);
+    }
+
 
 
     void Update()
@@ -117,7 +134,7 @@ public class Grid3DManager : MonoBehaviour
         float size = instance.cellSize;
         return new Vector3(
             Mathf.Floor(worldPosition.x / size + .5f * size),
-            .5f * size + Mathf.Floor(worldPosition.y / size),
+            Mathf.Floor(worldPosition.y / size + .5f * size),
             Mathf.Floor(worldPosition.z / size + .5f * size));
     }
 
@@ -142,7 +159,8 @@ public class Grid3DManager : MonoBehaviour
 
         foreach (var block in piece.Cubes)
         {
-            if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)) return false;
+            if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)
+                || (block.pieceLocalPosition.x + gridPosition.x == 0 && block.pieceLocalPosition.z + gridPosition.z == 0)) return false;
         }
 
         return true;
@@ -151,7 +169,7 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        cubeList = cubeListRandom[Random.Range(0, cubeListRandom.Count)].cubes;
+        cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
     }
 
 
@@ -184,7 +202,7 @@ public class Grid3DManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, cubeLayer))
         {
-            Vector3 gridPos = WorldToGridPosition(hit.point);
+            Vector3 gridPos = GridToWorldPosition(WorldToGridPosition(hit.point));
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(gridPos, Vector3.one * .9f * cellSize);
             Gizmos.color = Color.green;

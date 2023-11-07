@@ -52,6 +52,8 @@ public class Piece : MonoBehaviour
         {
             Cube newBlock = new Cube();
             newBlock.pieceLocalPosition = m.MultiplyPoint3x4(block.pieceLocalPosition);
+            newBlock.pieceLocalPosition = new Vector3(MathF.Round(newBlock.pieceLocalPosition.x), MathF.Round(newBlock.pieceLocalPosition.y),
+                MathF.Round(newBlock.pieceLocalPosition.z));
             rotatedBlocks.Add(newBlock);
         }
 

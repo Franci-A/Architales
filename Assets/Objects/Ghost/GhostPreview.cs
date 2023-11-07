@@ -46,7 +46,7 @@ public class GhostPreview : MonoBehaviour
             else if(!Grid3DManager.IsPiecePlaceable(ghostPiece, Grid3DManager.WorldToGridPosition(hit.point)))
             {
                 ghostMaterial.SetColor("_Color", invalidColor);
-                ghostPiece.transform.position = Grid3DManager.GridToWorldPosition(Grid3DManager.WorldToGridPosition(hit.point + hit.normal / 2));
+                ghostPiece.transform.position = Grid3DManager.GridToWorldPosition(Grid3DManager.WorldToGridPosition(hit.point));
 
             }
             else

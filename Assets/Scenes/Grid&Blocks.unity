@@ -295,7 +295,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   piece: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
-  cubeListRandom:
+  lobbyPiece: {fileID: 11400000, guid: ce811b4e2a39cf749ae6e01e2c7f3249, type: 2}
+  pieceListRandom:
   - {fileID: 11400000, guid: 51423ef1af112c74b9fd1a47428bcc75, type: 2}
   - {fileID: 11400000, guid: 5f07bc6619162f6418e0ad6e417ab78b, type: 2}
   - {fileID: 11400000, guid: ef054ca6e812ca24296b02afd5df8563, type: 2}
@@ -945,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 1042270858}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5767474, y: -0.8072977, z: 6.0656233}
+  m_LocalPosition: {x: 3.5767474, y: 0, z: 6.0656233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1137,7 +1138,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.24, y: 0.24, z: 0.24}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 290873577}
