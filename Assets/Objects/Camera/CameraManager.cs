@@ -20,7 +20,8 @@ public class CameraManager : MonoBehaviour
 
 
     [Header("Position / Speed")]
-    [SerializeField] private float speed;
+    [SerializeField] private float horizontalSpeed;
+    [SerializeField] private float verticalSpeed;
     private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
 
@@ -66,26 +67,41 @@ public class CameraManager : MonoBehaviour
         {
             float directionx = mousePositionY - previsousPositionX;
             previsousPositionX = mousePositionY;
-            currentRotationX += speed * Time.deltaTime * directionx;
+            
+
 
             float directiony = mousePositionX - previsousPositionY;
             previsousPositionY = mousePositionX;
-            currentRotationY += speed * Time.deltaTime * directiony;
+            currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
 
             if (cameraRotation.x + currentRotationX > 0.65)
             {
-                lockRotationX = 0.60f;
-                cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                lockRotationX = 0.6f;
+                if (directionx < 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else 
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
             else if (cameraRotation.x + currentRotationX < -0.8)
             {
-                lockRotationX = -0.8f;
-                cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                lockRotationX = -0.75f;
+                if (directionx > 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else 
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
-            else
+            else 
+            {
+                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
-
+            }
         }
     }
 
@@ -98,7 +114,7 @@ public class CameraManager : MonoBehaviour
 
     private void VerticalMovement()
     {
-        if(verticalInput != 0) cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * speed), 0);
+        if(verticalInput != 0) cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * verticalSpeed), 0);
     }
 
     private void Zoom(float value)
