@@ -7,9 +7,12 @@ using UnityEngine.UIElements;
 public class Grid3DManager : MonoBehaviour
 {
     [Header("Grid")]
-    Dictionary<Vector3, Cube> grid = new Dictionary<Vector3, Cube>(); // x = right; y = up; z = forward;
+    Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
+
+    int higherBlock;
+    public int GetHigherBlock { get => higherBlock; }
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
@@ -31,6 +34,9 @@ public class Grid3DManager : MonoBehaviour
     
     public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
     public event OnCubeChangeDelegate OnCubeChange;
+
+    public delegate void OnHigherCubeChangeDelegate(int higherCubeValue);
+    public event OnHigherCubeChangeDelegate OnHigerCubeChange;
 
 
 
@@ -77,6 +83,7 @@ public class Grid3DManager : MonoBehaviour
         {
             _cubeList = CubeList;
             OnCubeChange(CubeList);
+            OnHigerCubeChange(higherBlock);
             piece.ChangeCubes(cubeList);
         }
     }
@@ -119,8 +126,10 @@ public class Grid3DManager : MonoBehaviour
 
         foreach (var block in piece.Cubes)
         {
-            grid.Add(block.pieceLocalPosition + gridPos, block);
+            grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
+
+            if (block.gridPosition.y > higherBlock) higherBlock = (int)block.gridPosition.y;
         }
         onPiecePlaced.Call();
 
@@ -151,6 +160,21 @@ public class Grid3DManager : MonoBehaviour
             gridPosition.x * size,
             gridPosition.y * size + .5f * size,
             gridPosition.z * size);
+    }
+
+    public void ShowLayer(int layerHeight)
+    {
+        foreach (var item in grid)
+        {
+            if (item.Key.y > layerHeight)
+            {
+                item.Value.SetActive(false);
+            }
+            else
+            {
+                item.Value.SetActive(true);
+            }
+        }
     }
 
     public static bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
