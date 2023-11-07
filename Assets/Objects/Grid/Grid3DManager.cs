@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask cubeLayer;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("Piece")]
     [SerializeField] private Piece piece;
@@ -103,6 +105,7 @@ public class Grid3DManager : MonoBehaviour
             grid.Add(block.pieceLocalPosition + gridPos, block);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
         }
+        onPiecePlaced.Call();
 
         ChangePieceSORandom();
     }
