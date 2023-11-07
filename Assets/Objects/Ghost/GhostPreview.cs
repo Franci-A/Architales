@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class GhostPreview : MonoBehaviour
 {
     [Header("GhostObject")]
-    [SerializeField] Piece ghostPiece;
+    [SerializeField] Piece ghostPiecePrefab;
+    Piece ghostPiece;
     [SerializeField] Material ghostMaterial;
     [SerializeField] Color validColor;
     [SerializeField] Color invalidColor;
@@ -14,18 +14,26 @@ public class GhostPreview : MonoBehaviour
     [Header("Raycast")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask gridLayer;
-    [SerializeField] private LayerMask blockLayer;
+    [SerializeField] private LayerMask cubeLayer;
 
     void Awake()
     {
         ghostMaterial.SetColor("_Color", Color.white);
     }
 
+    private void Start()
+    {
+        Grid3DManager.Instance.OnCubeChange += OnPieceChange;
+        ghostPiece = Instantiate(ghostPiecePrefab, transform);
+        ghostPiece.ChangeCubes(Grid3DManager.Instance.CubeList);
+        ghostPiece.SpawnCubes();
+    }
+
     void Update()
     {
         RaycastHit hit;
      
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, blockLayer))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, maxDistance, cubeLayer))
         {
             ghostPiece.gameObject.SetActive(true);
             ghostPiece.transform.position = Grid3DManager.GridToWorldPosition(Grid3DManager.WorldToGridPosition(hit.point));
@@ -47,5 +55,11 @@ public class GhostPreview : MonoBehaviour
             }
                 
         }else ghostPiece.gameObject.SetActive(false);
+    }
+
+    private void OnPieceChange(List<Cube> newBrick)
+    {
+        ghostPiece.ChangeCubes(newBrick);
+        ghostPiece.SpawnCubes();
     }
 }
