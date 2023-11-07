@@ -14,8 +14,10 @@ public class LayerGrid : MonoBehaviour
 
     void UpdateSliderMaximum(int higherValue)
     {
+        if (higherValue <= 1) return;
+
         var actualPourcentage =  layerSlider.value / layerSlider.maxValue;
-        layerSlider.maxValue = higherValue;
+        layerSlider.maxValue = higherValue - 1;
         layerSlider.value = higherValue * actualPourcentage;
 
     }
