@@ -17,5 +17,6 @@ public class BlockHandler : MonoBehaviour, IGridElement
     public void PlaceBlocks(RaycastHit hit)
     {
         GridManager.Instance.PlaceBlock(hit.point);
+
     }
 }

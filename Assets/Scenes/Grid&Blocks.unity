@@ -294,6 +294,7 @@ MonoBehaviour:
   cubeLayer:
     serializedVersion: 2
     m_Bits: 128
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   piece: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
   lobbyPiece: {fileID: 11400000, guid: ce811b4e2a39cf749ae6e01e2c7f3249, type: 2}
   pieceListRandom:
