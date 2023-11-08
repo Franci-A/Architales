@@ -163,6 +163,21 @@ public class Grid3DManager : MonoBehaviour
     private void UpdateDisplacement()
     {
         displacementShaderMat.SetVector("_LeaningDirection", balance.normalized);
+        displacementShaderMat.SetFloat("_MaxHeight", higherBlock);
+        SetDisplacementValue(Mathf.Max(Mathf.Abs(balance.x), Mathf.Abs(balance.y)) / maxBalance);
+    }
+
+    private void SetDisplacementValue(float value)
+    {
+        displacementShaderMat.SetFloat("_Value", value);
+    }
+
+    private void ResetDisplacement()
+    {
+        displacementShaderMat.SetFloat("_UseAngle", 0);
+        displacementShaderMat.SetFloat("_MaxHeight", 1f);
+        displacementShaderMat.SetVector("_LeaningDirection", Vector2.zero);
+        SetDisplacementValue(0f);
     }
 
     private void UpdateWeightDebug()
@@ -262,6 +277,7 @@ public class Grid3DManager : MonoBehaviour
     private void OnDestroy()
     {
         onPiecePlaced.RemoveListener(UpdateDisplacement);
+        ResetDisplacement();
     }
 
     private void OnDrawGizmos()
