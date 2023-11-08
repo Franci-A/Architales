@@ -15,13 +15,9 @@ public class Grid3DManager : MonoBehaviour
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
 
-    int higherBlock = 1;
-    public int GetHigherBlock { get => higherBlock; }
-
     [Header("Weight")]
     [SerializeField] float maxBalance;
     [SerializeField] private Material displacementShaderMat;
-
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
@@ -37,42 +33,37 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
-
-
-    [SerializeField] PieceSO lobbyPiece; 
-    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     
     private List<Cube> cubeList; // current list
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
+
+    public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
+    public event OnCubeChangeDelegate OnCubeChange;
+
     public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
     public event OnLayerCubeChangeDelegate OnLayerCubeChange;
-    public List<Cube> CubeList { get => cubeList; } // get
-    private List<Cube> _cubeList; // check si ca a changer
 
-
-    private Vector2 balance;
     int higherBlock = 1;
+    public int GetHigherBlock { get => higherBlock; }
 
-
-    private static Grid3DManager instance;
-    public static Grid3DManager Instance { get => instance;}
+    bool isLobby = false;
+    private Vector2 balance;
 
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
-        else Destroy(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     private void Start()
     {
         onPiecePlaced.AddListener(UpdateDisplacement);
-        isLobby = false;
-        ChangePieceSORandom();
         
+        isLobby = false;
+        SpawnBase(Vector3.zero);
         ChangePieceSORandom();
     }
 
@@ -88,14 +79,12 @@ public class Grid3DManager : MonoBehaviour
         if (!context.performed) return;
         CanPlacePiece();
         ChangePieceSORandom();
-        
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        if (context.ReadValue<float>() < 0) RotatePiece(true);
-        else RotatePiece(false);
+        RotatePiece(context.ReadValue<float>() < 0);
     }
 
     public void PlacePiece(Vector3 position)
@@ -113,11 +102,16 @@ public class Grid3DManager : MonoBehaviour
 
         foreach (var block in piece.Cubes)
         {
-            grid.Add(block.pieceLocalPosition + gridPos, block);
+            grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
             UpdateWeight(block.pieceLocalPosition + gridPos);
-        }
-        onPiecePlaced.Call();
 
+            if (block.gridPosition.y > higherBlock)
+                higherBlock = (int)block.gridPosition.y;
+        }
+
+        onPiecePlaced.Call();
+        if (!isLobby)
+            OnLayerCubeChange(higherBlock);
         ChangePieceSORandom();
     }
 
@@ -129,7 +123,7 @@ public class Grid3DManager : MonoBehaviour
 
     private void IsBlockChanged()
     {
-        if(_cubeList != CubeList)
+        if (_cubeList != CubeList)
         {
             _cubeList = CubeList;
             OnCubeChange(CubeList);
@@ -197,25 +191,17 @@ public class Grid3DManager : MonoBehaviour
             }
         }
 
+        if (Mathf.Abs(balance.x) > maxBalance)
+        {
             DebugInfo[0].color = Color.red;
             DebugInfo[1].color = Color.red;
-            grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
-            WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
-
-            if (block.gridPosition.y > higherBlock) higherBlock = (int)block.gridPosition.y;
-            
-            grid.Add(block.pieceLocalPosition + gridPos, block);
-        
-
-        onPiecePlaced.Call();
+        }
 
         if (Mathf.Abs(balance.y) > maxBalance)
         {
             DebugInfo[2].color = Color.red;
             DebugInfo[3].color = Color.red;
         }
-        if(!isLobby) OnLayerCubeChange(higherBlock);
-        ChangePieceSORandom();
     }
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
