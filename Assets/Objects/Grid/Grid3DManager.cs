@@ -1,4 +1,5 @@
 using HelperScripts.EventSystem;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class Grid3DManager : MonoBehaviour
     [Header("Weight")]
     [SerializeField] float maxBalance;
     [SerializeField] private Material displacementShaderMat;
+    [SerializeField] private float shaderAnimTime;
+    [SerializeField] private AnimationCurve shaderAnimCurve;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -168,7 +171,8 @@ public class Grid3DManager : MonoBehaviour
     {
         displacementShaderMat.SetVector("_LeaningDirection", balance.normalized);
         displacementShaderMat.SetFloat("_MaxHeight", higherBlock);
-        SetDisplacementValue(Mathf.Max(Mathf.Abs(balance.x), Mathf.Abs(balance.y)) / maxBalance);
+
+        StartCoroutine(BalanceDisplacementRoutine());
     }
 
     private void SetDisplacementValue(float value)
@@ -181,6 +185,24 @@ public class Grid3DManager : MonoBehaviour
         displacementShaderMat.SetFloat("_UseAngle", 0);
         displacementShaderMat.SetFloat("_MaxHeight", 1f);
         displacementShaderMat.SetVector("_LeaningDirection", Vector2.zero);
+        SetDisplacementValue(0f);
+    }
+
+    private IEnumerator BalanceDisplacementRoutine()
+    {
+        float timer = shaderAnimTime;
+        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(balance.x), Mathf.Abs(balance.y)) / maxBalance);
+        float t;
+        do
+        {
+            // 0-1 of time elapsed
+            t = 1 - Mathf.InverseLerp(0f, shaderAnimTime, timer);
+            SetDisplacementValue(shaderAnimCurve.Evaluate(t) * maxValue);
+
+            timer -= Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        } while (timer > 0);
+
         SetDisplacementValue(0f);
     }
 

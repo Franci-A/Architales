@@ -51,14 +51,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Angle: 0
+    - _Angle: 81
     - _LeaningPower: 2.5
-    - _MaxHeight: 10
+    - _MaxHeight: 1
     - _Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _UseAngle: 0
-    - _Value: 1
+    - _Value: 0
     m_Colors:
     - _LeaningDirection: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
