@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    [SerializeField] private GameObject cubeGO;
+    [SerializeField] private GameObject cubePrefab;
 
     List<Cube> cubes = new List<Cube>();
     public List<Cube> Cubes { get => cubes; }
@@ -15,8 +15,9 @@ public class Piece : MonoBehaviour
     {
         foreach (var cube in cubes)
         {
-            Instantiate(cubeGO, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
+            var cubeGO = Instantiate(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
             cube.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
+            cube.cubeGO = cubeGO;
         }
     }
 
@@ -48,10 +49,10 @@ public class Piece : MonoBehaviour
         Matrix4x4 m = Matrix4x4.TRS(Vector3.zero, rotation, Vector3.one);
         List<Cube> rotatedBlocks = new List<Cube>();
 
-        foreach (Cube block in cubes)
+        foreach (Cube cube in cubes)
         {
             Cube newBlock = new Cube();
-            newBlock.pieceLocalPosition = m.MultiplyPoint3x4(block.pieceLocalPosition);
+            newBlock.pieceLocalPosition = m.MultiplyPoint3x4(cube.pieceLocalPosition);
             newBlock.pieceLocalPosition = new Vector3(MathF.Round(newBlock.pieceLocalPosition.x), MathF.Round(newBlock.pieceLocalPosition.y),
                 MathF.Round(newBlock.pieceLocalPosition.z));
             rotatedBlocks.Add(newBlock);
@@ -68,4 +69,5 @@ public class Cube
 {
     [HideInInspector] public Vector3 gridPosition;
     public Vector3 pieceLocalPosition;
+    public GameObject cubeGO;
 }

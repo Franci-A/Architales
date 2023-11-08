@@ -11,13 +11,17 @@ public class Grid3DManager : MonoBehaviour
     public static Grid3DManager Instance { get => instance; }
 
     [Header("Grid")]
-    Dictionary<Vector3, Cube> grid = new Dictionary<Vector3, Cube>(); // x = right; y = up; z = forward;
+    Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
+
+    int higherBlock = 1;
+    public int GetHigherBlock { get => higherBlock; }
 
     [Header("Weight")]
     [SerializeField] float maxBalance;
     [SerializeField] private Material displacementShaderMat;
+
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
@@ -34,14 +38,25 @@ public class Grid3DManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
 
-    public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
-    public event OnCubeChangeDelegate OnCubeChange;
 
+    [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
+    
     private List<Cube> cubeList; // current list
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
+    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
+    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
+    public List<Cube> CubeList { get => cubeList; } // get
+    private List<Cube> _cubeList; // check si ca a changer
+
 
     private Vector2 balance;
+    int higherBlock = 1;
+
+
+    private static Grid3DManager instance;
+    public static Grid3DManager Instance { get => instance;}
 
     private void Awake()
     {
@@ -55,8 +70,9 @@ public class Grid3DManager : MonoBehaviour
     private void Start()
     {
         onPiecePlaced.AddListener(UpdateDisplacement);
-
-        SpawnBase(Vector3.zero);
+        isLobby = false;
+        ChangePieceSORandom();
+        
         ChangePieceSORandom();
     }
 
@@ -71,6 +87,8 @@ public class Grid3DManager : MonoBehaviour
     {
         if (!context.performed) return;
         CanPlacePiece();
+        ChangePieceSORandom();
+        
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
@@ -179,17 +197,25 @@ public class Grid3DManager : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(balance.x) > maxBalance)
-        {
             DebugInfo[0].color = Color.red;
             DebugInfo[1].color = Color.red;
-        }
+            grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
+            WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
+
+            if (block.gridPosition.y > higherBlock) higherBlock = (int)block.gridPosition.y;
+            
+            grid.Add(block.pieceLocalPosition + gridPos, block);
+        
+
+        onPiecePlaced.Call();
 
         if (Mathf.Abs(balance.y) > maxBalance)
         {
             DebugInfo[2].color = Color.red;
             DebugInfo[3].color = Color.red;
         }
+        if(!isLobby) OnLayerCubeChange(higherBlock);
+        ChangePieceSORandom();
     }
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
@@ -214,6 +240,21 @@ public class Grid3DManager : MonoBehaviour
             gridPosition.x * size,
             gridPosition.y * size + .5f * size,
             gridPosition.z * size);
+    }
+
+    public void ShowLayer(int layerHeight)
+    {
+        foreach (var item in grid)
+        {
+            if (item.Key.y > layerHeight)
+            {
+                item.Value.SetActive(false);
+            }
+            else
+            {
+                item.Value.SetActive(true);
+            }
+        }
     }
 
     public static bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
