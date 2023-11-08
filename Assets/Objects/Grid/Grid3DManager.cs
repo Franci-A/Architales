@@ -19,6 +19,9 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] float maxBalance;
     [SerializeField] private Material displacementShaderMat;
 
+    [Header("Residents")]
+    [SerializeField] private IntVariable totalNumResidents;
+
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask cubeLayer;
@@ -109,6 +112,7 @@ public class Grid3DManager : MonoBehaviour
                 higherBlock = (int)block.gridPosition.y;
         }
 
+        totalNumResidents.Add(piece.Cubes.Count);
         onPiecePlaced.Call();
         if (!isLobby)
             OnLayerCubeChange(higherBlock);
@@ -280,7 +284,8 @@ public class Grid3DManager : MonoBehaviour
         ResetDisplacement();
     }
 
-    private void OnDrawGizmos()
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin, Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin + Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).direction * maxDistance);
 

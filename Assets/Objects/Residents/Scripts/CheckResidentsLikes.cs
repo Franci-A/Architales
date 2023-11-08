@@ -13,18 +13,22 @@ public class CheckResidentsLikes : MonoBehaviour
     private Vector3 previousPos;
     private List<Vector3> checkDirections;
     [SerializeField] private EventScriptable onPiecePlaced;
+    int likeAmount;
 
     private void Start()
     {
-        onPiecePlaced.AddListener(ClearFeedback);
+        onPiecePlaced.AddListener(ValidatePosition);
         feedbackInstances = new List<GameObject>();
         previousPos = transform.position;
 
-        checkDirections = new List<Vector3>();
-        checkDirections.Add(Vector3.forward);
-        checkDirections.Add(Vector3.back);
-        checkDirections.Add(Vector3.left);
-        checkDirections.Add(Vector3.right);
+
+        checkDirections = new List<Vector3>
+        {
+            Vector3.forward,
+            Vector3.back,
+            Vector3.left,
+            Vector3.right
+        };
         CheckRelations();
     }
 
@@ -42,6 +46,9 @@ public class CheckResidentsLikes : MonoBehaviour
         ClearFeedback();
 
         RaycastHit[] hit;
+
+        likeAmount = 0;
+
         for (int i = 0; i < checkDirections.Count; i++)
         {
             hit = Physics.RaycastAll(transform.position, checkDirections[i], distance,mask);
@@ -50,14 +57,14 @@ public class CheckResidentsLikes : MonoBehaviour
                 if (hit[j].collider.gameObject != gameObject)
                 {
                     ResidentHandler collidedResident = hit[j].collider.gameObject.GetComponent<ResidentHandler>();
-                    int like = currentResident.CheckLikes(collidedResident.GetResidentRace());
-                    if (like == 1)
+                    likeAmount = currentResident.CheckLikes(collidedResident.GetResidentRace());
+                    if (likeAmount == 1)
                     {
                         FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity, transform);
                         obj.InitPopup(true);
                         feedbackInstances.Add(obj.gameObject);
                     }
-                    else if (like == -1)
+                    else if (likeAmount == -1)
                     {
                         FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity, transform);
                         obj.InitPopup(false);
@@ -80,7 +87,17 @@ public class CheckResidentsLikes : MonoBehaviour
 
     public void ValidatePosition()
     {
-        //update happy / angry gauge
+        ClearFeedback();
+        if(likeAmount > 0)
+            ResidentManager.Instance.UpdateHappyResidents(likeAmount);
+        else if(likeAmount < 0)
+            ResidentManager.Instance.UpdateAngryResidents(likeAmount * -1);
+        Debug.Log("like amount : " + likeAmount);
         Destroy(this);
+    }
+
+    private void OnDestroy()
+    {
+        onPiecePlaced.RemoveListener(ValidatePosition);
     }
 }
