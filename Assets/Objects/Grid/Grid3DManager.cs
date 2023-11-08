@@ -7,9 +7,12 @@ using UnityEngine.UIElements;
 public class Grid3DManager : MonoBehaviour
 {
     [Header("Grid")]
-    Dictionary<Vector3, Cube> grid = new Dictionary<Vector3, Cube>(); // x = right; y = up; z = forward;
+    Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
+
+    int higherBlock = 1;
+    public int GetHigherBlock { get => higherBlock; }
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
@@ -27,11 +30,15 @@ public class Grid3DManager : MonoBehaviour
     [HideInInspector] private List<Cube> _cubeList; // check si ca a changer
 
 
-    [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] PieceSO lobbyPiece;
+    bool isLobby = true;
     [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     
     public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
     public event OnCubeChangeDelegate OnCubeChange;
+
+    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
+    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
 
 
 
@@ -53,7 +60,7 @@ public class Grid3DManager : MonoBehaviour
     private void Start()
     {
         SpawnBase(Vector3.zero);
-
+        isLobby = false;
         ChangePieceSORandom();
         
     }
@@ -120,12 +127,15 @@ public class Grid3DManager : MonoBehaviour
 
         foreach (var block in piece.Cubes)
         {
-            grid.Add(block.pieceLocalPosition + gridPos, block);
+            grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
+
+            if (block.gridPosition.y > higherBlock) higherBlock = (int)block.gridPosition.y;
+            
         }
         totalNumResidents.Add(piece.Cubes.Count);
         onPiecePlaced.Call();
-
+        if(!isLobby) OnLayerCubeChange(higherBlock);
         ChangePieceSORandom();
     }
 
@@ -153,6 +163,21 @@ public class Grid3DManager : MonoBehaviour
             gridPosition.x * size,
             gridPosition.y * size + .5f * size,
             gridPosition.z * size);
+    }
+
+    public void ShowLayer(int layerHeight)
+    {
+        foreach (var item in grid)
+        {
+            if (item.Key.y > layerHeight)
+            {
+                item.Value.SetActive(false);
+            }
+            else
+            {
+                item.Value.SetActive(true);
+            }
+        }
     }
 
     public static bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
