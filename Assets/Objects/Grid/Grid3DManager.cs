@@ -1,41 +1,47 @@
 using HelperScripts.EventSystem;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Grid3DManager : MonoBehaviour
 {
+    // Singleton
+    private static Grid3DManager instance;
+    public static Grid3DManager Instance { get => instance; }
+
     [Header("Grid")]
     Dictionary<Vector3, Cube> grid = new Dictionary<Vector3, Cube>(); // x = right; y = up; z = forward;
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
 
+    [Header("Weight")]
+    [SerializeField] float maxBalance;
+    [SerializeField] private Material displacementShaderMat;
+
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
-    [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask cubeLayer;
-    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("Piece")]
-    [SerializeField] private Piece piece;
-
-
-    private List<Cube> cubeList; // current list
-    public List<Cube> CubeList { get => cubeList; } // get
-    [HideInInspector] private List<Cube> _cubeList; // check si ca a changer
-
-
     [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] private Piece piece;
     [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
-    
+
+    [Header("Event")]
+    [SerializeField] private EventScriptable onPiecePlaced;
+
+    [Header("Debug")]
+    [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
+
     public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
     public event OnCubeChangeDelegate OnCubeChange;
 
+    private List<Cube> cubeList; // current list
+    public List<Cube> CubeList { get => cubeList; } // get
+    private List<Cube> _cubeList; // check si ca a changer
 
-
-
-    private static Grid3DManager instance;
-    public static Grid3DManager Instance { get => instance;}
+    private Vector2 balance;
 
     private void Awake()
     {
@@ -48,26 +54,62 @@ public class Grid3DManager : MonoBehaviour
 
     private void Start()
     {
+        onPiecePlaced.AddListener(UpdateDisplacement);
+
         SpawnBase(Vector3.zero);
+        ChangePieceSORandom();
+    }
+
+    private void Update()
+    {
+        IsBlockChanged();
+        UpdateWeightDebug();
+    }
+
+    //INPUTS
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        CanPlacePiece();
+    }
+
+    public void RotatePieceInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (context.ReadValue<float>() < 0) RotatePiece(true);
+        else RotatePiece(false);
+    }
+
+    public void PlacePiece(Vector3 position)
+    {
+        Vector3 gridPos = WorldToGridPosition(position);
+
+        position = GridToWorldPosition(gridPos);
+
+        var piece = Instantiate(this.piece, position, Quaternion.identity);
+        piece.ChangeCubes(CubeList);
+
+        if (!IsPiecePlaceable(piece, gridPos)) return;
+
+        piece.SpawnCubes();
+
+        foreach (var block in piece.Cubes)
+        {
+            grid.Add(block.pieceLocalPosition + gridPos, block);
+            UpdateWeight(block.pieceLocalPosition + gridPos);
+        }
+        onPiecePlaced.Call();
 
         ChangePieceSORandom();
     }
 
-    void SpawnBase(Vector3 position)
+    private void SpawnBase(Vector3 position)
     {
         cubeList = lobbyPiece.cubes;
         PlacePiece(position);
     }
 
-
-
-    void Update()
-    {
-        IsBlockChanged();
-    }
-
-
-    void IsBlockChanged()
+    private void IsBlockChanged()
     {
         if(_cubeList != CubeList)
         {
@@ -77,48 +119,77 @@ public class Grid3DManager : MonoBehaviour
         }
     }
 
-    void RotatePiece(bool rotateLeft)
+    private void RotatePiece(bool rotateLeft)
     {
         cubeList =  piece.Rotate(rotateLeft);
     }
 
-    void CanPlacePiece()
+    private void CanPlacePiece()
     {
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
         {
             if (hit.normal != Vector3.up)
-            {
                 Debug.Log("cannot place here");
-                //PlaceBlock(hit.point + hit.normal / 2);
-            }
             else
                 PlacePiece(hit.point);
         }
     }
-    
-    public void PlacePiece(Vector3 position)
+
+    private void ChangePieceSORandom()
     {
-        Vector3 gridPos = WorldToGridPosition(position);
+        cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
+    }
 
-        position = GridToWorldPosition(gridPos);
+    private void UpdateWeight(Vector3 blockPosition)
+    {
+        balance.x += blockPosition.x;
+        balance.y += blockPosition.z;
+    }
 
-        var piece = Instantiate(this.piece, position, Quaternion.identity);
-        piece.ChangeCubes(CubeList);
-        
-        if (!IsPiecePlaceable(piece, gridPos)) return;
-        
-        piece.SpawnCubes();
+    private void UpdateDisplacement()
+    {
+        displacementShaderMat.SetVector("_LeaningDirection", balance.normalized);
+    }
 
-        foreach (var block in piece.Cubes)
+    private void UpdateWeightDebug()
+    {
+        for (int i = 0; i < DebugInfo.Count; i++)
         {
-            grid.Add(block.pieceLocalPosition + gridPos, block);
-            WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
-        }
-        onPiecePlaced.Call();
+            DebugInfo[i].transform.rotation = Quaternion.LookRotation(DebugInfo[i].transform.position - Camera.main.transform.position);
 
-        ChangePieceSORandom();
+            switch (i)
+            {
+                case 0:
+                    DebugInfo[i].text = Mathf.Max(-balance.x, 0).ToString();
+                    break;
+
+                case 1:
+                    DebugInfo[i].text = Mathf.Max(balance.x, 0).ToString();
+                    break;
+
+                case 2:
+                    DebugInfo[i].text = Mathf.Max(-balance.y, 0).ToString();
+                    break;
+
+                default:
+                    DebugInfo[i].text = Mathf.Max(balance.y, 0).ToString();
+                    break;
+            }
+        }
+
+        if (Mathf.Abs(balance.x) > maxBalance)
+        {
+            DebugInfo[0].color = Color.red;
+            DebugInfo[1].color = Color.red;
+        }
+
+        if (Mathf.Abs(balance.y) > maxBalance)
+        {
+            DebugInfo[2].color = Color.red;
+            DebugInfo[3].color = Color.red;
+        }
     }
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
@@ -161,27 +232,10 @@ public class Grid3DManager : MonoBehaviour
         return true;
     }
 
-
-    private void ChangePieceSORandom()
+    private void OnDestroy()
     {
-        cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
+        onPiecePlaced.RemoveListener(UpdateDisplacement);
     }
-
-
-    //INPUTS
-    public void LeftClickInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        CanPlacePiece();
-    }
-
-    public void RotatePieceInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        if (context.ReadValue<float>() < 0) RotatePiece(true);
-        else RotatePiece(false);
-    }
-
 
     private void OnDrawGizmos()
     {

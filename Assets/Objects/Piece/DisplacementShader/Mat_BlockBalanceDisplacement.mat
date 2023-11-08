@@ -60,5 +60,5 @@ Material:
     - _UseAngle: 0
     - _Value: 1
     m_Colors:
-    - _LeaningDirection: {r: 0.4472136, g: -0.8944272, b: 0, a: 0}
+    - _LeaningDirection: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
