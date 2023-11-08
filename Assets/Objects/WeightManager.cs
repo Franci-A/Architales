@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using HelperScripts.EventSystem;
 
 public class WeightManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class WeightManager : MonoBehaviour
     Vector2 verticalBalance = Vector2.zero; // x = bottom; y = top
 
     [SerializeField] float maxBalance;
+    [SerializeField] private Material displacementShaderMat;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
@@ -24,6 +27,11 @@ public class WeightManager : MonoBehaviour
             instance = this;
         }
         else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        onPiecePlaced.AddListener(UpdateDisplacement);
     }
 
     void Update()
@@ -77,5 +85,11 @@ public class WeightManager : MonoBehaviour
 
         if (blockPosition.z < 0) verticalBalance.x += blockPosition.z;
         else verticalBalance.y += blockPosition.z;
+    }
+
+    private void UpdateDisplacement()
+    {
+        Vector2 direction = new Vector2(horizontalBalance.x + horizontalBalance.y, verticalBalance.x + verticalBalance.y);
+        displacementShaderMat.SetVector("_LeaningDirection", direction.normalized);
     }
 }

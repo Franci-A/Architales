@@ -2,7 +2,6 @@ using HelperScripts.EventSystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class Grid3DManager : MonoBehaviour
 {
@@ -45,8 +44,6 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         }
         else Destroy(gameObject);
-
-
     }
 
     private void Start()
@@ -54,7 +51,6 @@ public class Grid3DManager : MonoBehaviour
         SpawnBase(Vector3.zero);
 
         ChangePieceSORandom();
-        
     }
 
     void SpawnBase(Vector3 position)
@@ -85,8 +81,6 @@ public class Grid3DManager : MonoBehaviour
     {
         cubeList =  piece.Rotate(rotateLeft);
     }
-        
-
 
     void CanPlacePiece()
     {
@@ -102,8 +96,8 @@ public class Grid3DManager : MonoBehaviour
             else
                 PlacePiece(hit.point);
         }
-        
     }
+    
     public void PlacePiece(Vector3 position)
     {
         Vector3 gridPos = WorldToGridPosition(position);
@@ -126,8 +120,6 @@ public class Grid3DManager : MonoBehaviour
 
         ChangePieceSORandom();
     }
-
-
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
     {
