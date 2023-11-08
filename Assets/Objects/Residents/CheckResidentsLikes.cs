@@ -25,6 +25,7 @@ public class CheckResidentsLikes : MonoBehaviour
         checkDirections.Add(Vector3.back);
         checkDirections.Add(Vector3.left);
         checkDirections.Add(Vector3.right);
+        CheckRelations();
     }
 
     private void Update()
@@ -52,13 +53,13 @@ public class CheckResidentsLikes : MonoBehaviour
                     int like = currentResident.CheckLikes(collidedResident.GetResidentRace());
                     if (like == 1)
                     {
-                        FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
+                        FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity, transform);
                         obj.InitPopup(true);
                         feedbackInstances.Add(obj.gameObject);
                     }
                     else if (like == -1)
                     {
-                        FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
+                        FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity, transform);
                         obj.InitPopup(false);
                         feedbackInstances.Add(obj.gameObject);
                     }
