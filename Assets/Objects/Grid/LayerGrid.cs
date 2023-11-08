@@ -9,7 +9,7 @@ public class LayerGrid : MonoBehaviour
 
     private void Start()
     {
-        Grid3DManager.Instance.OnHigerCubeChange += UpdateSliderMaximum;
+        Grid3DManager.Instance.OnLayerCubeChange += UpdateSliderMaximum;
     }
 
     void UpdateSliderMaximum(int higherValue)
@@ -18,8 +18,8 @@ public class LayerGrid : MonoBehaviour
 
         var actualPourcentage =  layerSlider.value / layerSlider.maxValue;
         layerSlider.maxValue = higherValue - 1;
-        layerSlider.value = higherValue * actualPourcentage;
-
+        if (actualPourcentage == 1) layerSlider.value = layerSlider.maxValue;
+        else Grid3DManager.Instance.ShowLayer((int)layerSlider.value);
     }
 
     public void OnValueChanged(float layerLevel)

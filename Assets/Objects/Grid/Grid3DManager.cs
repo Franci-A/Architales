@@ -11,7 +11,7 @@ public class Grid3DManager : MonoBehaviour
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
 
-    int higherBlock;
+    int higherBlock = 1;
     public int GetHigherBlock { get => higherBlock; }
 
     [Header("Mouse Check")]
@@ -29,14 +29,15 @@ public class Grid3DManager : MonoBehaviour
     [HideInInspector] private List<Cube> _cubeList; // check si ca a changer
 
 
-    [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] PieceSO lobbyPiece;
+    bool isLobby = true;
     [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     
     public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
     public event OnCubeChangeDelegate OnCubeChange;
 
-    public delegate void OnHigherCubeChangeDelegate(int higherCubeValue);
-    public event OnHigherCubeChangeDelegate OnHigerCubeChange;
+    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
+    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
 
 
 
@@ -58,7 +59,7 @@ public class Grid3DManager : MonoBehaviour
     private void Start()
     {
         SpawnBase(Vector3.zero);
-
+        isLobby = false;
         ChangePieceSORandom();
         
     }
@@ -83,7 +84,6 @@ public class Grid3DManager : MonoBehaviour
         {
             _cubeList = CubeList;
             OnCubeChange(CubeList);
-            OnHigerCubeChange(higherBlock);
             piece.ChangeCubes(cubeList);
         }
     }
@@ -130,9 +130,12 @@ public class Grid3DManager : MonoBehaviour
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
 
             if (block.gridPosition.y > higherBlock) higherBlock = (int)block.gridPosition.y;
+            
         }
-        onPiecePlaced.Call();
+        
 
+        onPiecePlaced.Call();
+        if(!isLobby) OnLayerCubeChange(higherBlock);
         ChangePieceSORandom();
     }
 
