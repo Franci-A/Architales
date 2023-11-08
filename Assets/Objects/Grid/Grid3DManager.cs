@@ -19,6 +19,7 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Piece")]
     [SerializeField] private Piece piece;
+    [SerializeField] private IntVariable totalNumResidents;
 
 
     private List<Cube> cubeList; // current list
@@ -122,6 +123,7 @@ public class Grid3DManager : MonoBehaviour
             grid.Add(block.pieceLocalPosition + gridPos, block);
             WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
         }
+        totalNumResidents.Add(piece.Cubes.Count);
         onPiecePlaced.Call();
 
         ChangePieceSORandom();
@@ -191,7 +193,7 @@ public class Grid3DManager : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin, Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin + Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).direction * maxDistance);
 
