@@ -8,6 +8,7 @@ public class Resident : ScriptableObject
     public Race race;
     public List<Race> likes;
     public List<Race> dislikes;
+    public Color blockColor;
 
     public int CheckLikes(Race race)
     {

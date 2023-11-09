@@ -1,116 +1,97 @@
 using HelperScripts.EventSystem;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class Grid3DManager : MonoBehaviour
 {
+    // Singleton
+    private static Grid3DManager instance;
+    public static Grid3DManager Instance { get => instance; }
+
     [Header("Grid")]
     Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
     // Size of a block, WorldToGrid not working with every value
     private float cellSize = 1; // WIP. DO NOT MODIFY YET
 
-    int higherBlock = 1;
-    public int GetHigherBlock { get => higherBlock; }
+    [Header("Weight")]
+    [SerializeField] float maxBalance;
+    [SerializeField] private Material displacementShaderMat;
+    [SerializeField] private float shaderAnimTime;
+    [SerializeField] private AnimationCurve shaderAnimCurve;
+
+    [Header("Residents")]
+    [SerializeField] private IntVariable totalNumResidents;
 
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
-    [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask cubeLayer;
-    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("Piece")]
+    [SerializeField] PieceSO lobbyPiece; 
     [SerializeField] private Piece piece;
+    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
 
+    [Header("Event")]
+    [SerializeField] private EventScriptable onPiecePlaced;
 
+    [Header("Debug")]
+    [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
+    
     private List<Cube> cubeList; // current list
     public List<Cube> CubeList { get => cubeList; } // get
-    [HideInInspector] private List<Cube> _cubeList; // check si ca a changer
+    private List<Cube> _cubeList; // check si ca a changer
 
-
-    [SerializeField] PieceSO lobbyPiece;
-    bool isLobby = true;
-    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
-    
     public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
     public event OnCubeChangeDelegate OnCubeChange;
 
     public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
     public event OnLayerCubeChangeDelegate OnLayerCubeChange;
 
+    int higherBlock = 1;
+    public int GetHigherBlock { get => higherBlock; }
 
-
-
-    private static Grid3DManager instance;
-    public static Grid3DManager Instance { get => instance;}
+    bool isLobby = false;
+    private Vector2 balance;
 
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
-        else Destroy(gameObject);
-
-
+        else
+            Destroy(gameObject);
     }
 
     private void Start()
     {
-        SpawnBase(Vector3.zero);
-        isLobby = false;
-        ChangePieceSORandom();
+        onPiecePlaced.AddListener(UpdateDisplacement);
         
+        isLobby = false;
+        SpawnBase(Vector3.zero);
+        ChangePieceSORandom();
     }
 
-    void SpawnBase(Vector3 position)
-    {
-        cubeList = lobbyPiece.cubes;
-        PlacePiece(position);
-    }
-
-
-
-    void Update()
+    private void Update()
     {
         IsBlockChanged();
+        UpdateWeightDebug();
     }
 
-
-    void IsBlockChanged()
+    //INPUTS
+    public void LeftClickInput(InputAction.CallbackContext context)
     {
-        if(_cubeList != CubeList)
-        {
-            _cubeList = CubeList;
-            OnCubeChange(CubeList);
-            piece.ChangeCubes(cubeList);
-        }
+        if (!context.performed) return;
+        CanPlacePiece();
     }
 
-    void RotatePiece(bool rotateLeft)
+    public void RotatePieceInput(InputAction.CallbackContext context)
     {
-        cubeList =  piece.Rotate(rotateLeft);
+        if (!context.performed) return;
+        RotatePiece(context.ReadValue<float>() < 0);
     }
-        
 
-
-    void CanPlacePiece()
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
-        {
-            if (hit.normal != Vector3.up)
-            {
-                Debug.Log("cannot place here");
-                //PlaceBlock(hit.point + hit.normal / 2);
-            }
-            else
-                PlacePiece(hit.point);
-        }
-        
-    }
     public void PlacePiece(Vector3 position)
     {
         Vector3 gridPos = WorldToGridPosition(position);
@@ -119,27 +100,149 @@ public class Grid3DManager : MonoBehaviour
 
         var piece = Instantiate(this.piece, position, Quaternion.identity);
         piece.ChangeCubes(CubeList);
-        
+
         if (!IsPiecePlaceable(piece, gridPos)) return;
-        
+
         piece.SpawnCubes();
 
         foreach (var block in piece.Cubes)
         {
             grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
-            WeightManager.Instance.UpdateWeight(block.pieceLocalPosition + gridPos);
+            UpdateWeight(block.pieceLocalPosition + gridPos);
 
-            if (block.gridPosition.y > higherBlock) higherBlock = (int)block.gridPosition.y;
-            
+            if (block.gridPosition.y > higherBlock)
+                higherBlock = (int)block.gridPosition.y;
         }
-        
 
+        totalNumResidents.Add(piece.Cubes.Count);
         onPiecePlaced.Call();
-        if(!isLobby) OnLayerCubeChange(higherBlock);
+        if (!isLobby)
+            OnLayerCubeChange(higherBlock);
         ChangePieceSORandom();
     }
 
+    private void SpawnBase(Vector3 position)
+    {
+        cubeList = lobbyPiece.cubes;
+        PlacePiece(position);
+    }
 
+    private void IsBlockChanged()
+    {
+        if (_cubeList != CubeList)
+        {
+            _cubeList = CubeList;
+            OnCubeChange(CubeList);
+            piece.ChangeCubes(cubeList);
+        }
+    }
+
+    private void RotatePiece(bool rotateLeft)
+    {
+        cubeList =  piece.Rotate(rotateLeft);
+    }
+
+    private void CanPlacePiece()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
+        {
+            if (hit.normal != Vector3.up)
+                Debug.Log("cannot place here");
+            else
+                PlacePiece(hit.point);
+        }
+    }
+
+    private void ChangePieceSORandom()
+    {
+        cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
+    }
+
+    private void UpdateWeight(Vector3 blockPosition)
+    {
+        balance.x += blockPosition.x;
+        balance.y += blockPosition.z;
+    }
+
+    private void UpdateDisplacement()
+    {
+        displacementShaderMat.SetVector("_LeaningDirection", balance.normalized);
+        displacementShaderMat.SetFloat("_MaxHeight", higherBlock);
+
+        StartCoroutine(BalanceDisplacementRoutine());
+    }
+
+    private void SetDisplacementValue(float value)
+    {
+        displacementShaderMat.SetFloat("_Value", value);
+    }
+
+    private void ResetDisplacement()
+    {
+        displacementShaderMat.SetFloat("_UseAngle", 0);
+        displacementShaderMat.SetFloat("_MaxHeight", 1f);
+        displacementShaderMat.SetVector("_LeaningDirection", Vector2.zero);
+        SetDisplacementValue(0f);
+    }
+
+    private IEnumerator BalanceDisplacementRoutine()
+    {
+        float timer = shaderAnimTime;
+        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(balance.x), Mathf.Abs(balance.y)) / maxBalance);
+        float t;
+        do
+        {
+            // 0-1 of time elapsed
+            t = 1 - Mathf.InverseLerp(0f, shaderAnimTime, timer);
+            SetDisplacementValue(shaderAnimCurve.Evaluate(t) * maxValue);
+
+            timer -= Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        } while (timer > 0);
+
+        SetDisplacementValue(0f);
+    }
+
+    private void UpdateWeightDebug()
+    {
+        for (int i = 0; i < DebugInfo.Count; i++)
+        {
+            DebugInfo[i].transform.rotation = Quaternion.LookRotation(DebugInfo[i].transform.position - Camera.main.transform.position);
+
+            switch (i)
+            {
+                case 0:
+                    DebugInfo[i].text = Mathf.Max(-balance.x, 0).ToString();
+                    break;
+
+                case 1:
+                    DebugInfo[i].text = Mathf.Max(balance.x, 0).ToString();
+                    break;
+
+                case 2:
+                    DebugInfo[i].text = Mathf.Max(-balance.y, 0).ToString();
+                    break;
+
+                default:
+                    DebugInfo[i].text = Mathf.Max(balance.y, 0).ToString();
+                    break;
+            }
+        }
+
+        if (Mathf.Abs(balance.x) > maxBalance)
+        {
+            DebugInfo[0].color = Color.red;
+            DebugInfo[1].color = Color.red;
+        }
+
+        if (Mathf.Abs(balance.y) > maxBalance)
+        {
+            DebugInfo[2].color = Color.red;
+            DebugInfo[3].color = Color.red;
+        }
+    }
 
     public static Vector3 WorldToGridPosition(Vector3 worldPosition)
     {
@@ -196,29 +299,14 @@ public class Grid3DManager : MonoBehaviour
         return true;
     }
 
-
-    private void ChangePieceSORandom()
+    private void OnDestroy()
     {
-        cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
+        onPiecePlaced.RemoveListener(UpdateDisplacement);
+        ResetDisplacement();
     }
 
 
-    //INPUTS
-    public void LeftClickInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        CanPlacePiece();
-    }
-
-    public void RotatePieceInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed) return;
-        if (context.ReadValue<float>() < 0) RotatePiece(true);
-        else RotatePiece(false);
-    }
-
-
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin, Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin + Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).direction * maxDistance);
 

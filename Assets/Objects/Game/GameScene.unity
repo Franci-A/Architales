@@ -362,58 +362,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a28172561418a54d912ed1af18c75a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBalance: 15
-  displacementShaderMat: {fileID: 2100000, guid: 436d005385d346b4e93e7f064b35d132,
-    type: 2}
-  shaderAnimTime: 0.5
+  maxBalance: 0
+  displacementShaderMat: {fileID: 0}
+  shaderAnimTime: 0
   shaderAnimCurve:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 5.314192
-      outSlope: 5.314192
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.07278481
-    - serializedVersion: 3
-      time: 0.2
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13452113
-    - serializedVersion: 3
-      time: 0.5
-      value: -0.33
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.2001388
-    - serializedVersion: 3
-      time: 0.75
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 1.2851937
-      outSlope: 1.2851937
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.2286458
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -430,11 +384,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef054ca6e812ca24296b02afd5df8563, type: 2}
   - {fileID: 11400000, guid: b2dcd2b90f633354592846cd0365662f, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
-  DebugInfo:
-  - {fileID: 1902847802}
-  - {fileID: 1734767121}
-  - {fileID: 113757501}
-  - {fileID: 734754258}
+  DebugInfo: []
 --- !u!4 &290873577
 Transform:
   m_ObjectHideFlags: 0
@@ -1281,7 +1231,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241354811}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_ConstrainProportionsScale: 1
@@ -1290,7 +1240,7 @@ RectTransform:
   - {fileID: 1734767120}
   - {fileID: 734754257}
   - {fileID: 113757500}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1246468618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1360,6 +1310,59 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1246468617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1246468618}
+  - component: {fileID: 1246468619}
+  m_Layer: 0
+  m_Name: Weight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1246468618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246468617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1241354812}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1246468619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246468617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b312692f5cfac84458413ae0dec50505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalBalance: {x: 0, y: 0}
+  verticalBalance: {x: 0, y: 0}
+  maxBalance: 15
+  DebugInfo:
+  - {fileID: 1902847802}
+  - {fileID: 1734767121}
+  - {fileID: 113757501}
+  - {fileID: 734754258}
 --- !u!1 &1349942962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,7 +2527,7 @@ SceneRoots:
   - {fileID: 1837025543}
   - {fileID: 604008740}
   - {fileID: 372988760}
-  - {fileID: 1241354812}
+  - {fileID: 1246468618}
   - {fileID: 290873577}
   - {fileID: 1042270860}
   - {fileID: 1978222124}
