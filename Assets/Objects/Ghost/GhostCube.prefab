@@ -114,9 +114,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 498315721281090686}
-  - component: {fileID: 2923639951601252904}
   - component: {fileID: 7680735438331080007}
   - component: {fileID: 6709359141653255534}
+  - component: {fileID: 3722576817187240546}
   m_Layer: 0
   m_Name: GhostCube
   m_TagString: Untagged
@@ -140,18 +140,6 @@ Transform:
   - {fileID: 1417359603975573701}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2923639951601252904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9132960200103920916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de1efd19630ea0742b598108d962f4b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &7680735438331080007
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -193,3 +181,17 @@ MonoBehaviour:
   feedbackPopup: {fileID: 7140220009985757305, guid: 1d250b933ab4939468abbd93cdefd4e3,
     type: 3}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+--- !u!114 &3722576817187240546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9132960200103920916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222e2eb1b9a489b42bc75b0a5de556fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentResident: {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
+  cube: {fileID: 4528809903238875770}

@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentResident: {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
+  cube: {fileID: 4096471954504250345}
 --- !u!1 &7115960694686768393
 GameObject:
   m_ObjectHideFlags: 0

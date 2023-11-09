@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abcd3f669d313d644b7b36f48164e290, type: 3}
-  m_Name: Dragon
+  m_Name: EmptyRace
   m_EditorClassIdentifier: 
-  race: 0
-  likes: 000000000100000002000000
-  dislikes: 0300000004000000
-  blockColor: {r: 1, g: 0, b: 0, a: 1}
-  blockMaterial: {fileID: 2100000, guid: 907d7e0a92ecc6c428e0a5095aefe0c0, type: 2}
+  race: 5
+  likes: 
+  dislikes: 
+  blockColor: {r: 1, g: 1, b: 1, a: 1}
+  blockMaterial: {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}

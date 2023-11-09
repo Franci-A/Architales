@@ -9,6 +9,7 @@ public class Resident : ScriptableObject
     public List<Race> likes;
     public List<Race> dislikes;
     public Color blockColor;
+    public Material blockMaterial;
 
     public int CheckLikes(Race race)
     {
@@ -29,5 +30,6 @@ public enum Race
     Dwarf,
     Elf,
     Fairy,
-    Mermaid
+    Mermaid,
+    Empty
 }

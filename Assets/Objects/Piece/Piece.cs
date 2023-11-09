@@ -6,21 +6,37 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    [SerializeField] private GameObject cubePrefab;
+    [SerializeField] private ResidentHandler cubePrefab;
 
     List<Cube> cubes = new List<Cube>();
+    Resident currentResident;
     public List<Cube> Cubes { get => cubes; }
 
     public void SpawnCubes()
     {
         foreach (var cube in cubes)
         {
-            var cubeGO = Instantiate(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
+            var cubeGO = Instantiate<ResidentHandler>(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
+            cubeGO.SetResident(currentResident);            
             cube.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
-            cube.cubeGO = cubeGO;
+            cube.cubeGO = cubeGO.gameObject;
         }
     }
 
+    public void ChangePiece(PieceSO piece)
+    {
+        if(piece.cubes.Count < 0) return;
+
+        currentResident = piece.resident;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        cubes = piece.cubes;
+    }
+    
     public void ChangeCubes(List<Cube> _cubes)
     {
         if(_cubes.Count < 0) return;

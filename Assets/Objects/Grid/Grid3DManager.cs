@@ -18,7 +18,7 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Weight")]
     [SerializeField] float maxBalance;
-    [SerializeField] private Material displacementShaderMat;
+    [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
 
@@ -41,10 +41,12 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
     
     private List<Cube> cubeList; // current list
+    private PieceSO currentPiece; // current list
+    public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
 
-    public delegate void OnCubeChangeDelegate(List<Cube> newBrick);
+    public delegate void OnCubeChangeDelegate(PieceSO newPiece);
     public event OnCubeChangeDelegate OnCubeChange;
 
     public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
@@ -53,7 +55,7 @@ public class Grid3DManager : MonoBehaviour
     int higherBlock = 1;
     public int GetHigherBlock { get => higherBlock; }
 
-    bool isLobby = false;
+    bool isLobby = true;
     private Vector2 balance;
 
     private void Awake()
@@ -68,8 +70,8 @@ public class Grid3DManager : MonoBehaviour
     {
         onPiecePlaced.AddListener(UpdateDisplacement);
         
-        isLobby = false;
         SpawnBase(Vector3.zero);
+        isLobby = false;
         ChangePieceSORandom();
     }
 
@@ -99,7 +101,10 @@ public class Grid3DManager : MonoBehaviour
         position = GridToWorldPosition(gridPos);
 
         var piece = Instantiate(this.piece, position, Quaternion.identity);
-        piece.ChangeCubes(CubeList);
+        PieceSO pieceSO = new PieceSO();
+        pieceSO.cubes = CubeList;
+        pieceSO.resident = currentPiece.resident;
+        piece.ChangePiece(pieceSO);
 
         if (!IsPiecePlaceable(piece, gridPos)) return;
 
@@ -124,6 +129,7 @@ public class Grid3DManager : MonoBehaviour
     private void SpawnBase(Vector3 position)
     {
         cubeList = lobbyPiece.cubes;
+        currentPiece = lobbyPiece;
         PlacePiece(position);
     }
 
@@ -132,8 +138,11 @@ public class Grid3DManager : MonoBehaviour
         if (_cubeList != CubeList)
         {
             _cubeList = CubeList;
-            OnCubeChange(CubeList);
-            piece.ChangeCubes(cubeList);
+            PieceSO pieceSO = new PieceSO();
+            pieceSO.cubes = CubeList;
+            pieceSO.resident = currentPiece.resident;
+            OnCubeChange(pieceSO);
+            piece.ChangePiece(pieceSO);
         }
     }
 
@@ -157,7 +166,8 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
+        currentPiece = pieceListRandom[Random.Range(0, pieceListRandom.Count)];
+        cubeList = currentPiece.cubes;
     }
 
     private void UpdateWeight(Vector3 blockPosition)
@@ -168,22 +178,31 @@ public class Grid3DManager : MonoBehaviour
 
     private void UpdateDisplacement()
     {
-        displacementShaderMat.SetVector("_LeaningDirection", balance.normalized);
-        displacementShaderMat.SetFloat("_MaxHeight", higherBlock);
+        for (int i = 0; i < displacementShaderMat.Length; i++)
+        {
+            displacementShaderMat[i].SetVector("_LeaningDirection", balance.normalized);
+            displacementShaderMat[i].SetFloat("_MaxHeight", higherBlock);
+        }
 
         StartCoroutine(BalanceDisplacementRoutine());
     }
 
     private void SetDisplacementValue(float value)
     {
-        displacementShaderMat.SetFloat("_Value", value);
+        for (int i = 0; i < displacementShaderMat.Length; i++)
+        {
+            displacementShaderMat[i].SetFloat("_Value", value);
+        }
     }
 
     private void ResetDisplacement()
     {
-        displacementShaderMat.SetFloat("_UseAngle", 0);
-        displacementShaderMat.SetFloat("_MaxHeight", 1f);
-        displacementShaderMat.SetVector("_LeaningDirection", Vector2.zero);
+        for (int i = 0; i < displacementShaderMat.Length; i++)
+        {
+            displacementShaderMat[i].SetFloat("_UseAngle", 0);
+            displacementShaderMat[i].SetFloat("_MaxHeight", 1f);
+            displacementShaderMat[i].SetVector("_LeaningDirection", Vector2.zero);
+        }
         SetDisplacementValue(0f);
     }
 

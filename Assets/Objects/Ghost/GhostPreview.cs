@@ -26,7 +26,7 @@ public class GhostPreview : MonoBehaviour
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.ChangeCubes(Grid3DManager.Instance.CubeList);
+        ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
         ghostPiece.SpawnCubes();
     }
 
@@ -58,9 +58,9 @@ public class GhostPreview : MonoBehaviour
         }else ghostPiece.gameObject.SetActive(false);
     }
 
-    private void OnPieceChange(List<Cube> newBrick)
+    private void OnPieceChange(PieceSO newPiece)
     {
-        ghostPiece.ChangeCubes(newBrick);
+        ghostPiece.ChangePiece(newPiece);
         ghostPiece.SpawnCubes();
     }
 }
