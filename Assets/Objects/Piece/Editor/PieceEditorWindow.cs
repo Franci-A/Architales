@@ -10,11 +10,15 @@ public class PieceEditorWindow : EditorWindow
     int gridSize = 5;
     float buttonSpace = 15;
     bool[,] checkBoxes = new bool[5,5];
+    bool[,] saveCheckBoxes = new bool[5,5];
 
     //Preview
-    GameObject gameObject;
-    GameObject[] arrayGO;
+    //CubeEditor cubeEditor;
+    GameObject cubeEditor;
+    GameObject[,] arrayGO = new GameObject[5, 5];
     Editor gameObjectEditor;
+
+    Mesh newMesh;
 
     [MenuItem("Tools/Piece Editor")]
     public static void ShowWindow()
@@ -40,8 +44,7 @@ public class PieceEditorWindow : EditorWindow
             EditorGUILayout.BeginHorizontal();
             for (int y = 0; y < gridSize; y++)
             {
-                if(x == 2 && y == 2) checkBoxes[x, y] = EditorGUILayout.Toggle(true, GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
-                else checkBoxes[x, y] = EditorGUILayout.Toggle(checkBoxes[x,y], GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
+                checkBoxes[x, y] = EditorGUILayout.Toggle(checkBoxes[x,y], GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
                 i++;
             }
             EditorGUILayout.EndHorizontal();
@@ -55,24 +58,39 @@ public class PieceEditorWindow : EditorWindow
 
         Rect rect = new Rect(0,0,10,10);
 
-        gameObject = (GameObject)EditorGUILayout.ObjectField(gameObject, typeof(GameObject), true);
+        cubeEditor = (GameObject)EditorGUILayout.ObjectField(cubeEditor, typeof(GameObject), true);
+        EditorUtility.SetDirty(cubeEditor);
+        newMesh = (Mesh)EditorGUILayout.ObjectField(newMesh, typeof(Mesh), true);
 
-        arrayGO = new GameObject[gridSize * gridSize];
-        int id = 0;
-        for (int i = 0; i < gridSize; i++)
+        if (cubeEditor != null)
         {
-            for (int j = 0; j < gridSize; j++)
+            string path = "Assets/Objects/Piece/Editor/CubeEditor.prefab";
+            var go = PrefabUtility.LoadPrefabContents(path);
+
+
+
+            PrefabUtility.SaveAsPrefabAsset(go, path);
+
+
+            for (int i = 0; i < gridSize; i++)
             {
-                if (checkBoxes[i, j])
+                for (int j = 0; j < gridSize; j++)
                 {
-                    GameObject go = gameObject;
-                    arrayGO[id] = go;
+                    if(checkBoxes[i, j] != saveCheckBoxes[i, j])
+                    {
+                        saveCheckBoxes[i, j] = checkBoxes[i, j];
+                        if (checkBoxes[i, j]) arrayGO[i, j] = go.GetComponent<CubeEditor>().UpdateCubeList(new Vector2(i, j), checkBoxes[i, j]);
+                        else 
+                        {
+                            DestroyImmediate(arrayGO[i, j]); 
+                            arrayGO[i, j] = null;
+                        }
+                    }
                 }
-                id++;
             }
+
         }
 
-        
         EditorGUILayout.Space();
 
         if (EditorGUI.EndChangeCheck())
@@ -83,10 +101,10 @@ public class PieceEditorWindow : EditorWindow
         GUIStyle bgColor = new GUIStyle();
         bgColor.normal.background = EditorGUIUtility.whiteTexture;
 
-        if (gameObject != null)
+        if (cubeEditor != null)
         {
             if (gameObjectEditor == null)
-                gameObjectEditor = Editor.CreateEditor(arrayGO);
+                gameObjectEditor = Editor.CreateEditor(cubeEditor);
 
 
             
