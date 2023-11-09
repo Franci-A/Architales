@@ -21,6 +21,10 @@ public class PieceEditorWindow : EditorWindow
     //Height
     int height = 0;
 
+    //Save
+    string scriptableName = "Enter scriptable name";
+    string messageSave = "";
+
     [MenuItem("Tools/Piece Editor")]
     public static void ShowWindow()
     {
@@ -50,14 +54,13 @@ public class PieceEditorWindow : EditorWindow
             EditorGUILayout.Space();
 
 
-            for (int i = 0, x = 0; x < gridSize; x++)
+            for (int i = 0; i < gridSize; i++)
             {
                 EditorGUILayout.BeginVertical();
                 EditorGUILayout.BeginHorizontal();
-                for (int y = 0; y < gridSize; y++)
+                for (int j = 0; j < gridSize; j++)
                 {
-                    checkBoxes[height, x, y] = EditorGUILayout.Toggle(checkBoxes[height, x, y], GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
-                    i++;
+                    checkBoxes[j, height, i] = EditorGUILayout.Toggle(checkBoxes[j, height, i], GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
                 }
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
@@ -73,14 +76,18 @@ public class PieceEditorWindow : EditorWindow
             {
                 for (int j = 0; j < gridSize; j++)
                 {
-                    if (checkBoxes[height, i, j] != saveCheckBoxes[height, i, j])
+
+                    if (checkBoxes[j, height, i] != saveCheckBoxes[j, height, i])
                     {
-                        saveCheckBoxes[height, i, j] = checkBoxes[height, i, j];
-                        if (checkBoxes[height, i, j]) arrayGO[height, i, j] = UpdateCubeList(new Vector2(i, j), checkBoxes[height, i, j]);
+                        saveCheckBoxes[j, height, i] = checkBoxes[j, height, i];
+                        if (checkBoxes[j, height, i])
+                        {
+                            arrayGO[j, height, i] = UpdateCubeList(new Vector2(i, j), checkBoxes[j, height, i]);
+                        }
                         else
                         {
-                            DestroyImmediate(arrayGO[height, i, j]);
-                            arrayGO[height, i, j] = null;
+                            DestroyImmediate(arrayGO[j, height, i]);
+                            arrayGO[j, height, i] = null;
                         }
                     }
                 }
@@ -102,11 +109,35 @@ public class PieceEditorWindow : EditorWindow
             height = Mathf.Clamp(height, 0, 4);
             #endregion
 
-
+            #region Reset
             EditorGUILayout.Space(20);
             GUILayout.Label("Reset", EditorStyles.boldLabel);
             EditorGUILayout.Space();
             if (GUILayout.Button("Reset")) ResetBlock();
+            #endregion
+
+            EditorGUILayout.Space(20);
+            GUILayout.Label("Save To Scriptable", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+            scriptableName = EditorGUILayout.TextArea(scriptableName);
+            EditorGUILayout.Space();
+
+            if(GUILayout.Button("Save !"))
+            {
+                EditorGUILayout.Space();
+                if (scriptableName == "") 
+                {
+                    messageSave = "Please, enter a valid name";
+                }
+                else
+                {
+                    messageSave = "Saved !";
+                    SaveBlock();
+                }
+            }
+
+            EditorGUILayout.LabelField(messageSave);
+
         }
 
     }
@@ -115,15 +146,15 @@ public class PieceEditorWindow : EditorWindow
     {
         if (isActive)
         {
-
-                var go = Instantiate(cube, new Vector3(pos.x, height, pos.y), new Quaternion());
+            Debug.Log("test");
+                var go = Instantiate(cube, new Vector3(pos.y, height, pos.x), new Quaternion());
 
                 return go;
         }
         else
         {
 
-                DestroyImmediate(arrayGO[height, (int)pos.x, (int)pos.y]);
+                DestroyImmediate(arrayGO[(int)pos.y, height, (int)pos.x]);
 
             
 
@@ -147,6 +178,35 @@ public class PieceEditorWindow : EditorWindow
                 }
             }
         }
+    }
+
+    private void SaveBlock()
+    {
+        PieceSO newPiece = CreateInstance<PieceSO>();
+        newPiece.cubes = new List<Cube>();
+        string path = "Assets/Objects/Piece/TypeOfPiece/" + scriptableName + ".asset";
+        AssetDatabase.CreateAsset(newPiece, path);
+
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+                for (int k = 0; k < gridSize; k++)
+                {
+                    if (checkBoxes[i, j, k])
+                    {
+                        Cube cube = new Cube();
+                        cube.pieceLocalPosition = new Vector3(i - 2, j, k - 2);    
+                        newPiece.cubes.Add(cube);
+                    }
+                }
+            }
+        }
+        
+
+        EditorUtility.SetDirty(newPiece);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
 }
