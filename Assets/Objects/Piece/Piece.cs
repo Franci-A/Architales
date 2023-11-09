@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    [SerializeField] private GridData gridData;
     [SerializeField] private GameObject cubePrefab;
 
     List<Cube> cubes = new List<Cube>();
@@ -16,8 +16,11 @@ public class Piece : MonoBehaviour
         foreach (var cube in cubes)
         {
             var cubeGO = Instantiate(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
-            cube.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
+            cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
             cube.cubeGO = cubeGO;
+            Debug.DrawRay(cubeGO.transform.position, Vector3.right, Color.red);
+            Debug.DrawRay(cubeGO.transform.position, Vector3.up, Color.green);
+            Debug.DrawRay(cubeGO.transform.position, Vector3.forward, Color.blue);
         }
     }
 

@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a28172561418a54d912ed1af18c75a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   maxBalance: 15
   displacementShaderMat: {fileID: 2100000, guid: 436d005385d346b4e93e7f064b35d132,
     type: 2}
@@ -1192,6 +1193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ddc37c129c245d49afe99364dbc8139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   ghostPiecePrefab: {fileID: 1785745001}
   ghostMaterial: {fileID: 2100000, guid: 2b6d564c490ab6f4c958e8e382b9a585, type: 2}
   validColor: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 0.7176471}
@@ -2344,6 +2346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5290f9f286dd00489172a91daf94b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   layerSlider: {fileID: 1588492307}
 --- !u!114 &1978222121
 MonoBehaviour:
