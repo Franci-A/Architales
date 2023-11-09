@@ -53,7 +53,7 @@ public class Grid3DManager : MonoBehaviour
     int higherBlock = 1;
     public int GetHigherBlock { get => higherBlock; }
 
-    bool isLobby = false;
+    bool isLobby = true;
     private Vector2 balance;
 
     private void Awake()
@@ -68,8 +68,8 @@ public class Grid3DManager : MonoBehaviour
     {
         onPiecePlaced.AddListener(UpdateDisplacement);
         
-        isLobby = false;
         SpawnBase(Vector3.zero);
+        isLobby = false;
         ChangePieceSORandom();
     }
 
