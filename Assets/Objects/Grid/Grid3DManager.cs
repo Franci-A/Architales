@@ -84,7 +84,6 @@ public class Grid3DManager : MonoBehaviour
     {
         if (!context.performed) return;
         CanPlacePiece();
-        ChangePieceSORandom();
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
