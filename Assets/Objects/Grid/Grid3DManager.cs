@@ -30,7 +30,8 @@ public class Grid3DManager : MonoBehaviour
     [Header("Piece")]
     [SerializeField] PieceSO lobbyPiece; 
     [SerializeField] private Piece piece;
-    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
+    //[SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
+    [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
 
     [Header("Event")]
     [SerializeField] private EventScriptable onPiecePlaced;
@@ -165,7 +166,7 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        currentPiece = pieceListRandom[Random.Range(0, pieceListRandom.Count)];
+        currentPiece = pieceListRandom.GetRandomPiece();
         cubeList = currentPiece.cubes;
     }
 
