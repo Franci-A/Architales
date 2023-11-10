@@ -430,12 +430,7 @@ MonoBehaviour:
     m_Bits: 128
   lobbyPiece: {fileID: 11400000, guid: ce811b4e2a39cf749ae6e01e2c7f3249, type: 2}
   piece: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
-  pieceListRandom:
-  - {fileID: 11400000, guid: 51423ef1af112c74b9fd1a47428bcc75, type: 2}
-  - {fileID: 11400000, guid: c09e61328964b084f8245f5894088450, type: 2}
-  - {fileID: 11400000, guid: a101a643ed849334b9250612ca80129b, type: 2}
-  - {fileID: 11400000, guid: 62b7f7778a8bd4340b44ea588428dd04, type: 2}
-  - {fileID: 11400000, guid: 00c7f37ced7f19a4f999ab51daa0e8eb, type: 2}
+  pieceListRandom: {fileID: 11400000, guid: d11394fdcb795b642a9f809552a0fd67, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   DebugInfo:
   - {fileID: 1902847802}
@@ -942,12 +937,6 @@ PrefabInstance:
       propertyPath: cubeGO
       value: 
       objectReference: {fileID: 9132960200103920916, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
-        type: 3}
-    - target: {fileID: 3065538337238541913, guid: 7d8554371fd89534a8f7b1618ba68721,
-        type: 3}
-      propertyPath: cubePrefab
-      value: 
-      objectReference: {fileID: 3722576817187240546, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
         type: 3}
     - target: {fileID: 5430228627523519016, guid: 7d8554371fd89534a8f7b1618ba68721,
         type: 3}

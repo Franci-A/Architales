@@ -44,7 +44,7 @@ public class GhostPreview : MonoBehaviour
 
             Vector3 gridPos = gridData.WorldToGridPosition(hit.point + hit.normal / 4f);
             
-            ghostMaterial.SetColor("_Color", gridData.IsPiecePlaceable(ghostPiece, gridPos) ? validColor : invalidColor);
+            ghostMaterial.SetColor("_ValidColor", gridData.IsPiecePlaceable(ghostPiece, gridPos) ? validColor : invalidColor);
 
             Vector3 pos = gridData.GridToWorldPosition(gridPos);
             ghostPiece.transform.position = pos;
@@ -56,6 +56,15 @@ public class GhostPreview : MonoBehaviour
     {
         ghostPiece.ChangePiece(newPiece);
         ghostPiece.SpawnCubes();
+        for (int i = 0; i < ghostPiece.Cubes.Count; i++)
+        {
+            Renderer rend = ghostPiece.Cubes[i].cubeGO.GetComponentInChildren<Renderer>();
+            rend.SetMaterials(new List<Material>() { ghostMaterial});
+        }
+        ghostMaterial.SetColor("_BaseColor", newPiece.resident.blockColor);
+        float alpha = validColor.a;
+        validColor = newPiece.resident.blockColor;
+        validColor.a = alpha;
     }
 
     private void OnDestroy()
