@@ -94,8 +94,6 @@ public class Grid3DManager : MonoBehaviour
 
     public void PlacePiece(Vector3 gridPos)
     {
-
-
         var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity);
         PieceSO pieceSO = new PieceSO();
         pieceSO.cubes = CubeList;
@@ -112,7 +110,7 @@ public class Grid3DManager : MonoBehaviour
                 higherBlock = (int)block.gridPosition.y;
         }
 
-        totalNumResidents.Add(instance.Cubes.Count);
+        totalNumResidents.Add(piece.Cubes.Count);
 
         onPiecePlaced.Call();
         OnLayerCubeChange?.Invoke(higherBlock);
