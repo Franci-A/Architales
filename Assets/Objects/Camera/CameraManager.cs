@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CameraManager : MonoBehaviour
 {
@@ -30,9 +32,10 @@ public class CameraManager : MonoBehaviour
 
 
     [Header("Zoom")]
-    [SerializeField] private float zoomSpeed;
-    [SerializeField] private float minZoom, maxZoom;
-    private bool limitZoom = false;
+    [SerializeField] private float minZoom;
+    [SerializeField] private float maxZoom;
+    private float zoom, velocity, valueZoom, minValueZoom, maxValueZoom;
+    private bool zoomActive = false;
 
 
     //Vertical Input
@@ -41,6 +44,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
+        zoom = mainCamera.fieldOfView;
     }
 
     void Update()
@@ -48,6 +52,9 @@ public class CameraManager : MonoBehaviour
         CheckRotation();
 
         VerticalMovement();
+
+        if (zoomActive)
+            ZoomUpdate();
     }
 
 
@@ -119,25 +126,28 @@ public class CameraManager : MonoBehaviour
 
     private void Zoom(float value)
     {
-        //zoom
-        if (!limitZoom)
-            mainCamera.fieldOfView -= value * zoomSpeed;
-
-        if (mainCamera.fieldOfView <= minZoom)
-        {
-            limitZoom = true;
-            mainCamera.fieldOfView = minZoom + 0.01f;
-        }
-        else if (mainCamera.fieldOfView >= maxZoom)
-        {
-            limitZoom = true;
-            mainCamera.fieldOfView = maxZoom - 0.01f;
-        }
-        else
-            limitZoom = false;
+        //ZOOM CONDITIONS
+        valueZoom = value;
+        minValueZoom = (mainCamera.fieldOfView - valueZoom * 4f) - 3f;
+        maxValueZoom = (mainCamera.fieldOfView - valueZoom * 4f) + 3f;
+        zoomActive = true;
     }
 
+    private void ZoomUpdate()
+    {
+        //ZOOM UPDATE
+        zoom -= valueZoom * 4f;
+        if (minValueZoom >= minZoom && maxValueZoom <= maxZoom)
+        {
+            zoom = Mathf.Clamp(zoom, minValueZoom, maxValueZoom);
+            mainCamera.fieldOfView = Mathf.SmoothDamp(mainCamera.fieldOfView, zoom, ref velocity, 0.25f);
+        }
+        else
+            zoomActive = false;
 
+        if (zoom <= 0)
+            zoomActive = false;
+    }
 
 
     //INPUTS
