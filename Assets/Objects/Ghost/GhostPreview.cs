@@ -17,7 +17,6 @@ public class GhostPreview : MonoBehaviour
 
     [Header("Raycast")]
     [SerializeField] private float maxDistance = 15;
-    [SerializeField] private LayerMask gridLayer;
     [SerializeField] private LayerMask cubeLayer;
 
     Piece ghostPiece;
@@ -31,10 +30,10 @@ public class GhostPreview : MonoBehaviour
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
         Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
+
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
         ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
         ghostPiece.SpawnCubes();
-
     }
 
     void Update()
@@ -76,6 +75,7 @@ public class GhostPreview : MonoBehaviour
 
     private void OnDestroy()
     {
+        Grid3DManager.Instance.onBalanceBroken.RemoveListener(BalanceBroken);
         Grid3DManager.Instance.OnCubeChange -= OnPieceChange;
     }
 
