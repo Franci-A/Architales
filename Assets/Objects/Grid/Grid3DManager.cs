@@ -19,6 +19,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
+    bool isBalanceBroken;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -35,6 +36,7 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Event")]
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] public EventScriptable onBalanceBroken;
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
@@ -83,13 +85,13 @@ public class Grid3DManager : MonoBehaviour
     //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.performed || isBalanceBroken) return;
         TryPlacePiece();
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.performed || isBalanceBroken) return;
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
@@ -241,16 +243,23 @@ public class Grid3DManager : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(balance.x) > maxBalance)
+        if (!isBalanceBroken)
         {
-            DebugInfo[0].color = Color.red;
-            DebugInfo[1].color = Color.red;
-        }
+            if (Mathf.Abs(balance.x) > maxBalance)
+            {
+                DebugInfo[0].color = Color.red;
+                DebugInfo[1].color = Color.red;
+                isBalanceBroken = true;
+                onBalanceBroken.Call();
+            }
 
-        if (Mathf.Abs(balance.y) > maxBalance)
-        {
-            DebugInfo[2].color = Color.red;
-            DebugInfo[3].color = Color.red;
+            if (Mathf.Abs(balance.y) > maxBalance)
+            {
+                DebugInfo[2].color = Color.red;
+                DebugInfo[3].color = Color.red;
+                isBalanceBroken = true;
+                onBalanceBroken.Call();
+            }
         }
     }
 

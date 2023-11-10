@@ -13,6 +13,7 @@ public class GhostPreview : MonoBehaviour
     [SerializeField] Material ghostMaterial;
     [SerializeField] Color validColor;
     [SerializeField] Color invalidColor;
+    bool isBalanceBroken;
 
     [Header("Raycast")]
     [SerializeField] private float maxDistance = 15;
@@ -29,13 +30,17 @@ public class GhostPreview : MonoBehaviour
     private void Start()
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
+        Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
         ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
         ghostPiece.SpawnCubes();
+
     }
 
     void Update()
     {
+        if (isBalanceBroken) return;
+
         RaycastHit hit;
      
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
@@ -72,5 +77,11 @@ public class GhostPreview : MonoBehaviour
     private void OnDestroy()
     {
         Grid3DManager.Instance.OnCubeChange -= OnPieceChange;
+    }
+
+    private void BalanceBroken()
+    {
+        isBalanceBroken = true;
+        ghostPiece.gameObject.SetActive(false);
     }
 }
