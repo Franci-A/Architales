@@ -24,6 +24,12 @@ public class CameraManager : MonoBehaviour
     [Header("Position / Speed")]
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float verticalSpeed;
+    [SerializeField] private float elevatorSpeed;
+    [SerializeField] private float elevatorMinClamp;
+    [SerializeField] private float rotationMinClamp;
+    [SerializeField] private float rotationMaxClamp;
+
+
     private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
     private float directionx, directiony;
@@ -33,8 +39,9 @@ public class CameraManager : MonoBehaviour
 
 
     [Header("Zoom")]
-    [SerializeField] private float minZoom;
-    [SerializeField] private float maxZoom;
+    [SerializeField] private float zoomMinClamp;
+    [SerializeField] private float zoomMaxClamp;
+    [SerializeField] private float zoomSpeed;
     private float zoom, velocity, valueZoom, minValueZoom, maxValueZoom;
     private bool zoomActive = false;
 
@@ -83,9 +90,9 @@ public class CameraManager : MonoBehaviour
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
 
-            if (cameraRotation.x + currentRotationX > 0.65)
+            if (cameraRotation.x + currentRotationX > rotationMaxClamp)
             {
-                lockRotationX = 0.6f;
+                lockRotationX = rotationMaxClamp;
                 if (directionx < 0)
                 {
                     currentRotationX += verticalSpeed * Time.deltaTime * directionx;
@@ -94,9 +101,9 @@ public class CameraManager : MonoBehaviour
                 else 
                     cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
-            else if (cameraRotation.x + currentRotationX < -0.8)
+            else if (cameraRotation.x + currentRotationX < rotationMinClamp)
             {
-                lockRotationX = -0.75f;
+                lockRotationX = rotationMinClamp;
                 if (directionx > 0)
                 {
                     currentRotationX += verticalSpeed * Time.deltaTime * directionx;
@@ -165,7 +172,11 @@ public class CameraManager : MonoBehaviour
 
     private void VerticalMovement()
     {
-        if(verticalInput != 0) cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * verticalSpeed), 0);
+        if (verticalInput != 0)
+        {
+            if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0) 
+                cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
+        }
     }
 
     private void Zoom(float value)
@@ -180,8 +191,8 @@ public class CameraManager : MonoBehaviour
     private void ZoomUpdate()
     {
         //ZOOM UPDATE
-        zoom -= valueZoom * 4f;
-        if (minValueZoom >= minZoom && maxValueZoom <= maxZoom)
+        zoom -= valueZoom * zoomSpeed;
+        if (minValueZoom >= zoomMinClamp && maxValueZoom <= zoomMaxClamp)
         {
             zoom = Mathf.Clamp(zoom, minValueZoom, maxValueZoom);
             mainCamera.fieldOfView = Mathf.SmoothDamp(mainCamera.fieldOfView, zoom, ref velocity, 0.25f);
