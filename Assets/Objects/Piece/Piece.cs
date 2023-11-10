@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    [SerializeField] private GridData gridData;
     [SerializeField] private ResidentHandler cubePrefab;
 
     List<Cube> cubes = new List<Cube>();
@@ -18,7 +18,7 @@ public class Piece : MonoBehaviour
         {
             var cubeGO = Instantiate<ResidentHandler>(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
             cubeGO.SetResident(currentResident);            
-            cube.gridPosition = Grid3DManager.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
+            cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
             cube.cubeGO = cubeGO.gameObject;
         }
     }

@@ -12,9 +12,7 @@ public class Grid3DManager : MonoBehaviour
     public static Grid3DManager Instance { get => instance; }
 
     [Header("Grid")]
-    Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
-    // Size of a block, WorldToGrid not working with every value
-    private float cellSize = 1; // WIP. DO NOT MODIFY YET
+    [SerializeField] GridData data;
 
     [Header("Weight")]
     [SerializeField] float maxBalance;
@@ -55,7 +53,6 @@ public class Grid3DManager : MonoBehaviour
     int higherBlock = 1;
     public int GetHigherBlock { get => higherBlock; }
 
-    bool isLobby = true;
     private Vector2 balance;
 
     private void Awake()
@@ -68,10 +65,11 @@ public class Grid3DManager : MonoBehaviour
 
     private void Start()
     {
+        data.Initialize();
+
         onPiecePlaced.AddListener(UpdateDisplacement);
         
-        SpawnBase(Vector3.zero);
-        isLobby = false;
+        SpawnBase();
         ChangePieceSORandom();
     }
 
@@ -85,7 +83,7 @@ public class Grid3DManager : MonoBehaviour
     public void LeftClickInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        CanPlacePiece();
+        TryPlacePiece();
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
@@ -94,43 +92,39 @@ public class Grid3DManager : MonoBehaviour
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
-    public void PlacePiece(Vector3 position)
+    public void PlacePiece(Vector3 gridPos)
     {
-        Vector3 gridPos = WorldToGridPosition(position);
 
-        position = GridToWorldPosition(gridPos);
 
-        var piece = Instantiate(this.piece, position, Quaternion.identity);
+        var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity);
         PieceSO pieceSO = new PieceSO();
         pieceSO.cubes = CubeList;
         pieceSO.resident = currentPiece.resident;
         piece.ChangePiece(pieceSO);
-
-        if (!IsPiecePlaceable(piece, gridPos)) return;
-
         piece.SpawnCubes();
 
         foreach (var block in piece.Cubes)
         {
-            grid.Add(block.pieceLocalPosition + gridPos, block.cubeGO);
+            data.AddToGrid(block.pieceLocalPosition + gridPos, block.cubeGO);
             UpdateWeight(block.pieceLocalPosition + gridPos);
 
             if (block.gridPosition.y > higherBlock)
                 higherBlock = (int)block.gridPosition.y;
         }
 
-        totalNumResidents.Add(piece.Cubes.Count);
+        totalNumResidents.Add(instance.Cubes.Count);
+
         onPiecePlaced.Call();
-        if (!isLobby)
-            OnLayerCubeChange(higherBlock);
+        OnLayerCubeChange?.Invoke(higherBlock);
+
         ChangePieceSORandom();
     }
 
-    private void SpawnBase(Vector3 position)
+    private void SpawnBase()
     {
         cubeList = lobbyPiece.cubes;
         currentPiece = lobbyPiece;
-        PlacePiece(position);
+        PlacePiece(Vector3.zero);
     }
 
     private void IsBlockChanged()
@@ -141,27 +135,34 @@ public class Grid3DManager : MonoBehaviour
             PieceSO pieceSO = new PieceSO();
             pieceSO.cubes = CubeList;
             pieceSO.resident = currentPiece.resident;
-            OnCubeChange(pieceSO);
+            OnCubeChange?.Invoke(pieceSO);
             piece.ChangePiece(pieceSO);
         }
     }
 
     private void RotatePiece(bool rotateLeft)
     {
-        cubeList =  piece.Rotate(rotateLeft);
+        cubeList = piece.Rotate(rotateLeft);
     }
 
-    private void CanPlacePiece()
+    private void TryPlacePiece()
     {
         RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) return;
 
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
+        Vector3 gridPos = data.WorldToGridPosition(hit.point);
+
+        if (data.IsPiecePlaceable(piece, gridPos))
         {
-            if (hit.normal != Vector3.up)
-                Debug.Log("cannot place here");
-            else
-                PlacePiece(hit.point);
+            PlacePiece(gridPos);
         }
+            return;
+
+        // Check one block above
+        gridPos += Vector3.up;
+
+        if(data.IsPiecePlaceable(piece, gridPos))
+            PlacePiece(gridPos);
     }
 
     private void ChangePieceSORandom()
@@ -170,10 +171,10 @@ public class Grid3DManager : MonoBehaviour
         cubeList = currentPiece.cubes;
     }
 
-    private void UpdateWeight(Vector3 blockPosition)
+    private void UpdateWeight(Vector3 gridPosistion)
     {
-        balance.x += blockPosition.x;
-        balance.y += blockPosition.z;
+        balance.x += gridPosistion.x;
+        balance.y += gridPosistion.z;
     }
 
     private void UpdateDisplacement()
@@ -263,61 +264,6 @@ public class Grid3DManager : MonoBehaviour
         }
     }
 
-    public static Vector3 WorldToGridPosition(Vector3 worldPosition)
-    {
-        if (instance == null)
-            throw new NullSingletonException();
-
-        float size = instance.cellSize;
-        return new Vector3(
-            Mathf.Floor(worldPosition.x / size + .5f * size),
-            Mathf.Floor(worldPosition.y / size + .5f * size),
-            Mathf.Floor(worldPosition.z / size + .5f * size));
-    }
-
-    public static Vector3 GridToWorldPosition(Vector3 gridPosition)
-    {
-        if (instance == null)
-            throw new NullSingletonException();
-
-        float size = instance.cellSize;
-        return new Vector3(
-            gridPosition.x * size,
-            gridPosition.y * size + .5f * size,
-            gridPosition.z * size);
-    }
-
-    public void ShowLayer(int layerHeight)
-    {
-        foreach (var item in grid)
-        {
-            if (item.Key.y > layerHeight)
-            {
-                item.Value.SetActive(false);
-            }
-            else
-            {
-                item.Value.SetActive(true);
-            }
-        }
-    }
-
-    public static bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
-    {
-        if (instance == null)
-            throw new NullSingletonException();
-
-        if (piece == null) return false;
-
-        foreach (var block in piece.Cubes)
-        {
-            if (instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition)
-                || (block.pieceLocalPosition.x + gridPosition.x == 0 && block.pieceLocalPosition.z + gridPosition.z == 0)) return false;
-        }
-
-        return true;
-    }
-
     private void OnDestroy()
     {
         onPiecePlaced.RemoveListener(UpdateDisplacement);
@@ -329,21 +275,20 @@ public class Grid3DManager : MonoBehaviour
     {
         Gizmos.DrawLine(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin, Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).origin + Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).direction * maxDistance);
 
-        if (instance != null)
-        {
-            for (int z = -1; z < 2; ++z)
-                for (int x = -1; x < 2; ++x)
-                    Gizmos.DrawWireCube(GridToWorldPosition(new Vector3(x, 0, z)) + Vector3.down * cellSize * .5f, new Vector3(cellSize, 0, cellSize));
-        }
+        if (!data) return;
+
+        for (int z = -1; z < 2; ++z)
+            for (int x = -1; x < 2; ++x)
+                Gizmos.DrawWireCube(data.GridToWorldPosition(new Vector3(x, 0, z)) + Vector3.down * data.CellSize * .5f, new Vector3(data.CellSize, 0, data.CellSize));
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
         {
-            Vector3 gridPos = GridToWorldPosition(WorldToGridPosition(hit.point));
+            Vector3 gridPos = data.GridToWorldPosition(data.WorldToGridPosition(hit.point));
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(gridPos, Vector3.one * .9f * cellSize);
+            Gizmos.DrawWireCube(gridPos, Vector3.one * .9f * data.CellSize);
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(gridPos + Vector3.down * cellSize * .5f, new Vector3(cellSize, 0, cellSize));
+            Gizmos.DrawWireCube(gridPos + Vector3.down * data.CellSize * .5f, new Vector3(data.CellSize, 0, data.CellSize));
         }
     }
 }
