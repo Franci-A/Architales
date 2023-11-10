@@ -956,8 +956,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 982438095}
   mainCamera: {fileID: 1857786332}
-  speed: 1.1
-  zoomSpeed: 20
+  horizontalSpeed: 1
+  verticalSpeed: 1
   minZoom: 25
   maxZoom: 90
 --- !u!4 &982438095
