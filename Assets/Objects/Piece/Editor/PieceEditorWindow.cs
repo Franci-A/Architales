@@ -21,6 +21,9 @@ public class PieceEditorWindow : EditorWindow
     //Height
     int height = 0;
 
+    //Race
+    Resident resident;
+
     //Save
     string scriptableName = "Enter scriptable name";
     string messageSave = "";
@@ -67,11 +70,11 @@ public class PieceEditorWindow : EditorWindow
             }
             #endregion
 
+            #region Spawn Blocks
             EditorGUILayout.Space();
 
             EditorGUI.BeginChangeCheck();
 
-            #region Spawn Blocks
             for (int i = 0; i < gridSize; i++)
             {
                 for (int j = 0; j < gridSize; j++)
@@ -116,6 +119,15 @@ public class PieceEditorWindow : EditorWindow
             if (GUILayout.Button("Reset")) ResetBlock();
             #endregion
 
+            #region Race
+            EditorGUILayout.Space(20);
+            GUILayout.Label("Race", EditorStyles.boldLabel);
+            EditorGUILayout.Space();
+            resident = (Resident)EditorGUILayout.ObjectField( resident, typeof(Resident), true);
+            #endregion
+
+            #region Save
+
             EditorGUILayout.Space(20);
             GUILayout.Label("Save To Scriptable", EditorStyles.boldLabel);
             EditorGUILayout.Space();
@@ -129,6 +141,10 @@ public class PieceEditorWindow : EditorWindow
                 {
                     messageSave = "Please, enter a valid name";
                 }
+                else if (resident == null)
+                {
+                    messageSave = "Please, set a valid resident scriptable object";
+                }
                 else
                 {
                     messageSave = "Saved !";
@@ -137,6 +153,7 @@ public class PieceEditorWindow : EditorWindow
             }
 
             EditorGUILayout.LabelField(messageSave);
+            #endregion
 
         }
 
@@ -187,6 +204,7 @@ public class PieceEditorWindow : EditorWindow
         string path = "Assets/Objects/Piece/TypeOfPiece/" + scriptableName + ".asset";
         AssetDatabase.CreateAsset(newPiece, path);
 
+        newPiece.resident = resident;
         for (int i = 0; i < gridSize; i++)
         {
             for (int j = 0; j < gridSize; j++)
