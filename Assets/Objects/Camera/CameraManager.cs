@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CameraManager : MonoBehaviour
 {
@@ -16,21 +18,33 @@ public class CameraManager : MonoBehaviour
     private float currentRotationX, currentRotationY;
     bool updateRotation = false;
     private float lockRotationX;
+    private bool smoothBracking = false;
 
 
     [Header("Position / Speed")]
-    [SerializeField] private float speed;
+    [SerializeField] private float horizontalSpeed;
+    [SerializeField] private float verticalSpeed;
+    [SerializeField] private float rotationMinClamp;
+    [SerializeField] private float rotationMaxClamp;
+
+    [Header("Elevator")]
+    [SerializeField] private float elevatorSpeed;
+    [SerializeField] private float elevatorMinClamp;
+
     private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
+    private float directionx, directiony;
 
     private bool rightClickPushed; // check if rightclick is pushed
     private bool rightClickOnce; // to start rotate (but once)
 
 
     [Header("Zoom")]
+    [SerializeField] private float zoomMinClamp;
+    [SerializeField] private float zoomMaxClamp;
     [SerializeField] private float zoomSpeed;
-    [SerializeField] private float minZoom, maxZoom;
-    private bool limitZoom = false;
+    private float zoom, velocity, valueZoom, minValueZoom, maxValueZoom;
+    private bool zoomActive = false;
 
 
     //Vertical Input
@@ -39,6 +53,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
+        zoom = mainCamera.fieldOfView;
     }
 
     void Update()
@@ -46,6 +61,9 @@ public class CameraManager : MonoBehaviour
         CheckRotation();
 
         VerticalMovement();
+
+        if (zoomActive)
+            ZoomUpdate();
     }
 
 
@@ -63,28 +81,86 @@ public class CameraManager : MonoBehaviour
 
         if (updateRotation)
         {
-            float directionx = mousePositionY - previsousPositionX;
+            directionx = mousePositionY - previsousPositionX;
             previsousPositionX = mousePositionY;
-            currentRotationX += speed * Time.deltaTime * directionx;
 
-            float directiony = mousePositionX - previsousPositionY;
+
+
+            directiony = mousePositionX - previsousPositionY;
             previsousPositionY = mousePositionX;
-            currentRotationY += speed * Time.deltaTime * directiony;
+            currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
+
+
+            if (cameraRotation.x + currentRotationX > rotationMaxClamp)
+            {
+                lockRotationX = rotationMaxClamp;
+                if (directionx < 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else 
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+            }
+            else if (cameraRotation.x + currentRotationX < rotationMinClamp)
+            {
+                lockRotationX = rotationMinClamp;
+                if (directionx > 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else 
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+            }
+            else 
+            {
+                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+            }
+        }
+
+
+        //SMOOTH SLOW
+        if (smoothBracking)
+        {
+
+            directionx -= directionx * 0.05f;
+            directiony -= directiony * 0.05f;
+
+            if (directionx <= 0.01f && directionx >= -0.01f || directiony <= 0.01f && directiony >= -0.01f)
+                smoothBracking = false;
+
+            currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
 
             if (cameraRotation.x + currentRotationX > 0.65)
             {
-                lockRotationX = 0.60f;
-                cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                lockRotationX = 0.6f;
+                if (directionx < 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
             else if (cameraRotation.x + currentRotationX < -0.8)
             {
-                lockRotationX = -0.8f;
-                cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                lockRotationX = -0.75f;
+                if (directionx > 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
             else
+            {
+                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
-
+            }
         }
     }
 
@@ -97,30 +173,37 @@ public class CameraManager : MonoBehaviour
 
     private void VerticalMovement()
     {
-        if(verticalInput != 0) cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * speed), 0);
+        if (verticalInput != 0)
+        {
+            if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0) 
+                cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
+        }
     }
 
     private void Zoom(float value)
     {
-        //zoom
-        if (!limitZoom)
-            mainCamera.fieldOfView -= value * zoomSpeed;
-
-        if (mainCamera.fieldOfView <= minZoom)
-        {
-            limitZoom = true;
-            mainCamera.fieldOfView = minZoom + 0.01f;
-        }
-        else if (mainCamera.fieldOfView >= maxZoom)
-        {
-            limitZoom = true;
-            mainCamera.fieldOfView = maxZoom - 0.01f;
-        }
-        else
-            limitZoom = false;
+        //ZOOM CONDITIONS
+        valueZoom = value;
+        minValueZoom = (mainCamera.fieldOfView - valueZoom * 4f) - 3f;
+        maxValueZoom = (mainCamera.fieldOfView - valueZoom * 4f) + 3f;
+        zoomActive = true;
     }
 
+    private void ZoomUpdate()
+    {
+        //ZOOM UPDATE
+        zoom -= valueZoom * zoomSpeed;
+        if (minValueZoom >= zoomMinClamp && maxValueZoom <= zoomMaxClamp)
+        {
+            zoom = Mathf.Clamp(zoom, minValueZoom, maxValueZoom);
+            mainCamera.fieldOfView = Mathf.SmoothDamp(mainCamera.fieldOfView, zoom, ref velocity, 0.25f);
+        }
+        else
+            zoomActive = false;
 
+        if (zoom <= 0)
+            zoomActive = false;
+    }
 
 
     //INPUTS
@@ -130,10 +213,12 @@ public class CameraManager : MonoBehaviour
         {
             rightClickPushed = true;
             rightClickOnce = true;
+            smoothBracking = false;
         }
         else if (context.canceled)
         {
             rightClickPushed = false;
+            smoothBracking = true;
         }
     }
 
