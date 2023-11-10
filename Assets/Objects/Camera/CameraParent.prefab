@@ -434,12 +434,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 9131494193120172656}
   mainCamera: {fileID: 6403964786656785352}
+  smoothBrackSpeed: 0.1
   horizontalSpeed: 0.5
   verticalSpeed: 0.5
-  elevatorSpeed: 2
-  elevatorMinClamp: 0
   rotationMinClamp: -0.8
   rotationMaxClamp: 0.65
+  elevatorSpeed: 2
+  elevatorMinClamp: 0
   zoomMinClamp: 25
   zoomMaxClamp: 90
   zoomSpeed: 4

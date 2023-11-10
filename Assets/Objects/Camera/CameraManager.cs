@@ -13,7 +13,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
 
 
-    //Rotation
+    [Header("Rotation")]
+    [SerializeField] private float smoothBrakeSpeed;
     private Vector3 cameraRotation;
     private float currentRotationX, currentRotationY;
     bool updateRotation = false;
@@ -125,8 +126,8 @@ public class CameraManager : MonoBehaviour
         if (smoothBracking)
         {
 
-            directionx -= directionx * 0.05f;
-            directiony -= directiony * 0.05f;
+            directionx -= directionx * smoothBrakeSpeed;
+            directiony -= directiony * smoothBrakeSpeed;
 
             if (directionx <= 0.01f && directionx >= -0.01f || directiony <= 0.01f && directiony >= -0.01f)
                 smoothBracking = false;
