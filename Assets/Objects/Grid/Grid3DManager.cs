@@ -151,17 +151,8 @@ public class Grid3DManager : MonoBehaviour
 
         Vector3 gridPos = data.WorldToGridPosition(hit.point + hit.normal / 4f);
 
-        if (data.IsPiecePlaceable(piece, gridPos))
-        {
-            PlacePiece(gridPos);
-            return;
-        }
-
-        // Check one block above
-        gridPos += Vector3.up;
-
-        if(data.IsPiecePlaceable(piece, gridPos))
-            PlacePiece(gridPos);
+        if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
+            PlacePiece(validPos);
     }
 
     private void ChangePieceSORandom()
