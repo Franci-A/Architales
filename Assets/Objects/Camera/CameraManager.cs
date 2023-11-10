@@ -24,11 +24,12 @@ public class CameraManager : MonoBehaviour
     [Header("Position / Speed")]
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float verticalSpeed;
-    [SerializeField] private float elevatorSpeed;
-    [SerializeField] private float elevatorMinClamp;
     [SerializeField] private float rotationMinClamp;
     [SerializeField] private float rotationMaxClamp;
 
+    [Header("Elevator")]
+    [SerializeField] private float elevatorSpeed;
+    [SerializeField] private float elevatorMinClamp;
 
     private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
