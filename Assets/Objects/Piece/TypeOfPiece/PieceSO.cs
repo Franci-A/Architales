@@ -6,4 +6,5 @@ using UnityEngine;
 public class PieceSO : ScriptableObject
 {
     public List<Cube> cubes;
+    public Resident resident;
 }

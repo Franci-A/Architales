@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02928a33f73a8a44aa2b471fa39c8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 9132960200103920916, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
+  gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
+  cubePrefab: {fileID: 3722576817187240546, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
     type: 3}
