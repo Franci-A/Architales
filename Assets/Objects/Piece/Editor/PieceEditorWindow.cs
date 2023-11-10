@@ -27,6 +27,7 @@ public class PieceEditorWindow : EditorWindow
     //Save
     string scriptableName = "Enter scriptable name";
     string messageSave = "";
+    bool saveToInGameList = false;
 
     [MenuItem("Tools/Piece Editor")]
     public static void ShowWindow()
@@ -97,7 +98,6 @@ public class PieceEditorWindow : EditorWindow
             }
             #endregion
 
-
             #region Height
 
             EditorGUILayout.Space(20);
@@ -133,6 +133,13 @@ public class PieceEditorWindow : EditorWindow
             EditorGUILayout.Space();
             scriptableName = EditorGUILayout.TextArea(scriptableName);
             EditorGUILayout.Space();
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Do you want to add this Piece to the 'in-game' list ?", EditorStyles.boldLabel);
+            saveToInGameList =  EditorGUILayout.Toggle(saveToInGameList, GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(20);
 
             if(GUILayout.Button("Save !"))
             {
@@ -223,6 +230,16 @@ public class PieceEditorWindow : EditorWindow
         
 
         EditorUtility.SetDirty(newPiece);
+
+
+        if (saveToInGameList)
+        {
+            string inGameListPath = "Assets/Objects/Piece/ListOfBlocksSO.asset";
+             ListOfBlocksSO list = (ListOfBlocksSO)AssetDatabase.LoadAssetAtPath(inGameListPath, typeof(ListOfBlocksSO));
+            list.pieceList.Add(newPiece);
+            EditorUtility.SetDirty(list);
+        }
+
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
