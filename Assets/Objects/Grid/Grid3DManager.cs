@@ -148,13 +148,13 @@ public class Grid3DManager : MonoBehaviour
         RaycastHit hit;
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) return;
 
-        Vector3 gridPos = data.WorldToGridPosition(hit.point);
+        Vector3 gridPos = data.WorldToGridPosition(hit.point + hit.normal / 4f);
 
         if (data.IsPiecePlaceable(piece, gridPos))
         {
             PlacePiece(gridPos);
-        }
             return;
+        }
 
         // Check one block above
         gridPos += Vector3.up;

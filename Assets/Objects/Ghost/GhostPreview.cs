@@ -42,29 +42,12 @@ public class GhostPreview : MonoBehaviour
         {
             ghostPiece.gameObject.SetActive(true);
 
-            Vector3 gridPos = gridData.WorldToGridPosition(hit.point);
+            Vector3 gridPos = gridData.WorldToGridPosition(hit.point + hit.normal / 4f);
             
             ghostMaterial.SetColor("_Color", gridData.IsPiecePlaceable(ghostPiece, gridPos) ? validColor : invalidColor);
 
             Vector3 pos = gridData.GridToWorldPosition(gridPos);
             ghostPiece.transform.position = pos;
-
-            /*if (hit.normal != Vector3.up)
-            {
-                ghostMaterial.SetColor("_Color", invalidColor);
-                ghostPiece.transform.position = gridData.GridToWorldPosition(gridData.WorldToGridPosition(hit.point + hit.normal / 2));
-            }
-            else if (!gridData.IsPiecePlaceable(ghostPiece, gridData.WorldToGridPosition(hit.point)))
-            {
-                ghostMaterial.SetColor("_Color", invalidColor);
-                ghostPiece.transform.position = gridData.GridToWorldPosition(gridData.WorldToGridPosition(hit.point));
-            }
-            else
-            {
-                ghostMaterial.SetColor("_Color", validColor);
-            }*/
-
-
         }
         else ghostPiece.gameObject.SetActive(false);
     }

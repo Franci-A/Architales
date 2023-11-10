@@ -37,17 +37,26 @@ public class GridData : ScriptableObject
     {
         if (piece == null || piece.Cubes.Count == 0) return false;
 
+        Vector3 blockGridPos;
         bool canPlace = false;
+        
         foreach (var block in piece.Cubes)
         {
-            if (grid.ContainsKey(block.pieceLocalPosition + gridPosition)
-                || (block.pieceLocalPosition.x + gridPosition.x == 0 && block.pieceLocalPosition.z + gridPosition.z == 0)) return false;
-           
-            // Check for existing support underneath
-            // hasSupportBlock = hasSupportBlock || instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition + Vector3.down);
+            blockGridPos = block.pieceLocalPosition + gridPosition;
+
+            // False if any block is already occupied
+            if (grid.ContainsKey(blockGridPos)
+                // OR Placed in the Center
+                || (blockGridPos.x == 0 && blockGridPos.z == 0))
+                return false;
+
+            // Check for at least One existing support underneath
+            bool hasSupport = grid.ContainsKey(blockGridPos + Vector3.down);
+
+            canPlace = canPlace || hasSupport;
         }
 
-        return true;
+        return canPlace;
     }
 
     public void AddToGrid(Vector3 gridPosition, GameObject go)
