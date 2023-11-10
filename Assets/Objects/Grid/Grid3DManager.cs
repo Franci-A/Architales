@@ -90,16 +90,16 @@ public class Grid3DManager : MonoBehaviour
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
-    public void PlacePiece(Vector3 position)
+    public void PlacePiece(Vector3 gridPos)
     {
-        var instance = Instantiate(piece, position, Quaternion.identity);
+        var instance = Instantiate(piece, data.GridToWorldPosition(gridPos), Quaternion.identity);
         instance.ChangeCubes(CubeList);
         instance.SpawnCubes();
 
         foreach (var block in instance.Cubes)
         {
-            data.AddToGrid(block.pieceLocalPosition + position, block.cubeGO);
-            UpdateWeight(block.pieceLocalPosition + position);
+            data.AddToGrid(block.pieceLocalPosition + gridPos, block.cubeGO);
+            UpdateWeight(block.pieceLocalPosition + gridPos);
 
             if (block.gridPosition.y > higherBlock)
                 higherBlock = (int)block.gridPosition.y;
@@ -116,7 +116,7 @@ public class Grid3DManager : MonoBehaviour
     private void SpawnBase()
     {
         cubeList = lobbyPiece.cubes;
-        PlacePiece(data.GridToWorldPosition(Vector3.zero));
+        PlacePiece(Vector3.zero);
     }
 
     private void IsBlockChanged()
@@ -140,20 +140,18 @@ public class Grid3DManager : MonoBehaviour
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) return;
 
         Vector3 gridPos = data.WorldToGridPosition(hit.point);
-        Vector3 worldPos = data.GridToWorldPosition(gridPos);
 
         if (data.IsPiecePlaceable(piece, gridPos))
         {
-            PlacePiece(worldPos);
-            return;
+            PlacePiece(gridPos);
         }
+            return;
 
         // Check one block above
         gridPos += Vector3.up;
-        worldPos = data.GridToWorldPosition(gridPos);
 
         if(data.IsPiecePlaceable(piece, gridPos))
-            PlacePiece(worldPos);
+            PlacePiece(gridPos);
     }
 
     private void ChangePieceSORandom()
@@ -161,10 +159,10 @@ public class Grid3DManager : MonoBehaviour
         cubeList = pieceListRandom[Random.Range(0, pieceListRandom.Count)].cubes;
     }
 
-    private void UpdateWeight(Vector3 blockPosition)
+    private void UpdateWeight(Vector3 gridPosistion)
     {
-        balance.x += blockPosition.x;
-        balance.y += blockPosition.z;
+        balance.x += gridPosistion.x;
+        balance.y += gridPosistion.z;
     }
 
     private void UpdateDisplacement()

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Grid Data")]
@@ -30,7 +29,7 @@ public class GridData : ScriptableObject
     {
         return new Vector3(
             gridPosition.x * cellSize,
-        gridPosition.y * cellSize + .5f * cellSize,
+            gridPosition.y * cellSize + cellSize * .5f,
             gridPosition.z * cellSize);
     }
 
@@ -38,18 +37,17 @@ public class GridData : ScriptableObject
     {
         if (piece == null || piece.Cubes.Count == 0) return false;
 
-        bool hasSupportBlock = false;
+        bool canPlace = false;
         foreach (var block in piece.Cubes)
         {
             if (grid.ContainsKey(block.pieceLocalPosition + gridPosition)
                 || (block.pieceLocalPosition.x + gridPosition.x == 0 && block.pieceLocalPosition.z + gridPosition.z == 0)) return false;
-
+           
             // Check for existing support underneath
             // hasSupportBlock = hasSupportBlock || instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition + Vector3.down);
         }
 
         return true;
-        //return hasSupportBlock;
     }
 
     public void AddToGrid(Vector3 gridPosition, GameObject go)

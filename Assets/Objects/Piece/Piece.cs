@@ -18,9 +18,6 @@ public class Piece : MonoBehaviour
             var cubeGO = Instantiate(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
             cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
             cube.cubeGO = cubeGO;
-            Debug.DrawRay(cubeGO.transform.position, Vector3.right, Color.red);
-            Debug.DrawRay(cubeGO.transform.position, Vector3.up, Color.green);
-            Debug.DrawRay(cubeGO.transform.position, Vector3.forward, Color.blue);
         }
     }
 

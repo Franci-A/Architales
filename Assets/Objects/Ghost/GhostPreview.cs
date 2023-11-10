@@ -41,9 +41,15 @@ public class GhostPreview : MonoBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
         {
             ghostPiece.gameObject.SetActive(true);
-            ghostPiece.transform.position = gridData.GridToWorldPosition(gridData.WorldToGridPosition(hit.point));
 
-            if (hit.normal != Vector3.up)
+            Vector3 gridPos = gridData.WorldToGridPosition(hit.point);
+            
+            ghostMaterial.SetColor("_Color", gridData.IsPiecePlaceable(ghostPiece, gridPos) ? validColor : invalidColor);
+
+            Vector3 pos = gridData.GridToWorldPosition(gridPos);
+            ghostPiece.transform.position = pos;
+
+            /*if (hit.normal != Vector3.up)
             {
                 ghostMaterial.SetColor("_Color", invalidColor);
                 ghostPiece.transform.position = gridData.GridToWorldPosition(gridData.WorldToGridPosition(hit.point + hit.normal / 2));
@@ -56,9 +62,11 @@ public class GhostPreview : MonoBehaviour
             else
             {
                 ghostMaterial.SetColor("_Color", validColor);
-            }
-                
-        }else ghostPiece.gameObject.SetActive(false);
+            }*/
+
+
+        }
+        else ghostPiece.gameObject.SetActive(false);
     }
 
     private void OnPieceChange(List<Cube> newBrick)
