@@ -19,6 +19,7 @@ public class CameraManager : MonoBehaviour
     private float currentRotationX, currentRotationY;
     bool updateRotation = false;
     private float lockRotationX;
+    private bool smoothBracking = false;
 
 
     [Header("Position / Speed")]
@@ -26,6 +27,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float verticalSpeed;
     private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
+    private float directionx, directiony;
 
     private bool rightClickPushed; // check if rightclick is pushed
     private bool rightClickOnce; // to start rotate (but once)
@@ -72,12 +74,12 @@ public class CameraManager : MonoBehaviour
 
         if (updateRotation)
         {
-            float directionx = mousePositionY - previsousPositionX;
+            directionx = mousePositionY - previsousPositionX;
             previsousPositionX = mousePositionY;
-            
 
 
-            float directiony = mousePositionX - previsousPositionY;
+
+            directiony = mousePositionX - previsousPositionY;
             previsousPositionY = mousePositionX;
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
@@ -105,6 +107,49 @@ public class CameraManager : MonoBehaviour
                     cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
             else 
+            {
+                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+            }
+        }
+
+
+        //SMOOTH SLOW
+        if (smoothBracking)
+        {
+
+            directionx -= directionx * 0.05f;
+            directiony -= directiony * 0.05f;
+
+            if (directionx <= 0.01f && directionx >= -0.01f || directiony <= 0.01f && directiony >= -0.01f)
+                smoothBracking = false;
+
+            currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
+
+
+            if (cameraRotation.x + currentRotationX > 0.65)
+            {
+                lockRotationX = 0.6f;
+                if (directionx < 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+            }
+            else if (cameraRotation.x + currentRotationX < -0.8)
+            {
+                lockRotationX = -0.75f;
+                if (directionx > 0)
+                {
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                else
+                    cameraTransform.rotation = quaternion.Euler(lockRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+            }
+            else
             {
                 currentRotationX += verticalSpeed * Time.deltaTime * directionx;
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
@@ -157,10 +202,12 @@ public class CameraManager : MonoBehaviour
         {
             rightClickPushed = true;
             rightClickOnce = true;
+            smoothBracking = false;
         }
         else if (context.canceled)
         {
             rightClickPushed = false;
+            smoothBracking = true;
         }
     }
 
