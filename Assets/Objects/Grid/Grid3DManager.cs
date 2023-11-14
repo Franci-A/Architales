@@ -57,6 +57,10 @@ public class Grid3DManager : MonoBehaviour
     [Header("GameOver")]
     [SerializeField] int cubeDestroyProba;
     [SerializeField] float delayBtwBlast;
+    [SerializeField] float explosionForce;
+    [SerializeField] float radius;
+    [SerializeField] float verticalExplosionForce;
+
 
 
     private void Awake()
@@ -264,22 +268,24 @@ public class Grid3DManager : MonoBehaviour
         }
     }
 
-    public void DestroyTower()
+    public IEnumerator DestroyTower()
     {
         List<GameObject> cubes = data.GetCubes();
-        float blastDelay = 0f;
+        List<int> intcubes = new List<int>();
 
-        foreach (GameObject c in cubes)
+        for (int i = 0; i < cubes.Count; i++)
         {
-            if(Random.Range(0, 100) < cubeDestroyProba)
+            cubes[i].AddComponent<Rigidbody>();
+            if (Random.Range(0, 100) < cubeDestroyProba)
             {
-                Destroy(c, blastDelay);
-                blastDelay += delayBtwBlast;
+                intcubes.Add(i);
             }
-            else
-            {
-                c.AddComponent<Rigidbody>();
-            }
+        }
+
+        for (int i = 0;i < intcubes.Count; i++)
+        {
+            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
+            yield return new WaitForSeconds(delayBtwBlast);
         }
     }
 

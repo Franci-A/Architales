@@ -438,8 +438,11 @@ MonoBehaviour:
   - {fileID: 1734767121}
   - {fileID: 113757501}
   - {fileID: 734754258}
-  cubeDestroyProba: 20
-  delayBtwBlast: 0.05
+  cubeDestroyProba: 40
+  delayBtwBlast: 0.01
+  explosionForce: 500
+  radius: 50
+  verticalExplosionForce: 0
 --- !u!4 &290873577
 Transform:
   m_ObjectHideFlags: 0

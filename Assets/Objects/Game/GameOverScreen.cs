@@ -19,6 +19,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void DestroyTower()
     {
-        Grid3DManager.Instance.DestroyTower();
+        StartCoroutine(Grid3DManager.Instance.DestroyTower());
     }
 }
