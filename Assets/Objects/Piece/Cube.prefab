@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8510101290814484681}
   - component: {fileID: 2458965553353682385}
   - component: {fileID: 1505284695434127131}
+  - component: {fileID: 3859648317478975371}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
@@ -69,6 +70,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentResident: {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
   cube: {fileID: 4096471954504250345}
+  OnNeighborsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3859648317478975371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256096350784185207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3ddc52040347646a0078ad5968d955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  distance: 0.8
+  feedbackPopup: {fileID: 7140220009985757305, guid: 1d250b933ab4939468abbd93cdefd4e3,
+    type: 3}
 --- !u!1 &7115960694686768393
 GameObject:
   m_ObjectHideFlags: 0
