@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 498315721281090686}
   - component: {fileID: 7680735438331080007}
   - component: {fileID: 6709359141653255534}
-  - component: {fileID: 3722576817187240546}
+  - component: {fileID: 7068975156785572973}
   m_Layer: 0
   m_Name: GhostCube
   m_TagString: Untagged
@@ -181,7 +181,7 @@ MonoBehaviour:
   feedbackPopup: {fileID: 7140220009985757305, guid: 1d250b933ab4939468abbd93cdefd4e3,
     type: 3}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
---- !u!114 &3722576817187240546
+--- !u!114 &7068975156785572973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -19,6 +19,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
+    bool isBalanceBroken;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -30,10 +31,12 @@ public class Grid3DManager : MonoBehaviour
     [Header("Piece")]
     [SerializeField] PieceSO lobbyPiece; 
     [SerializeField] private Piece piece;
-    [SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
+    //[SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
+    [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
 
     [Header("Event")]
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] public EventScriptable onBalanceBroken;
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
@@ -82,13 +85,13 @@ public class Grid3DManager : MonoBehaviour
     //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.performed || isBalanceBroken) return;
         TryPlacePiece();
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.performed || isBalanceBroken) return;
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
@@ -148,24 +151,15 @@ public class Grid3DManager : MonoBehaviour
         RaycastHit hit;
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) return;
 
-        Vector3 gridPos = data.WorldToGridPosition(hit.point);
+        Vector3 gridPos = data.WorldToGridPosition(hit.point + hit.normal / 4f);
 
-        if (data.IsPiecePlaceable(piece, gridPos))
-        {
-            PlacePiece(gridPos);
-        }
-            return;
-
-        // Check one block above
-        gridPos += Vector3.up;
-
-        if(data.IsPiecePlaceable(piece, gridPos))
-            PlacePiece(gridPos);
+        if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
+            PlacePiece(validPos);
     }
 
     private void ChangePieceSORandom()
     {
-        currentPiece = pieceListRandom[Random.Range(0, pieceListRandom.Count)];
+        currentPiece = pieceListRandom.GetRandomPiece();
         cubeList = currentPiece.cubes;
     }
 
@@ -249,16 +243,23 @@ public class Grid3DManager : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(balance.x) > maxBalance)
+        if (!isBalanceBroken)
         {
-            DebugInfo[0].color = Color.red;
-            DebugInfo[1].color = Color.red;
-        }
+            if (Mathf.Abs(balance.x) > maxBalance)
+            {
+                DebugInfo[0].color = Color.red;
+                DebugInfo[1].color = Color.red;
+                isBalanceBroken = true;
+                onBalanceBroken.Call();
+            }
 
-        if (Mathf.Abs(balance.y) > maxBalance)
-        {
-            DebugInfo[2].color = Color.red;
-            DebugInfo[3].color = Color.red;
+            if (Mathf.Abs(balance.y) > maxBalance)
+            {
+                DebugInfo[2].color = Color.red;
+                DebugInfo[3].color = Color.red;
+                isBalanceBroken = true;
+                onBalanceBroken.Call();
+            }
         }
     }
 

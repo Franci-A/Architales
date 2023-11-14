@@ -33,21 +33,63 @@ public class GridData : ScriptableObject
             gridPosition.z * cellSize);
     }
 
+    /// <summary>
+    /// Checks if <paramref name="piece"/> can be placed in the Grid, at <paramref name="gridPosition"/>.
+    /// </summary>
+    /// <param name="piece">Piece layout to check</param>
+    /// <param name="gridPosition">Grid Position of the center block</param>
+    /// <returns>True if nothing blocks the <paramref name="piece"/>, and has a supporting block.</returns>
     public bool IsPiecePlaceable(Piece piece, Vector3 gridPosition)
     {
         if (piece == null || piece.Cubes.Count == 0) return false;
 
+        Vector3 blockGridPos;
         bool canPlace = false;
+        
         foreach (var block in piece.Cubes)
         {
-            if (grid.ContainsKey(block.pieceLocalPosition + gridPosition)
-                || (block.pieceLocalPosition.x + gridPosition.x == 0 && block.pieceLocalPosition.z + gridPosition.z == 0)) return false;
-           
-            // Check for existing support underneath
-            // hasSupportBlock = hasSupportBlock || instance.grid.ContainsKey(block.pieceLocalPosition + gridPosition + Vector3.down);
+            blockGridPos = block.pieceLocalPosition + gridPosition;
+
+            // False if any block is already occupied
+            if (grid.ContainsKey(blockGridPos)
+                // OR Placed in the Center
+                || (blockGridPos.x == 0 && blockGridPos.z == 0))
+                return false;
+
+            // Check for at least One existing support underneath
+            bool hasSupport = grid.ContainsKey(blockGridPos + Vector3.down);
+
+            canPlace = canPlace || hasSupport;
         }
 
-        return true;
+        return canPlace;
+    }
+
+    /// <summary>
+    /// Checks if <paramref name="piece"/> can be placed in the Grid, at <paramref name="gridPosition"/>.
+    /// Also checks for specified special cases
+    /// </summary>
+    /// <param name="piece">Piece layout to check</param>
+    /// <param name="gridPosition">Grid Position of the center block</param>
+    /// <param name="validPosition">First Valid Position for the Piece found</param>
+    /// <returns>True if a <paramref name="validPosition"/> is found for the <paramref name="piece"/> at <paramref name="gridPosition"/></returns>
+    public bool IsPiecePlaceValid(Piece piece, Vector3 gridPosition, out Vector3 validPosition)
+    {
+        Vector3 testedPosition = gridPosition;
+        bool value = IsPiecePlaceable(piece, testedPosition);
+        
+        if(value)
+        {
+            validPosition = testedPosition;
+            return true;
+        }
+
+        // Check one block above
+        testedPosition += Vector3.up * cellSize;
+        value = IsPiecePlaceable(piece, testedPosition);
+
+        validPosition = value ? testedPosition : Vector3.one * -1f;
+        return value;
     }
 
     public void AddToGrid(Vector3 gridPosition, GameObject go)

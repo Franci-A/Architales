@@ -16,6 +16,5 @@ public class ResidentHandler : MonoBehaviour
         currentResident = res;
 
         cube.SetMaterials(new List<Material>() { currentResident.blockMaterial });
-        //GetComponentInChildren<Renderer>().materials[0].SetColor("_Color", currentResident.blockColor);
     }
 }
