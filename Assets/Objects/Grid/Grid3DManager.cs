@@ -97,7 +97,7 @@ public class Grid3DManager : MonoBehaviour
 
     public void PlacePiece(Vector3 gridPos)
     {
-        var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity);
+        var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity, transform);
         PieceSO pieceSO = new PieceSO();
         pieceSO.cubes = CubeList;
         pieceSO.resident = currentPiece.resident;
