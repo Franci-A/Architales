@@ -13,6 +13,8 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Grid")]
     [SerializeField] GridData data;
+    public int GetHigherBlock { get => higherBlock; }
+    int higherBlock = 1;
 
     [Header("Weight")]
     [SerializeField] float maxBalance;
@@ -20,6 +22,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
     bool isBalanceBroken;
+    private Vector2 balance;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -29,7 +32,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private LayerMask cubeLayer;
 
     [Header("Piece")]
-    [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] PieceSO lobbyPiece;
     [SerializeField] private Piece piece;
     //[SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
@@ -37,26 +40,24 @@ public class Grid3DManager : MonoBehaviour
     [Header("Event")]
     [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] public EventScriptable onBalanceBroken;
+    public delegate void OnCubeChangeDelegate(PieceSO newPiece);
+    public event OnCubeChangeDelegate OnCubeChange;
+    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
+    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
-    
+
     private List<Cube> cubeList; // current list
     private PieceSO currentPiece; // current list
     public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
 
-    public delegate void OnCubeChangeDelegate(PieceSO newPiece);
-    public event OnCubeChangeDelegate OnCubeChange;
+    [Header("GameOver")]
+    [SerializeField] int cubeDestroyProba;
+    [SerializeField] float delayBtwBlast;
 
-    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
-    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
-
-    int higherBlock = 1;
-    public int GetHigherBlock { get => higherBlock; }
-
-    private Vector2 balance;
 
     private void Awake()
     {
@@ -259,6 +260,25 @@ public class Grid3DManager : MonoBehaviour
                 DebugInfo[3].color = Color.red;
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
+            }
+        }
+    }
+
+    public void DestroyTower()
+    {
+        List<GameObject> cubes = data.GetCubes();
+        float blastDelay = 0f;
+
+        foreach (GameObject c in cubes)
+        {
+            if(Random.Range(0, 100) < cubeDestroyProba)
+            {
+                Destroy(c, blastDelay);
+                blastDelay += delayBtwBlast;
+            }
+            else
+            {
+                c.AddComponent<Rigidbody>();
             }
         }
     }
