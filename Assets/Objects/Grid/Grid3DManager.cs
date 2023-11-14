@@ -61,9 +61,6 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] float radius;
     [SerializeField] float verticalExplosionForce;
 
-
-
-    private Vector2 balance;
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
     private void Awake()
