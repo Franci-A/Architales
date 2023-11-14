@@ -70,7 +70,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.0000019073486}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 35.2685}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7124570236589016714
@@ -144,7 +144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.008750001, y: 0.046221793}
   m_AnchorMax: {x: 0.07375, y: 0.90422183}
-  m_AnchoredPosition: {x: 1.1185913, y: -0.36741638}
+  m_AnchoredPosition: {x: 1.1186523, y: -0.36743164}
   m_SizeDelta: {x: -1.7626953, y: -1.3884888}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4520946437990881599
@@ -559,9 +559,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   balanceMultiplier: {fileID: 11400000, guid: f9682c652af877343a5b7f9a327488eb, type: 2}
+  maxBalanceAdded: {fileID: 11400000, guid: bfc35866863c6be49a4fc505293c312f, type: 2}
   numberHappyResidents: {fileID: 11400000, guid: 8535633ab17ffdb42b6b8f7ba9ec041c,
     type: 2}
   totalNumResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
+  gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
 --- !u!114 &2600243462870916630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,12 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   happySlider: {fileID: 7688954687463456783}
-  angrySlider: {fileID: 0}
-  numberAngryResidents: {fileID: 11400000, guid: e7ce16241b829134abc5209790f91843,
-    type: 2}
   numberHappyResidents: {fileID: 11400000, guid: 8535633ab17ffdb42b6b8f7ba9ec041c,
     type: 2}
-  totalResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
 --- !u!1 &8584964435966933260
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,10 +662,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 6564269934477883055}
   m_HandleRect: {fileID: 363306594672845588}
   m_Direction: 2
-  m_MinValue: -1
-  m_MaxValue: 1
+  m_MinValue: -100
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 11
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

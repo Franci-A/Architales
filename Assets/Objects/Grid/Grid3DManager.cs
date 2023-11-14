@@ -10,12 +10,12 @@ public class Grid3DManager : MonoBehaviour
     // Singleton
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance; }
+    [SerializeField] private GameplayDataSO gameplayData;
 
     [Header("Grid")]
     [SerializeField] GridData data;
 
     [Header("Weight")]
-    [SerializeField] float maxBalance;
     [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
@@ -57,6 +57,7 @@ public class Grid3DManager : MonoBehaviour
     public int GetHigherBlock { get => higherBlock; }
 
     private Vector2 balance;
+    public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
     private void Awake()
     {
@@ -201,7 +202,7 @@ public class Grid3DManager : MonoBehaviour
     private IEnumerator BalanceDisplacementRoutine()
     {
         float timer = shaderAnimTime;
-        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(balance.x), Mathf.Abs(balance.y)) / maxBalance);
+        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(BalanceValue.x), Mathf.Abs(BalanceValue.y)) / gameplayData.MaxBalance);
         float t;
         do
         {
@@ -244,7 +245,7 @@ public class Grid3DManager : MonoBehaviour
 
         if (!isBalanceBroken)
         {
-            if (Mathf.Abs(balance.x) > maxBalance)
+            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance)
             {
                 DebugInfo[0].color = Color.red;
                 DebugInfo[1].color = Color.red;
@@ -252,7 +253,7 @@ public class Grid3DManager : MonoBehaviour
                 onBalanceBroken.Call();
             }
 
-            if (Mathf.Abs(balance.y) > maxBalance)
+            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance)
             {
                 DebugInfo[2].color = Color.red;
                 DebugInfo[3].color = Color.red;
