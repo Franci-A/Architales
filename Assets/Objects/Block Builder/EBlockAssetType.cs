@@ -1,4 +1,4 @@
-public enum BlocAssetType
+public enum BlockAssetType
 {
     ANY = -1,
 

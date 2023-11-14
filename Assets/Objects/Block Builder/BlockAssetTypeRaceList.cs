@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Bloc Asset List By Race")]
-public class BlocAssetTypeRaceList : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/Block Asset List By Race")]
+public class BlockAssetTypeRaceList : ScriptableObject
 {
     [Serializable]
-    public class RaceBlocAssets
+    public class RaceBlockAssets
     {
         [Serializable]
-        public class BlocAssetByType
+        public class BlockAssetByType
         {
-            [SerializeField] private BlocAssetType type;
+            [SerializeField] private BlockAssetType type;
             [SerializeField] private List<Mesh> assets;
 
-            public BlocAssetByType(BlocAssetType type)
+            public BlockAssetByType(BlockAssetType type)
             {
                 this.type = type;
                 assets = new List<Mesh>();
@@ -24,27 +24,27 @@ public class BlocAssetTypeRaceList : ScriptableObject
         }
 
         [SerializeField] Race race;
-        [SerializeField] List<BlocAssetByType> assetTypes;
+        [SerializeField] List<BlockAssetByType> assetTypes;
 
-        public RaceBlocAssets(Race race)
+        public RaceBlockAssets(Race race)
         {
             this.race = race;
-            assetTypes = new List<BlocAssetByType>();
+            assetTypes = new List<BlockAssetByType>();
             GenerateAssetTypes();
         }
 
         private void GenerateAssetTypes()
         {
-            foreach (BlocAssetType blocType in Enum.GetValues(typeof(BlocAssetType)))
+            foreach (BlockAssetType blocType in Enum.GetValues(typeof(BlockAssetType)))
             {
                 if ((int)blocType < 0) continue;
 
-                assetTypes.Add(new BlocAssetByType(blocType));
+                assetTypes.Add(new BlockAssetByType(blocType));
             }
         }
     }
 
-    [SerializeField] private List<RaceBlocAssets> assetTypesByRace;
+    [SerializeField] private List<RaceBlockAssets> assetTypesByRace;
 
     [Button("Regenerate Lists")]
     private void GenerateAssetTypesListsByRace()
@@ -58,7 +58,7 @@ public class BlocAssetTypeRaceList : ScriptableObject
                 continue;
             }
 
-            RaceBlocAssets rba = new RaceBlocAssets(race);
+            RaceBlockAssets rba = new RaceBlockAssets(race);
             assetTypesByRace.Add(rba);
         }
     }
