@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcd3f669d313d644b7b36f48164e290, type: 3}
+  m_Name: Dragon
+  m_EditorClassIdentifier: 
+  race: 0
+  likes: 000000000100000002000000
+  dislikes: 0300000004000000
+  blockColor: {r: 1, g: 0, b: 0, a: 1}
+  blockMaterial: {fileID: 2100000, guid: 907d7e0a92ecc6c428e0a5095aefe0c0, type: 2}
