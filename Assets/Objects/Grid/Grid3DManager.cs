@@ -101,8 +101,7 @@ public class Grid3DManager : MonoBehaviour
         PieceSO pieceSO = new PieceSO();
         pieceSO.cubes = CubeList;
         pieceSO.resident = currentPiece.resident;
-        piece.ChangePiece(pieceSO);
-        piece.SpawnCubes();
+        piece.PlacePieceInFinalSpot(pieceSO);
 
         foreach (var block in piece.Cubes)
         {
