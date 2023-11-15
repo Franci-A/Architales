@@ -18,25 +18,27 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void Awake()
     {
-        
+        onPiecePlacedPiece.AddListener(OnPieceChange);
     }
 
     void Start()
     {
-        //Grid3DManager.Instance.OnCubeChange += OnPieceChange;
-        onPiecePlacedPiece.AddListener(OnPieceChange);
 
         piece = Instantiate(piecePrefab, transform);
         piece.ChangePiece(Grid3DManager.Instance.pieceSo);
         piece.SpawnCubes();
+
     }
 
     private void OnPieceChange(object _newPiece)
     {
+        if(piece == null) piece = Instantiate(piecePrefab, transform);
+
         transform.rotation = new Quaternion(0,0,0,0);
         PieceSO newPiece = (PieceSO)_newPiece;
         piece.ChangePiece(newPiece);
         piece.SpawnCubes();
+
     }
 
     private void Update()

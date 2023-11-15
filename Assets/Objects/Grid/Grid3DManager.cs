@@ -76,7 +76,10 @@ public class Grid3DManager : MonoBehaviour
         data.Initialize();
 
         onPiecePlaced.AddListener(UpdateDisplacement);
-        
+    }
+
+    private void Start()
+    {
         SpawnBase();
     }
 
@@ -102,7 +105,7 @@ public class Grid3DManager : MonoBehaviour
     public void PlacePiece(Vector3 gridPos)
     {
         var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity, transform);
-        PieceSO pieceSO = new PieceSO();
+        PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
         pieceSO.cubes = CubeList;
         pieceSO.resident = currentPiece.resident;
         piece.PlacePieceInFinalSpot(pieceSO);
@@ -137,7 +140,7 @@ public class Grid3DManager : MonoBehaviour
         if (_cubeList != CubeList)
         {
             _cubeList = CubeList;
-            PieceSO pieceSO = new PieceSO();
+            PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
             pieceSO.cubes = CubeList;
             pieceSO.resident = currentPiece.resident;
             OnCubeChange?.Invoke(pieceSO);
