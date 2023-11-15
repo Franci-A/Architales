@@ -102,16 +102,19 @@ public class Grid3DManager : MonoBehaviour
 
     public void PlacePiece(Vector3 gridPos)
     {
-        var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity, transform);
+        var piece = Instantiate(this.piece, transform);
+
         PieceSO pieceSO = new PieceSO();
         pieceSO.cubes = CubeList;
         pieceSO.resident = currentPiece.resident;
-        piece.PlacePieceInFinalSpot(pieceSO);
+
+        piece.SpawnPiece(pieceSO, gridPos);
+        piece.CheckResidentLikesImpact();
 
         foreach (var block in piece.Cubes)
         {
-            data.AddToGrid(block.pieceLocalPosition + gridPos, block.cubeGO);
-            UpdateWeight(block.pieceLocalPosition + gridPos);
+            data.AddToGrid(block.gridPosition, block.cubeGO);
+            UpdateWeight(block.gridPosition);
 
             if (block.gridPosition.y > higherBlock)
                 higherBlock = (int)block.gridPosition.y;

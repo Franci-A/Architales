@@ -6,36 +6,43 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     [SerializeField] private GridData gridData;
-    [SerializeField] private ResidentHandler cubePrefab;
+    [SerializeField] private BlockBuilder blockBuilder;
     [SerializeField] private PieceHappinessHandler happinessHandler;
 
     List<Cube> cubes = new List<Cube>();
     Resident currentResident;
     public List<Cube> Cubes { get => cubes; }
 
-    public void SpawnCubes()
+    private Vector3 baseGridPosition;
+    public Vector3 GetGridPosition { get => baseGridPosition; }
+
+    private void SpawnCubes(bool disableCollider)
     {
         foreach (var cube in cubes)
         {
-            var cubeGO = Instantiate<ResidentHandler>(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
-            cubeGO.SetResident(currentResident);
-            cubeGO.parentPiece = this;
-            cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
-            cube.cubeGO = cubeGO.gameObject;
+            cube.gridPosition = baseGridPosition + cube.pieceLocalPosition;
+
+            var instance = blockBuilder.CreateBlock(this, cube.gridPosition);
+
+            if(disableCollider)
+                instance.GetComponent<Collider>().enabled = false;
+
+            var residentHandler = instance.GetComponent<ResidentHandler>();
+            residentHandler.SetResident(currentResident);
+            residentHandler.parentPiece = this;
+            
+            cube.cubeGO = instance.gameObject;
         }
         happinessHandler.Init();
     }
 
-    public void PlacePieceInFinalSpot(PieceSO piece)
+    public void SpawnPiece(PieceSO piece, Vector3 gridPos, bool disableCollider = false)
     {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
         ChangePiece(piece);
-        SpawnCubes();
-        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
-        for (int i = 0; i < checkResidents.Length; i++)
-        {
-            checkResidents[i].CheckRelations();
-            checkResidents[i].ValidatePosition();
-        }
+        SpawnCubes(disableCollider);
     }
 
     public void ChangePiece(PieceSO piece)
@@ -93,6 +100,15 @@ public class Piece : MonoBehaviour
         return rotatedBlocks;
     }
 
+    public void CheckResidentLikesImpact()
+    {
+        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
+        for (int i = 0; i < checkResidents.Length; i++)
+        {
+            checkResidents[i].CheckRelations();
+            checkResidents[i].ValidatePosition();
+        }
+    }
 }
 
 [Serializable]

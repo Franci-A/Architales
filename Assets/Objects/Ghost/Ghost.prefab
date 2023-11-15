@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  cubePrefab: {fileID: 7068975156785572973, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
-    type: 3}
+  blockBuilder: {fileID: 11400000, guid: 30d6fcd2b59477d49a1ecaa76bfd93d2, type: 2}
   happinessHandler: {fileID: 1025595493405687021}
 --- !u!114 &1025595493405687021
 MonoBehaviour:

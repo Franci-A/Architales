@@ -32,8 +32,7 @@ public class GhostPreview : MonoBehaviour
         Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
 
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
-        ghostPiece.SpawnCubes();
+        ghostPiece.SpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition, true);
     }
 
     void Update()
@@ -60,8 +59,8 @@ public class GhostPreview : MonoBehaviour
 
     private void OnPieceChange(PieceSO newPiece)
     {
-        ghostPiece.ChangePiece(newPiece);
-        ghostPiece.SpawnCubes();
+        ghostPiece.SpawnPiece(newPiece, ghostPiece.GetGridPosition, true);
+
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)
         {
             Renderer rend = ghostPiece.Cubes[i].cubeGO.GetComponentInChildren<Renderer>();
