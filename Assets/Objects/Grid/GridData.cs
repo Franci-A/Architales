@@ -111,4 +111,15 @@ public class GridData : ScriptableObject
         foreach (var item in grid)
             item.Value.SetActive(item.Key.y < height);
     }
+
+    public List<GameObject> GetCubes()
+    {
+        List<GameObject> cubes = new List<GameObject>();
+
+        foreach (var item in grid)
+        {
+            cubes.Add(item.Value);
+        }
+        return cubes;
+    }
 }

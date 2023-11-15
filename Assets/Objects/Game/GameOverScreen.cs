@@ -16,4 +16,9 @@ public class GameOverScreen : MonoBehaviour
         Debug.Log("BackToMenu :D");
         //SceneManager.LoadScene(menu);
     }
+
+    public void DestroyTower()
+    {
+        StartCoroutine(Grid3DManager.Instance.DestroyTower());
+    }
 }

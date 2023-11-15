@@ -5,22 +5,21 @@ using UnityEngine;
 
 public class CheckResidentsLikes : MonoBehaviour
 {
-    [SerializeField] private Resident currentResident;
+    private ResidentHandler currentResident;
     [SerializeField] private LayerMask mask;
     [SerializeField] private float distance;
     [SerializeField] private FeedbackPopup feedbackPopup;
     private List<GameObject> feedbackInstances;
     private Vector3 previousPos;
     private List<Vector3> checkDirections;
-    [SerializeField] private EventScriptable onPiecePlaced;
-    int likeAmount;
+    private List<ResidentHandler> neighbors;
 
-    private void Start()
+    private void Awake()
     {
-        onPiecePlaced.AddListener(ValidatePosition);
         feedbackInstances = new List<GameObject>();
         previousPos = transform.position;
-
+        neighbors = new List<ResidentHandler>();    
+        currentResident = GetComponent<ResidentHandler>();
 
         checkDirections = new List<Vector3>
         {
@@ -46,8 +45,9 @@ public class CheckResidentsLikes : MonoBehaviour
         ClearFeedback();
 
         RaycastHit[] hit;
-
-        likeAmount = 0;
+        
+        neighbors.Clear();
+        int likeAmount = 0;
 
         for (int i = 0; i < checkDirections.Count; i++)
         {
@@ -57,7 +57,12 @@ public class CheckResidentsLikes : MonoBehaviour
                 if (hit[j].collider.gameObject != gameObject)
                 {
                     ResidentHandler collidedResident = hit[j].collider.gameObject.GetComponent<ResidentHandler>();
-                    likeAmount = currentResident.CheckLikes(collidedResident.GetResidentRace());
+
+                    if (collidedResident.parentPiece == currentResident.parentPiece)
+                        continue;
+
+                    neighbors.Add(collidedResident);
+                    likeAmount = currentResident.GetResident.CheckLikes(collidedResident.GetResidentRace);
                     if (likeAmount == 1)
                     {
                         FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity, transform);
@@ -78,6 +83,9 @@ public class CheckResidentsLikes : MonoBehaviour
 
     public void ClearFeedback()
     {
+        if (feedbackInstances == null)
+            return;
+
         for (int i = feedbackInstances.Count - 1; i >= 0; i--)
         {
             Destroy(feedbackInstances[i].gameObject);
@@ -88,16 +96,11 @@ public class CheckResidentsLikes : MonoBehaviour
     public void ValidatePosition()
     {
         ClearFeedback();
-        if(likeAmount > 0)
-            ResidentManager.Instance.UpdateHappyResidents(likeAmount);
-        else if(likeAmount < 0)
-            ResidentManager.Instance.UpdateAngryResidents(likeAmount * -1);
-        Debug.Log("like amount : " + likeAmount);
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            neighbors[i].NewNeighbors(currentResident.GetResidentRace);
+            currentResident.NewNeighbors(neighbors[i].GetResidentRace);
+        }
         Destroy(this);
-    }
-
-    private void OnDestroy()
-    {
-        onPiecePlaced.RemoveListener(ValidatePosition);
     }
 }

@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a28172561418a54d912ed1af18c75a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  maxBalance: 15
   displacementShaderMat:
   - {fileID: 2100000, guid: 907d7e0a92ecc6c428e0a5095aefe0c0, type: 2}
   - {fileID: 2100000, guid: 732c555d59adf064e9fbc97586771bf5, type: 2}
@@ -571,12 +571,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GhostBrick
       objectReference: {fileID: 0}
-    - target: {fileID: 3065538337238541913, guid: 7d8554371fd89534a8f7b1618ba68721,
-        type: 3}
-      propertyPath: cubeGO
-      value: 
-      objectReference: {fileID: 9132960200103920916, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
-        type: 3}
     - target: {fileID: 5430228627523519016, guid: 7d8554371fd89534a8f7b1618ba68721,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1029,17 +1023,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 363306594672845588, guid: 7265a61d1dc13a24588e8c97eeb669ff,
         type: 3}
-      propertyPath: m_AnchorMax.y
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3629975541818477980, guid: 7265a61d1dc13a24588e8c97eeb669ff,
+    - target: {fileID: 363306594672845588, guid: 7265a61d1dc13a24588e8c97eeb669ff,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4114589257028890959, guid: 7265a61d1dc13a24588e8c97eeb669ff,
+    - target: {fileID: 363306594672845588, guid: 7265a61d1dc13a24588e8c97eeb669ff,
         type: 3}
-      propertyPath: m_AnchorMax.y
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6144788015734396493, guid: 7265a61d1dc13a24588e8c97eeb669ff,
@@ -1090,11 +1084,6 @@ PrefabInstance:
     - target: {fileID: 6144788015734396493, guid: 7265a61d1dc13a24588e8c97eeb669ff,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6564269934477883055, guid: 7265a61d1dc13a24588e8c97eeb669ff,
-        type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8390393508980719737, guid: 7265a61d1dc13a24588e8c97eeb669ff,
