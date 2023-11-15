@@ -7,6 +7,7 @@ public class Piece : MonoBehaviour
 {
     [SerializeField] private GridData gridData;
     [SerializeField] private ResidentHandler cubePrefab;
+    [SerializeField] private PieceHappinessHandler happinessHandler;
 
     List<Cube> cubes = new List<Cube>();
     Resident currentResident;
@@ -17,9 +18,23 @@ public class Piece : MonoBehaviour
         foreach (var cube in cubes)
         {
             var cubeGO = Instantiate<ResidentHandler>(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
-            cubeGO.SetResident(currentResident);            
+            cubeGO.SetResident(currentResident);
+            cubeGO.parentPiece = this;
             cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
             cube.cubeGO = cubeGO.gameObject;
+        }
+        happinessHandler.Init();
+    }
+
+    public void PlacePieceInFinalSpot(PieceSO piece)
+    {
+        ChangePiece(piece);
+        SpawnCubes();
+        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
+        for (int i = 0; i < checkResidents.Length; i++)
+        {
+            checkResidents[i].CheckRelations();
+            checkResidents[i].ValidatePosition();
         }
     }
 

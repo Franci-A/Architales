@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "new Resident")]
+[CreateAssetMenu(menuName = "Residents/new Resident")]
 public class Resident : ScriptableObject
 {
     public Race race;
