@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 public class FeedbackPopup : MonoBehaviour
 {
-    [SerializeField] private Image image;
-    [SerializeField] private Sprite happy;
-    [SerializeField] private Sprite angry;
+    [SerializeField] private Renderer plane;
+    [SerializeField] private Material happy;
+    [SerializeField] private Material angry;
 
 
     public void InitPopup(bool isPositive)
     {
         if(isPositive) 
         { 
-            image.sprite = happy;
+            plane.material = happy; 
         }
         else
         {
-            image.sprite = angry;
+            plane.material = angry;
         }
     }
 }
