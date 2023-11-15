@@ -579,6 +579,9 @@ MonoBehaviour:
   happySlider: {fileID: 7688954687463456783}
   numberHappyResidents: {fileID: 11400000, guid: 8535633ab17ffdb42b6b8f7ba9ec041c,
     type: 2}
+  image: {fileID: 2388174547950835626}
+  happyImage: {fileID: 21300000, guid: 59dde5d4bd5c79a4f8aa2d6b51b055a4, type: 3}
+  angryImage: {fileID: 21300000, guid: 27bd4e572f846ba4898768ea28dfe3d7, type: 3}
 --- !u!1 &8584964435966933260
 GameObject:
   m_ObjectHideFlags: 0
