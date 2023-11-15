@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb3f9cfb6f342a54ba8f5e5d59d99339, type: 3}
-  m_Name: AssetsByRaceList
+  m_Name: AssetList
   m_EditorClassIdentifier: 
   assetTypesByRace:
   - race: 0

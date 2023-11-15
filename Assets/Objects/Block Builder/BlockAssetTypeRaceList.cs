@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Block Asset List By Race")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Block Builder/Asset List")]
 public class BlockAssetTypeRaceList : ScriptableObject
 {
     [Serializable]
