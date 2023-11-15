@@ -39,6 +39,7 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("Event")]
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
     [SerializeField] public EventScriptable onBalanceBroken;
     public delegate void OnCubeChangeDelegate(PieceSO newPiece);
     public event OnCubeChangeDelegate OnCubeChange;
@@ -50,6 +51,8 @@ public class Grid3DManager : MonoBehaviour
 
     private List<Cube> cubeList; // current list
     private PieceSO currentPiece; // current list
+    private PieceSO nextPiece;
+
     public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
@@ -69,16 +72,12 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-    }
-
-    private void Start()
-    {
+               
         data.Initialize();
 
         onPiecePlaced.AddListener(UpdateDisplacement);
         
         SpawnBase();
-        ChangePieceSORandom();
     }
 
     private void Update()
@@ -123,6 +122,7 @@ public class Grid3DManager : MonoBehaviour
         OnLayerCubeChange?.Invoke(higherBlock);
 
         ChangePieceSORandom();
+        onPiecePlacedPiece.Call(nextPiece);
     }
 
     private void SpawnBase()
@@ -163,8 +163,15 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        currentPiece = pieceListRandom.GetRandomPiece();
+        if(nextPiece == null)
+        {
+            nextPiece = pieceListRandom.GetRandomPiece();
+        }
+
+        currentPiece = nextPiece;
         cubeList = currentPiece.cubes;
+        nextPiece = pieceListRandom.GetRandomPiece();
+        
     }
 
     private void UpdateWeight(Vector3 gridPosistion)
