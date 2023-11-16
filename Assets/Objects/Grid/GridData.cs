@@ -109,7 +109,7 @@ public class GridData : ScriptableObject
     public void HideBlocksAtHeight(int height)
     {
         foreach (var item in grid)
-            item.Value.SetActive(item.Key.y < height);
+            item.Value.SetActive(item.Key.y <= height);
     }
 
     public List<GameObject> GetCubes()
