@@ -18,9 +18,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
 
+    [Header("Screen")]
+    [SerializeField] private Toggle fullscreenToggle;
     private void Start()
     {
-        LoadSliderVolume();
+        LoadSliderValue();
+        SetFSValue();
     }
 
     #region Main
@@ -49,7 +52,7 @@ public class MainMenu : MonoBehaviour
 
 
     #region Audio
-    public void LoadSliderVolume()
+    public void LoadSliderValue()
     {
         if (!PlayerPrefs.HasKey("MasterVolume")) PlayerPrefs.SetFloat("MasterVolume", 0.7f);
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
@@ -82,4 +85,18 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetFloat("SFXVolume", value);
     }
     #endregion
+
+    public void SetFSValue()
+    {
+        if (!PlayerPrefs.HasKey("FullScreen")) PlayerPrefs.SetInt("FullScreen", 1);
+        fullscreenToggle.isOn = PlayerPrefs.GetInt("FullScreen") > 0 ? true : false;
+        SetFullscreen(fullscreenToggle.isOn);
+    }
+
+    public void SetFullscreen(bool _bool)
+    {
+        Screen.fullScreen = _bool;
+        PlayerPrefs.SetInt("FullScreen", _bool ? 1 : 0);
+    }
+
 }
