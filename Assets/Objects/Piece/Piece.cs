@@ -8,7 +8,6 @@ public class Piece : MonoBehaviour
     [SerializeField] private GridData gridData;
     [SerializeField] private BlockBuilder blockBuilder;
     [SerializeField] private PieceHappinessHandler happinessHandler;
-    [SerializeField] private Transform visualTrans;
 
     List<Cube> cubes = new List<Cube>();
     Resident currentResident;
@@ -63,9 +62,9 @@ public class Piece : MonoBehaviour
 
         currentResident = piece.resident;
 
-        for (int i = 0; i < visualTrans.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Destroy(visualTrans.GetChild(i).gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
 
         cubes = piece.cubes;
@@ -75,9 +74,9 @@ public class Piece : MonoBehaviour
     {
         if(_cubes.Count < 0) return;
 
-        for (int i = 0; i < visualTrans.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Destroy(visualTrans.GetChild(i).gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
 
         cubes = _cubes;
