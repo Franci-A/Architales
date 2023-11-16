@@ -32,15 +32,66 @@ public class BlockBuilder : ScriptableObject
 
         var instance = Instantiate(blockPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, piece.transform);
 
-        BuildAsset(instance, gridPosition);
+        BuildAsset(instance, piece, gridPosition);
 
         return instance;
     }
 
-    private void BuildAsset(GameObject block, Vector3 gridPosition)
+    public void UpdateSurroundingBlocks(Vector3 gridPosition)
     {
-        var sockethandler = block.GetComponent<BlockSocketHandler>();
+        UpdateBlock(gridPosition + Vector3.up);
+        UpdateBlock(gridPosition + Vector3.down);
+    }
 
-        sockethandler.SetMesh(hatMesh);
+    private void UpdateBlock(Vector3 gridPosition)
+    {
+        // Exit if No existing block to Update
+        if (gridData.IsPositionFree(gridPosition))
+            return;
+
+        var block = gridData.GetBlockAtPosition(gridPosition);
+        var socketHandler = block.GetComponent<BlockSocketHandler>();
+        var residentHandler = block.GetComponent<ResidentHandler>();
+
+        var roofGridPosition = gridPosition + Vector3.up;
+
+        if (!IsPositionFree(residentHandler.parentPiece, roofGridPosition))
+            return;
+
+        socketHandler.SetMesh(null);
+    }
+
+    private void BuildAsset(GameObject block, Piece piece, Vector3 gridPosition)
+    {
+        var socketHandler = block.GetComponent<BlockSocketHandler>();
+
+        BuildRoof(socketHandler, piece, gridPosition);
+    }
+
+    private void BuildRoof(BlockSocketHandler socketHandler, Piece piece, Vector3 gridPosition)
+    {
+        var roofGridPosition = gridPosition + Vector3.up;
+
+        if (!IsPositionFree(piece, roofGridPosition))
+            return;
+
+        socketHandler.SetMesh(hatMesh);
+    }
+
+    private bool IsPositionFree(Piece piece, Vector3 gridPosition)
+    {
+        // False if Position is blocked
+        if (!gridData.IsPositionFree(gridPosition))
+            return false;
+
+        // False if Piece contains Position
+        var pieceGridPos = piece.GetGridPosition;
+        foreach (var cube in piece.Cubes)
+        {
+            if (pieceGridPos + cube.gridPosition == gridPosition)
+                return false;
+        }
+
+        return true;
     }
 }

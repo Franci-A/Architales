@@ -33,7 +33,16 @@ public class Piece : MonoBehaviour
             
             cube.cubeGO = instance.gameObject;
         }
+
         happinessHandler.Init();
+    }
+
+    private void UpdateCubes()
+    {
+        foreach (var cube in cubes)
+        {
+            blockBuilder.UpdateSurroundingBlocks(cube.gridPosition);
+        }
     }
 
     public void SpawnPiece(PieceSO piece, Vector3 gridPos, bool disableCollider = false)
@@ -43,6 +52,8 @@ public class Piece : MonoBehaviour
 
         ChangePiece(piece);
         SpawnCubes(disableCollider);
+
+        UpdateCubes();
     }
 
     public void ChangePiece(PieceSO piece)
