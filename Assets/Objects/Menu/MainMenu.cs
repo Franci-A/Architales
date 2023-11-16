@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -20,10 +21,16 @@ public class MainMenu : MonoBehaviour
 
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
+    [SerializeField] private TextMeshProUGUI resText;
+    [SerializeField] List<Vector2> resolutionList = new List<Vector2>(); // x = width, y = height
+    private int resId;
+    private bool boolFullScreen;
+
+
     private void Start()
     {
         LoadSliderValue();
-        SetFSValue();
+        GetScreenValue();
     }
 
     #region Main
@@ -46,7 +53,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        UnityEngine.Application.Quit();
     }
     #endregion
 
@@ -86,17 +93,49 @@ public class MainMenu : MonoBehaviour
     }
     #endregion
 
-    public void SetFSValue()
+    void GetScreenValue()
     {
         if (!PlayerPrefs.HasKey("FullScreen")) PlayerPrefs.SetInt("FullScreen", 1);
-        fullscreenToggle.isOn = PlayerPrefs.GetInt("FullScreen") > 0 ? true : false;
-        SetFullscreen(fullscreenToggle.isOn);
+        boolFullScreen = PlayerPrefs.GetInt("FullScreen") > 0 ? true : false;
+        fullscreenToggle.isOn = boolFullScreen;
+
+        if (!PlayerPrefs.HasKey("ResolutionId")) PlayerPrefs.SetInt("ResolutionId", 0);
+        resId = PlayerPrefs.GetInt("ResolutionId");
+        resText.text = $"{resolutionList[resId].x} x {resolutionList[resId].y}";
+
+        ApplyGraphics();
+    }
+
+    public void ApplyGraphics()
+    {
+        PlayerPrefs.SetInt("FullScreen", boolFullScreen ? 1 : 0);
+        PlayerPrefs.SetInt("ResolutionId", resId);
+
+        UnityEngine.Screen.SetResolution((int)resolutionList[resId].x, (int)resolutionList[resId].y, fullscreenToggle.isOn);
     }
 
     public void SetFullscreen(bool _bool)
     {
-        Screen.fullScreen = _bool;
-        PlayerPrefs.SetInt("FullScreen", _bool ? 1 : 0);
+        boolFullScreen = _bool;
     }
+
+    public void ReduceRes()
+    {
+        resId--;
+        if(resId < 0) resId =  0;
+
+        resText.text = $"{resolutionList[resId].x} x {resolutionList[resId].y}";
+    }
+
+    public void IncreaseRes()
+    {
+        resId++;
+        if (resId >= resolutionList.Count) resId = resolutionList.Count - 1;
+
+        resText.text = $"{resolutionList[resId].x} x {resolutionList[resId].y}";
+    }
+
+
+
 
 }
