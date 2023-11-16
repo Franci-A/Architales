@@ -29,7 +29,7 @@ public class ResidentHandler : MonoBehaviour
     public void NewNeighbors(Race neighbors)
     {
         int likes = currentResident.CheckLikes(neighbors);
-        Debug.Log(currentResident.race.ToString() + " added value : " + likes +  " current block value before: " +currentBlockLikeValue);
+        //Debug.Log(currentResident.race.ToString() + " added value : " + likes +  " current block value before: " +currentBlockLikeValue);
         currentBlockLikeValue += likes;
         OnNeighborsChanged?.Invoke();
     }
