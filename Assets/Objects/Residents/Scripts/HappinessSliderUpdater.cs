@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +13,15 @@ public class HappinessSliderUpdater : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private Sprite happyImage;
     [SerializeField] private Sprite angryImage;
-
+    [SerializeField] private TextMeshProUGUI currentNumberText;
+    [SerializeField] private GameplayDataSO gameplayData;
 
 
     private void Start()
     {
         numberHappyResidents.OnValueChanged.AddListener(UpdateSliderValue);
+        happySlider.minValue = - gameplayData.residentAngryLevels.OrderByDescending(x => x.numberOfResidents).First().numberOfResidents;
+        happySlider.maxValue = gameplayData.residentHappinessLevels.OrderByDescending(x => x.numberOfResidents).First().numberOfResidents;
         UpdateSliderValue();
     }
 
@@ -30,6 +35,7 @@ public class HappinessSliderUpdater : MonoBehaviour
         {
             image.sprite = angryImage;
         }
+        currentNumberText.text = numberHappyResidents.value.ToString();
     }
 
     private void OnDestroy()
