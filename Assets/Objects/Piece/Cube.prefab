@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentResident: {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
   cube: {fileID: 4096471954504250345}
+  parentPiece: {fileID: 0}
   OnNeighborsChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -89,7 +90,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   distance: 0.8
-  feedbackPopup: {fileID: 7140220009985757305, guid: 1d250b933ab4939468abbd93cdefd4e3,
+  feedbackPopup: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
     type: 3}
 --- !u!1 &7115960694686768393
 GameObject:
