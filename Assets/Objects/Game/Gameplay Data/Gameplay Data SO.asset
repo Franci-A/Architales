@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b7f6ee6eb1d824a92f0f432d361cd6, type: 3}
   m_Name: Gameplay Data SO
   m_EditorClassIdentifier: 
-  maxBalance: 10
+  maxBalance: 100
   balanceAddedVariable: {fileID: 11400000, guid: bfc35866863c6be49a4fc505293c312f,
     type: 2}
   residentHappinessLevels:
