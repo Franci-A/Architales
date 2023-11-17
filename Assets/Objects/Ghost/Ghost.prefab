@@ -84,6 +84,7 @@ MonoBehaviour:
     type: 3}
   likeColor: {r: 0, g: 1, b: 0, a: 1}
   dislikeColor: {r: 1, g: 0, b: 0, a: 1}
+  isAcive: 0
 --- !u!1 &4603434525686451088
 GameObject:
   m_ObjectHideFlags: 0
