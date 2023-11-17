@@ -117,7 +117,6 @@ public class Piece : MonoBehaviour
     {
         CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
         checkResidents.Init(Cubes);
-        checkResidents.Init(Cubes);
         checkResidents.CheckRelations();
         checkResidents.ValidatePosition();
     }
