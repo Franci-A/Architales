@@ -197,8 +197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 5292328084936478224}
   image: {fileID: 1273780198757318086}
-  happy: {fileID: 21300000, guid: 59dde5d4bd5c79a4f8aa2d6b51b055a4, type: 3}
-  angry: {fileID: 21300000, guid: 27bd4e572f846ba4898768ea28dfe3d7, type: 3}
+  happy: {fileID: 21300000, guid: 92b614b3313d973498669d77197978ca, type: 3}
+  angry: {fileID: 21300000, guid: bc01c6653a928234bb411c78a37721b9, type: 3}
   animTime: 0.5
 --- !u!1 &5292328084936478224
 GameObject:

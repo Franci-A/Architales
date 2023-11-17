@@ -769,6 +769,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3768419031480591935, guid: 7265a61d1dc13a24588e8c97eeb669ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 7.3268127
+      objectReference: {fileID: 0}
     - target: {fileID: 6144788015734396493, guid: 7265a61d1dc13a24588e8c97eeb669ff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1264,6 +1269,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FeedbackPopup
       objectReference: {fileID: 0}
+    - target: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
+        type: 3}
+      propertyPath: angry
+      value: 
+      objectReference: {fileID: 21300000, guid: bc01c6653a928234bb411c78a37721b9,
+        type: 3}
+    - target: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
+        type: 3}
+      propertyPath: happy
+      value: 
+      objectReference: {fileID: 21300000, guid: 92b614b3313d973498669d77197978ca,
+        type: 3}
     - target: {fileID: 5354410659170059702, guid: 1d250b933ab4939468abbd93cdefd4e3,
         type: 3}
       propertyPath: m_LocalPosition.x
