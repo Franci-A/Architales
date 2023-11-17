@@ -16,14 +16,18 @@ MonoBehaviour:
   balanceAddedVariable: {fileID: 11400000, guid: bfc35866863c6be49a4fc505293c312f,
     type: 2}
   residentHappinessLevels:
-  - numberOfResidents: 10
+  - numberOfResidents: 1
     maxBalanceAddedValue: 20
-  - numberOfResidents: 20
+  - numberOfResidents: 2
+    maxBalanceAddedValue: 50
+  - numberOfResidents: 3
     maxBalanceAddedValue: 50
   residentAngryLevels:
-  - numberOfResidents: 10
+  - numberOfResidents: 1
+    balanceMultiplier: 0.8
+  - numberOfResidents: -1
     balanceMultiplier: 1.1
-  - numberOfResidents: 20
+  - numberOfResidents: -2
     balanceMultiplier: 1.2
   balanceMultiplierVariable: {fileID: 11400000, guid: f9682c652af877343a5b7f9a327488eb,
     type: 2}
