@@ -18,7 +18,10 @@ public class ResidentHandler : MonoBehaviour
 
 
     public UnityEvent OnNeighborsChanged;
-    
+
+
+    private Vector3 debugPosition;
+    private float debugDistance = .5f;
     public void SetResident(Resident res)
     {
         currentResident = res;
@@ -35,4 +38,24 @@ public class ResidentHandler : MonoBehaviour
     }
 
     //add change neighbor if jenga mechanic is added
+
+    public void ShowRelationsMaterial(Vector3 position, Color color)
+    {
+        cube.materials[0].SetFloat("_UseOutline", 1);
+        cube.materials[0].SetVector("_Position", position);
+        cube.materials[0].SetColor("_OutlineColor", color);
+        debugPosition = position;
+        debugDistance= cube.materials[0].GetFloat("_OutlineDistance");
+    }
+    
+    public void RemoveRelationsMaterial()
+    {
+        cube?.materials[0].SetFloat("_UseOutline", 0);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(debugPosition, debugDistance);
+    }
 }

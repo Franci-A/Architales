@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5430228627523519016}
   - component: {fileID: 3065538337238541913}
   - component: {fileID: 1025595493405687021}
+  - component: {fileID: -6084134693793303192}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -63,6 +64,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9782cb9e3e1418498082933bf0ada07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6084134693793303192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595983600034602004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d3ddc52040347646a0078ad5968d955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  distance: 0.8
+  feedbackPopup: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
+    type: 3}
+  likeColor: {r: 0, g: 1, b: 0, a: 1}
+  dislikeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &4603434525686451088
 GameObject:
   m_ObjectHideFlags: 0

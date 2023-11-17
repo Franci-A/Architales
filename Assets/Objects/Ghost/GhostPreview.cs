@@ -20,6 +20,7 @@ public class GhostPreview : MonoBehaviour
     [SerializeField] private LayerMask cubeLayer;
 
     Piece ghostPiece;
+    private CheckResidentsLikes likes;
 
     void Awake()
     {
@@ -34,6 +35,7 @@ public class GhostPreview : MonoBehaviour
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
         ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
         ghostPiece.SpawnCubes();
+        likes = GetComponentInChildren<CheckResidentsLikes>();
     }
 
     void Update()
@@ -60,6 +62,7 @@ public class GhostPreview : MonoBehaviour
 
     private void OnPieceChange(PieceSO newPiece)
     {
+        likes.isAcive = false;
         ghostPiece.ChangePiece(newPiece);
         ghostPiece.SpawnCubes();
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)
@@ -71,6 +74,7 @@ public class GhostPreview : MonoBehaviour
         float alpha = validColor.a;
         validColor = newPiece.resident.blockColor;
         validColor.a = alpha;
+        likes.Init(ghostPiece.Cubes);
     }
 
     private void OnDestroy()
