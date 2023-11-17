@@ -115,12 +115,11 @@ public class Piece : MonoBehaviour
 
     public void CheckResidentLikesImpact()
     {
-        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
-        for (int i = 0; i < checkResidents.Length; i++)
-        {
-            checkResidents[i].CheckRelations();
-            checkResidents[i].ValidatePosition();
-        }
+        CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
+        checkResidents.Init(Cubes);
+        checkResidents.Init(Cubes);
+        checkResidents.CheckRelations();
+        checkResidents.ValidatePosition();
     }
 }
 
