@@ -52,6 +52,8 @@ MonoBehaviour:
     type: 3}
   happinessHandler: {fileID: 993482265561374568}
   visualTrans: {fileID: 3540457853214231084}
+  smokeVFX: {fileID: 1907484227110686994, guid: b07bc0b208c88f04dac5f89bf0352604,
+    type: 3}
 --- !u!114 &993482265561374568
 MonoBehaviour:
   m_ObjectHideFlags: 0
