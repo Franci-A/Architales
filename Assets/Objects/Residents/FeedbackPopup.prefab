@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 161727065543619600}
   - component: {fileID: 469041970558934163}
   - component: {fileID: 1273780198757318086}
+  - component: {fileID: 1591187386894639045}
   m_Layer: 0
   m_Name: Reactions
   m_TagString: Untagged
@@ -150,6 +151,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1591187386894639045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3048102203762735782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43593a2f5d17dec4fb50197258ed5fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3260574428223650191
 GameObject:
   m_ObjectHideFlags: 0

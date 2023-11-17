@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mermaid
-  m_Shader: {fileID: -6465566751694194690, guid: e9cf23574bfb5b14dab6d5971e4d4a09,
+  m_Shader: {fileID: -6465566751694194690, guid: e93257fb769b487408ff90e7a1c02c61,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -117,6 +117,7 @@ Material:
     - _MaxHeight: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _OutlineDistance: 0.7
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -128,6 +129,7 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UseAngle: 0
+    - _UseOutline: 0
     - _Value: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -136,5 +138,7 @@ Material:
     - _Color: {r: 0.22745094, g: 0.91973495, b: 0.9921568, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LeaningDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 1, g: 0, b: 0, a: 0}
+    - _Position: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
