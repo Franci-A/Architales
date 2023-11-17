@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3679bc783f0cd5d47b47ccacbb49ebef, type: 3}
   m_Name: BalanceMultiplier
   m_EditorClassIdentifier: 
-  value: 0
+  value: 1
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
