@@ -7,6 +7,10 @@ public class Piece : MonoBehaviour
 {
     [SerializeField] private GridData gridData;
     [SerializeField] private ResidentHandler cubePrefab;
+    [SerializeField] private PieceHappinessHandler happinessHandler;
+    [SerializeField] private Transform visualTrans;
+
+    [SerializeField] private GameObject smokeVFX;
 
     List<Cube> cubes = new List<Cube>();
     Resident currentResident;
@@ -16,11 +20,28 @@ public class Piece : MonoBehaviour
     {
         foreach (var cube in cubes)
         {
-            var cubeGO = Instantiate<ResidentHandler>(cubePrefab, transform.position + cube.pieceLocalPosition, transform.rotation, transform);
-            cubeGO.SetResident(currentResident);            
+            var cubeGO = Instantiate<ResidentHandler>(cubePrefab, visualTrans.position + cube.pieceLocalPosition, visualTrans.rotation, visualTrans);
+            cubeGO.SetResident(currentResident);
+            cubeGO.parentPiece = this;
             cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
             cube.cubeGO = cubeGO.gameObject;
         }
+        happinessHandler.Init();
+    }
+
+    public void PlacePieceInFinalSpot(PieceSO piece)
+    {
+        ChangePiece(piece);
+        SpawnCubes();
+        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
+        for (int i = 0; i < checkResidents.Length; i++)
+        {
+            checkResidents[i].CheckRelations();
+            checkResidents[i].ValidatePosition();
+        }
+        Debug.Log($"{centerLowerPiecePos(piece)} - {transform.position} = {transform.position - centerLowerPiecePos(piece)}");
+        var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
+        Destroy(vfx, 3);
     }
 
     public void ChangePiece(PieceSO piece)
@@ -29,9 +50,9 @@ public class Piece : MonoBehaviour
 
         currentResident = piece.resident;
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < visualTrans.childCount; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            Destroy(visualTrans.GetChild(i).gameObject);
         }
 
         cubes = piece.cubes;
@@ -41,9 +62,9 @@ public class Piece : MonoBehaviour
     {
         if(_cubes.Count < 0) return;
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < visualTrans.childCount; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            Destroy(visualTrans.GetChild(i).gameObject);
         }
 
         cubes = _cubes;
@@ -76,6 +97,52 @@ public class Piece : MonoBehaviour
 
         ChangeCubes(rotatedBlocks);
         return rotatedBlocks;
+    }
+
+    public Vector3 centerPiecePos(PieceSO _piece)
+    {
+        float minX = 0;
+        float maxX = 0;
+        float minY = 0;
+        float maxY = 0;
+        float minZ = 0;
+        float maxZ = 0;
+
+        foreach (var cube in _piece.cubes)
+        {
+            if (cube.pieceLocalPosition.x < minX) minX = cube.pieceLocalPosition.x;
+            else if (cube.pieceLocalPosition.x > maxX) maxX = cube.pieceLocalPosition.x;
+
+            if (cube.pieceLocalPosition.y < minY) minY = cube.pieceLocalPosition.y;
+            else if (cube.pieceLocalPosition.y > maxY) maxY = cube.pieceLocalPosition.y;
+
+            if (cube.pieceLocalPosition.z < minZ) minZ = cube.pieceLocalPosition.z;
+            else if (cube.pieceLocalPosition.z > maxZ) maxZ = cube.pieceLocalPosition.z;
+        }
+
+        return new Vector3((maxX + minX) / -2, (maxY + minY) / -2, (maxZ + minZ) / -2);
+    }
+
+    public Vector3 centerLowerPiecePos(PieceSO _piece)
+    {
+        float minX = 0;
+        float maxX = 0;
+        float minY = 0;
+        float minZ = 0;
+        float maxZ = 0;
+
+        foreach (var cube in _piece.cubes)
+        {
+            if (cube.pieceLocalPosition.x < minX) minX = cube.pieceLocalPosition.x;
+            else if (cube.pieceLocalPosition.x > maxX) maxX = cube.pieceLocalPosition.x;
+
+            if (cube.pieceLocalPosition.y < minY) minY = cube.pieceLocalPosition.y;
+
+            if (cube.pieceLocalPosition.z < minZ) minZ = cube.pieceLocalPosition.z;
+            else if (cube.pieceLocalPosition.z > maxZ) maxZ = cube.pieceLocalPosition.z;
+        }
+
+        return new Vector3((maxX + minX) / -2, (minY) / -2, (maxZ + minZ) / -2);
     }
 
 }

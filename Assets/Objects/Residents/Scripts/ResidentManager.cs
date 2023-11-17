@@ -6,25 +6,73 @@ public class ResidentManager : MonoBehaviour
 {
     public static ResidentManager Instance;
     [SerializeField] private FloatVariable balanceMultiplier;
-    [SerializeField] private IntVariable numberAngryResidents;
+    [SerializeField] private FloatVariable maxBalanceAdded;
     [SerializeField] private IntVariable numberHappyResidents;
     [SerializeField] private IntVariable totalNumResidents;
-
+    [SerializeField] private GameplayDataSO gameplayData;
     private void Awake()
     {
         Instance = this;
-        numberAngryResidents.SetValue(0);
         numberHappyResidents.SetValue(0);
         totalNumResidents.SetValue(0);
+        maxBalanceAdded.SetValue(0);
+        balanceMultiplier.SetValue(1);
     }
 
-    public void UpdateHappyResidents(int value)
+    public void UpdateResidentsHappiness(int value)
     {
         numberHappyResidents.Add(value);
-    }
-    
-    public void UpdateAngryResidents(int value)
-    {
-        numberAngryResidents.Add(value);
+        if(numberHappyResidents.value > 0)
+        {
+            float max = 0;
+            for (int i = 0; i < gameplayData.residentHappinessLevels.Count; i++)
+            {
+                if(numberHappyResidents.value > gameplayData.residentHappinessLevels[i].numberOfResidents && gameplayData.residentHappinessLevels[i].maxBalanceAddedValue > max)
+                {
+                    max = gameplayData.residentHappinessLevels[i].maxBalanceAddedValue;
+                }
+            }
+            maxBalanceAdded.SetValue(max);
+
+        }
+        else
+        {
+            maxBalanceAdded.SetValue(0);
+        }
+
+
+        if (numberHappyResidents.value > 0)
+        {
+            float multiplier = 1;
+            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
+            {
+                if (gameplayData.residentAngryLevels[i].numberOfResidents < 0)
+                    continue;
+                if (numberHappyResidents.value >= gameplayData.residentAngryLevels[i].numberOfResidents && multiplier > gameplayData.residentAngryLevels[i].balanceMultiplier)
+                {
+                    multiplier = gameplayData.residentAngryLevels[i].balanceMultiplier;
+                }
+            }
+            balanceMultiplier.SetValue(multiplier);
+
+        }
+        else if(numberHappyResidents.value < 0)
+        {
+            float multiplier = 1;
+            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
+            {
+                if (gameplayData.residentAngryLevels[i].numberOfResidents > 0)
+                    continue;
+                if (numberHappyResidents.value <= gameplayData.residentAngryLevels[i].numberOfResidents && multiplier < gameplayData.residentAngryLevels[i].balanceMultiplier)
+                {
+                    multiplier = gameplayData.residentAngryLevels[i].balanceMultiplier;
+                }
+            }
+            balanceMultiplier.SetValue(multiplier);
+        }
+        else
+        {
+            balanceMultiplier.SetValue(1);
+        }
     }
 }

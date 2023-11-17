@@ -1,0 +1,49 @@
+using HelperScripts.EventSystem;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class RotatingPiecePreview : MonoBehaviour
+{
+    [Header("Event")]
+    [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
+
+    [Header("Piece")]
+    [SerializeField] Piece piecePrefab;
+    Piece piece;
+
+    [Header("Rotation")]
+    [SerializeField] Vector3 rotationVector;
+    [SerializeField] float rotationSpeed;
+    Transform parent;
+
+    private void Awake()
+    {
+        onPiecePlacedPiece.AddListener(OnPieceChange);
+        parent = transform.GetChild(0);
+    }
+
+    private void OnPieceChange(object _newPiece)
+    {
+        if (piece == null)
+        {
+            piece = Instantiate(piecePrefab, transform);
+            piece.transform.SetParent(parent);
+        }
+
+        //piece.transform.SetParent(null);
+
+        parent.rotation = new Quaternion(0,0,0,0);
+        PieceSO newPiece = (PieceSO)_newPiece;
+        piece.ChangePiece(newPiece);
+        piece.SpawnCubes();
+
+        piece.transform.localPosition = piece.centerPiecePos(newPiece);
+
+    }
+
+    private void Update()
+    {
+        parent.transform.Rotate(rotationVector, rotationSpeed, Space.World);
+    }
+}
