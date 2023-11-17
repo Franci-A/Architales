@@ -11,7 +11,6 @@ public class BlockBuilder : ScriptableObject
 
     [SerializeField] private Mesh hatMesh;
 
-    //public GameObject CreateBlock(Race race, Piece piece, Vector3 gridPosition)
     public GameObject CreateBlock(Piece piece, Vector3 gridPosition)
     {
         /// Infos Necéssaires pour construire le bloc
@@ -64,18 +63,19 @@ public class BlockBuilder : ScriptableObject
     private void BuildAsset(GameObject block, Piece piece, Vector3 gridPosition)
     {
         var socketHandler = block.GetComponent<BlockSocketHandler>();
+        Race race = piece.GetResident.race;
 
-        BuildRoof(socketHandler, piece, gridPosition);
+        BuildRoof(socketHandler, piece, race, gridPosition);
     }
 
-    private void BuildRoof(BlockSocketHandler socketHandler, Piece piece, Vector3 gridPosition)
+    private void BuildRoof(BlockSocketHandler socketHandler, Piece piece, Race race, Vector3 gridPosition)
     {
         var roofGridPosition = gridPosition + Vector3.up;
 
         if (!IsPositionFree(piece, roofGridPosition))
             return;
 
-        socketHandler.SetMesh(hatMesh);
+        socketHandler.SetMesh(blockAssetList.GetMeshByRaceAndType(race, BlockAssetType.ROOF));
     }
 
     private bool IsPositionFree(Piece piece, Vector3 gridPosition)

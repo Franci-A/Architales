@@ -1,65 +1,78 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Block Builder/Asset List")]
-public class BlockAssetTypeRaceList : ScriptableObject
+public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
 {
     [Serializable]
-    public class RaceBlockAssets
+    private class RaceAssetTypeMesh
     {
-        [Serializable]
-        public class BlockAssetByType
+        [SerializeField] private RaceAssetTypePair pair;
+        public RaceAssetTypePair Pair { get => pair; }
+
+        [SerializeField] private Mesh mesh;
+        public Mesh AssetMesh { get => mesh; }
+
+        public RaceAssetTypeMesh(RaceAssetTypePair pair)
         {
-            [SerializeField] private BlockAssetType type;
-            [SerializeField] private List<Mesh> assets;
-
-            public BlockAssetByType(BlockAssetType type)
-            {
-                this.type = type;
-                assets = new List<Mesh>();
-            }
+            this.pair = pair;
+            mesh = null;
         }
+    }
 
-        [SerializeField] Race race;
-        [SerializeField] List<BlockAssetByType> assetTypes;
+    [Serializable]
+    private struct RaceAssetTypePair
+    {
+        public Race race;
+        public BlockAssetType assetType;
 
-        public RaceBlockAssets(Race race)
+        public RaceAssetTypePair(Race race, BlockAssetType assetType)
         {
             this.race = race;
-            assetTypes = new List<BlockAssetByType>();
-            GenerateAssetTypes();
+            this.assetType = assetType;
         }
+    }
 
-        private void GenerateAssetTypes()
+    [SerializeField] private List<RaceAssetTypeMesh> assetDatabase;
+
+    private Dictionary<RaceAssetTypePair, Mesh> assetDictionnary;
+
+    public void Initialize()
+    {
+        // Dictionnaries can't be Serialized, Need to be Initialized
+        GenerateDictionnary();
+    }
+
+    public Mesh GetMeshByRaceAndType(Race race, BlockAssetType type)
+    {
+        RaceAssetTypePair pair = new RaceAssetTypePair(race, type);
+        return assetDictionnary[pair];
+    }
+
+    [Button("Regenerate Empty Editor Database")]
+    private void GenerateEmptyDatabase()
+    {
+        assetDatabase.Clear();
+
+        foreach (BlockAssetType type in Enum.GetValues(typeof(BlockAssetType)))
         {
-            foreach (BlockAssetType blocType in Enum.GetValues(typeof(BlockAssetType)))
+            foreach (Race race in Enum.GetValues(typeof(Race)))
             {
-                if ((int)blocType < 0) continue;
-
-                assetTypes.Add(new BlockAssetByType(blocType));
+                RaceAssetTypePair pair = new RaceAssetTypePair(race, type);
+                assetDatabase.Add(new RaceAssetTypeMesh(pair));
             }
         }
     }
 
-    [SerializeField] private List<RaceBlockAssets> assetTypesByRace;
-
-    [Button("Regenerate Lists")]
-    private void GenerateAssetTypesListsByRace()
+    [Button("Regenerate Internal Database")]
+    private void GenerateDictionnary()
     {
-        assetTypesByRace.Clear();
-
-        foreach (Race race in Enum.GetValues(typeof(Race)))
+        assetDictionnary = new();
+        foreach (var data in assetDatabase)
         {
-            if ((int)race < 0)
-            {
-                continue;
-            }
-
-            RaceBlockAssets rba = new RaceBlockAssets(race);
-            assetTypesByRace.Add(rba);
+            assetDictionnary.Add(data.Pair, data.AssetMesh);
         }
     }
 }

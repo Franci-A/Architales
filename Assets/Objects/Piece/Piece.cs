@@ -10,8 +10,10 @@ public class Piece : MonoBehaviour
     [SerializeField] private PieceHappinessHandler happinessHandler;
 
     List<Cube> cubes = new List<Cube>();
-    Resident currentResident;
     public List<Cube> Cubes { get => cubes; }
+
+    private Resident currentResident;
+    public Resident GetResident { get => currentResident; }
 
     private Vector3 baseGridPosition;
     public Vector3 GetGridPosition { get => baseGridPosition; }

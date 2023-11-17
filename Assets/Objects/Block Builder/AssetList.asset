@@ -12,70 +12,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3f9cfb6f342a54ba8f5e5d59d99339, type: 3}
   m_Name: AssetList
   m_EditorClassIdentifier: 
-  assetTypesByRace:
-  - race: 0
-    assetTypes:
-    - type: 0
-      assets:
-      - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 1
-      assets:
-      - {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 2
-      assets:
-      - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - race: 1
-    assetTypes:
-    - type: 0
-      assets:
-      - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 1
-      assets:
-      - {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 2
-      assets:
-      - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - race: 2
-    assetTypes:
-    - type: 0
-      assets:
-      - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 1
-      assets:
-      - {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 2
-      assets:
-      - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - race: 3
-    assetTypes:
-    - type: 0
-      assets:
-      - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 1
-      assets:
-      - {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 2
-      assets:
-      - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - race: 4
-    assetTypes:
-    - type: 0
-      assets:
-      - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 1
-      assets:
-      - {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 2
-      assets:
-      - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - race: 5
-    assetTypes:
-    - type: 0
-      assets:
-      - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 1
-      assets:
-      - {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-    - type: 2
-      assets:
-      - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  assetDatabase:
+  - pair:
+      race: 0
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 1
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 2
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 3
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 4
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 5
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 0
+      assetType: 1
+    mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - pair:
+      race: 1
+      assetType: 1
+    mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  - pair:
+      race: 2
+      assetType: 1
+    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - pair:
+      race: 3
+      assetType: 1
+    mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  - pair:
+      race: 4
+      assetType: 1
+    mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  - pair:
+      race: 5
+      assetType: 1
+    mesh: {fileID: 0}
+  - pair:
+      race: 0
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 1
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 2
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 3
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 4
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 5
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 0
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 1
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 2
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 3
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 4
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 5
+      assetType: -1
+    mesh: {fileID: 0}

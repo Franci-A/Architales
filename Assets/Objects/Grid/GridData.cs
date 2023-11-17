@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Grid Data")]
-public class GridData : ScriptableObject
+public class GridData : ScriptableObject, InitializeOnAwake
 {
     // Size of a block, WorldToGrid not working with every value
     [SerializeField] private float cellSize = 1; // WIP. DO NOT MODIFY YET
