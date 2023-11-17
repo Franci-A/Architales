@@ -58,7 +58,6 @@ public class CheckResidentsLikes : MonoBehaviour
 
     public void CheckRelations()
     {
-        Debug.Log("check");
         RaycastHit[] hit;
 
         List<ResidentHandler> residents = new List<ResidentHandler>();

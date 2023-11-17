@@ -63,6 +63,7 @@ public class GhostPreview : MonoBehaviour
     private void OnPieceChange(PieceSO newPiece)
     {
         likes.isAcive = false;
+        likes.ClearFeedback();
         ghostPiece.ChangePiece(newPiece);
         ghostPiece.SpawnCubes();
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)

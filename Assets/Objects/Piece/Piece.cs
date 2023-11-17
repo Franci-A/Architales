@@ -33,7 +33,6 @@ public class Piece : MonoBehaviour
         SpawnCubes();
         CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
         checkResidents.Init(Cubes);
-        checkResidents.Init(Cubes);
         checkResidents.CheckRelations();
         checkResidents.ValidatePosition();
     }

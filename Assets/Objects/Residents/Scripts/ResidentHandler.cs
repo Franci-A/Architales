@@ -52,10 +52,4 @@ public class ResidentHandler : MonoBehaviour
     {
         cube?.materials[0].SetFloat("_UseOutline", 0);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(debugPosition, debugDistance);
-    }
 }
