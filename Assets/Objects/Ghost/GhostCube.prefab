@@ -173,14 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3ddc52040347646a0078ad5968d955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentResident: {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
   mask:
     serializedVersion: 2
     m_Bits: 128
   distance: 0.8
-  feedbackPopup: {fileID: 7140220009985757305, guid: 1d250b933ab4939468abbd93cdefd4e3,
+  feedbackPopup: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
     type: 3}
-  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
 --- !u!114 &7068975156785572973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,5 +191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222e2eb1b9a489b42bc75b0a5de556fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentResident: {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
+  currentResident: {fileID: 11400000, guid: 217319983832e7b49ad9fad54632e845, type: 2}
   cube: {fileID: 4528809903238875770}
+  parentPiece: {fileID: 0}
+  OnNeighborsChanged:
+    m_PersistentCalls:
+      m_Calls: []

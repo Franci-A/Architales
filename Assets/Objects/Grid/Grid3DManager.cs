@@ -10,16 +10,19 @@ public class Grid3DManager : MonoBehaviour
     // Singleton
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance; }
+    [SerializeField] private GameplayDataSO gameplayData;
 
     [Header("Grid")]
     [SerializeField] GridData data;
+    public int GetHigherBlock { get => higherBlock; }
+    int higherBlock = 1;
 
     [Header("Weight")]
-    [SerializeField] float maxBalance;
     [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
     bool isBalanceBroken;
+    private Vector2 balance;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -29,34 +32,39 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private LayerMask cubeLayer;
 
     [Header("Piece")]
-    [SerializeField] PieceSO lobbyPiece; 
+    [SerializeField] PieceSO lobbyPiece;
     [SerializeField] private Piece piece;
     //[SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
 
     [Header("Event")]
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
     [SerializeField] public EventScriptable onBalanceBroken;
+    public delegate void OnCubeChangeDelegate(PieceSO newPiece);
+    public event OnCubeChangeDelegate OnCubeChange;
+    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
+    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
-    
+
     private List<Cube> cubeList; // current list
     private PieceSO currentPiece; // current list
+    private PieceSO nextPiece;
+
     public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
 
-    public delegate void OnCubeChangeDelegate(PieceSO newPiece);
-    public event OnCubeChangeDelegate OnCubeChange;
+    [Header("GameOver")]
+    [SerializeField] int cubeDestroyProba;
+    [SerializeField] float delayBtwBlast;
+    [SerializeField] float explosionForce;
+    [SerializeField] float radius;
+    [SerializeField] float verticalExplosionForce;
 
-    public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
-    public event OnLayerCubeChangeDelegate OnLayerCubeChange;
-
-    int higherBlock = 1;
-    public int GetHigherBlock { get => higherBlock; }
-
-    private Vector2 balance;
+    public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
     private void Awake()
     {
@@ -64,16 +72,15 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+               
+        data.Initialize();
+
+        onPiecePlaced.AddListener(UpdateDisplacement);
     }
 
     private void Start()
     {
-        data.Initialize();
-
-        onPiecePlaced.AddListener(UpdateDisplacement);
-        
         SpawnBase();
-        ChangePieceSORandom();
     }
 
     private void Update()
@@ -97,12 +104,11 @@ public class Grid3DManager : MonoBehaviour
 
     public void PlacePiece(Vector3 gridPos)
     {
-        var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity);
-        PieceSO pieceSO = new PieceSO();
+        var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity, transform);
+        PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
         pieceSO.cubes = CubeList;
         pieceSO.resident = currentPiece.resident;
-        piece.ChangePiece(pieceSO);
-        piece.SpawnCubes();
+        piece.PlacePieceInFinalSpot(pieceSO);
 
         foreach (var block in piece.Cubes)
         {
@@ -119,6 +125,7 @@ public class Grid3DManager : MonoBehaviour
         OnLayerCubeChange?.Invoke(higherBlock);
 
         ChangePieceSORandom();
+        onPiecePlacedPiece.Call(nextPiece);
     }
 
     private void SpawnBase()
@@ -133,7 +140,7 @@ public class Grid3DManager : MonoBehaviour
         if (_cubeList != CubeList)
         {
             _cubeList = CubeList;
-            PieceSO pieceSO = new PieceSO();
+            PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
             pieceSO.cubes = CubeList;
             pieceSO.resident = currentPiece.resident;
             OnCubeChange?.Invoke(pieceSO);
@@ -159,8 +166,15 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        currentPiece = pieceListRandom.GetRandomPiece();
+        if(nextPiece == null)
+        {
+            nextPiece = pieceListRandom.GetRandomPiece();
+        }
+
+        currentPiece = nextPiece;
         cubeList = currentPiece.cubes;
+        nextPiece = pieceListRandom.GetRandomPiece();
+        
     }
 
     private void UpdateWeight(Vector3 gridPosistion)
@@ -202,7 +216,7 @@ public class Grid3DManager : MonoBehaviour
     private IEnumerator BalanceDisplacementRoutine()
     {
         float timer = shaderAnimTime;
-        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(balance.x), Mathf.Abs(balance.y)) / maxBalance);
+        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(BalanceValue.x), Mathf.Abs(BalanceValue.y)) / gameplayData.MaxBalance);
         float t;
         do
         {
@@ -245,7 +259,7 @@ public class Grid3DManager : MonoBehaviour
 
         if (!isBalanceBroken)
         {
-            if (Mathf.Abs(balance.x) > maxBalance)
+            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance)
             {
                 DebugInfo[0].color = Color.red;
                 DebugInfo[1].color = Color.red;
@@ -253,13 +267,34 @@ public class Grid3DManager : MonoBehaviour
                 onBalanceBroken.Call();
             }
 
-            if (Mathf.Abs(balance.y) > maxBalance)
+            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance)
             {
                 DebugInfo[2].color = Color.red;
                 DebugInfo[3].color = Color.red;
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
             }
+        }
+    }
+
+    public IEnumerator DestroyTower()
+    {
+        List<GameObject> cubes = data.GetCubes();
+        List<int> intcubes = new List<int>();
+
+        for (int i = 0; i < cubes.Count; i++)
+        {
+            cubes[i].AddComponent<Rigidbody>();
+            if (Random.Range(0, 100) < cubeDestroyProba)
+            {
+                intcubes.Add(i);
+            }
+        }
+
+        for (int i = 0;i < intcubes.Count; i++)
+        {
+            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
+            yield return new WaitForSeconds(delayBtwBlast);
         }
     }
 
