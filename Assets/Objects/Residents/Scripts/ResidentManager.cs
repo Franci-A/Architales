@@ -15,6 +15,8 @@ public class ResidentManager : MonoBehaviour
         Instance = this;
         numberHappyResidents.SetValue(0);
         totalNumResidents.SetValue(0);
+        maxBalanceAdded.SetValue(0);
+        balanceMultiplier.SetValue(1);
     }
 
     public void UpdateResidentsHappiness(int value)
@@ -22,37 +24,54 @@ public class ResidentManager : MonoBehaviour
         numberHappyResidents.Add(value);
         if(numberHappyResidents.value > 0)
         {
-            bool hasValue = false;
+            float max = 0;
             for (int i = 0; i < gameplayData.residentHappinessLevels.Count; i++)
             {
-                if(numberHappyResidents.value > gameplayData.residentHappinessLevels[i].numberOfResidents)
+                if(numberHappyResidents.value > gameplayData.residentHappinessLevels[i].numberOfResidents && gameplayData.residentHappinessLevels[i].maxBalanceAddedValue > max)
                 {
-                    maxBalanceAdded.SetValue(gameplayData.residentHappinessLevels[i].maxBalanceAddedValue);
-                    hasValue = true;
+                    max = gameplayData.residentHappinessLevels[i].maxBalanceAddedValue;
                 }
             }
-            if (!hasValue)
-            {
-                maxBalanceAdded.SetValue(0);
-            }
-        }else if (numberHappyResidents.value < 0)
-        {
-            bool hasValue = false;
-            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
-            {
-                if (numberHappyResidents.value < gameplayData.residentAngryLevels[i].numberOfResidents)
-                {
-                    balanceMultiplier.SetValue(gameplayData.residentAngryLevels[i].balanceMultiplier);
-                    hasValue = true;
-                }
-            }
-            if (!hasValue)
-            {
-                balanceMultiplier.SetValue(1);
-            }
-        }else
+            maxBalanceAdded.SetValue(max);
+
+        }
+        else
         {
             maxBalanceAdded.SetValue(0);
+        }
+
+
+        if (numberHappyResidents.value > 0)
+        {
+            float multiplier = 1;
+            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
+            {
+                if (gameplayData.residentAngryLevels[i].numberOfResidents < 0)
+                    continue;
+                if (numberHappyResidents.value >= gameplayData.residentAngryLevels[i].numberOfResidents && multiplier > gameplayData.residentAngryLevels[i].balanceMultiplier)
+                {
+                    multiplier = gameplayData.residentAngryLevels[i].balanceMultiplier;
+                }
+            }
+            balanceMultiplier.SetValue(multiplier);
+
+        }
+        else if(numberHappyResidents.value < 0)
+        {
+            float multiplier = 1;
+            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
+            {
+                if (gameplayData.residentAngryLevels[i].numberOfResidents > 0)
+                    continue;
+                if (numberHappyResidents.value <= gameplayData.residentAngryLevels[i].numberOfResidents && multiplier < gameplayData.residentAngryLevels[i].balanceMultiplier)
+                {
+                    multiplier = gameplayData.residentAngryLevels[i].balanceMultiplier;
+                }
+            }
+            balanceMultiplier.SetValue(multiplier);
+        }
+        else
+        {
             balanceMultiplier.SetValue(1);
         }
     }
