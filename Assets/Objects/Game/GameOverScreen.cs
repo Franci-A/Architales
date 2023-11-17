@@ -8,13 +8,12 @@ public class GameOverScreen : MonoBehaviour
 
     public void Restart() 
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void BackToMenu()
     {
-        Debug.Log("BackToMenu :D");
-        //SceneManager.LoadScene(menu);
+       SceneManager.LoadScene(0);
     }
 
     public void DestroyTower()
