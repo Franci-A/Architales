@@ -167,7 +167,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "Arrow keys",
                     "id": "1e5bb39b-36ce-46c0-96d7-4d32ede5d6cc",
                     "path": "1DAxis",
                     "interactions": "",
@@ -192,6 +192,39 @@
                     "name": "positive",
                     "id": "72945a3f-79fa-4063-8210-24ac162d9362",
                     "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "306380b1-7791-4dbf-aad1-afac91c9a64f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d8b65da1-69db-46a8-b1bc-4cdf42254043",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "650ee8be-17b5-44a5-ae06-0d637554ec09",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -19,7 +19,6 @@ public class Grid3DManager : MonoBehaviour
     int higherBlock = 1;
 
     [Header("Weight")]
-    [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
     bool isBalanceBroken;
@@ -83,6 +82,7 @@ public class Grid3DManager : MonoBehaviour
     private void Start()
     {
         SpawnBase();
+        Shader.SetGlobalFloat("_LeaningPower",  2);
     }
 
     private void Update()
@@ -188,31 +188,21 @@ public class Grid3DManager : MonoBehaviour
 
     private void UpdateDisplacement()
     {
-        for (int i = 0; i < displacementShaderMat.Length; i++)
-        {
-            displacementShaderMat[i].SetVector("_LeaningDirection", balance.normalized);
-            displacementShaderMat[i].SetFloat("_MaxHeight", higherBlock);
-        }
-
+        Shader.SetGlobalVector("_LeaningDirection", balance.normalized);
+        Shader.SetGlobalFloat("_MaxHeight", higherBlock);
         StartCoroutine(BalanceDisplacementRoutine());
     }
 
     private void SetDisplacementValue(float value)
     {
-        for (int i = 0; i < displacementShaderMat.Length; i++)
-        {
-            displacementShaderMat[i].SetFloat("_Value", value);
-        }
+        Shader.SetGlobalFloat("_Value", value);
     }
 
     private void ResetDisplacement()
     {
-        for (int i = 0; i < displacementShaderMat.Length; i++)
-        {
-            displacementShaderMat[i].SetFloat("_UseAngle", 0);
-            displacementShaderMat[i].SetFloat("_MaxHeight", 1f);
-            displacementShaderMat[i].SetVector("_LeaningDirection", Vector2.zero);
-        }
+        Shader.SetGlobalVector("_LeaningDirection", Vector2.zero);
+        Shader.SetGlobalFloat("_MaxHeight", 1f);
+
         SetDisplacementValue(0f);
     }
 

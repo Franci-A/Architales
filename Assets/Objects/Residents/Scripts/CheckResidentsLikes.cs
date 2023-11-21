@@ -140,12 +140,12 @@ public class CheckResidentsLikes : MonoBehaviour
 
     public void ValidatePosition()
     {
-        ClearFeedback();
         for (int i = 0; i < feedbackElements.Count; i++)
         {
             feedbackElements[i].neighbor.NewNeighbors(feedbackElements[i].currentResident.GetResidentRace);
             feedbackElements[i].currentResident.NewNeighbors(feedbackElements[i].neighbor.GetResidentRace);
         }
+        ClearFeedback();
         Destroy(this);
     }
 
