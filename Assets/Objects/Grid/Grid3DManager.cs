@@ -2,6 +2,7 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -73,7 +74,7 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-               
+
         data.Initialize();
 
         onPiecePlaced.AddListener(UpdateDisplacement);
@@ -127,6 +128,7 @@ public class Grid3DManager : MonoBehaviour
 
         ChangePieceSORandom();
         onPiecePlacedPiece.Call(nextPiece);
+        Debug.Log("Call listener");
     }
 
     private void SpawnBase()

@@ -19,6 +19,7 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Add listener");
         onPiecePlacedPiece.AddListener(OnPieceChange);
         parent = transform.GetChild(0);
     }
@@ -45,5 +46,10 @@ public class RotatingPiecePreview : MonoBehaviour
     private void Update()
     {
         parent.transform.Rotate(rotationVector, rotationSpeed, Space.World);
+    }
+
+    private void OnDestroy()
+    {
+        onPiecePlacedPiece.RemoveListener(OnPieceChange);
     }
 }
