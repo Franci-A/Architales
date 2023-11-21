@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1896697294408665822
+--- !u!114 &-1972953536971118047
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Lobby_Plank
+  m_Name: M_Lobby_Stairs
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -40,11 +40,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 2b4208c1ecaf11c48aa3091ab8eacb50, type: 3}
+        m_Texture: {fileID: 2800000, guid: ab8f9e88e46237948a750709e1a0f17f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: f717c0209ec9acc4fbbb75841b342efe, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3edb4cf2af69fe8439fbc99152ba5441, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -64,11 +64,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2b4208c1ecaf11c48aa3091ab8eacb50, type: 3}
+        m_Texture: {fileID: 2800000, guid: ab8f9e88e46237948a750709e1a0f17f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: a99f52c0dec770542a45d534ba1338b9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 258a5c5f02edd994c8cda97a193bba66, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
