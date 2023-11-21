@@ -37,6 +37,8 @@ public class Piece : MonoBehaviour
         checkResidents.Init(Cubes);
         checkResidents.CheckRelations();
         checkResidents.ValidatePosition();
+        var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
+        Destroy(vfx, 3);
     }
 
     public void ChangePiece(PieceSO piece)
