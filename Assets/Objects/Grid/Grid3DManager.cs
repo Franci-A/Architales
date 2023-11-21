@@ -193,7 +193,6 @@ public class Grid3DManager : MonoBehaviour
     private void SetDisplacementValue(float value)
     {
         Shader.SetGlobalFloat("_Value", value);
-        Debug.Log(" value  : " + Shader.GetGlobalFloat("_Value") + " leaning power : "+ Shader.GetGlobalFloat("_LeaningPower"));
     }
 
     private void ResetDisplacement()
