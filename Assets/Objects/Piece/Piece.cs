@@ -33,13 +33,10 @@ public class Piece : MonoBehaviour
     {
         ChangePiece(piece);
         SpawnCubes();
-        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
-        for (int i = 0; i < checkResidents.Length; i++)
-        {
-            checkResidents[i].CheckRelations();
-            checkResidents[i].ValidatePosition();
-        }
-        Debug.Log($"{centerLowerPiecePos(piece)} - {transform.position} = {transform.position - centerLowerPiecePos(piece)}");
+        CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
+        checkResidents.Init(Cubes);
+        checkResidents.CheckRelations();
+        checkResidents.ValidatePosition();
         var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
         Destroy(vfx, 3);
     }

@@ -1,25 +1,33 @@
 using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CheckResidentsLikes : MonoBehaviour
 {
-    private ResidentHandler currentResident;
+    private List<ResidentHandler> currentResident;
     [SerializeField] private LayerMask mask;
     [SerializeField] private float distance;
     [SerializeField] private FeedbackPopup feedbackPopup;
-    private List<FeedbackPopup> feedbackInstances;
     private Vector3 previousPos;
     private List<Vector3> checkDirections;
-    private List<ResidentHandler> neighbors;
+    private List<FeedbackElement> feedbackElements;
+    [SerializeField] private Color likeColor = Color.green;
+    [SerializeField] private Color dislikeColor = Color.red;
 
-    private void Awake()
+    public bool isAcive =false;
+
+    public void Init(List<Cube> children)
     {
-        feedbackInstances = new List<FeedbackPopup>();
-        previousPos = transform.position;
-        neighbors = new List<ResidentHandler>();    
-        currentResident = GetComponent<ResidentHandler>();
+        isAcive = true;
+        previousPos = Vector3.zero;
+        currentResident = new List<ResidentHandler>();
+        for (int i = 0; i < children.Count; i++)
+        {
+            currentResident.Add(children[i].cubeGO.GetComponent<ResidentHandler>());
+        }
+        feedbackElements = new List<FeedbackElement>();
 
         checkDirections = new List<Vector3>
         {
@@ -33,6 +41,9 @@ public class CheckResidentsLikes : MonoBehaviour
 
     private void Update()
     {
+        if (!isAcive)
+            return;
+
         if (Vector3.Distance(previousPos, transform.position) > .5f)
         {
             CheckRelations();
@@ -40,71 +51,114 @@ public class CheckResidentsLikes : MonoBehaviour
         }
     }
 
-    public void CheckRelations()
+    private void OnDisable()
     {
         ClearFeedback();
+    }
 
+    public void CheckRelations()
+    {
         RaycastHit[] hit;
-        
-        neighbors.Clear();
-        int likeAmount = 0;
 
-        for (int i = 0; i < checkDirections.Count; i++)
+        List<ResidentHandler> residents = new List<ResidentHandler>();
+        for (int index = 0; index < currentResident.Count; index++)
         {
-            hit = Physics.RaycastAll(transform.position, checkDirections[i], distance,mask);
-            for (int j = 0; j < hit.Length; j++)
+            for (int i = 0; i < checkDirections.Count; i++)
             {
-                if (hit[j].collider.gameObject != gameObject)
+                hit = Physics.RaycastAll(currentResident[index].gameObject.transform.position, checkDirections[i], distance, mask);
+                for (int j = 0; j < hit.Length; j++)
                 {
-                    ResidentHandler collidedResident = hit[j].collider.gameObject.GetComponent<ResidentHandler>();
-
-                    if (collidedResident.parentPiece == currentResident.parentPiece)
+                    if (hit[j].collider.gameObject == gameObject)
                         continue;
 
-                    neighbors.Add(collidedResident);
-                    likeAmount = currentResident.GetResident.CheckLikes(collidedResident.GetResidentRace);
-                    if (likeAmount == 1)
+                    ResidentHandler collidedResident = hit[j].collider.gameObject.GetComponent<ResidentHandler>();
+                    if (currentResident.Contains(collidedResident))
+                        continue;
+
+                    int likeAmount = currentResident[index].GetResident.CheckLikes(collidedResident.GetResidentRace);
+                    if (likeAmount == 0)
+                        continue;
+
+                    residents.Add(collidedResident);
+
+                    if (likeAmount > 0)
                     {
-                        FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
-                        obj.InitPopup(true);
-                        feedbackInstances.Add(obj);
+                        collidedResident.ShowRelationsMaterial(hit[j].point, likeColor);
                     }
-                    else if (likeAmount == -1)
+                    else
                     {
-                        FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
-                        obj.InitPopup(false);
-                        feedbackInstances.Add(obj);
+                        collidedResident.ShowRelationsMaterial(hit[j].point, dislikeColor);
                     }
+
+                    bool alreadyHere = false;
+                    for (int k = 0; k < feedbackElements.Count; k++)
+                    {
+                        if (collidedResident == feedbackElements[k].neighbor)
+                        {
+                            alreadyHere = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyHere)
+                        continue;
+
+                    FeedbackElement element = new FeedbackElement();
+                    FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
+                    element.popup = obj;
+                    element.neighbor = collidedResident;
+                    element.currentResident = currentResident[index];
+                    feedbackElements.Add(element);
+                    obj.InitPopup(likeAmount > 0);
                 }
             }
         }
-        //Debug.DrawLine(transform.position + Vector3.back * distance /2, transform.position + Vector3.forward * distance/2, Color.cyan, 5);
+
+        for (int k = feedbackElements.Count -1; k >=0; k--)
+        {
+            if (residents.Contains(feedbackElements[k].neighbor))
+                continue;
+
+            feedbackElements[k].popup.DestroyPopup();
+            feedbackElements[k].neighbor.RemoveRelationsMaterial();
+            feedbackElements.RemoveAt(k);
+        }
     }
 
     public void ClearFeedback()
     {
-        if (feedbackInstances == null)
+        if (feedbackElements == null)
             return;
 
-        for (int i = feedbackInstances.Count - 1; i >= 0; i--)
+        for (int i = 0; i < feedbackElements.Count; i++)
         {
-            feedbackInstances[i].DestroyPopup();
+            feedbackElements[i].popup.DestroyPopup();
+            feedbackElements[i].neighbor.RemoveRelationsMaterial();
         }
-        feedbackInstances.Clear();
+        feedbackElements.Clear();
     }
 
     public void ValidatePosition()
     {
-        ClearFeedback();
-        for (int i = 0; i < neighbors.Count; i++)
+        for (int i = 0; i < feedbackElements.Count; i++)
         {
-            neighbors[i].NewNeighbors(currentResident.GetResidentRace);
-            currentResident.NewNeighbors(neighbors[i].GetResidentRace);
+            feedbackElements[i].neighbor.NewNeighbors(feedbackElements[i].currentResident.GetResidentRace);
+            feedbackElements[i].currentResident.NewNeighbors(feedbackElements[i].neighbor.GetResidentRace);
         }
+        ClearFeedback();
         Destroy(this);
     }
+
     private void OnDestroy()
     {
         ClearFeedback();
     }
 }
+
+struct FeedbackElement
+{
+    public ResidentHandler currentResident;
+    public ResidentHandler neighbor;
+    public FeedbackPopup popup;
+}
+ 
