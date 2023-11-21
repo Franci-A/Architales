@@ -2,6 +2,7 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,6 @@ public class Grid3DManager : MonoBehaviour
     int higherBlock = 1;
 
     [Header("Weight")]
-    [SerializeField] private Material[] displacementShaderMat;
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
     bool isBalanceBroken;
@@ -63,6 +63,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] float explosionForce;
     [SerializeField] float radius;
     [SerializeField] float verticalExplosionForce;
+    [SerializeField] GameObject explosionVFX;
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
@@ -72,7 +73,7 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-               
+
         data.Initialize();
 
         onPiecePlaced.AddListener(UpdateDisplacement);
@@ -81,6 +82,7 @@ public class Grid3DManager : MonoBehaviour
     private void Start()
     {
         SpawnBase();
+        Shader.SetGlobalFloat("_LeaningPower",  2);
     }
 
     private void Update()
@@ -126,6 +128,7 @@ public class Grid3DManager : MonoBehaviour
 
         ChangePieceSORandom();
         onPiecePlacedPiece.Call(nextPiece);
+        Debug.Log("Call listener");
     }
 
     private void SpawnBase()
@@ -185,31 +188,21 @@ public class Grid3DManager : MonoBehaviour
 
     private void UpdateDisplacement()
     {
-        for (int i = 0; i < displacementShaderMat.Length; i++)
-        {
-            displacementShaderMat[i].SetVector("_LeaningDirection", balance.normalized);
-            displacementShaderMat[i].SetFloat("_MaxHeight", higherBlock);
-        }
-
+        Shader.SetGlobalVector("_LeaningDirection", balance.normalized);
+        Shader.SetGlobalFloat("_MaxHeight", higherBlock);
         StartCoroutine(BalanceDisplacementRoutine());
     }
 
     private void SetDisplacementValue(float value)
     {
-        for (int i = 0; i < displacementShaderMat.Length; i++)
-        {
-            displacementShaderMat[i].SetFloat("_Value", value);
-        }
+        Shader.SetGlobalFloat("_Value", value);
     }
 
     private void ResetDisplacement()
     {
-        for (int i = 0; i < displacementShaderMat.Length; i++)
-        {
-            displacementShaderMat[i].SetFloat("_UseAngle", 0);
-            displacementShaderMat[i].SetFloat("_MaxHeight", 1f);
-            displacementShaderMat[i].SetVector("_LeaningDirection", Vector2.zero);
-        }
+        Shader.SetGlobalVector("_LeaningDirection", Vector2.zero);
+        Shader.SetGlobalFloat("_MaxHeight", 1f);
+
         SetDisplacementValue(0f);
     }
 
@@ -294,6 +287,8 @@ public class Grid3DManager : MonoBehaviour
         for (int i = 0;i < intcubes.Count; i++)
         {
             cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
+            var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
+            Destroy(vfx, 3);
             yield return new WaitForSeconds(delayBtwBlast);
         }
     }
