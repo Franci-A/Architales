@@ -1223,6 +1223,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3446204778306605056, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
+      propertyPath: explosionVFX
+      value: 
+      objectReference: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
+        type: 3}
+    - target: {fileID: 3446204778306605056, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
       propertyPath: DebugInfo.Array.data[0]
       value: 
       objectReference: {fileID: 1902847802}

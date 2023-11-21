@@ -53,6 +53,8 @@ MonoBehaviour:
     type: 3}
   happinessHandler: {fileID: 993482265561374568}
   visualTrans: {fileID: 3540457853214231084}
+  smokeVFX: {fileID: 1907484227110686994, guid: b07bc0b208c88f04dac5f89bf0352604,
+    type: 3}
 --- !u!114 &993482265561374568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +106,9 @@ MonoBehaviour:
   distance: 0.8
   feedbackPopup: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
     type: 3}
+  likeColor: {r: 0, g: 1, b: 0, a: 1}
+  dislikeColor: {r: 1, g: 0, b: 0, a: 1}
+  isAcive: 0
 --- !u!1 &7798567592843189773
 GameObject:
   m_ObjectHideFlags: 0

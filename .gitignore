@@ -70,3 +70,22 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Objects/VFX/materiel/M_onde.mat
+Assets/Objects/VFX/materiel/materiel_onde 1.png
+Assets/Objects/VFX/materiel/materiel_onde 1.png.meta
+Assets/Objects/VFX/materiel/materiel_smoke.png
+Assets/Objects/VFX/materiel/materiel_smoke.png.meta
+Assets/Objects/VFX/materiel/smook.mat
+Assets/Objects/VFX/materiel/smook.mat.meta
+Assets/Objects/VFX/smook.mat
+Assets/Objects/VFX/smook.mat.meta
+Assets/Objects/VFX/VFX Copy.prefab
+Assets/Objects/VFX/VFX V2 Copy.prefab
+Assets/Objects/VFX/VFX V2 Copy.prefab.meta
+Assets/Objects/VFX/VFX V2.prefab
+Assets/Objects/VFX/VFX V2.prefab.meta
+Assets/Objects/VFX/VFX.prefab
+Assets/Objects/VFX/VFX_V2 Copy.prefab
+Assets/Objects/VFX/VFX_V2 Copy.prefab.meta
+Assets/Objects/VFX/VFX_V2.prefab
+Assets/Objects/VFX/VFX_V2.prefab.meta
