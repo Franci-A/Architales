@@ -115,7 +115,6 @@ GameObject:
   m_Component:
   - component: {fileID: 498315721281090686}
   - component: {fileID: 7680735438331080007}
-  - component: {fileID: 6709359141653255534}
   - component: {fileID: 7068975156785572973}
   m_Layer: 0
   m_Name: GhostCube
@@ -161,24 +160,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6709359141653255534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9132960200103920916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d3ddc52040347646a0078ad5968d955, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mask:
-    serializedVersion: 2
-    m_Bits: 128
-  distance: 0.8
-  feedbackPopup: {fileID: 3904781886094275316, guid: 1d250b933ab4939468abbd93cdefd4e3,
-    type: 3}
 --- !u!114 &7068975156785572973
 MonoBehaviour:
   m_ObjectHideFlags: 0

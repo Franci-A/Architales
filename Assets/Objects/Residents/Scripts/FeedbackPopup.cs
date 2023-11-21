@@ -35,6 +35,10 @@ public class FeedbackPopup : MonoBehaviour
             canvas.transform.DOKill();
 
         canvas.transform.DOLocalMoveY(0, animTime/2);
+
+        if (DOTween.IsTweening(image))
+            image.DOComplete();
+
         image.DOColor(Color.clear, animTime/2);
 
         Destroy(gameObject, animTime/2);
@@ -44,5 +48,7 @@ public class FeedbackPopup : MonoBehaviour
     {
         if (DOTween.IsTweening(canvas.transform))
             canvas.transform.DOKill();
+        if (DOTween.IsTweening(image))
+            image.DOKill();
     }
 }

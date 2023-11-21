@@ -39,7 +39,7 @@ public class PieceHappinessHandler : MonoBehaviour
         else if (totalResidentLevel < 0)
             happinnessLevel = -1;
         
-        Debug.Log(residentHandlers[0].GetResidentRace.ToString() + " piece happiness : " + happinnessLevel + " total happiness : " +  totalResidentLevel);
+        //Debug.Log(residentHandlers[0].GetResidentRace.ToString() + " piece happiness : " + happinnessLevel + " total happiness : " +  totalResidentLevel);
         currentMood = currentMood * (-1) + happinnessLevel; // remove previous value from gauge and add new value
         ResidentManager.Instance.UpdateResidentsHappiness(currentMood);
     }
