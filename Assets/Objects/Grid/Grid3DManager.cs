@@ -119,18 +119,6 @@ public class Grid3DManager : MonoBehaviour
         
         onPiecePlaced.Call();
         OnLayerCubeChange?.Invoke(higherBlock);
-
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
-        Debug.Log("Call listener");
     }
 
     private void SpawnBase()
@@ -200,6 +188,17 @@ public class Grid3DManager : MonoBehaviour
 
         if (!isBalanceBroken)
         {
+            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance)
+            {
+                isBalanceBroken = true;
+                onBalanceBroken.Call();
+            }
+
+            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance)
+            {
+                isBalanceBroken = true;
+                onBalanceBroken.Call();
+            }
         }
     }
 
@@ -210,40 +209,6 @@ public class Grid3DManager : MonoBehaviour
         nextPiece = _next;
     }
 
-
-    public IEnumerator DestroyTower()
-    {
-        List<GameObject> cubes = data.GetCubes();
-        List<int> intcubes = new List<int>();
-
-        for (int i = 0; i < cubes.Count; i++)
-        {
-            cubes[i].AddComponent<Rigidbody>();
-            if (Random.Range(0, 100) < cubeDestroyProba)
-            {
-                intcubes.Add(i);
-            }
-        }
-
-        for (int i = 0;i < intcubes.Count; i++)
-        {
-            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
-            var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
-            Destroy(vfx, 3);
-            yield return new WaitForSeconds(delayBtwBlast);
-            {
-                intcubes.Add(i);
-            }
-        }
-
-        for (int i = 0;i < intcubes.Count; i++)
-        {
-            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
-            var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
-            Destroy(vfx, 3);
-            yield return new WaitForSeconds(delayBtwBlast);
-        }
-    }
 
     public void DestroyTower()
     {
