@@ -60,8 +60,6 @@ public class Grid3DManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-
-        onPiecePlaced.AddListener(UpdateDisplacement);
     }
 
     private void Start()
