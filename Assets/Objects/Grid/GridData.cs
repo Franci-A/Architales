@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Grid Data")]
-public class GridData : ScriptableObject
+public class GridData : ScriptableObject, InitializeOnAwake
 {
     // Size of a block, WorldToGrid not working with every value
     [SerializeField] private float cellSize = 1; // WIP. DO NOT MODIFY YET
@@ -51,13 +51,13 @@ public class GridData : ScriptableObject
             blockGridPos = block.pieceLocalPosition + gridPosition;
 
             // False if any block is already occupied
-            if (grid.ContainsKey(blockGridPos)
+            if (!IsPositionFree(blockGridPos)
                 // OR Placed in the Center
                 || (blockGridPos.x == 0 && blockGridPos.z == 0))
                 return false;
 
             // Check for at least One existing support underneath
-            bool hasSupport = grid.ContainsKey(blockGridPos + Vector3.down);
+            bool hasSupport = !IsPositionFree(blockGridPos + Vector3.down);
 
             canPlace = canPlace || hasSupport;
         }
@@ -94,7 +94,7 @@ public class GridData : ScriptableObject
 
     public void AddToGrid(Vector3 gridPosition, GameObject go)
     {
-        if (grid.ContainsKey(gridPosition))
+        if (!IsPositionFree(gridPosition))
             throw new Exception($"Already existing block at position {gridPosition} !");
 
         grid.Add(gridPosition, go);
@@ -109,7 +109,7 @@ public class GridData : ScriptableObject
     public void HideBlocksAtHeight(int height)
     {
         foreach (var item in grid)
-            item.Value.SetActive(item.Key.y < height);
+            item.Value.SetActive(item.Key.y <= height);
     }
 
     public List<GameObject> GetCubes()
@@ -121,5 +121,18 @@ public class GridData : ScriptableObject
             cubes.Add(item.Value);
         }
         return cubes;
+    }
+
+    public GameObject GetBlockAtPosition(Vector3 gridPosition)
+    {
+        if(IsPositionFree(gridPosition))
+            throw new Exception($"No existing block at position {gridPosition} !");
+
+        return grid[gridPosition];
+    }
+
+    public bool IsPositionFree(Vector3 gridPosition)
+    {
+        return !grid.ContainsKey(gridPosition);
     }
 }
