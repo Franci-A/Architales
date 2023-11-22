@@ -1,4 +1,5 @@
 using HelperScripts.EventSystem;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -50,7 +51,9 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
 
     private List<Cube> cubeList; // current list
-    private PieceSO currentPiece; // current list
+    public PieceSO CurrentPiece { get => currentPiece; }
+    private PieceSO currentPiece; // current piece
+    public PieceSO NextPiece { get => nextPiece; }
     private PieceSO nextPiece;
 
     public PieceSO pieceSo { get => currentPiece; } // get
@@ -66,6 +69,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] GameObject explosionVFX;
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
+
 
     private void Awake()
     {
@@ -104,6 +108,8 @@ public class Grid3DManager : MonoBehaviour
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
+
+
     public void PlacePiece(Vector3 gridPos)
     {
         var piece = Instantiate(this.piece, data.GridToWorldPosition(gridPos), Quaternion.identity, transform);
@@ -123,12 +129,12 @@ public class Grid3DManager : MonoBehaviour
 
         totalNumResidents.Add(piece.Cubes.Count);
 
+        if(!EventManager.Instance.IsEventActive)
+        ChangePieceSORandom();
+        
         onPiecePlaced.Call();
         OnLayerCubeChange?.Invoke(higherBlock);
 
-        ChangePieceSORandom();
-        onPiecePlacedPiece.Call(nextPiece);
-        Debug.Log("Call listener");
     }
 
     private void SpawnBase()
@@ -177,7 +183,18 @@ public class Grid3DManager : MonoBehaviour
         currentPiece = nextPiece;
         cubeList = currentPiece.cubes;
         nextPiece = pieceListRandom.GetRandomPiece();
-        
+
+        onPiecePlacedPiece.Call(nextPiece);
+
+    }
+
+    public void ChangePieceSO(PieceSO _current, PieceSO _next)
+    {
+        currentPiece = _current;
+        cubeList = currentPiece.cubes;
+        nextPiece = _next;
+
+        onPiecePlacedPiece.Call(nextPiece);
     }
 
     private void UpdateWeight(Vector3 gridPosistion)
@@ -269,6 +286,14 @@ public class Grid3DManager : MonoBehaviour
             }
         }
     }
+
+
+    public void SetSavedPiece(PieceSO _current, PieceSO _next)
+    {
+        currentPiece = _current;
+        nextPiece = _next;
+    }
+
 
     public IEnumerator DestroyTower()
     {

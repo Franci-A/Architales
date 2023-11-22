@@ -15,3 +15,4 @@ MonoBehaviour:
   eventName: Lightning
   eventSprite: {fileID: 21300000, guid: cf7dbd67b1f059844a59124b91feca59, type: 3}
   eventType: 0
+  piece: {fileID: 11400000, guid: 07b5359eb9fe04a4b9fcb068fe996ccd, type: 2}
