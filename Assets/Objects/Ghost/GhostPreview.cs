@@ -33,7 +33,7 @@ public class GhostPreview : MonoBehaviour
         Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
 
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.SpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition, true);
+        ghostPiece.PreviewSpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
         likes = GetComponentInChildren<CheckResidentsLikes>();
     }
 
@@ -63,7 +63,7 @@ public class GhostPreview : MonoBehaviour
     {
         likes.isAcive = false;
         likes.ClearFeedback();
-        ghostPiece.SpawnPiece(newPiece, ghostPiece.GetGridPosition, true);
+        ghostPiece.PreviewSpawnPiece(newPiece, ghostPiece.GetGridPosition);
 
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)
         {

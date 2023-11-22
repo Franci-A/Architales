@@ -16,4 +16,4 @@ MonoBehaviour:
   gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   blockPrefab: {fileID: 1256096350784185207, guid: 1d9de07225e84534f92efa819e81a596,
     type: 3}
-  hatMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  createNakedBlock: 1

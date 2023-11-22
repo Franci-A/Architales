@@ -37,7 +37,7 @@ public class RotatingPiecePreview : MonoBehaviour
         parent.rotation = new Quaternion(0,0,0,0);
 
         PieceSO newPiece = (PieceSO)_newPiece;
-        piece.SpawnPiece(newPiece, piece.GetGridPosition);
+        piece.PreviewSpawnPiece(newPiece, piece.GetGridPosition);
 
         piece.transform.localPosition = piece.centerPiecePos(newPiece);
 

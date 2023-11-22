@@ -41,7 +41,7 @@ public class Piece : MonoBehaviour
         happinessHandler.Init();
     }
 
-    private void UpdateCubes()
+    private void UpdateSurroundingBlocks()
     {
         foreach (var cube in cubes)
         {
@@ -49,18 +49,27 @@ public class Piece : MonoBehaviour
         }
     }
 
-    public void SpawnPiece(PieceSO piece, Vector3 gridPos, bool disableCollider = false)
+    public void SpawnPiece(PieceSO piece, Vector3 gridPos)
     {
         baseGridPosition = gridPos;
         transform.position = gridData.GridToWorldPosition(baseGridPosition);
 
         ChangePiece(piece);
-        SpawnCubes(disableCollider);
+        SpawnCubes(false);
 
-        UpdateCubes();
+        UpdateSurroundingBlocks();
 
         var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
         Destroy(vfx, 3);
+    }
+
+    public void PreviewSpawnPiece(PieceSO piece, Vector3 gridPos)
+    {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
+        ChangePiece(piece);
+        SpawnCubes(true);
     }
 
     public void ChangePiece(PieceSO piece)

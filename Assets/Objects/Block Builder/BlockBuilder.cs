@@ -1,4 +1,4 @@
-using System.Collections;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class BlockBuilder : ScriptableObject
     [SerializeField] private GridData gridData;
     [SerializeField] private GameObject blockPrefab;
 
-    [SerializeField] private Mesh hatMesh;
+    [SerializeField, Label("Don't Build Blocks")] private bool createNakedBlock;
 
     public GameObject CreateBlock(Piece piece, Vector3 gridPosition)
     {
@@ -31,8 +31,10 @@ public class BlockBuilder : ScriptableObject
 
         var instance = Instantiate(blockPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, piece.transform);
 
-        BuildAsset(instance, piece, gridPosition);
+        if(createNakedBlock)
+            return instance;
 
+        BuildAsset(instance, piece, gridPosition);
         return instance;
     }
 
