@@ -10,11 +10,13 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] GridData data;
     [SerializeField] private GameplayDataSO gameplayData;
     private Grid3DManager grid;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("Weight")]
     [SerializeField] private float shaderAnimTime;
     [SerializeField] private AnimationCurve shaderAnimCurve;
-    [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField, Range(0, 1)] private float beginDisplacementValue = .3f;
+    [SerializeField] private float displacementPower = 2;
 
     [Header("GameOver")]
     [SerializeField] int cubeDestroyProba;
@@ -32,7 +34,7 @@ public class TowerLeaningFeedback : MonoBehaviour
     {
         onPiecePlaced.AddListener(UpdateDisplacement);
         onPiecePlaced.AddListener(UpdateWeightDebug);
-        Shader.SetGlobalFloat("_LeaningPower", 2);
+        Shader.SetGlobalFloat("_LeaningPower", displacementPower);
         grid = GetComponent<Grid3DManager>();
     }
 
@@ -86,20 +88,26 @@ public class TowerLeaningFeedback : MonoBehaviour
     }
     private IEnumerator BalanceDisplacementRoutine()
     {
-        float timer = shaderAnimTime;
-        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(grid.BalanceValue.x), Mathf.Abs(grid.BalanceValue.y)) / gameplayData.MaxBalance);
-        float t;
-        do
+        float maxValue = Mathf.Max(Mathf.Abs(grid.BalanceValue.x), Mathf.Abs(grid.BalanceValue.y));
+        float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, maxValue);
+        if (value >= beginDisplacementValue)
         {
-            // 0-1 of time elapsed
-            t = 1 - Mathf.InverseLerp(0f, shaderAnimTime, timer);
-            SetDisplacementValue(shaderAnimCurve.Evaluate(t) * maxValue);
+            Shader.SetGlobalFloat("_LeaningPower", displacementPower * value);
+            float maxTimer = Mathf.Lerp(0, shaderAnimTime, value);
+            float timer = maxTimer;
+            float t;
+            do
+            {
+                // 0-1 of time elapsed
+                t = Mathf.InverseLerp(maxTimer, 0, timer);
+                SetDisplacementValue(shaderAnimCurve.Evaluate(t));
 
-            timer -= Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
-        } while (timer > 0);
+                timer -= Time.deltaTime;
+                yield return new WaitForSeconds(Time.deltaTime);
+            } while (timer > 0);
 
-        SetDisplacementValue(0f);
+            SetDisplacementValue(0f);
+        }
     }
 
 

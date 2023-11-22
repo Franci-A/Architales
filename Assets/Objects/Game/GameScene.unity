@@ -1243,8 +1243,23 @@ PrefabInstance:
       objectReference: {fileID: 734754258}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
+      propertyPath: shaderAnimTime
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: displacementPower
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
       propertyPath: DebugInfo.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: beginDisplacementValue
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
@@ -1343,8 +1358,93 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
+      propertyPath: shaderAnimCurve.m_PostInfinity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
       propertyPath: debugWeightColors.m_NumColorKeys
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].time
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[0].inSlope
+      value: 4.1517634
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].inSlope
+      value: -0.08621584
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].inSlope
+      value: -3.6377327
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[0].outSlope
+      value: 4.1517634
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].inWeight
+      value: 0.095878184
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].outSlope
+      value: -0.08621584
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].inWeight
+      value: 0.03112036
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].outSlope
+      value: -3.6377327
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[0].outWeight
+      value: 0.031811897
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].outWeight
+      value: 0.15490478
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].outWeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7890544567231775505, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
