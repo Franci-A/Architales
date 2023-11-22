@@ -18,9 +18,6 @@ public class Grid3DManager : MonoBehaviour
     public int GetHigherBlock { get => higherBlock; }
     int higherBlock = 1;
 
-    [Header("Weight")]
-    [SerializeField] private float shaderAnimTime;
-    [SerializeField] private AnimationCurve shaderAnimCurve;
     bool isBalanceBroken;
     private Vector2 balance;
 
@@ -34,7 +31,6 @@ public class Grid3DManager : MonoBehaviour
     [Header("Piece")]
     [SerializeField] PieceSO lobbyPiece;
     [SerializeField] private Piece piece;
-    //[SerializeField] List<PieceSO> pieceListRandom = new List<PieceSO>(); // liste des trucs random
     [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
 
     [Header("Event")]
@@ -57,13 +53,7 @@ public class Grid3DManager : MonoBehaviour
     public List<Cube> CubeList { get => cubeList; } // get
     private List<Cube> _cubeList; // check si ca a changer
 
-    [Header("GameOver")]
-    [SerializeField] int cubeDestroyProba;
-    [SerializeField] float delayBtwBlast;
-    [SerializeField] float explosionForce;
-    [SerializeField] float radius;
-    [SerializeField] float verticalExplosionForce;
-    [SerializeField] GameObject explosionVFX;
+    private TowerLeaningFeedback feedback;
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
@@ -76,13 +66,12 @@ public class Grid3DManager : MonoBehaviour
 
         data.Initialize();
 
-        onPiecePlaced.AddListener(UpdateDisplacement);
     }
 
     private void Start()
     {
+        feedback = GetComponent<TowerLeaningFeedback>();
         SpawnBase();
-        Shader.SetGlobalFloat("_LeaningPower",  2);
     }
 
     private void Update()
@@ -128,7 +117,6 @@ public class Grid3DManager : MonoBehaviour
 
         ChangePieceSORandom();
         onPiecePlacedPiece.Call(nextPiece);
-        Debug.Log("Call listener");
     }
 
     private void SpawnBase()
@@ -186,43 +174,6 @@ public class Grid3DManager : MonoBehaviour
         balance.y += gridPosistion.z;
     }
 
-    private void UpdateDisplacement()
-    {
-        Shader.SetGlobalVector("_LeaningDirection", balance.normalized);
-        Shader.SetGlobalFloat("_MaxHeight", higherBlock);
-        StartCoroutine(BalanceDisplacementRoutine());
-    }
-
-    private void SetDisplacementValue(float value)
-    {
-        Shader.SetGlobalFloat("_Value", value);
-    }
-
-    private void ResetDisplacement()
-    {
-        Shader.SetGlobalVector("_LeaningDirection", Vector2.zero);
-        Shader.SetGlobalFloat("_MaxHeight", 1f);
-
-        SetDisplacementValue(0f);
-    }
-
-    private IEnumerator BalanceDisplacementRoutine()
-    {
-        float timer = shaderAnimTime;
-        float maxValue = Mathf.Clamp01(Mathf.Max(Mathf.Abs(BalanceValue.x), Mathf.Abs(BalanceValue.y)) / gameplayData.MaxBalance);
-        float t;
-        do
-        {
-            // 0-1 of time elapsed
-            t = 1 - Mathf.InverseLerp(0f, shaderAnimTime, timer);
-            SetDisplacementValue(shaderAnimCurve.Evaluate(t) * maxValue);
-
-            timer -= Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
-        } while (timer > 0);
-
-        SetDisplacementValue(0f);
-    }
 
     private void UpdateWeightDebug()
     {
@@ -270,33 +221,9 @@ public class Grid3DManager : MonoBehaviour
         }
     }
 
-    public IEnumerator DestroyTower()
+    public void DestroyTower()
     {
-        List<GameObject> cubes = data.GetCubes();
-        List<int> intcubes = new List<int>();
-
-        for (int i = 0; i < cubes.Count; i++)
-        {
-            cubes[i].AddComponent<Rigidbody>();
-            if (Random.Range(0, 100) < cubeDestroyProba)
-            {
-                intcubes.Add(i);
-            }
-        }
-
-        for (int i = 0;i < intcubes.Count; i++)
-        {
-            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
-            var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
-            Destroy(vfx, 3);
-            yield return new WaitForSeconds(delayBtwBlast);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        onPiecePlaced.RemoveListener(UpdateDisplacement);
-        ResetDisplacement();
+        feedback.DestroyTower();
     }
 
 
