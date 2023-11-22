@@ -2,6 +2,7 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -62,6 +63,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] float explosionForce;
     [SerializeField] float radius;
     [SerializeField] float verticalExplosionForce;
+    [SerializeField] GameObject explosionVFX;
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
@@ -127,6 +129,7 @@ public class Grid3DManager : MonoBehaviour
 
         ChangePieceSORandom();
         onPiecePlacedPiece.Call(nextPiece);
+        Debug.Log("Call listener");
     }
 
     private void SpawnBase()
@@ -194,7 +197,6 @@ public class Grid3DManager : MonoBehaviour
     private void SetDisplacementValue(float value)
     {
         Shader.SetGlobalFloat("_Value", value);
-        Debug.Log(" value  : " + Shader.GetGlobalFloat("_Value") + " leaning power : "+ Shader.GetGlobalFloat("_LeaningPower"));
     }
 
     private void ResetDisplacement()
@@ -286,6 +288,8 @@ public class Grid3DManager : MonoBehaviour
         for (int i = 0;i < intcubes.Count; i++)
         {
             cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
+            var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
+            Destroy(vfx, 3);
             yield return new WaitForSeconds(delayBtwBlast);
         }
     }
