@@ -29,4 +29,9 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(gameOverScreen);
     }
+
+    private void OnDestroy()
+    {
+        Grid3DManager.Instance.onBalanceBroken.RemoveListener(GameOver);
+    }
 }
