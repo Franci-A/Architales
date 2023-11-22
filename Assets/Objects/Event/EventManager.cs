@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        onPiecePlaced.AddListener(DeactivateEvent);
+        onPiecePlaced.AddListener(SwitchEvent);
     }
 
 
@@ -71,9 +71,14 @@ public class EventManager : MonoBehaviour
 
     public void DeactivateEvent()
     {
-        if (!isEventActive) return;
         isEventActive = false;
         SetSavedPiece(currentPieceSO, nextPieceSO);
+    }
+
+    private void SwitchEvent()
+    {
+        if (!IsEventActive) return;
+        DeactivateEvent();
         GetRandomEvent();
     }
 
