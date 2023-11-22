@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
     public enum TypeEvent
     {
         Lightning,
+        Orc,
     }
 
 
@@ -61,7 +62,7 @@ public class EventManager : MonoBehaviour
     public void ActivateEvent()
     {
         isEventActive = true;
-        if(currentEventSO.eventType == TypeEvent.Lightning)
+        if(currentEventSO.eventType == TypeEvent.Lightning || currentEventSO.eventType == TypeEvent.Orc)
         {
             GetPieceToSave();
             SetSavedPiece(currentEventSO.piece, currentPieceSO);
@@ -73,6 +74,7 @@ public class EventManager : MonoBehaviour
         if (!isEventActive) return;
         isEventActive = false;
         SetSavedPiece(currentPieceSO, nextPieceSO);
+        GetRandomEvent();
     }
 
 

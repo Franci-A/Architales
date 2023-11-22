@@ -19,7 +19,6 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Add listener");
         onPiecePlacedPiece.AddListener(OnPieceChange);
         parent = transform.GetChild(0);
     }
