@@ -50,6 +50,10 @@ public class GhostPreview : MonoBehaviour
             Vector3 gridPos = gridData.WorldToGridPosition(hit.point + hit.normal / 4f);
 
             bool isPlaceable = gridData.IsPiecePlaceValid(ghostPiece, gridPos, out Vector3 validPos);
+            if (isPlaceable)
+                likes.CheckRelations();
+            else
+               likes.ClearFeedback();
 
             ghostMaterial.SetColor("_ValidColor", isPlaceable ? validColor : invalidColor);
             Vector3 pos = gridData.GridToWorldPosition(isPlaceable ? validPos : gridPos);
