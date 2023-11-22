@@ -42,9 +42,6 @@ public class Grid3DManager : MonoBehaviour
     public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);
     public event OnLayerCubeChangeDelegate OnLayerCubeChange;
 
-    [Header("Debug")]
-    [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
-
     private List<Cube> cubeList; // current list
     private PieceSO currentPiece; // current list
     private PieceSO nextPiece;
@@ -77,7 +74,6 @@ public class Grid3DManager : MonoBehaviour
     private void Update()
     {
         IsBlockChanged();
-        UpdateWeightDebug();
     }
 
     //INPUTS
@@ -172,49 +168,17 @@ public class Grid3DManager : MonoBehaviour
     {
         balance.x += gridPosistion.x;
         balance.y += gridPosistion.z;
-    }
-
-
-    private void UpdateWeightDebug()
-    {
-        for (int i = 0; i < DebugInfo.Count; i++)
-        {
-            DebugInfo[i].transform.rotation = Quaternion.LookRotation(DebugInfo[i].transform.position - Camera.main.transform.position);
-
-            switch (i)
-            {
-                case 0:
-                    DebugInfo[i].text = Mathf.Max(-balance.x, 0).ToString();
-                    break;
-
-                case 1:
-                    DebugInfo[i].text = Mathf.Max(balance.x, 0).ToString();
-                    break;
-
-                case 2:
-                    DebugInfo[i].text = Mathf.Max(-balance.y, 0).ToString();
-                    break;
-
-                default:
-                    DebugInfo[i].text = Mathf.Max(balance.y, 0).ToString();
-                    break;
-            }
-        }
 
         if (!isBalanceBroken)
         {
             if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance)
             {
-                DebugInfo[0].color = Color.red;
-                DebugInfo[1].color = Color.red;
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
             }
 
             if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance)
             {
-                DebugInfo[2].color = Color.red;
-                DebugInfo[3].color = Color.red;
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
             }

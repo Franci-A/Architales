@@ -1,6 +1,7 @@
 using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TowerLeaningFeedback : MonoBehaviour
@@ -23,9 +24,14 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] float verticalExplosionForce;
     [SerializeField] GameObject explosionVFX;
 
-    private void Start()
+    [Header("Debug")]
+    [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
+    [SerializeField] private Gradient debugWeightColors;
+
+    private void Awake()
     {
         onPiecePlaced.AddListener(UpdateDisplacement);
+        onPiecePlaced.AddListener(UpdateWeightDebug);
         Shader.SetGlobalFloat("_LeaningPower", 2);
         grid = GetComponent<Grid3DManager>();
     }
@@ -97,9 +103,43 @@ public class TowerLeaningFeedback : MonoBehaviour
     }
 
 
+    private void UpdateWeightDebug()
+    {
+        for (int i = 0; i < DebugInfo.Count; i++)
+        {
+            DebugInfo[i].transform.rotation = Quaternion.LookRotation(DebugInfo[i].transform.position - Camera.main.transform.position);
+            float value = 0;
+            switch (i)
+            {
+                case 0:
+                    DebugInfo[i].text = Mathf.Max(-grid.BalanceValue.x, 0).ToString();
+                    value = Mathf.InverseLerp(0, gameplayData.MaxBalance, Mathf.Max(-grid.BalanceValue.x, 0));
+                    break;
+
+                case 1:
+                    DebugInfo[i].text = Mathf.Max(grid.BalanceValue.x, 0).ToString();
+                    value = Mathf.InverseLerp(0, gameplayData.MaxBalance, Mathf.Max(grid.BalanceValue.x, 0));
+
+                    break;
+
+                case 2:
+                    DebugInfo[i].text = Mathf.Max(-grid.BalanceValue.y, 0).ToString();
+                    value = Mathf.InverseLerp(0, gameplayData.MaxBalance, Mathf.Max(-grid.BalanceValue.y, 0));
+                    break;
+
+                default:
+                    DebugInfo[i].text = Mathf.Max(grid.BalanceValue.y, 0).ToString();
+                    value = Mathf.InverseLerp(0, gameplayData.MaxBalance, Mathf.Max(grid.BalanceValue.y, 0));
+                    break;
+            }
+            DebugInfo[i].color = debugWeightColors.Evaluate(value);
+        }
+        
+    }
 
     private void OnDestroy()
     {
+        onPiecePlaced.RemoveListener(UpdateWeightDebug);
         onPiecePlaced.RemoveListener(UpdateDisplacement);
         ResetDisplacement();
     }
