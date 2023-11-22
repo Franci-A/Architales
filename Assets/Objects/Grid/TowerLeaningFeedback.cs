@@ -13,17 +13,17 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("Weight")]
-    [SerializeField] private float shaderAnimTime;
+    [SerializeField] private float shaderAnimTime = 2;
     [SerializeField] private AnimationCurve shaderAnimCurve;
-    [SerializeField, Range(0, 1)] private float beginDisplacementValue = .3f;
-    [SerializeField] private float displacementPower = 2;
+    [SerializeField, Range(0, 1)] private float beginDisplacementValue = .35f;
+    [SerializeField] private float displacementPower = 1.8f;
 
     [Header("GameOver")]
-    [SerializeField] int cubeDestroyProba;
-    [SerializeField] float delayBtwBlast;
-    [SerializeField] float explosionForce;
-    [SerializeField] float radius;
-    [SerializeField] float verticalExplosionForce;
+    [SerializeField] int cubeDestroyProba = 40;
+    [SerializeField] float delayBtwBlast = 0.001f;
+    [SerializeField] float explosionForce = 500;
+    [SerializeField] float radius= 50;
+    [SerializeField] float verticalExplosionForce = 1;
     [SerializeField] GameObject explosionVFX;
 
     [Header("Debug")]
@@ -92,7 +92,7 @@ public class TowerLeaningFeedback : MonoBehaviour
         float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, maxValue);
         if (value >= beginDisplacementValue)
         {
-            Shader.SetGlobalFloat("_LeaningPower", displacementPower * value);
+            Shader.SetGlobalFloat("_LeaningPower", (displacementPower * value));
             float maxTimer = Mathf.Lerp(0, shaderAnimTime, value);
             float timer = maxTimer;
             float t;
@@ -100,7 +100,7 @@ public class TowerLeaningFeedback : MonoBehaviour
             {
                 // 0-1 of time elapsed
                 t = Mathf.InverseLerp(maxTimer, 0, timer);
-                SetDisplacementValue(shaderAnimCurve.Evaluate(t));
+                SetDisplacementValue(shaderAnimCurve.Evaluate(t) * value);
 
                 timer -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);
