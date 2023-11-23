@@ -84,8 +84,7 @@ public class Grid3DManager : MonoBehaviour
     public void LeftClickInput(InputAction.CallbackContext context)
     {
         if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
-        TryPlacePiece();
-        if (!context.performed || isBalanceBroken) return;
+
         if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
         else TryAimPiece();
     }
@@ -209,6 +208,7 @@ public class Grid3DManager : MonoBehaviour
         nextPiece = _next;
 
         onPiecePlacedPiece.Call(nextPiece);
+        ChangedBlock();
     }
 
     private void UpdateWeight(Vector3 gridPosistion)
