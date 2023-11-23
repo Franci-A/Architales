@@ -47,3 +47,10 @@ MonoBehaviour:
   toInitialize:
   - {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   - {fileID: 11400000, guid: 74200eebbf355564f853c6f95e60238f, type: 2}
+  objects:
+  - obj: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
+    InitializeOnAwake: 1
+    ResetOnDisable: 1
+  - obj: {fileID: 11400000, guid: 74200eebbf355564f853c6f95e60238f, type: 2}
+    InitializeOnAwake: 1
+    ResetOnDisable: 0

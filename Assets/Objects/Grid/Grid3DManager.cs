@@ -14,6 +14,7 @@ public class Grid3DManager : MonoBehaviour
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance; }
     [SerializeField] private GameplayDataSO gameplayData;
+    [SerializeField] private BoolVariable isPlayerActive;
 
     [Header("Grid")]
     [SerializeField] GridData data;
@@ -54,7 +55,6 @@ public class Grid3DManager : MonoBehaviour
 
     public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
-    private List<Cube> _cubeList; // check si ca a changer
 
     private TowerLeaningFeedback feedback;
 
@@ -80,14 +80,11 @@ public class Grid3DManager : MonoBehaviour
         SpawnBase();
     }
 
-    private void Update()
-    {
-        IsBlockChanged();
-    }
-
     //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
+        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
+        TryPlacePiece();
         if (!context.performed || isBalanceBroken) return;
         if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
         else TryAimPiece();
@@ -99,10 +96,10 @@ public class Grid3DManager : MonoBehaviour
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
-
-
     public void PlacePiece(Vector3 gridPos)
     {
+        isPlayerActive.SetValue(false);
+
         var piece = Instantiate(this.piece, transform);
 
         PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
@@ -129,6 +126,13 @@ public class Grid3DManager : MonoBehaviour
 
         onPiecePlaced.Call();
         OnLayerCubeChange?.Invoke(higherBlock);
+        StartCoroutine(WaitForFeedback());
+    }
+
+    IEnumerator WaitForFeedback()
+    {
+        yield return StartCoroutine(feedback.BalanceDisplacementRoutine());
+        ChangedBlock();
     }
 
     private void SpawnBase()
@@ -136,24 +140,23 @@ public class Grid3DManager : MonoBehaviour
         cubeList = lobbyPiece.cubes;
         currentPiece = lobbyPiece;
         PlacePiece(Vector3.zero);
+        isPlayerActive.SetValue(true);
     }
 
-    private void IsBlockChanged()
+    private void ChangedBlock()
     {
-        if (_cubeList != CubeList)
-        {
-            _cubeList = CubeList;
-            PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
-            pieceSO.cubes = CubeList;
-            pieceSO.resident = currentPiece.resident;
-            OnCubeChange?.Invoke(pieceSO);
-            piece.ChangePiece(pieceSO);
-        }
+        PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
+        pieceSO.cubes = CubeList;
+        pieceSO.resident = currentPiece.resident;
+        OnCubeChange?.Invoke(pieceSO);
+        piece.ChangePiece(pieceSO);
+        isPlayerActive.SetValue(true);
     }
 
     private void RotatePiece(bool rotateLeft)
     {
         cubeList = piece.Rotate(rotateLeft);
+        ChangedBlock();
     }
 
     private void TryPlacePiece()

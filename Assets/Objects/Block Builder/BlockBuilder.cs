@@ -11,7 +11,7 @@ public class BlockBuilder : ScriptableObject
 
     [SerializeField, Label("Don't Build Blocks")] private bool createNakedBlock;
 
-    public GameObject CreateBlock(Piece piece, Vector3 gridPosition)
+    public GameObject CreateBlock(Piece piece, Vector3 gridPosition, Transform parent)
     {
         /// Infos Necéssaires pour construire le bloc
         /// 
@@ -29,7 +29,7 @@ public class BlockBuilder : ScriptableObject
         ///         Support Vide / Bloqué ?
         ///         
 
-        var instance = Instantiate(blockPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, piece.transform);
+        var instance = Instantiate(blockPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, parent);
 
         if(createNakedBlock)
             return instance;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Grid Data")]
-public class GridData : ScriptableObject, InitializeOnAwake
+public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisable
 {
     // Size of a block, WorldToGrid not working with every value
     [SerializeField] private float cellSize = 1; // WIP. DO NOT MODIFY YET
@@ -13,6 +13,13 @@ public class GridData : ScriptableObject, InitializeOnAwake
     Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
 
     public void Initialize()
+    {
+        if (grid.Count == 0)
+            return;
+        grid.Clear();
+    }
+
+    public void Uninitialize()
     {
         grid.Clear();
     }

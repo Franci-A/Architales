@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
+  isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   totalNumResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
   maxDistance: 15
@@ -157,59 +158,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
-  shaderAnimTime: 0.5
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  shaderAnimTime: 2
   shaderAnimCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 5.314192
-      outSlope: 5.314192
+      inSlope: 2.9536896
+      outSlope: 2.9536896
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.07278481
+      outWeight: 0.040341172
     - serializedVersion: 3
-      time: 0.2
+      time: 0.8
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.070345424
+      outSlope: 0.070345424
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13452113
+      inWeight: 0.0571692
+      outWeight: 0.15490478
     - serializedVersion: 3
-      time: 0.5
-      value: -0.33
-      inSlope: 0
-      outSlope: 0
+      time: 0.9
+      value: -0.2
+      inSlope: -0.014336091
+      outSlope: -0.014336091
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.2001388
-    - serializedVersion: 3
-      time: 0.75
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.9323559
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 1.2851937
-      outSlope: 1.2851937
+      inSlope: -10.940699
+      outSlope: -10.940699
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.2286458
+      inWeight: 0.2136379
       outWeight: 0
     m_PreInfinity: 2
-    m_PostInfinity: 2
+    m_PostInfinity: 0
     m_RotationOrder: 4
-  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  beginDisplacementValue: 0.35
+  displacementPower: 1.8
   cubeDestroyProba: 40
   delayBtwBlast: 0.001
   explosionForce: 500

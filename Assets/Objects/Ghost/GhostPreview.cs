@@ -9,6 +9,7 @@ public class GhostPreview : MonoBehaviour
 {
     [Header("Grid")]
     [SerializeField] private GridData gridData;
+    [SerializeField] private EventScriptable onPiecePlaced;
     Grid3DManager.MouseMode mouseMode;
 
     [Header("GhostObject")]
@@ -24,6 +25,7 @@ public class GhostPreview : MonoBehaviour
 
     private Piece ghostPiece;
     private CheckResidentsLikes likes;
+    bool isGhostActive = false;
 
     [Header("Event")]
     [SerializeField] private EventScriptable onPrevivewDeactivated;
@@ -39,6 +41,8 @@ public class GhostPreview : MonoBehaviour
     private void Start()
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
+        Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
+        onPiecePlaced.AddListener(EmptyGhost);
         onBalanceBroken.AddListener(IsBalanceBroken);
         onPrevivewDeactivated.AddListener(SwitchToAim);
         onEventCancel.AddListener(SwitchToPlace);
@@ -51,6 +55,7 @@ public class GhostPreview : MonoBehaviour
 
     void Update()
     {
+        if (!isGhostActive) return;
         if (isBalanceBroken) return;
 
         RaycastHit hit;
@@ -63,7 +68,11 @@ public class GhostPreview : MonoBehaviour
 
                 Vector3 gridPos = gridData.WorldToGridPosition(hit.point + hit.normal / 4f);
 
-                bool isPlaceable = gridData.IsPiecePlaceValid(ghostPiece, gridPos, out Vector3 validPos);
+            bool isPlaceable = gridData.IsPiecePlaceValid(ghostPiece, gridPos, out Vector3 validPos);
+            if (isPlaceable)
+                likes.CheckRelations();
+            else
+               likes.ClearFeedback();
 
                 ghostMaterial.SetColor("_ValidColor", isPlaceable ? validColor : invalidColor);
                 Vector3 pos = gridData.GridToWorldPosition(isPlaceable ? validPos : gridPos);
@@ -95,12 +104,22 @@ public class GhostPreview : MonoBehaviour
         validColor = newPiece.resident.blockColor;
         validColor.a = alpha;
         likes.Init(ghostPiece.Cubes);
+        isGhostActive = true;
+    }
+
+    private void EmptyGhost()
+    {
+        isGhostActive = false;
+        if (ghostPiece == null)
+            return; 
+        ghostPiece.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
         Grid3DManager.Instance.onBalanceBroken.RemoveListener(IsBalanceBroken);
         Grid3DManager.Instance.OnCubeChange -= OnPieceChange;
+        onPiecePlaced.RemoveListener(EmptyGhost);
     }
     void SwitchToAim()
     {

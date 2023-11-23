@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    [Header("Asset Reference")]
     [SerializeField] private GridData gridData;
     [SerializeField] private BlockBuilder blockBuilder;
-    [SerializeField] private PieceHappinessHandler happinessHandler;
-
     [SerializeField] private GameObject smokeVFX;
+
+    [Header("Components")]
+    [SerializeField] private PieceHappinessHandler happinessHandler;
+    [SerializeField] private Transform blocksParentTransform;
 
     List<Cube> cubes = new List<Cube>();
     public List<Cube> Cubes { get => cubes; }
@@ -26,7 +29,7 @@ public class Piece : MonoBehaviour
         {
             cube.gridPosition = baseGridPosition + cube.pieceLocalPosition;
 
-            var instance = blockBuilder.CreateBlock(this, cube.gridPosition);
+            var instance = blockBuilder.CreateBlock(this, cube.gridPosition, blocksParentTransform);
 
             if(disableCollider)
                 instance.GetComponent<Collider>().enabled = false;
@@ -78,9 +81,9 @@ public class Piece : MonoBehaviour
 
         currentResident = piece.resident;
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < blocksParentTransform.childCount; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            Destroy(blocksParentTransform.GetChild(i).gameObject);
         }
 
         cubes = piece.cubes;
@@ -90,9 +93,9 @@ public class Piece : MonoBehaviour
     {
         if(_cubes.Count < 0) return;
 
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < blocksParentTransform.childCount; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            Destroy(blocksParentTransform.GetChild(i).gameObject);
         }
 
         cubes = _cubes;
