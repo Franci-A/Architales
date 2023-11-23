@@ -41,7 +41,6 @@ public class GhostPreview : MonoBehaviour
     private void Start()
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
-        Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
         onPiecePlaced.AddListener(EmptyGhost);
         onBalanceBroken.AddListener(IsBalanceBroken);
         onPrevivewDeactivated.AddListener(SwitchToAim);
