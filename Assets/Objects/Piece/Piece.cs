@@ -5,40 +5,74 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    [Header("Asset Reference")]
     [SerializeField] private GridData gridData;
-    [SerializeField] private ResidentHandler cubePrefab;
-    [SerializeField] private PieceHappinessHandler happinessHandler;
-    [SerializeField] private Transform visualTrans;
-
+    [SerializeField] private BlockBuilder blockBuilder;
     [SerializeField] private GameObject smokeVFX;
 
+    [Header("Components")]
+    [SerializeField] private PieceHappinessHandler happinessHandler;
+    [SerializeField] private Transform blocksParentTransform;
+
     List<Cube> cubes = new List<Cube>();
-    Resident currentResident;
     public List<Cube> Cubes { get => cubes; }
 
-    public void SpawnCubes()
+    private Resident currentResident;
+    public Resident GetResident { get => currentResident; }
+
+    private Vector3 baseGridPosition;
+    public Vector3 GetGridPosition { get => baseGridPosition; }
+
+    private void SpawnCubes(bool disableCollider)
     {
         foreach (var cube in cubes)
         {
-            var cubeGO = Instantiate<ResidentHandler>(cubePrefab, visualTrans.position + cube.pieceLocalPosition, visualTrans.rotation, visualTrans);
-            cubeGO.SetResident(currentResident);
-            cubeGO.parentPiece = this;
-            cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
-            cube.cubeGO = cubeGO.gameObject;
+            cube.gridPosition = baseGridPosition + cube.pieceLocalPosition;
+
+            var instance = blockBuilder.CreateBlock(this, cube.gridPosition, blocksParentTransform);
+
+            if(disableCollider)
+                instance.GetComponent<Collider>().enabled = false;
+
+            var residentHandler = instance.GetComponent<ResidentHandler>();
+            residentHandler.SetResident(currentResident);
+            residentHandler.parentPiece = this;
+            
+            cube.cubeGO = instance.gameObject;
         }
+
         happinessHandler.Init();
     }
 
-    public void PlacePieceInFinalSpot(PieceSO piece)
+    private void UpdateSurroundingBlocks()
     {
+        foreach (var cube in cubes)
+        {
+            blockBuilder.UpdateSurroundingBlocks(cube.gridPosition);
+        }
+    }
+
+    public void SpawnPiece(PieceSO piece, Vector3 gridPos)
+    {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
         ChangePiece(piece);
-        SpawnCubes();
-        CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
-        checkResidents.Init(Cubes);
-        checkResidents.CheckRelations();
-        checkResidents.ValidatePosition();
+        SpawnCubes(false);
+
+        UpdateSurroundingBlocks();
+
         var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
         Destroy(vfx, 3);
+    }
+
+    public void PreviewSpawnPiece(PieceSO piece, Vector3 gridPos)
+    {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
+        ChangePiece(piece);
+        SpawnCubes(true);
     }
 
     public void ChangePiece(PieceSO piece)
@@ -47,9 +81,9 @@ public class Piece : MonoBehaviour
 
         currentResident = piece.resident;
 
-        for (int i = 0; i < visualTrans.childCount; i++)
+        for (int i = 0; i < blocksParentTransform.childCount; i++)
         {
-            Destroy(visualTrans.GetChild(i).gameObject);
+            Destroy(blocksParentTransform.GetChild(i).gameObject);
         }
 
         cubes = piece.cubes;
@@ -59,9 +93,9 @@ public class Piece : MonoBehaviour
     {
         if(_cubes.Count < 0) return;
 
-        for (int i = 0; i < visualTrans.childCount; i++)
+        for (int i = 0; i < blocksParentTransform.childCount; i++)
         {
-            Destroy(visualTrans.GetChild(i).gameObject);
+            Destroy(blocksParentTransform.GetChild(i).gameObject);
         }
 
         cubes = _cubes;
@@ -94,6 +128,14 @@ public class Piece : MonoBehaviour
 
         ChangeCubes(rotatedBlocks);
         return rotatedBlocks;
+    }
+
+    public void CheckResidentLikesImpact()
+    {
+        CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
+        checkResidents.Init(Cubes);
+        checkResidents.CheckRelations();
+        checkResidents.ValidatePosition();
     }
 
     public Vector3 centerPiecePos(PieceSO _piece)

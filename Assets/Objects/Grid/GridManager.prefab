@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1897287626598792085}
   - component: {fileID: 2846971376551707400}
   - component: {fileID: 3446204778306605056}
+  - component: {fileID: 5963694896051910344}
   m_Layer: 7
   m_Name: GridManager
   m_TagString: Untagged
@@ -129,66 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
+  isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  displacementShaderMat:
-  - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
-  - {fileID: 2100000, guid: 907d7e0a92ecc6c428e0a5095aefe0c0, type: 2}
-  - {fileID: 2100000, guid: c3497a98c3762c04ca5dec366a8714a8, type: 2}
-  - {fileID: 2100000, guid: df9ed08f258fd384ca5892431b31ca0f, type: 2}
-  - {fileID: 2100000, guid: 732c555d59adf064e9fbc97586771bf5, type: 2}
-  - {fileID: 2100000, guid: 289795d57b0913e43800445c801b8e91, type: 2}
-  shaderAnimTime: 0.5
-  shaderAnimCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 5.314192
-      outSlope: 5.314192
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.07278481
-    - serializedVersion: 3
-      time: 0.2
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13452113
-    - serializedVersion: 3
-      time: 0.5
-      value: -0.33
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.2001388
-    - serializedVersion: 3
-      time: 0.75
-      value: 0.1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 1.2851937
-      outSlope: 1.2851937
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.2286458
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   totalNumResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
   maxDistance: 15
   cubeLayer:
@@ -200,13 +143,105 @@ MonoBehaviour:
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   onPiecePlacedPiece: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd, type: 2}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
+--- !u!114 &5963694896051910344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890544567231775505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68397c9fd5244642aa1f19b9c8e0c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
+  gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  shaderAnimTime: 2
+  shaderAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.9536896
+      outSlope: 2.9536896
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.040341172
+    - serializedVersion: 3
+      time: 0.8
+      value: 1
+      inSlope: 0.070345424
+      outSlope: 0.070345424
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0571692
+      outWeight: 0.15490478
+    - serializedVersion: 3
+      time: 0.9
+      value: -0.2
+      inSlope: -0.014336091
+      outSlope: -0.014336091
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.9323559
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -10.940699
+      outSlope: -10.940699
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2136379
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+  beginDisplacementValue: 0.35
+  displacementPower: 1.8
+  cubeDestroyProba: 40
+  delayBtwBlast: 0.001
+  explosionForce: 500
+  radius: 50
+  verticalExplosionForce: 1
+  explosionVFX: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
+    type: 3}
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  cubeDestroyProba: 40
-  delayBtwBlast: 0.01
-  explosionForce: 500
-  radius: 50
-  verticalExplosionForce: 0
+  debugWeightColors:
+    serializedVersion: 2
+    key0: {r: 0.10436797, g: 1, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 0, a: 1}
+    key2: {r: 1, g: 0.5280055, b: 0, a: 0}
+    key3: {r: 1, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 21627
+    ctime2: 43253
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2

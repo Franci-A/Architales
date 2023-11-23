@@ -10,7 +10,6 @@ public class CheckResidentsLikes : MonoBehaviour
     [SerializeField] private LayerMask mask;
     [SerializeField] private float distance;
     [SerializeField] private FeedbackPopup feedbackPopup;
-    private Vector3 previousPos;
     private List<Vector3> checkDirections;
     private List<FeedbackElement> feedbackElements;
     [SerializeField] private Color likeColor = Color.green;
@@ -21,7 +20,6 @@ public class CheckResidentsLikes : MonoBehaviour
     public void Init(List<Cube> children)
     {
         isAcive = true;
-        previousPos = Vector3.zero;
         currentResident = new List<ResidentHandler>();
         for (int i = 0; i < children.Count; i++)
         {
@@ -37,18 +35,6 @@ public class CheckResidentsLikes : MonoBehaviour
             Vector3.right
         };
         CheckRelations();
-    }
-
-    private void Update()
-    {
-        if (!isAcive)
-            return;
-
-        if (Vector3.Distance(previousPos, transform.position) > .5f)
-        {
-            CheckRelations();
-            previousPos = transform.position;
-        }
     }
 
     private void OnDisable()
@@ -145,7 +131,6 @@ public class CheckResidentsLikes : MonoBehaviour
             feedbackElements[i].neighbor.NewNeighbors(feedbackElements[i].currentResident.GetResidentRace);
             feedbackElements[i].currentResident.NewNeighbors(feedbackElements[i].neighbor.GetResidentRace);
         }
-        ClearFeedback();
         Destroy(this);
     }
 

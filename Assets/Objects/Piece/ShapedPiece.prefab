@@ -33,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3540457853214231084}
+  - {fileID: 7422813069701941080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8861945640709154753
@@ -49,12 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  cubePrefab: {fileID: 1505284695434127131, guid: 1d9de07225e84534f92efa819e81a596,
-    type: 3}
-  happinessHandler: {fileID: 993482265561374568}
-  visualTrans: {fileID: 3540457853214231084}
+  blockBuilder: {fileID: 11400000, guid: 30d6fcd2b59477d49a1ecaa76bfd93d2, type: 2}
   smokeVFX: {fileID: 1907484227110686994, guid: b07bc0b208c88f04dac5f89bf0352604,
     type: 3}
+  happinessHandler: {fileID: 993482265561374568}
+  blocksParentTransform: {fileID: 7422813069701941080}
 --- !u!114 &993482265561374568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +108,7 @@ MonoBehaviour:
   likeColor: {r: 0, g: 1, b: 0, a: 1}
   dislikeColor: {r: 1, g: 0, b: 0, a: 1}
   isAcive: 0
---- !u!1 &7798567592843189773
+--- !u!1 &5277495016204658097
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +116,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3540457853214231084}
+  - component: {fileID: 7422813069701941080}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -125,13 +124,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3540457853214231084
+--- !u!4 &7422813069701941080
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7798567592843189773}
+  m_GameObject: {fileID: 5277495016204658097}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}

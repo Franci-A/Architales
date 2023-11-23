@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class GhostPreview : MonoBehaviour
 {
     [Header("Grid")]
     [SerializeField] private GridData gridData;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("GhostObject")]
     [SerializeField] Piece ghostPiecePrefab;
@@ -19,8 +21,9 @@ public class GhostPreview : MonoBehaviour
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask cubeLayer;
 
-    Piece ghostPiece;
+    private Piece ghostPiece;
     private CheckResidentsLikes likes;
+    bool isGhostActive = false;
 
     void Awake()
     {
@@ -31,15 +34,16 @@ public class GhostPreview : MonoBehaviour
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
         Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
+        onPiecePlaced.AddListener(EmptyGhost);
 
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
-        ghostPiece.SpawnCubes();
+        ghostPiece.PreviewSpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
         likes = GetComponentInChildren<CheckResidentsLikes>();
     }
 
     void Update()
     {
+        if (!isGhostActive) return;
         if (isBalanceBroken) return;
 
         RaycastHit hit;
@@ -51,6 +55,10 @@ public class GhostPreview : MonoBehaviour
             Vector3 gridPos = gridData.WorldToGridPosition(hit.point + hit.normal / 4f);
 
             bool isPlaceable = gridData.IsPiecePlaceValid(ghostPiece, gridPos, out Vector3 validPos);
+            if (isPlaceable)
+                likes.CheckRelations();
+            else
+               likes.ClearFeedback();
 
             ghostMaterial.SetColor("_ValidColor", isPlaceable ? validColor : invalidColor);
             Vector3 pos = gridData.GridToWorldPosition(isPlaceable ? validPos : gridPos);
@@ -64,8 +72,8 @@ public class GhostPreview : MonoBehaviour
     {
         likes.isAcive = false;
         likes.ClearFeedback();
-        ghostPiece.ChangePiece(newPiece);
-        ghostPiece.SpawnCubes();
+        ghostPiece.PreviewSpawnPiece(newPiece, ghostPiece.GetGridPosition);
+
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)
         {
             Renderer rend = ghostPiece.Cubes[i].cubeGO.GetComponentInChildren<Renderer>();
@@ -76,12 +84,22 @@ public class GhostPreview : MonoBehaviour
         validColor = newPiece.resident.blockColor;
         validColor.a = alpha;
         likes.Init(ghostPiece.Cubes);
+        isGhostActive = true;
+    }
+
+    private void EmptyGhost()
+    {
+        isGhostActive = false;
+        if (ghostPiece == null)
+            return; 
+        ghostPiece.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
         Grid3DManager.Instance.onBalanceBroken.RemoveListener(BalanceBroken);
         Grid3DManager.Instance.OnCubeChange -= OnPieceChange;
+        onPiecePlaced.RemoveListener(EmptyGhost);
     }
 
     private void BalanceBroken()
