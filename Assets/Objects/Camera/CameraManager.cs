@@ -43,36 +43,18 @@ public class CameraManager : MonoBehaviour
     [Header("Zoom")]
     [SerializeField] private float zoomMinClamp;
     [SerializeField] private float zoomMaxClamp;
-    [SerializeField] private float zoomSpeed;
-    private float valueZoom;
+    [SerializeField, Range (0, 1f)] private float zoomSpeed;
     private bool zoomActive = false;
-    private Vector3 zoomDirection, zoom, velocity;
+    private Vector3 velocity;
+    private float targetT;
 
     //Vertical Input
     private float verticalInput;
 
 
-    //Clamp Vector3
-    public static Vector3 ClampMagnitude(Vector3 vector, float minx, float maxx, float miny, float maxy, float minz, float maxz)
-    {
-        double sm = vector.sqrMagnitude;
-        if (sm > (double)maxx * (double)maxx) return vector.normalized * maxx;
-        else if (sm < (double)minx * (double)minx) return vector.normalized * minx;
-
-        if (sm > (double)maxy * (double)maxy) return vector.normalized * maxy;
-        else if (sm < (double)miny * (double)miny) return vector.normalized * miny;
-
-        if (sm > (double)maxz * (double)maxz) return vector.normalized * maxz;
-        else if (sm < (double)minz * (double)minz) return vector.normalized * minz;
-
-        return vector;
-    }
-
-
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
-        zoom = mainCamera.transform.position;
     }
 
     void Update()
@@ -221,36 +203,21 @@ public class CameraManager : MonoBehaviour
     private void Zoom(float value)
     {
         //ZOOM CONDITIONS
-        valueZoom = -value;
-        zoomDirection = mainCamera.transform.forward * value * zoomSpeed;
-        zoom = zoomDirection * zoomSpeed;
+        targetT -= zoomSpeed * value;
+        targetT = Mathf.Clamp(targetT, 0, 1);
         zoomActive = true;
-        
     }
 
     private void ZoomUpdate()
     {
         //ZOOM UPDATE
-        //zoom est là pour décroitre au fur et à mesure
-        zoom = new Vector3(zoom.x - zoomDirection.x, zoom.y - zoomDirection.y, zoom.z - zoomDirection.z);
-        Debug.Log(zoom);
+        var minPos = targetZoom.position - mainCamera.transform.forward * zoomMinClamp;
+        var maxPos = targetZoom.position - mainCamera.transform.forward * zoomMaxClamp;
+        var targetPosition = Vector3.Lerp(minPos, maxPos, targetT);
 
-        //on check si on atteint pas la limite sinon on arrête le zoom
-        if (zoom.x - 3f >= zoomMinClamp && zoom.x + 3f <= zoomMaxClamp && zoom.y - 3f >= zoomMinClamp && zoom.y + 3f <= zoomMaxClamp && zoom.z - 3f >= zoomMinClamp && zoom.z + 3f <= zoomMaxClamp)
-        {
-            zoom = ClampMagnitude(zoom, zoomDirection.x - 3f, zoomDirection.x + 3f, zoomDirection.y - 3f, zoomDirection.y + 3f, zoomDirection.z - 3f, zoomDirection.z + 3f);
-            mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, zoom, ref velocity, 0.25f);
-        }
-        else
-            zoomActive = false;
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, targetPosition, ref velocity, 0.25f);
 
-        /*if (zoom.x - 3f >= zoomMinClamp && zoom.x + 3f <= zoomMaxClamp && zoom.y - 3f >= zoomMinClamp && zoom.y + 3f <= zoomMaxClamp && zoom.z - 3f >= zoomMinClamp && zoom.z + 3f <= zoomMaxClamp)
-        {
-            zoom = ClampMagnitude(zoom, zoomDirection.y - 3f, zoomDirection.y + 3f, zoomDirection.y - 3f, zoomDirection.y + 3f, zoomDirection.z - 3f, zoomDirection.z + 3f);
-            mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, zoom, ref velocity, 0.25f);
-        }*/
-
-        if (zoom.x <= 0 && zoom.y <= 0 && zoom.z <= 0)
+        if (velocity.magnitude <= 0.01f)
             zoomActive = false;
     }
 
