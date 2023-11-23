@@ -664,8 +664,8 @@
     "m_ShaderOutputName": "Tiling",
     "m_StageCapability": 2,
     "m_Value": {
-        "x": 2.0,
-        "y": 2.0
+        "x": 1.0,
+        "y": 1.0
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -3242,7 +3242,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"3589aa7a7fb89cb4c87baa30b0455e26\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"4d14363a8387dda428dfc14f8e43e3e9\",\"type\":3}}",
         "m_Guid": ""
     },
     "m_DefaultType": 0
