@@ -25,6 +25,14 @@ public class GridData : ScriptableObject, InitializeOnAwake
             Mathf.Floor(worldPosition.z / cellSize + .5f * cellSize));
     }
 
+    public Vector3 WorldToGridPositionRounded(Vector3 worldPosition)
+    {
+        return new Vector3(
+            Mathf.RoundToInt(worldPosition.x / cellSize * cellSize),
+            Mathf.RoundToInt(worldPosition.y / cellSize - 0.5f * cellSize),
+            Mathf.RoundToInt(worldPosition.z / cellSize * cellSize));
+    }
+
     public Vector3 GridToWorldPosition(Vector3 gridPosition)
     {
         return new Vector3(
@@ -92,12 +100,39 @@ public class GridData : ScriptableObject, InitializeOnAwake
         return value;
     }
 
+
+    /// <summary>
+    /// Checks if piece at <paramref name="gridPosition"/> can be deleted.
+    /// Also checks for specified special cases
+    /// </summary>
+    /// <param name="gridPosition">Grid Position of the center block</param>
+    /// 
+    public bool IsPieceDeletable(Vector3 gridPosition)
+    {
+        bool canPlace = true;
+
+        // False if any block is free
+        if (IsPositionFree(gridPosition)
+            // OR Placed on the ground
+            || (gridPosition.y == 0))
+            return false;      
+
+        return canPlace;
+    }
+
+
     public void AddToGrid(Vector3 gridPosition, GameObject go)
     {
         if (!IsPositionFree(gridPosition))
             throw new Exception($"Already existing block at position {gridPosition} !");
 
         grid.Add(gridPosition, go);
+    }
+
+    public void RemoveToGrid(Vector3 gridPosition)
+    {
+        Destroy(grid[gridPosition]);
+        grid.Remove(gridPosition);
     }
 
     public void ShowAllBlocks()

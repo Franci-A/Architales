@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class Grid3DManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Grid3DManager : MonoBehaviour
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask cubeLayer;
+    private MouseMode mouseMode;
 
     [Header("Piece")]
     [SerializeField] PieceSO lobbyPiece;
@@ -35,6 +37,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
 
     [Header("Event")]
+    [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
     [SerializeField] public EventScriptable onBalanceBroken;
@@ -57,6 +60,11 @@ public class Grid3DManager : MonoBehaviour
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
+    public enum MouseMode
+    {
+        PlacePiece,
+        AimPiece,
+    }
 
     private void Awake()
     {
@@ -81,7 +89,8 @@ public class Grid3DManager : MonoBehaviour
     public void LeftClickInput(InputAction.CallbackContext context)
     {
         if (!context.performed || isBalanceBroken) return;
-        TryPlacePiece();
+        if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
+        else TryAimPiece();
     }
 
     public void RotatePieceInput(InputAction.CallbackContext context)
@@ -114,9 +123,10 @@ public class Grid3DManager : MonoBehaviour
 
         totalNumResidents.Add(piece.Cubes.Count);
 
-        if(!EventManager.Instance.IsEventActive)
-        ChangePieceSORandom();
-        
+        if (!EventManager.Instance.IsEventActive) ChangePieceSORandom();
+        else onEventEnd.Call();
+
+
         onPiecePlaced.Call();
         OnLayerCubeChange?.Invoke(higherBlock);
     }
@@ -155,6 +165,23 @@ public class Grid3DManager : MonoBehaviour
 
         if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
             PlacePiece(validPos);
+    }
+
+    private void TryAimPiece()
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) return;
+
+        Vector3 gridPos = data.WorldToGridPositionRounded(hit.collider.gameObject.transform.position);
+
+        if (data.IsPieceDeletable(gridPos))
+            DeletePiece(gridPos);
+    }
+
+    private void DeletePiece(Vector3 gridPos)
+    {
+        data.RemoveToGrid(gridPos);
+        onEventEnd.Call();
     }
 
     private void ChangePieceSORandom()
@@ -209,6 +236,11 @@ public class Grid3DManager : MonoBehaviour
         nextPiece = _next;
     }
 
+    
+    public void SwitchMouseMode(MouseMode newMode)
+    {
+        mouseMode = newMode;
+    }
 
     public void DestroyTower()
     {

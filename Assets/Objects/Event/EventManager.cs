@@ -18,7 +18,9 @@ public class EventManager : MonoBehaviour
     public static EventManager Instance { get => instance; }
 
     [Header("Event")]
-    [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventScriptable onEventCancel;
+    [SerializeField] private EventScriptable onEventEnd;
+    [SerializeField] private EventScriptable onPrevivewDeactivated;
     [SerializeField] private ListOfEventSO eventListRandom;
     private EventSO currentEventSO;
     public bool IsEventActive { get => isEventActive;}
@@ -43,7 +45,7 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        onPiecePlaced.AddListener(SwitchEvent);
+        onEventEnd.AddListener(SwitchEvent);
     }
 
 
@@ -55,17 +57,30 @@ public class EventManager : MonoBehaviour
 
     public void EventButton()
     {
-        if (!isEventActive) ActivateEvent();
-        else DeactivateEvent();
+        if (!isEventActive)
+        {
+            if(currentEventSO.eventType == TypeEvent.Lightning) onPrevivewDeactivated.Call();
+            ActivateEvent();
+        }
+        else
+        {
+            onEventCancel.Call();
+            DeactivateEvent();
+        }
     }
 
     public void ActivateEvent()
     {
         isEventActive = true;
-        if(currentEventSO.eventType == TypeEvent.Lightning || currentEventSO.eventType == TypeEvent.Orc)
+
+        if(currentEventSO.eventType == TypeEvent.Orc)
         {
             GetPieceToSave();
             SetSavedPiece(currentEventSO.piece, currentPieceSO);
+        }
+        else
+        {
+            Grid3DManager.Instance.SwitchMouseMode(Grid3DManager.MouseMode.AimPiece);
         }
     }
 
@@ -73,6 +88,7 @@ public class EventManager : MonoBehaviour
     {
         isEventActive = false;
         SetSavedPiece(currentPieceSO, nextPieceSO);
+        Grid3DManager.Instance.SwitchMouseMode(Grid3DManager.MouseMode.PlacePiece);
     }
 
     private void SwitchEvent()
