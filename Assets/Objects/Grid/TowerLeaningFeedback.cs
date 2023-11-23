@@ -92,7 +92,7 @@ public class TowerLeaningFeedback : MonoBehaviour
         float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, maxValue);
         if (value >= beginDisplacementValue)
         {
-            Shader.SetGlobalFloat("_LeaningPower", (displacementPower * value));
+            Shader.SetGlobalFloat("_LeaningPower", Mathf.Lerp(0, displacementPower, value));
             float maxTimer = Mathf.Lerp(0, shaderAnimTime, value);
             float timer = maxTimer;
             float t;
