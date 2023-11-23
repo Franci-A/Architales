@@ -10,7 +10,15 @@ public class Initializer : MonoBehaviour
     private static Initializer instance;
     #endregion
 
-    [SerializeField] private List<Object> toInitialize = new List<Object>();
+    [Serializable]
+    private struct ObjectToInitialize
+    {
+        public Object obj;
+        public bool InitializeOnAwake;
+        public bool ResetOnDisable;
+    }
+
+    [SerializeField] private List<ObjectToInitialize> objects = new List<ObjectToInitialize>();
 
     private void Awake()
     {
@@ -25,17 +33,42 @@ public class Initializer : MonoBehaviour
         InitializeObjects();
     }
 
+    private void OnDisable()
+    {
+        ResetObjects();
+    }
+
     private void InitializeObjects()
     {
-        for (int i = 0; i < toInitialize.Count; ++i)
+        foreach (ObjectToInitialize initObject in objects)
         {
-            if (toInitialize[i] is InitializeOnAwake component)
+            if (!initObject.InitializeOnAwake)
+                continue;
+
+            if (initObject.obj is InitializeOnAwake component)
             {
                 component.Initialize();
                 continue;
             }
 
-            throw new Exception($"{toInitialize[i].name} does not Implement the interface {nameof(InitializeOnAwake)}");
+            throw new MissingIntefaceException<InitializeOnAwake>(initObject.obj);
+        }
+    }
+
+    private void ResetObjects()
+    {
+        foreach (ObjectToInitialize initObject in objects)
+        {
+            if (!initObject.ResetOnDisable)
+                continue;
+
+            if (initObject.obj is UninitializeOnDisable component)
+            {
+                component.Uninitialize();
+                continue;
+            }
+
+            throw new MissingIntefaceException<UninitializeOnDisable>(initObject.obj);
         }
     }
 }
