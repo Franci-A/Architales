@@ -15,6 +15,8 @@ public class EventSO : ScriptableObject
 
     public virtual void Deactivate() { }
 
+    public virtual void EndEvent() { }
+
     public void PlaceNewBlock()
     {
         Instance.GetPieceToSave();

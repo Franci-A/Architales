@@ -7,6 +7,7 @@ public class Event_Lightning : EventSO
 {
     public override void Activate()
     {
+        EventManager.Instance.CallOnPreviewDeactivated();
         Grid3DManager.Instance.SwitchMouseMode(Grid3DManager.MouseMode.AimPiece);
     }
     public override void Deactivate()

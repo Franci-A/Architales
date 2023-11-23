@@ -61,14 +61,18 @@ public class EventManager : MonoBehaviour
     {
         if (!isEventActive)
         {
-            if(currentEventSO.eventType == TypeEvent.Lightning) onPrevivewDeactivated.Call();
             ActivateEvent();
         }
         else
         {
             onEventCancel.Call();
-            DeactivateEvent();
+            CancelEvent();
         }
+    }
+
+    public void CallOnPreviewDeactivated()
+    {
+        onPrevivewDeactivated.Call();
     }
 
     public void ActivateEvent()
@@ -78,11 +82,17 @@ public class EventManager : MonoBehaviour
         currentEventSO.Activate();
     }
 
-    public void DeactivateEvent()
+    public void CancelEvent()
     {
         isEventActive = false;
 
         currentEventSO.Deactivate();
+    }
+
+    public void DeactivateEvent()
+    {
+        currentEventSO.EndEvent();
+        CancelEvent();
     }
 
     private void SwitchEvent()
