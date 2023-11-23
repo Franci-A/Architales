@@ -55,6 +55,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
+        Zoom(-1);
     }
 
     void Update()
