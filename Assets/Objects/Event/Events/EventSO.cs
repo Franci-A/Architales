@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using static EventManager;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Event")]
 public class EventSO : ScriptableObject
 {
     public string eventName;
@@ -11,4 +10,14 @@ public class EventSO : ScriptableObject
     public TypeEvent eventType;
 
     public PieceSO piece;
+
+    public virtual void Activate() { }
+
+    public virtual void Deactivate() { }
+
+    public void PlaceNewBlock()
+    {
+        Instance.GetPieceToSave();
+        Instance.SetSavedPiece(piece, Instance.CurrentPieceSO);
+    }
 }

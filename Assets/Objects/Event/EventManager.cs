@@ -24,12 +24,14 @@ public class EventManager : MonoBehaviour
     [SerializeField] private ListOfEventSO eventListRandom;
     private EventSO currentEventSO;
     public bool IsEventActive { get => isEventActive;}
+
     private bool isEventActive;
 
     [Header("Scene references")]
     [SerializeField] Image eventImage;
 
     //[Header("Datas from Grid3DManager")]
+    public PieceSO CurrentPieceSO { get => currentPieceSO; }
     private PieceSO currentPieceSO;
     private PieceSO nextPieceSO;
 
@@ -73,22 +75,14 @@ public class EventManager : MonoBehaviour
     {
         isEventActive = true;
 
-        if(currentEventSO.eventType == TypeEvent.Orc)
-        {
-            GetPieceToSave();
-            SetSavedPiece(currentEventSO.piece, currentPieceSO);
-        }
-        else
-        {
-            Grid3DManager.Instance.SwitchMouseMode(Grid3DManager.MouseMode.AimPiece);
-        }
+        currentEventSO.Activate();
     }
 
     public void DeactivateEvent()
     {
         isEventActive = false;
-        SetSavedPiece(currentPieceSO, nextPieceSO);
-        Grid3DManager.Instance.SwitchMouseMode(Grid3DManager.MouseMode.PlacePiece);
+
+        currentEventSO.Deactivate();
     }
 
     private void SwitchEvent()
@@ -99,13 +93,18 @@ public class EventManager : MonoBehaviour
     }
 
 
-    private void GetPieceToSave()
+    public void GetPieceToSave()
     {
         currentPieceSO = Grid3DManager.Instance.CurrentPiece;
         nextPieceSO = Grid3DManager.Instance.NextPiece;
     }
-    private void SetSavedPiece(PieceSO _current, PieceSO _next)
+    public void SetSavedPiece(PieceSO _current, PieceSO _next)
     {
         Grid3DManager.Instance.ChangePieceSO(_current, _next);
+    }
+
+    public void SetSavedPiece()
+    {
+        Grid3DManager.Instance.ChangePieceSO(currentPieceSO, nextPieceSO);
     }
 }
