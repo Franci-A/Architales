@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcd3f669d313d644b7b36f48164e290, type: 3}
+  m_Name: Orc
+  m_EditorClassIdentifier: 
+  race: 6
+  likes: 
+  dislikes: 000000000100000002000000030000000400000006000000
+  blockColor: {r: 0.21698111, g: 0.10112137, b: 0.15905124, a: 1}
+  blockMaterial: {fileID: 2100000, guid: 858cf963091a93549b62c8dcced712a7, type: 2}

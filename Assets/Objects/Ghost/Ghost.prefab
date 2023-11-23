@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1760128743621151802}
+  - {fileID: 428993827402055358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3065538337238541913
@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  cubePrefab: {fileID: 7068975156785572973, guid: e4a2cf84d5d25e043a94b2e62ad59e6c,
-    type: 3}
+  blockBuilder: {fileID: 11400000, guid: 30d6fcd2b59477d49a1ecaa76bfd93d2, type: 2}
+  smokeVFX: {fileID: 0}
   happinessHandler: {fileID: 1025595493405687021}
-  visualTrans: {fileID: 1760128743621151802}
+  blocksParentTransform: {fileID: 428993827402055358}
 --- !u!114 &1025595493405687021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
   likeColor: {r: 0, g: 1, b: 0, a: 1}
   dislikeColor: {r: 1, g: 0, b: 0, a: 1}
   isAcive: 0
---- !u!1 &4603434525686451088
+--- !u!1 &7173004758286164027
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1760128743621151802}
+  - component: {fileID: 428993827402055358}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -101,13 +101,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1760128743621151802
+--- !u!4 &428993827402055358
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4603434525686451088}
+  m_GameObject: {fileID: 7173004758286164027}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}

@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3f9cfb6f342a54ba8f5e5d59d99339, type: 3}
+  m_Name: AssetList
+  m_EditorClassIdentifier: 
+  assetDatabase:
+  - pair:
+      race: 0
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 1
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 2
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 3
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 4
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 5
+      assetType: 0
+    mesh: {fileID: 0}
+  - pair:
+      race: 0
+      assetType: 1
+    mesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0, type: 3}
+  - pair:
+      race: 1
+      assetType: 1
+    mesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0, type: 3}
+  - pair:
+      race: 2
+      assetType: 1
+    mesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0, type: 3}
+  - pair:
+      race: 3
+      assetType: 1
+    mesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0, type: 3}
+  - pair:
+      race: 4
+      assetType: 1
+    mesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0, type: 3}
+  - pair:
+      race: 5
+      assetType: 1
+    mesh: {fileID: 0}
+  - pair:
+      race: 0
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 1
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 2
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 3
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 4
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 5
+      assetType: 2
+    mesh: {fileID: 0}
+  - pair:
+      race: 0
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 1
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 2
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 3
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 4
+      assetType: -1
+    mesh: {fileID: 0}
+  - pair:
+      race: 5
+      assetType: -1
+    mesh: {fileID: 0}

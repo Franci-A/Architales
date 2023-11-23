@@ -31,5 +31,6 @@ public enum Race
     Elf,
     Fairy,
     Mermaid,
-    Empty
+    Empty,
+    Orc
 }

@@ -19,7 +19,7 @@ public class GhostPreview : MonoBehaviour
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask cubeLayer;
 
-    Piece ghostPiece;
+    private Piece ghostPiece;
     private CheckResidentsLikes likes;
 
     void Awake()
@@ -33,8 +33,7 @@ public class GhostPreview : MonoBehaviour
         Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
 
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.ChangePiece(Grid3DManager.Instance.pieceSo);
-        ghostPiece.SpawnCubes();
+        ghostPiece.PreviewSpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
         likes = GetComponentInChildren<CheckResidentsLikes>();
     }
 
@@ -64,8 +63,8 @@ public class GhostPreview : MonoBehaviour
     {
         likes.isAcive = false;
         likes.ClearFeedback();
-        ghostPiece.ChangePiece(newPiece);
-        ghostPiece.SpawnCubes();
+        ghostPiece.PreviewSpawnPiece(newPiece, ghostPiece.GetGridPosition);
+
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)
         {
             Renderer rend = ghostPiece.Cubes[i].cubeGO.GetComponentInChildren<Renderer>();
