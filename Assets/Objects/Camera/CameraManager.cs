@@ -55,7 +55,6 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
-        Zoom(-1);
     }
 
     void Update()
@@ -222,6 +221,11 @@ public class CameraManager : MonoBehaviour
             zoomActive = false;
     }
 
+    public void ZoomSetClamp(float upMin, float upMax)
+    {
+        zoomMinClamp = upMin;
+        zoomMaxClamp = upMax;
+    }
 
     //INPUTS
     public void RightClickInput(InputAction.CallbackContext context)

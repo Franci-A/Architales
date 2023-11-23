@@ -474,5 +474,5 @@ MonoBehaviour:
   elevatorSpeed: 2
   elevatorMinClamp: 0
   zoomMinClamp: 5
-  zoomMaxClamp: 20
-  zoomSpeed: 0.3
+  zoomMaxClamp: 50
+  zoomSpeed: 0.1
