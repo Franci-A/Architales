@@ -5,38 +5,74 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    [Header("Asset Reference")]
     [SerializeField] private GridData gridData;
-    [SerializeField] private ResidentHandler cubePrefab;
+    [SerializeField] private BlockBuilder blockBuilder;
+    [SerializeField] private GameObject smokeVFX;
+
+    [Header("Components")]
     [SerializeField] private PieceHappinessHandler happinessHandler;
-    [SerializeField] private Transform visualTrans;
+    [SerializeField] private Transform blocksParentTransform;
 
     List<Cube> cubes = new List<Cube>();
-    Resident currentResident;
     public List<Cube> Cubes { get => cubes; }
 
-    public void SpawnCubes()
+    private Resident currentResident;
+    public Resident GetResident { get => currentResident; }
+
+    private Vector3 baseGridPosition;
+    public Vector3 GetGridPosition { get => baseGridPosition; }
+
+    private void SpawnCubes(bool disableCollider)
     {
         foreach (var cube in cubes)
         {
-            var cubeGO = Instantiate<ResidentHandler>(cubePrefab, visualTrans.position + cube.pieceLocalPosition, visualTrans.rotation, visualTrans);
-            cubeGO.SetResident(currentResident);
-            cubeGO.parentPiece = this;
-            cube.gridPosition = gridData.WorldToGridPosition(transform.position) + cube.pieceLocalPosition;
-            cube.cubeGO = cubeGO.gameObject;
+            cube.gridPosition = baseGridPosition + cube.pieceLocalPosition;
+
+            var instance = blockBuilder.CreateBlock(this, cube.gridPosition, blocksParentTransform);
+
+            if(disableCollider)
+                instance.GetComponent<Collider>().enabled = false;
+
+            var residentHandler = instance.GetComponent<ResidentHandler>();
+            residentHandler.SetResident(currentResident);
+            residentHandler.parentPiece = this;
+            
+            cube.cubeGO = instance.gameObject;
         }
+
         happinessHandler.Init();
     }
 
-    public void PlacePieceInFinalSpot(PieceSO piece)
+    private void UpdateSurroundingBlocks()
     {
-        ChangePiece(piece);
-        SpawnCubes();
-        CheckResidentsLikes[] checkResidents = GetComponentsInChildren<CheckResidentsLikes>();
-        for (int i = 0; i < checkResidents.Length; i++)
+        foreach (var cube in cubes)
         {
-            checkResidents[i].CheckRelations();
-            checkResidents[i].ValidatePosition();
+            blockBuilder.UpdateSurroundingBlocks(cube.gridPosition);
         }
+    }
+
+    public void SpawnPiece(PieceSO piece, Vector3 gridPos)
+    {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
+        ChangePiece(piece);
+        SpawnCubes(false);
+
+        UpdateSurroundingBlocks();
+
+        var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
+        Destroy(vfx, 3);
+    }
+
+    public void PreviewSpawnPiece(PieceSO piece, Vector3 gridPos)
+    {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
+        ChangePiece(piece);
+        SpawnCubes(true);
     }
 
     public void ChangePiece(PieceSO piece)
@@ -45,9 +81,9 @@ public class Piece : MonoBehaviour
 
         currentResident = piece.resident;
 
-        for (int i = 0; i < visualTrans.childCount; i++)
+        for (int i = 0; i < blocksParentTransform.childCount; i++)
         {
-            Destroy(visualTrans.GetChild(i).gameObject);
+            Destroy(blocksParentTransform.GetChild(i).gameObject);
         }
 
         cubes = piece.cubes;
@@ -57,9 +93,9 @@ public class Piece : MonoBehaviour
     {
         if(_cubes.Count < 0) return;
 
-        for (int i = 0; i < visualTrans.childCount; i++)
+        for (int i = 0; i < blocksParentTransform.childCount; i++)
         {
-            Destroy(visualTrans.GetChild(i).gameObject);
+            Destroy(blocksParentTransform.GetChild(i).gameObject);
         }
 
         cubes = _cubes;
@@ -92,6 +128,60 @@ public class Piece : MonoBehaviour
 
         ChangeCubes(rotatedBlocks);
         return rotatedBlocks;
+    }
+
+    public void CheckResidentLikesImpact()
+    {
+        CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
+        checkResidents.Init(Cubes);
+        checkResidents.CheckRelations();
+        checkResidents.ValidatePosition();
+    }
+
+    public Vector3 centerPiecePos(PieceSO _piece)
+    {
+        float minX = 0;
+        float maxX = 0;
+        float minY = 0;
+        float maxY = 0;
+        float minZ = 0;
+        float maxZ = 0;
+
+        foreach (var cube in _piece.cubes)
+        {
+            if (cube.pieceLocalPosition.x < minX) minX = cube.pieceLocalPosition.x;
+            else if (cube.pieceLocalPosition.x > maxX) maxX = cube.pieceLocalPosition.x;
+
+            if (cube.pieceLocalPosition.y < minY) minY = cube.pieceLocalPosition.y;
+            else if (cube.pieceLocalPosition.y > maxY) maxY = cube.pieceLocalPosition.y;
+
+            if (cube.pieceLocalPosition.z < minZ) minZ = cube.pieceLocalPosition.z;
+            else if (cube.pieceLocalPosition.z > maxZ) maxZ = cube.pieceLocalPosition.z;
+        }
+
+        return new Vector3((maxX + minX) / -2, (maxY + minY) / -2, (maxZ + minZ) / -2);
+    }
+
+    public Vector3 centerLowerPiecePos(PieceSO _piece)
+    {
+        float minX = 0;
+        float maxX = 0;
+        float minY = 0;
+        float minZ = 0;
+        float maxZ = 0;
+
+        foreach (var cube in _piece.cubes)
+        {
+            if (cube.pieceLocalPosition.x < minX) minX = cube.pieceLocalPosition.x;
+            else if (cube.pieceLocalPosition.x > maxX) maxX = cube.pieceLocalPosition.x;
+
+            if (cube.pieceLocalPosition.y < minY) minY = cube.pieceLocalPosition.y;
+
+            if (cube.pieceLocalPosition.z < minZ) minZ = cube.pieceLocalPosition.z;
+            else if (cube.pieceLocalPosition.z > maxZ) maxZ = cube.pieceLocalPosition.z;
+        }
+
+        return new Vector3((maxX + minX) / -2, (minY) / -2, (maxZ + minZ) / -2);
     }
 
 }

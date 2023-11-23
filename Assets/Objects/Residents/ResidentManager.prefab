@@ -715,8 +715,8 @@ MonoBehaviour:
   numberHappyResidents: {fileID: 11400000, guid: 8535633ab17ffdb42b6b8f7ba9ec041c,
     type: 2}
   image: {fileID: 2388174547950835626}
-  happyImage: {fileID: 21300000, guid: 59dde5d4bd5c79a4f8aa2d6b51b055a4, type: 3}
-  angryImage: {fileID: 21300000, guid: 27bd4e572f846ba4898768ea28dfe3d7, type: 3}
+  happyImage: {fileID: 21300000, guid: 92b614b3313d973498669d77197978ca, type: 3}
+  angryImage: {fileID: 21300000, guid: bc01c6653a928234bb411c78a37721b9, type: 3}
   currentNumberText: {fileID: 3462168488304018602}
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
 --- !u!1 &8584964435966933260
@@ -777,7 +777,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -797,7 +797,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2388174547950835626}
   m_FillRect: {fileID: 6564269934477883055}
   m_HandleRect: {fileID: 363306594672845588}

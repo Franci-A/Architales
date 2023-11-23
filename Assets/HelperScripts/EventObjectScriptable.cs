@@ -19,7 +19,7 @@ namespace HelperScripts.EventSystem
         private Action<object> actionCallbacks = null;
         public void Call(object obj)
         {
-            for(int i = 0; i< callbacks.Count; i++)
+            for(int i = 0; i < callbacks.Count; i++)
             {
                 if(callbacks[i] != null)
                 {
