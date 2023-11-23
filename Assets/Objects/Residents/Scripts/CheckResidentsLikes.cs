@@ -131,7 +131,6 @@ public class CheckResidentsLikes : MonoBehaviour
             feedbackElements[i].neighbor.NewNeighbors(feedbackElements[i].currentResident.GetResidentRace);
             feedbackElements[i].currentResident.NewNeighbors(feedbackElements[i].neighbor.GetResidentRace);
         }
-        ClearFeedback();
         Destroy(this);
     }
 

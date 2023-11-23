@@ -744,16 +744,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3215709701862590273, guid: d73c75fdb88285f49aaf5d39055467e4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 9.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 3215709701862590273, guid: d73c75fdb88285f49aaf5d39055467e4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -8.8
-      objectReference: {fileID: 0}
     - target: {fileID: 8471310569982755035, guid: d73c75fdb88285f49aaf5d39055467e4,
         type: 3}
       propertyPath: m_Name
@@ -836,6 +826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3768419031480591935, guid: 7265a61d1dc13a24588e8c97eeb669ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 7.326805
       objectReference: {fileID: 0}
     - target: {fileID: 6144788015734396493, guid: 7265a61d1dc13a24588e8c97eeb669ff,
         type: 3}
@@ -1413,46 +1408,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3446204778306605056, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: DebugInfo.Array.data[0]
-      value: 
-      objectReference: {fileID: 1902847802}
-    - target: {fileID: 3446204778306605056, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: DebugInfo.Array.data[1]
-      value: 
-      objectReference: {fileID: 1734767121}
-    - target: {fileID: 3446204778306605056, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: DebugInfo.Array.data[2]
-      value: 
-      objectReference: {fileID: 113757501}
-    - target: {fileID: 3446204778306605056, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: DebugInfo.Array.data[3]
-      value: 
-      objectReference: {fileID: 734754258}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: displacementPower
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: DebugInfo.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: beginDisplacementValue
-      value: 0.35
-      objectReference: {fileID: 0}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
       propertyPath: DebugInfo.Array.data[0]
@@ -1473,171 +1428,6 @@ PrefabInstance:
       propertyPath: DebugInfo.Array.data[3]
       value: 
       objectReference: {fileID: 734754258}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.ctime1
-      value: 21627
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.ctime2
-      value: 43253
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.ctime3
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key0.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key0.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key0.r
-      value: 0.10436797
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key1.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key1.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key1.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key2.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key2.g
-      value: 0.5280055
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key2.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key3.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key3.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.key3.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_PostInfinity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: debugWeightColors.m_NumColorKeys
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].time
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[0].inSlope
-      value: 2.9536896
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].inSlope
-      value: 0.070345424
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].inSlope
-      value: -3.6377327
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[0].outSlope
-      value: 2.9536896
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].inWeight
-      value: 0.0571692
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].outSlope
-      value: 0.070345424
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].inWeight
-      value: 0.03112036
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].outSlope
-      value: -3.6377327
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[0].outWeight
-      value: 0.040341172
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[1].outWeight
-      value: 0.15490478
-      objectReference: {fileID: 0}
-    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
-        type: 3}
-      propertyPath: shaderAnimCurve.m_Curve.Array.data[2].outWeight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7890544567231775505, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
       propertyPath: m_Name

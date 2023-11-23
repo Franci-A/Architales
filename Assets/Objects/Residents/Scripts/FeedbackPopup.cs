@@ -31,20 +31,19 @@ public class FeedbackPopup : MonoBehaviour
 
     public void DestroyPopup()
     {
-        if (canvas != null)
-        {
-            if (DOTween.IsTweening(canvas.transform))
-                canvas.transform.DOKill();
-            canvas.transform.DOLocalMoveY(0, animTime / 2);
-        }
+        if (this.gameObject == null)
+            return;
 
-        if (image != null)
-        {
-            if (DOTween.IsTweening(image))
-                image.DOComplete();
-            image.DOColor(Color.clear, animTime / 2);
-        }
-        Destroy(gameObject, animTime/2);
+        if (DOTween.IsTweening(canvas.transform))
+            canvas.transform.DOKill();
+        canvas.transform.DOLocalMoveY(0, animTime / 2);
+
+
+        if (DOTween.IsTweening(image))
+            image.DOComplete();
+        image.DOColor(Color.clear, animTime / 2);
+
+        Destroy(gameObject, animTime / 2);
     }
 
     private void OnDestroy()

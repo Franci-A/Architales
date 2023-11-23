@@ -32,7 +32,6 @@ public class TowerLeaningFeedback : MonoBehaviour
 
     private void Awake()
     {
-        onPiecePlaced.AddListener(UpdateDisplacement);
         onPiecePlaced.AddListener(UpdateWeightDebug);
         Shader.SetGlobalFloat("_LeaningPower", displacementPower);
         grid = GetComponent<Grid3DManager>();
@@ -74,8 +73,6 @@ public class TowerLeaningFeedback : MonoBehaviour
 
     private void UpdateDisplacement()
     {
-        Shader.SetGlobalVector("_LeaningDirection", grid.BalanceValue.normalized);
-        Shader.SetGlobalFloat("_MaxHeight", grid.GetHigherBlock);
         StartCoroutine(BalanceDisplacementRoutine());
     }
 
@@ -86,8 +83,10 @@ public class TowerLeaningFeedback : MonoBehaviour
 
         SetDisplacementValue(0f);
     }
-    private IEnumerator BalanceDisplacementRoutine()
+    public IEnumerator BalanceDisplacementRoutine()
     {
+        Shader.SetGlobalVector("_LeaningDirection", grid.BalanceValue.normalized);
+        Shader.SetGlobalFloat("_MaxHeight", grid.GetHigherBlock);
         float maxValue = Mathf.Max(Mathf.Abs(grid.BalanceValue.x), Mathf.Abs(grid.BalanceValue.y));
         float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, maxValue);
         if (value >= beginDisplacementValue)
@@ -148,7 +147,6 @@ public class TowerLeaningFeedback : MonoBehaviour
     private void OnDestroy()
     {
         onPiecePlaced.RemoveListener(UpdateWeightDebug);
-        onPiecePlaced.RemoveListener(UpdateDisplacement);
         ResetDisplacement();
     }
 

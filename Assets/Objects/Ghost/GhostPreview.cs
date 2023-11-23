@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class GhostPreview : MonoBehaviour
 {
     [Header("Grid")]
     [SerializeField] private GridData gridData;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
     [Header("GhostObject")]
     [SerializeField] Piece ghostPiecePrefab;
@@ -21,6 +23,7 @@ public class GhostPreview : MonoBehaviour
 
     private Piece ghostPiece;
     private CheckResidentsLikes likes;
+    bool isGhostActive = false;
 
     void Awake()
     {
@@ -31,6 +34,7 @@ public class GhostPreview : MonoBehaviour
     {
         Grid3DManager.Instance.OnCubeChange += OnPieceChange;
         Grid3DManager.Instance.onBalanceBroken.AddListener(BalanceBroken);
+        onPiecePlaced.AddListener(EmptyGhost);
 
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
         ghostPiece.PreviewSpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
@@ -39,6 +43,7 @@ public class GhostPreview : MonoBehaviour
 
     void Update()
     {
+        if (!isGhostActive) return;
         if (isBalanceBroken) return;
 
         RaycastHit hit;
@@ -79,12 +84,22 @@ public class GhostPreview : MonoBehaviour
         validColor = newPiece.resident.blockColor;
         validColor.a = alpha;
         likes.Init(ghostPiece.Cubes);
+        isGhostActive = true;
+    }
+
+    private void EmptyGhost()
+    {
+        isGhostActive = false;
+        if (ghostPiece == null)
+            return; 
+        ghostPiece.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
         Grid3DManager.Instance.onBalanceBroken.RemoveListener(BalanceBroken);
         Grid3DManager.Instance.OnCubeChange -= OnPieceChange;
+        onPiecePlaced.RemoveListener(EmptyGhost);
     }
 
     private void BalanceBroken()
