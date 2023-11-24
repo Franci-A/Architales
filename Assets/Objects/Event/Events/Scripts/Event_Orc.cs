@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Events/Orc")]
-public class Event_Orc : EventSO
+public class Event_Orc : GameplayEvent
 {
     public override void Activate() 
     {

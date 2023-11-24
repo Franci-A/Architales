@@ -21,8 +21,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventScriptable onEventCancel;
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPrevivewDeactivated;
-    [SerializeField] private ListOfEventSO eventListRandom;
-    private EventSO currentEventSO;
+    [SerializeField] private ListOfGameplayEvent eventListRandom;
+    private GameplayEvent currentEventSO;
     public bool IsEventActive { get => isEventActive;}
 
     private bool isEventActive;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Events/Lightning")]
-public class Event_Lightning : EventSO
+public class Event_Lightning : GameplayEvent
 {
     public override void Activate()
     {

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3943aa3028dcf644a0cd015208d2475, type: 3}
-  m_Name: ListEventSO
+  m_Name: ListGameplayEvent
   m_EditorClassIdentifier: 
   eventList:
   - {fileID: 11400000, guid: fea38a78690a4fa43a75c8f1df123f19, type: 2}

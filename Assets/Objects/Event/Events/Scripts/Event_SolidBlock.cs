@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Events/Solid Block")]
-public class Event_SolidBlock : EventSO
+public class Event_SolidBlock : GameplayEvent
 {
     public float addBalance;
     public override void Activate()

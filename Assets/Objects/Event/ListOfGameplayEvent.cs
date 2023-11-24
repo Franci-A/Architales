@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/ListEvent")]
-public class ListOfEventSO : ScriptableObject
+public class ListOfGameplayEvent : ScriptableObject
 {
-    public List<EventSO> eventList = new List<EventSO>();
+    public List<GameplayEvent> eventList = new List<GameplayEvent>();
 
-    public EventSO GetRandomEvent()
+    public GameplayEvent GetRandomEvent()
     {
 
         return eventList[Random.Range(0, eventList.Count)];
