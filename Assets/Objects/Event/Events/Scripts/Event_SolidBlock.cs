@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Events/Solid Block")]
 public class Event_SolidBlock : EventSO
 {
+    public float addBalance;
     public override void Activate()
     {
         PlaceNewBlock();
@@ -17,6 +18,6 @@ public class Event_SolidBlock : EventSO
 
     public override void EndEvent()
     {
-        Debug.Log("Tour solidifier !!");
+        Grid3DManager.Instance.AddBalance(addBalance);
     }
 }

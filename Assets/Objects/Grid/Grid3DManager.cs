@@ -23,6 +23,7 @@ public class Grid3DManager : MonoBehaviour
 
     bool isBalanceBroken;
     private Vector2 balance;
+    private float additionalBalance;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -218,13 +219,13 @@ public class Grid3DManager : MonoBehaviour
 
         if (!isBalanceBroken)
         {
-            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance)
+            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance + additionalBalance)
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
             }
 
-            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance)
+            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance + additionalBalance)
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
@@ -248,6 +249,11 @@ public class Grid3DManager : MonoBehaviour
     public void DestroyTower()
     {
         feedback.DestroyTower();
+    }
+
+    public void AddBalance(float addBalance)
+    {
+        additionalBalance += addBalance;
     }
 
 

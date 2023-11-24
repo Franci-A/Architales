@@ -7,7 +7,6 @@ public class EventSO : ScriptableObject
 {
     public string eventName;
     public Sprite eventSprite;
-    public TypeEvent eventType;
 
     public PieceSO piece;
 
