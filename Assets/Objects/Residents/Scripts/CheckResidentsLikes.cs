@@ -136,7 +136,7 @@ public class CheckResidentsLikes : MonoBehaviour
 
     private void OnDestroy()
     {
-        ClearFeedback();
+        //ClearFeedback();
     }
 }
 

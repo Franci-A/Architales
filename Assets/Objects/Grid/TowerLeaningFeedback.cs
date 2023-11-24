@@ -30,6 +30,9 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
     [SerializeField] private Gradient debugWeightColors;
 
+    public bool isBalanceBroken = false;
+    [SerializeField] private BoolVariable autoDestroyTower;
+
     private void Awake()
     {
         onPiecePlaced.AddListener(UpdateWeightDebug);
@@ -103,9 +106,14 @@ public class TowerLeaningFeedback : MonoBehaviour
 
                 timer -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);
-            } while (timer > 0);
+            } while (!isBalanceBroken && timer > 0 || (isBalanceBroken && autoDestroyTower.value) && timer > maxTimer * .2f);
 
             SetDisplacementValue(0f);
+        }
+
+        if (isBalanceBroken && autoDestroyTower.value)
+        {
+            DestroyTower();
         }
     }
 

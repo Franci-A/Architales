@@ -31,7 +31,7 @@ public class FeedbackPopup : MonoBehaviour
 
     public void DestroyPopup()
     {
-        if (this.gameObject == null)
+        if (this == null && this.gameObject == null)
             return;
 
         if (DOTween.IsTweening(canvas.transform))
