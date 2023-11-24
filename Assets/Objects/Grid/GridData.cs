@@ -68,7 +68,8 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
             // False if any block is already occupied
             if (!IsPositionFree(blockGridPos)
                 // OR Placed in the Center
-                || (blockGridPos.x == 0 && blockGridPos.z == 0))
+                //|| (blockGridPos.x == 0 && blockGridPos.z == 0)
+                )
                 return false;
 
             // Check for at least One existing support underneath
