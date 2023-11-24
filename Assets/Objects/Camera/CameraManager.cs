@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
 
 public class CameraManager : MonoBehaviour
 {
@@ -31,6 +28,8 @@ public class CameraManager : MonoBehaviour
     [Header("Elevator")]
     [SerializeField] private float elevatorSpeed;
     [SerializeField] private float elevatorMinClamp;
+
+    private Vector3 velocityElevator;
 
     private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
@@ -199,6 +198,12 @@ public class CameraManager : MonoBehaviour
                 cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
         }
     }
+
+    /*public void VerticalAutoMovement(float upSpeed)
+    {
+        if (velocityElevator.magnitude >= 0.01)
+            cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, new Vector3 (cameraTransform.position.x, cameraTransform.position.y + upSpeed, cameraTransform.position.z), ref velocityElevator, 0.25f);
+    }*/
 
     private void Zoom(float value)
     {
