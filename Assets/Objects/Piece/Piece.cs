@@ -134,8 +134,7 @@ public class Piece : MonoBehaviour
     {
         CheckResidentsLikes checkResidents = GetComponent<CheckResidentsLikes>();
         checkResidents.Init(Cubes);
-        checkResidents.CheckRelations();
-        checkResidents.ValidatePosition();
+        checkResidents.CheckRelationsWithoutFeedback();
     }
 
     public Vector3 centerPiecePos(PieceSO _piece)
