@@ -18,6 +18,8 @@ public class GhostPreview : MonoBehaviour
     [SerializeField] Color validColor;
     [SerializeField] Color invalidColor;
     bool isBalanceBroken;
+    [SerializeField] GameObject destroyGhostPrefab;
+    GameObject destroyGhost;
 
     [Header("Raycast")]
     [SerializeField] private float maxDistance = 15;
@@ -50,6 +52,9 @@ public class GhostPreview : MonoBehaviour
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
         ghostPiece.PreviewSpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
         likes = GetComponentInChildren<CheckResidentsLikes>();
+
+        destroyGhost = Instantiate(destroyGhostPrefab, transform);
+        destroyGhost.SetActive(false);
     }
 
     void Update()
@@ -67,11 +72,11 @@ public class GhostPreview : MonoBehaviour
 
                 Vector3 gridPos = gridData.WorldToGridPosition(hit.point + hit.normal / 4f);
 
-            bool isPlaceable = gridData.IsPiecePlaceValid(ghostPiece, gridPos, out Vector3 validPos);
-            if (isPlaceable)
-                likes.CheckRelations();
-            else
-               likes.ClearFeedback();
+                bool isPlaceable = gridData.IsPiecePlaceValid(ghostPiece, gridPos, out Vector3 validPos);
+                if (isPlaceable)
+                    likes.CheckRelations();
+                else
+                    likes.ClearFeedback();
 
                 ghostMaterial.SetColor("_ValidColor", isPlaceable ? validColor : invalidColor);
                 Vector3 pos = gridData.GridToWorldPosition(isPlaceable ? validPos : gridPos);
@@ -80,11 +85,15 @@ public class GhostPreview : MonoBehaviour
             }
             else
             {
-
+                destroyGhost.SetActive(true);
+                destroyGhost.transform.position = hit.collider.gameObject.transform.position;
             }
         }
-        else ghostPiece.gameObject.SetActive(false);
-
+        else
+        {
+            ghostPiece.gameObject.SetActive(false);
+            destroyGhost.SetActive(false);
+        }
     }
 
     private void OnPieceChange(PieceSO newPiece)

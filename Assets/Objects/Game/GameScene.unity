@@ -2397,30 +2397,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5454861270562762822, guid: 036d2a449fc31ce4180656080ee95617,
-        type: 3}
-      propertyPath: onEventEnd
-      value: 
-      objectReference: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b,
-        type: 2}
-    - target: {fileID: 5454861270562762822, guid: 036d2a449fc31ce4180656080ee95617,
-        type: 3}
-      propertyPath: onEventCancel
-      value: 
-      objectReference: {fileID: 11400000, guid: 4df2789239b1fe04cb06ab5a6cebba49,
-        type: 2}
-    - target: {fileID: 5454861270562762822, guid: 036d2a449fc31ce4180656080ee95617,
-        type: 3}
-      propertyPath: onBalanceBroken
-      value: 
-      objectReference: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc,
-        type: 2}
-    - target: {fileID: 5454861270562762822, guid: 036d2a449fc31ce4180656080ee95617,
-        type: 3}
-      propertyPath: onPrevivewDeactivated
-      value: 
-      objectReference: {fileID: 11400000, guid: 516898db6454aa6498ea09ff2f068f5f,
-        type: 2}
     - target: {fileID: 5767704123449578125, guid: 036d2a449fc31ce4180656080ee95617,
         type: 3}
       propertyPath: m_LocalPosition.x

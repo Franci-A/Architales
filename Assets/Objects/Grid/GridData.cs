@@ -35,9 +35,9 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
     public Vector3 WorldToGridPositionRounded(Vector3 worldPosition)
     {
         return new Vector3(
-            Mathf.RoundToInt(worldPosition.x / cellSize * cellSize),
+            Mathf.RoundToInt(worldPosition.x),
             Mathf.RoundToInt(worldPosition.y / cellSize - 0.5f * cellSize),
-            Mathf.RoundToInt(worldPosition.z / cellSize * cellSize));
+            Mathf.RoundToInt(worldPosition.z));
     }
 
     public Vector3 GridToWorldPosition(Vector3 gridPosition)
@@ -69,6 +69,7 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
             if (!IsPositionFree(blockGridPos)
                 // OR Placed in the Center
                 //|| (blockGridPos.x == 0 && blockGridPos.z == 0)
+                || blockGridPos.y < 0
                 )
                 return false;
 
