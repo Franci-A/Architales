@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        StartCoroutine(endgame());
+    }
+
+    IEnumerator endgame() {
+        yield return new WaitForSeconds(5);
         Instantiate(gameOverScreen);
     }
 

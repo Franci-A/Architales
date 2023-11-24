@@ -223,12 +223,14 @@ public class Grid3DManager : MonoBehaviour
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
+                DestroyTower();
             }
 
             if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance + additionalBalance)
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
+                DestroyTower();
             }
         }
     }
@@ -248,7 +250,8 @@ public class Grid3DManager : MonoBehaviour
 
     public void DestroyTower()
     {
-        feedback.DestroyTower();
+        feedback.isBalanceBroken = true;
+        //feedback.DestroyTower();
     }
 
     public void AddBalance(float addBalance)
