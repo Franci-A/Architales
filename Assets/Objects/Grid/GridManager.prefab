@@ -245,3 +245,5 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  isBalanceBroken: 0
+  autoDestroyTower: {fileID: 11400000, guid: ff653396ffd0cfb4f967fbb386c5b372, type: 2}
