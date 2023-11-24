@@ -159,11 +159,8 @@ public class CheckResidentsLikes : MonoBehaviour
 
         for (int k = feedbackElements.Count - 1; k >= 0; k--)
         {
-            if (residents.Contains(feedbackElements[k].neighbor))
-                continue;
             feedbackElements[k].neighbor.NewNeighbors(feedbackElements[k].currentResident.GetResidentRace);
             feedbackElements[k].currentResident.NewNeighbors(feedbackElements[k].neighbor.GetResidentRace);
-
         }
         feedbackElements.Clear();
         Destroy(this);
