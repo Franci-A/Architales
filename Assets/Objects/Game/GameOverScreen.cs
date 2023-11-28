@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameOverScreen : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     public void Restart() 
     {
@@ -19,5 +21,10 @@ public class GameOverScreen : MonoBehaviour
     public void DestroyTower()
     {
         Grid3DManager.Instance.DestroyTower();
+    }
+
+    public void SetScore(float _score)
+    {
+        scoreText.text = $"Score : {_score.ToString("000")}";
     }
 }
