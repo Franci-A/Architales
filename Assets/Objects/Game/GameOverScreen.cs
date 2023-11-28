@@ -25,6 +25,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void SetScore(float _score)
     {
-        scoreText.text = $"Score : {_score.ToString("000")}";
+        scoreText.text = $"Pieces placed : {_score.ToString()}";
     }
 }
