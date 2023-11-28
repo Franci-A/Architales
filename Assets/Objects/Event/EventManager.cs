@@ -43,13 +43,13 @@ public class EventManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        GetRandomEvent();
     }
 
     private void Start()
     {
         onEventEnd.AddListener(SwitchEvent);
         onPiecePlaced.AddListener(UpdateCoolDown);
+        GetRandomEvent();
     }
 
 
@@ -58,7 +58,11 @@ public class EventManager : MonoBehaviour
         currentEventSO = eventListRandom.GetRandomEvent();
         eventImage.sprite = currentEventSO.eventSprite;
         currentCoolDown = currentEventSO.cooldown;
+
+        if (currentCoolDown == 0) ForceEvent();
+        else if (currentCoolDown > 0) currentCoolDown++;
         UpdateCoolDownVisual();
+        
     }
 
     public void EventButton()
@@ -124,22 +128,26 @@ public class EventManager : MonoBehaviour
     }
     public void UpdateCoolDown()
     {
-        currentCoolDown--;
-        if(currentCoolDown <= 0)
+        if (currentCoolDown > 0)
         {
-            currentCoolDown = 0;
-            mustUseEvent = true;
-            ActivateEvent();
+            currentCoolDown--;
+            if (currentCoolDown == 0) ForceEvent();
         }
-        
+
         UpdateCoolDownVisual();
-
-
     }
-
     public void UpdateCoolDownVisual()
     {
-        textCoolDown.text = currentCoolDown.ToString();
+        if (currentCoolDown < 0) textCoolDown.text = "-";
+        else textCoolDown.text = currentCoolDown.ToString();
+    }
+
+
+    private void ForceEvent()
+    {
+        currentCoolDown = 0;
+        mustUseEvent = true;
+        ActivateEvent();
     }
 
 }
