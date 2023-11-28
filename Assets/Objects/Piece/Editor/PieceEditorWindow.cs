@@ -237,7 +237,7 @@ public class PieceEditorWindow : EditorWindow
         {
             string inGameListPath = "Assets/Objects/Piece/ListOfBlocksSO.asset";
              ListOfBlocksSO list = (ListOfBlocksSO)AssetDatabase.LoadAssetAtPath(inGameListPath, typeof(ListOfBlocksSO));
-            list.pieceList.Add(newPiece);
+            list.AddPiece(newPiece);
             EditorUtility.SetDirty(list);
         }
 
