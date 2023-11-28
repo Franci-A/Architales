@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventName: Solid Block
   eventSprite: {fileID: 21300000, guid: fc7eea647dfeae243b654747de2d113c, type: 3}
-  eventType: 1
   piece: {fileID: 11400000, guid: 07b5359eb9fe04a4b9fcb068fe996ccd, type: 2}
+  cooldown: 15
+  addBalance: 0

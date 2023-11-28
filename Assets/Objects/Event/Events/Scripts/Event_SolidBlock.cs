@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Events/Solid Block")]
 public class Event_SolidBlock : GameplayEvent
 {
+    [Header("Personal datas")]
     public float addBalance;
     public override void Activate()
     {
