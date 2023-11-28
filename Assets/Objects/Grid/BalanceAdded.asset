@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3679bc783f0cd5d47b47ccacbb49ebef, type: 3}
   m_Name: BalanceAdded
   m_EditorClassIdentifier: 
-  value: 0
+  value: 40
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
