@@ -112,6 +112,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 50e24737-2dd8-4b3a-9aad-5611ea3e159d
     m_ActionName: Camera/ResetCamera[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3446204778306605056}
+        m_TargetAssemblyTypeName: Grid3DManager, Assembly-CSharp
+        m_MethodName: ZoomInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 319c5691-77bb-4563-bf41-b80efe719cb5
+    m_ActionName: InGame/RotateMouseWheel[/Mouse/scroll/down,/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8aeefd9f-ba48-4bb2-a90f-ec74690f3f6a
+    m_ActionName: Camera/IsCameraMove[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: InGame
