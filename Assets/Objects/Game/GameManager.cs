@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance { get => instance; }
 
-
     [SerializeField] GameObject gameOverScreen;
 
     private void Awake()
@@ -22,6 +21,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
+        AudioManager.instance.StartMusic();
     }
 
 

@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
     {
         LoadSliderValue();
         GetScreenValue();
+        AudioManager.instance.StartMusic();
     }
 
     #region Main

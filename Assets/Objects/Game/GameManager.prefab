@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce024e09435b61944baf014d6b6af415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 7426729278887049196, guid: 4e99dc1704c70d949ad38b4085e00a15,
+    type: 3}
   gameOverScreen: {fileID: 8132497892863759991, guid: 3994857e2a4c2d44fb950a581839ee5f,
     type: 3}
