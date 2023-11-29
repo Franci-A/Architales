@@ -331,6 +331,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2251334110938265310, guid: 57b5f01e4de52b84596fa13d42cde97f,
+        type: 3}
+      propertyPath: onPiecePlaced
+      value: 
+      objectReference: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c,
+        type: 2}
+    - target: {fileID: 2251334110938265310, guid: 57b5f01e4de52b84596fa13d42cde97f,
+        type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 3813135171586370304, guid: 3994857e2a4c2d44fb950a581839ee5f,
+        type: 3}
     - target: {fileID: 3118294610836715313, guid: 57b5f01e4de52b84596fa13d42cde97f,
         type: 3}
       propertyPath: m_Name
@@ -2824,15 +2836,15 @@ SceneRoots:
   - {fileID: 2036169597}
   - {fileID: 1837025543}
   - {fileID: 604008740}
+  - {fileID: 147435149}
   - {fileID: 3922152028314443073}
   - {fileID: 3374493923898370219}
   - {fileID: 2372588232856230711}
   - {fileID: 2051865212}
-  - {fileID: 147435149}
   - {fileID: 487838245071334431}
   - {fileID: 643069612}
   - {fileID: 3351664334734743275}
-  - {fileID: 372988760}
-  - {fileID: 1464282994}
   - {fileID: 1155649370}
+  - {fileID: 372988760}
   - {fileID: 8735966421280707828}
+  - {fileID: 1464282994}
