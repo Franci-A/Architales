@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6113d1c2c05bf44b083f65f9ffd792, type: 3}
   m_Name: ListOfBlocksSO
   m_EditorClassIdentifier: 
+  inGameResidents:
+  - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
+  - {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
+  - {fileID: 11400000, guid: 95c364dd5fceb464e9300a562e40f8a6, type: 2}
+  - {fileID: 11400000, guid: 1ce2b3530a3e61c4697394b5587a48d6, type: 2}
+  - {fileID: 11400000, guid: 5f7609726b980ed4fb7896b7a49912e1, type: 2}
   pieceList:
   - {fileID: 11400000, guid: 03a8fd782f5fc1943acf31f841fde73e, type: 2}
   - {fileID: 11400000, guid: 006e7f943ccf2a249a2bd28473833f39, type: 2}
@@ -38,3 +44,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1b4a32e91e2928842ba0c1b8db4f7617, type: 2}
   - {fileID: 11400000, guid: 5437f4bb71bd34c478e5cc0672947079, type: 2}
   - {fileID: 11400000, guid: 285a6d6414037da41b2e3fee2f0c9f29, type: 2}
+  initialPiecesNumber: 5
