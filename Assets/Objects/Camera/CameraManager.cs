@@ -28,6 +28,7 @@ public class CameraManager : MonoBehaviour
 
     [Header("Elevator")]
     [SerializeField] private float elevatorSpeed;
+    [SerializeField] private float elevatorMouseSpeed;
     [SerializeField] private float elevatorMinClamp;
     [SerializeField] private int elevatorMaxClampOffset = 3;
 
@@ -229,7 +230,7 @@ public class CameraManager : MonoBehaviour
         {
             directionyVertical = mousePositionY - previsousPositionYVertical;
             previsousPositionYVertical = mousePositionY;
-            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorSpeed), 0);
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
         }
 
         var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
