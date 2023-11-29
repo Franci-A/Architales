@@ -31,12 +31,18 @@ public class CameraManager : MonoBehaviour
 
     private Vector3 velocityElevator;
 
-    private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
-    private float directionx, directiony;
 
+    private float previsousPositionX, previsousPositionY;
+    private float directionx, directiony;
     private bool rightClickPushed; // check if rightclick is pushed
     private bool rightClickOnce; // to start rotate (but once)
+
+    private float previsousPositionYVertical;
+    private float directionyVertical;
+    private bool leftClickPushed; // check if rightclick is pushed
+    private bool leftClickOnce; // to start rotate (but once)
+    bool updatePosition = false;
 
 
     [Header("Zoom")]
@@ -200,9 +206,27 @@ public class CameraManager : MonoBehaviour
     {
         if (verticalInput != 0)
         {
-            if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0) 
+            if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0)
                 cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
         }
+
+        if (leftClickPushed && leftClickOnce)
+        {
+            leftClickOnce = false;
+
+            updatePosition = true;
+            previsousPositionYVertical = mousePositionY;
+        }
+        else if (!leftClickPushed) updatePosition = false;
+
+        if (updatePosition)
+        {
+            directionyVertical = mousePositionY - previsousPositionYVertical;
+            previsousPositionYVertical = mousePositionY;
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorSpeed), 0);
+
+        }
+
     }
 
     /*public void VerticalAutoMovement(float upSpeed)
@@ -239,6 +263,23 @@ public class CameraManager : MonoBehaviour
     }
 
     //INPUTS
+
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
+        {
+            if (context.performed)
+            {
+                leftClickPushed = true;
+                leftClickOnce = true;
+            }
+            else if (context.canceled)
+            {
+                leftClickPushed = false;
+            }
+        }
+    }
     public void RightClickInput(InputAction.CallbackContext context)
     {
         if (context.performed)
