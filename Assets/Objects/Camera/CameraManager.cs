@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using System;
 using Unity.Mathematics;
 using UnityEngine;
@@ -28,6 +29,7 @@ public class CameraManager : MonoBehaviour
     [Header("Elevator")]
     [SerializeField] private float elevatorSpeed;
     [SerializeField] private float elevatorMinClamp;
+    [SerializeField] private int elevatorMaxClampOffset = 3;
 
     private Vector3 velocityElevator;
 
@@ -43,6 +45,8 @@ public class CameraManager : MonoBehaviour
     private bool leftClickPushed; // check if rightclick is pushed
     private bool leftClickOnce; // to start rotate (but once)
     bool updatePosition = false;
+    int higherBlock = 1;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
 
     [Header("Zoom")]
@@ -66,6 +70,8 @@ public class CameraManager : MonoBehaviour
         cameraRotation = transform.rotation.eulerAngles;
         maxDistance = Grid3DManager.Instance.MaxDistance;
         cubeLayer = Grid3DManager.Instance.CubeLayer;
+
+        onPiecePlaced.AddListener(UpdateHigherBlock);
     }
 
     void Update()
@@ -224,9 +230,10 @@ public class CameraManager : MonoBehaviour
             directionyVertical = mousePositionY - previsousPositionYVertical;
             previsousPositionYVertical = mousePositionY;
             cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorSpeed), 0);
-
         }
 
+        var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
+        cameraTransform.position = new Vector3(0, yPositionClamped, 0);
     }
 
     /*public void VerticalAutoMovement(float upSpeed)
@@ -260,6 +267,11 @@ public class CameraManager : MonoBehaviour
     {
         zoomMinClamp = upMin;
         zoomMaxClamp = upMax;
+    }
+
+    void UpdateHigherBlock()
+    {
+        higherBlock = Grid3DManager.Instance.GetHigherBlock;
     }
 
     //INPUTS
