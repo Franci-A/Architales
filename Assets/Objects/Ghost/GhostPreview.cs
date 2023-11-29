@@ -91,6 +91,8 @@ public class GhostPreview : MonoBehaviour
         }
         else
         {
+            ghostPiece.transform.position = Vector3.zero;
+
             ghostPiece.gameObject.SetActive(false);
             destroyGhost.SetActive(false);
         }
