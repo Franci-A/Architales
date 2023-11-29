@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using System;
 using Unity.Mathematics;
 using UnityEngine;
@@ -27,16 +28,26 @@ public class CameraManager : MonoBehaviour
 
     [Header("Elevator")]
     [SerializeField] private float elevatorSpeed;
+    [SerializeField] private float elevatorMouseSpeed;
     [SerializeField] private float elevatorMinClamp;
+    [SerializeField] private int elevatorMaxClampOffset = 3;
 
     private Vector3 velocityElevator;
 
-    private float previsousPositionX, previsousPositionY;
     private float mousePositionX, mousePositionY;
-    private float directionx, directiony;
 
+    private float previsousPositionX, previsousPositionY;
+    private float directionx, directiony;
     private bool rightClickPushed; // check if rightclick is pushed
     private bool rightClickOnce; // to start rotate (but once)
+
+    private float previsousPositionYVertical;
+    private float directionyVertical;
+    private bool leftClickPushed; // check if rightclick is pushed
+    private bool leftClickOnce; // to start rotate (but once)
+    bool updatePosition = false;
+    int higherBlock = 1;
+    [SerializeField] private EventScriptable onPiecePlaced;
 
 
     [Header("Zoom")]
@@ -50,10 +61,18 @@ public class CameraManager : MonoBehaviour
     //Vertical Input
     private float verticalInput;
 
+    [Header("Mouse Check")]
+    private float maxDistance = 15;
+    private LayerMask cubeLayer;
+
 
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
+        maxDistance = Grid3DManager.Instance.MaxDistance;
+        cubeLayer = Grid3DManager.Instance.CubeLayer;
+
+        onPiecePlaced.AddListener(UpdateHigherBlock);
     }
 
     void Update()
@@ -194,9 +213,28 @@ public class CameraManager : MonoBehaviour
     {
         if (verticalInput != 0)
         {
-            if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0) 
+            if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0)
                 cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
         }
+
+        if (leftClickPushed && leftClickOnce)
+        {
+            leftClickOnce = false;
+
+            updatePosition = true;
+            previsousPositionYVertical = mousePositionY;
+        }
+        else if (!leftClickPushed) updatePosition = false;
+
+        if (updatePosition)
+        {
+            directionyVertical = mousePositionY - previsousPositionYVertical;
+            previsousPositionYVertical = mousePositionY;
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
+        }
+
+        var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
+        cameraTransform.position = new Vector3(0, yPositionClamped, 0);
     }
 
     /*public void VerticalAutoMovement(float upSpeed)
@@ -232,7 +270,29 @@ public class CameraManager : MonoBehaviour
         zoomMaxClamp = upMax;
     }
 
+    void UpdateHigherBlock()
+    {
+        higherBlock = Grid3DManager.Instance.GetHigherBlock;
+    }
+
     //INPUTS
+
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
+        {
+            if (context.performed)
+            {
+                leftClickPushed = true;
+                leftClickOnce = true;
+            }
+            else if (context.canceled)
+            {
+                leftClickPushed = false;
+            }
+        }
+    }
     public void RightClickInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -257,7 +317,9 @@ public class CameraManager : MonoBehaviour
     public void ZoomInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        Zoom(Mathf.Sign(context.ReadValue<float>()));
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
+            Zoom(Mathf.Sign(context.ReadValue<float>()));
     }
 
     public void VerticalMovementInput(InputAction.CallbackContext context)
