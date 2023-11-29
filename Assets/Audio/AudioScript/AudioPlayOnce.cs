@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AudioPlayOnce : MonoBehaviour
 {
-    [SerializeField] private AudioClip _clip;
+    [SerializeField] private UnityEvent playSound;
 
     void Start()
     {
-        AudioManager.instance.PlaySFX(_clip);
+        if (playSound != null)
+            playSound.Invoke();
     }
 }

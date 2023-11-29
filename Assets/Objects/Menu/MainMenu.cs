@@ -6,6 +6,7 @@ using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject option;
 
     [Header("Audio")]
+    [SerializeField] private UnityEvent playMusic;
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
@@ -31,7 +33,7 @@ public class MainMenu : MonoBehaviour
     {
         LoadSliderValue();
         GetScreenValue();
-        AudioManager.instance.StartMusic();
+        playMusic.Invoke();
     }
 
     #region Main

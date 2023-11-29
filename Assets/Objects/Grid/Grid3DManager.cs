@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Grid3DManager : MonoBehaviour
@@ -59,6 +60,9 @@ public class Grid3DManager : MonoBehaviour
     private TowerLeaningFeedback feedback;
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
+
+    [Header("AudioEvent")]
+    [SerializeField] private UnityEvent playSFX;
 
     public enum MouseMode
     {
@@ -166,7 +170,10 @@ public class Grid3DManager : MonoBehaviour
         Vector3 gridPos = data.WorldToGridPosition(hit.point + hit.normal / 4f);
 
         if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
+        {
             PlacePiece(validPos);
+            playSFX.Invoke();
+        }
     }
 
     private void TryAimPiece()
