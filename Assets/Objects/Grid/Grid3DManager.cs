@@ -60,6 +60,9 @@ public class Grid3DManager : MonoBehaviour
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
+    public float MaxDistance { get => maxDistance;}
+    public LayerMask CubeLayer { get => cubeLayer;}
+
     public enum MouseMode
     {
         PlacePiece,
@@ -80,20 +83,6 @@ public class Grid3DManager : MonoBehaviour
         SpawnBase();
     }
 
-    //INPUTS
-    public void LeftClickInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
-
-        if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
-        else TryAimPiece();
-    }
-
-    public void RotatePieceInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed || isBalanceBroken) return;
-        RotatePiece(context.ReadValue<float>() < 0);
-    }
 
     public void PlacePiece(Vector3 gridPos)
     {
@@ -278,5 +267,27 @@ public class Grid3DManager : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(gridPos + Vector3.down * data.CellSize * .5f, new Vector3(data.CellSize, 0, data.CellSize));
         }
+    }
+    //INPUTS
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
+
+        if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
+        else TryAimPiece();
+    }
+
+    public void RotatePieceInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed || isBalanceBroken) return;
+        RotatePiece(context.ReadValue<float>() < 0);
+    }
+
+    public void ZoomInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) 
+            RotatePiece(context.ReadValue<float>() < 0);
     }
 }

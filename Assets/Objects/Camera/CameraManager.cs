@@ -50,10 +50,16 @@ public class CameraManager : MonoBehaviour
     //Vertical Input
     private float verticalInput;
 
+    [Header("Mouse Check")]
+    private float maxDistance = 15;
+    private LayerMask cubeLayer;
+
 
     private void Start()
     {
         cameraRotation = transform.rotation.eulerAngles;
+        maxDistance = Grid3DManager.Instance.MaxDistance;
+        cubeLayer = Grid3DManager.Instance.CubeLayer;
     }
 
     void Update()
@@ -257,7 +263,9 @@ public class CameraManager : MonoBehaviour
     public void ZoomInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        Zoom(Mathf.Sign(context.ReadValue<float>()));
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
+            Zoom(Mathf.Sign(context.ReadValue<float>()));
     }
 
     public void VerticalMovementInput(InputAction.CallbackContext context)
