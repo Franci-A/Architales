@@ -32,7 +32,6 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
         GenerateResidentSubLists();
         GeneratePiecesList();
 
-        happinessResidentGain.OnValueChanged.AddListener(() => Debug.Log($"value is {happinessResidentGain.value}"));
         lastPiecePlaced.AddListener(OnPiecePlaced);
     }
 
@@ -118,7 +117,6 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
             return;
 
         PieceSO lastPiece = lastPieceObject as PieceSO;
-        Debug.Log($"Placed piece {lastPiece.resident.name}: Value is {happinessResidentGain.value}");
         ProcessHappinessGain(lastPiece.resident);
     }
 
