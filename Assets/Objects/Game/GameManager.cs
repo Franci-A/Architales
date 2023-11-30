@@ -1,11 +1,7 @@
 using HelperScripts.EventSystem;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEditor.Events;
-using UnityEditor.PackageManager;
 
 public class GameManager : MonoBehaviour
 {
