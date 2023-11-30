@@ -6,7 +6,7 @@ using UnityEngine;
 public class RotatingPiecePreview : MonoBehaviour
 {
     [Header("Event")]
-    [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
+    [SerializeField] private EventObjectScriptable nextPiece;
 
     [Header("Piece")]
     [SerializeField] Piece piecePrefab;
@@ -19,7 +19,7 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void Awake()
     {
-        onPiecePlacedPiece.AddListener(OnPieceChange);
+        nextPiece.AddListener(OnPieceChange);
         parent = transform.GetChild(0);
     }
 
@@ -49,6 +49,6 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void OnDestroy()
     {
-        onPiecePlacedPiece.RemoveListener(OnPieceChange);
+        nextPiece.RemoveListener(OnPieceChange);
     }
 }
