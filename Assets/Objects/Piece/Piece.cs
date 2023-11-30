@@ -11,6 +11,7 @@ public class Piece : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private PieceHappinessHandler happinessHandler;
+    [SerializeField] private PieceDecorationsHandler DecorationsHandler;
     [SerializeField] private Transform blocksParentTransform;
 
     List<Cube> cubes = new List<Cube>();
@@ -28,10 +29,10 @@ public class Piece : MonoBehaviour
         {
             cube.gridPosition = baseGridPosition + cube.pieceLocalPosition;
 
-            var instance = blockBuilder.CreateBlock(this, cube.gridPosition, blocksParentTransform);
-
+            var instance = blockBuilder.CreateBlock(this, cube.gridPosition, blocksParentTransform, disableCollider);
+/*
             if(disableCollider)
-                instance.GetComponent<Collider>().enabled = false;
+                instance.GetComponent<Collider>().enabled = false;*/
 
             var residentHandler = instance.GetComponent<ResidentHandler>();
             residentHandler.SetResident(currentResident);
@@ -60,6 +61,7 @@ public class Piece : MonoBehaviour
         SpawnCubes(false);
 
         UpdateSurroundingBlocks();
+        DecorationsHandler?.Init();
 
 
         if (piece.resident.vfxSmoke == null) return;

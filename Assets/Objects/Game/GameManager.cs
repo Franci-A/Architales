@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEditor.Events;
+using UnityEditor.PackageManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
+    [SerializeField] private UnityEvent playMusic, playGameOver;
+
     private void Awake()
     {
         if (instance == null)
@@ -28,6 +33,8 @@ public class GameManager : MonoBehaviour
     {
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
+
+        playMusic.Invoke();
     }
 
 
@@ -39,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator endgame() {
         yield return new WaitForSeconds(5);
+        playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);
     }

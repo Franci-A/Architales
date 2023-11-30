@@ -8,10 +8,11 @@ public class BlockBuilder : ScriptableObject
     [SerializeField] private BlockAssetTypeRaceList blockAssetList;
     [SerializeField] private GridData gridData;
     [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private GameObject ghostPrefab;
 
     [SerializeField, Label("Don't Build Blocks")] private bool createNakedBlock;
 
-    public GameObject CreateBlock(Piece piece, Vector3 gridPosition, Transform parent)
+    public GameObject CreateBlock(Piece piece, Vector3 gridPosition, Transform parent, bool isGhost = false)
     {
         /// Infos Necéssaires pour construire le bloc
         /// 
@@ -29,7 +30,11 @@ public class BlockBuilder : ScriptableObject
         ///         Support Vide / Bloqué ?
         ///         
 
-        var instance = Instantiate(blockPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, parent);
+        GameObject instance;
+        if(!isGhost)
+            instance = Instantiate(blockPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, parent);
+        else 
+            instance = Instantiate(ghostPrefab, gridData.GridToWorldPosition(gridPosition), piece.transform.rotation, parent);
 
         if(createNakedBlock)
             return instance;
@@ -59,7 +64,7 @@ public class BlockBuilder : ScriptableObject
         if (!IsPositionFree(residentHandler.parentPiece, roofGridPosition))
             return;
 
-        socketHandler.SetMesh(null);
+        //socketHandler.SetMesh(null);
     }
 
     private void BuildAsset(GameObject block, Piece piece, Vector3 gridPosition)
@@ -77,7 +82,7 @@ public class BlockBuilder : ScriptableObject
         if (!IsPositionFree(piece, roofGridPosition))
             return;
 
-        socketHandler.SetMesh(blockAssetList.GetMeshByRaceAndType(race, BlockAssetType.ROOF));
+        //socketHandler.SetRoofMesh(blockAssetList.GetMeshByRaceAndType(race, BlockAssetType.ROOF));
     }
 
     private bool IsPositionFree(Piece piece, Vector3 gridPosition)
