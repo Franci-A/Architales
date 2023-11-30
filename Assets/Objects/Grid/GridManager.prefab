@@ -164,6 +164,23 @@ MonoBehaviour:
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   onPiecePlacedPiece: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd, type: 2}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
+  playSFX:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7426729278887049196, guid: 4e99dc1704c70d949ad38b4085e00a15,
+          type: 3}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 7dd39805fcd274343a89083d7209ce67,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5963694896051910344
 MonoBehaviour:
   m_ObjectHideFlags: 0
