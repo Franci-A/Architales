@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 
 public class Grid3DManager : MonoBehaviour
 {
@@ -62,6 +62,12 @@ public class Grid3DManager : MonoBehaviour
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
+    public float MaxDistance { get => maxDistance;}
+    public LayerMask CubeLayer { get => cubeLayer;}
+
+    [Header("AudioEvent")]
+    [SerializeField] private UnityEvent playSFX;
+
     public enum MouseMode
     {
         PlacePiece,
@@ -82,20 +88,6 @@ public class Grid3DManager : MonoBehaviour
         SpawnBase();
     }
 
-    //INPUTS
-    public void LeftClickInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
-
-        if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
-        else TryAimPiece();
-    }
-
-    public void RotatePieceInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed || isBalanceBroken) return;
-        RotatePiece(context.ReadValue<float>() < 0);
-    }
 
     public void PlacePiece(Vector3 gridPos)
     {
@@ -120,6 +112,7 @@ public class Grid3DManager : MonoBehaviour
         }
 
         totalNumResidents.Add(piece.Cubes.Count);
+
 
         if (!EventManager.Instance.IsEventActive) ChangePieceSORandom();
         else onEventEnd.Call();
@@ -168,7 +161,10 @@ public class Grid3DManager : MonoBehaviour
         Vector3 gridPos = data.WorldToGridPosition(hit.point + hit.normal / 4f);
 
         if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
+        {
             PlacePiece(validPos);
+            playSFX.Invoke();
+        }
     }
 
     private void TryAimPiece()
@@ -179,12 +175,13 @@ public class Grid3DManager : MonoBehaviour
         Vector3 gridPos = data.WorldToGridPositionRounded(hit.collider.gameObject.transform.position);
 
         if (data.IsPieceDeletable(gridPos))
-            DeletePiece(gridPos);
+            DeletePiece(hit.collider.gameObject, gridPos);
     }
 
-    private void DeletePiece(Vector3 gridPos)
+    private void DeletePiece(GameObject cube, Vector3 gridPos)
     {
         data.RemoveToGrid(gridPos);
+        cube.GetComponent<ResidentHandler>().parentPiece.DestroyCube(cube);
         onEventEnd.Call();
     }
 
@@ -280,5 +277,27 @@ public class Grid3DManager : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(gridPos + Vector3.down * data.CellSize * .5f, new Vector3(data.CellSize, 0, data.CellSize));
         }
+    }
+    //INPUTS
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
+
+        if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
+        else TryAimPiece();
+    }
+
+    public void RotatePieceInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed || isBalanceBroken) return;
+        RotatePiece(context.ReadValue<float>() < 0);
+    }
+
+    public void ZoomInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) 
+            RotatePiece(context.ReadValue<float>() < 0);
     }
 }

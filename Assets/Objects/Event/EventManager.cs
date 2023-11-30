@@ -1,18 +1,12 @@
-using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HelperScripts.EventSystem;
+using TMPro;
 
 public class EventManager : MonoBehaviour
 {
-    public enum TypeEvent
-    {
-        Lightning,
-        Orc,
-    }
-
-
     // Singleton
     private static EventManager instance;
     public static EventManager Instance { get => instance; }
@@ -21,6 +15,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventScriptable onEventCancel;
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPrevivewDeactivated;
+    [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] private ListOfGameplayEvent eventListRandom;
     private GameplayEvent currentEventSO;
     public bool IsEventActive { get => isEventActive;}
@@ -29,6 +24,12 @@ public class EventManager : MonoBehaviour
 
     [Header("Scene references")]
     [SerializeField] Image eventImage;
+    [SerializeField] TextMeshProUGUI textCoolDown;
+
+
+    //[Header("CoolDown")]
+    private int currentCoolDown;
+    private bool mustUseEvent;
 
     //[Header("Datas from Grid3DManager")]
     public PieceSO CurrentPieceSO { get => currentPieceSO; }
@@ -42,19 +43,36 @@ public class EventManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        GetRandomEvent();
     }
 
     private void Start()
     {
         onEventEnd.AddListener(SwitchEvent);
+        onPiecePlaced.AddListener(UpdateCoolDown);
+        GetRandomEvent();
+        UpdateCoolDownVisual();
+    }
+
+    private void OnDestroy()
+    {
+        onEventEnd.RemoveListener(SwitchEvent);
+        onPiecePlaced.RemoveListener(UpdateCoolDown);
     }
 
 
     private void GetRandomEvent()
     {
+        var provCooldown = 0;
+        if (currentCoolDown > 0 && currentEventSO.piece != null) provCooldown++;
+
         currentEventSO = eventListRandom.GetRandomEvent();
         eventImage.sprite = currentEventSO.eventSprite;
+        currentCoolDown = currentEventSO.cooldown;
+
+        if (currentCoolDown == 0) ForceEvent();
+        currentCoolDown += provCooldown;
+        UpdateCoolDownVisual();
+        
     }
 
     public void EventButton()
@@ -65,6 +83,7 @@ public class EventManager : MonoBehaviour
         }
         else
         {
+            if (mustUseEvent) return;
             onEventCancel.Call();
             CancelEvent();
         }
@@ -85,7 +104,7 @@ public class EventManager : MonoBehaviour
     public void CancelEvent()
     {
         isEventActive = false;
-
+        mustUseEvent = false;
         currentEventSO.Deactivate();
     }
 
@@ -117,4 +136,28 @@ public class EventManager : MonoBehaviour
     {
         Grid3DManager.Instance.ChangePieceSO(currentPieceSO, nextPieceSO);
     }
+    public void UpdateCoolDown()
+    {
+        if (currentCoolDown > 0)
+        {
+            currentCoolDown--;
+            if (currentCoolDown == 0) ForceEvent();
+        }
+
+        UpdateCoolDownVisual();
+    }
+    public void UpdateCoolDownVisual()
+    {
+        if (currentCoolDown < 0) textCoolDown.text = "-";
+        else textCoolDown.text = currentCoolDown.ToString();
+    }
+
+
+    private void ForceEvent()
+    {
+        currentCoolDown = 0;
+        mustUseEvent = true;
+        ActivateEvent();
+    }
+
 }

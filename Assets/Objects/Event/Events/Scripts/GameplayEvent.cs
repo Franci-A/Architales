@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class GameplayEvent : ScriptableObject
 {
+    [Header("Event")]
     public string eventName;
     public Sprite eventSprite;
 
+    [Header("Datas")]
     public PieceSO piece;
+    public int cooldown;
 
     public virtual void Activate() { }
 
