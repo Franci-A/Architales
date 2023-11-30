@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 993482265561374568}
   - component: {fileID: 8227952843306276918}
   - component: {fileID: 2873525374267366661}
+  - component: {fileID: -5630199477725555432}
   m_Layer: 0
   m_Name: ShapedPiece
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
   smokeVFX: {fileID: 1907484227110686994, guid: b07bc0b208c88f04dac5f89bf0352604,
     type: 3}
   happinessHandler: {fileID: 993482265561374568}
+  DecorationsHandler: {fileID: -5630199477725555432}
   blocksParentTransform: {fileID: 7422813069701941080}
 --- !u!114 &993482265561374568
 MonoBehaviour:
@@ -108,6 +110,18 @@ MonoBehaviour:
   likeColor: {r: 0, g: 1, b: 0, a: 1}
   dislikeColor: {r: 1, g: 0, b: 0, a: 1}
   isAcive: 0
+--- !u!114 &-5630199477725555432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940681306881663711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b4cde3c15429543ac24d59b60b28dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5277495016204658097
 GameObject:
   m_ObjectHideFlags: 0
