@@ -12,9 +12,7 @@ public class AudioPlayCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (layer == "Cube")
-        {
+        if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
             playSound.Invoke();
-        }
     }
 }
