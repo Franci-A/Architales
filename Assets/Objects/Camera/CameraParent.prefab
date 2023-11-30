@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4459715049854242156}
   m_Layer: 0
   m_Name: UICamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533479775246856309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42704347, y: -0, z: -0, w: 0.90423113}
-  m_LocalPosition: {x: -0.21, y: 7.34, z: -6.78}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9131494193120172656}
+  m_Father: {fileID: 3215709701862590273}
   m_LocalEulerAnglesHint: {x: 50.56, y: 0, z: 0}
 --- !u!20 &5853025052004970252
 Camera:
@@ -128,6 +128,37 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &2175523970974538801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7607015924226470821}
+  m_Layer: 0
+  m_Name: TargetZoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7607015924226470821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175523970974538801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9131494193120172656}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2867093520057619564
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +190,8 @@ Transform:
   m_LocalPosition: {x: -0.21, y: 7.34, z: -6.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5056044032477128869}
   m_Father: {fileID: 9131494193120172656}
   m_LocalEulerAnglesHint: {x: 50.56, y: 0, z: 0}
 --- !u!20 &6403964786656785352
@@ -298,7 +330,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3215709701862590273}
-  - {fileID: 5056044032477128869}
+  - {fileID: 7607015924226470821}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8483795228809686011
@@ -415,6 +447,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 50e24737-2dd8-4b3a-9aad-5611ea3e159d
     m_ActionName: Camera/ResetCamera[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 319c5691-77bb-4563-bf41-b80efe719cb5
+    m_ActionName: InGame/RotateMouseWheel[/Mouse/scroll/down,/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8249964787922218150}
+        m_TargetAssemblyTypeName: CameraManager, Assembly-CSharp
+        m_MethodName: LeftClickInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8aeefd9f-ba48-4bb2-a90f-ec74690f3f6a
+    m_ActionName: Camera/IsCameraMove[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Camera
@@ -434,13 +486,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 9131494193120172656}
   mainCamera: {fileID: 6403964786656785352}
-  smoothBrakeSpeed: 0.05
+  targetZoom: {fileID: 7607015924226470821}
   horizontalSpeed: 0.5
   verticalSpeed: 0.5
   rotationMinClamp: -0.8
   rotationMaxClamp: 0.65
   elevatorSpeed: 2
+  elevatorMouseSpeed: 0.25
   elevatorMinClamp: 0
-  zoomMinClamp: 25
-  zoomMaxClamp: 90
-  zoomSpeed: 4
+  elevatorMaxClampOffset: 3
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  zoomMinClamp: 9
+  zoomMaxClamp: 20
+  zoomSpeed: 0.1

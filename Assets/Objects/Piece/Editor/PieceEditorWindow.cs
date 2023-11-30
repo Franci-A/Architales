@@ -10,13 +10,14 @@ public class PieceEditorWindow : EditorWindow
 {
     //Checkboxes grid
     int gridSize = 5;
+    int gridHeight = 9;
     float buttonSpace = 15;
-    bool[,,] checkBoxes = new bool[5,5,5];
-    bool[,,] saveCheckBoxes = new bool[5,5,5];
+    bool[,,] checkBoxes = new bool[5,9,5];
+    bool[,,] saveCheckBoxes = new bool[5,9,5];
 
     //Preview
     GameObject cube;
-    GameObject[,,] arrayGO = new GameObject[5, 5, 5];
+    GameObject[,,] arrayGO = new GameObject[5, 9, 5];
 
     //Height
     int height = 0;
@@ -64,7 +65,7 @@ public class PieceEditorWindow : EditorWindow
                 EditorGUILayout.BeginHorizontal();
                 for (int j = 0; j < gridSize; j++)
                 {
-                    checkBoxes[j, height, i] = EditorGUILayout.Toggle(checkBoxes[j, height, i], GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
+                    checkBoxes[j, height + 4, i] = EditorGUILayout.Toggle(checkBoxes[j, height + 4, i], GUILayout.Width(buttonSpace), GUILayout.Height(buttonSpace));
                 }
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
@@ -81,17 +82,17 @@ public class PieceEditorWindow : EditorWindow
                 for (int j = 0; j < gridSize; j++)
                 {
 
-                    if (checkBoxes[j, height, i] != saveCheckBoxes[j, height, i])
+                    if (checkBoxes[j, height + 4, i] != saveCheckBoxes[j, height + 4, i])
                     {
-                        saveCheckBoxes[j, height, i] = checkBoxes[j, height, i];
-                        if (checkBoxes[j, height, i])
+                        saveCheckBoxes[j, height + 4, i] = checkBoxes[j, height + 4, i];
+                        if (checkBoxes[j, height + 4, i])
                         {
-                            arrayGO[j, height, i] = UpdateCubeList(new Vector2(i, j), checkBoxes[j, height, i]);
+                            arrayGO[j, height + 4, i] = UpdateCubeList(new Vector2(i, j), checkBoxes[j, height + 4, i]);
                         }
                         else
                         {
-                            DestroyImmediate(arrayGO[j, height, i]);
-                            arrayGO[j, height, i] = null;
+                            DestroyImmediate(arrayGO[j, height + 4, i]);
+                            arrayGO[j, height + 4, i] = null;
                         }
                     }
                 }
@@ -109,7 +110,7 @@ public class PieceEditorWindow : EditorWindow
             EditorGUILayout.LabelField(height.ToString(), style);
             if (GUILayout.Button("-")) height--;
 
-            height = Mathf.Clamp(height, 0, 4);
+            height = Mathf.Clamp(height, -4, 4);
             #endregion
 
             #region Reset
@@ -171,14 +172,14 @@ public class PieceEditorWindow : EditorWindow
         if (isActive)
         {
             Debug.Log("test");
-                var go = Instantiate(cube, new Vector3(pos.y, height, pos.x), new Quaternion());
+                var go = Instantiate(cube, new Vector3(pos.y, height + 4, pos.x), new Quaternion());
 
                 return go;
         }
         else
         {
 
-                DestroyImmediate(arrayGO[(int)pos.y, height, (int)pos.x]);
+                DestroyImmediate(arrayGO[(int)pos.y, height + 4, (int)pos.x]);
 
             
 
@@ -192,7 +193,7 @@ public class PieceEditorWindow : EditorWindow
 
         for (int i = 0; i < gridSize; i++)
         {
-            for (int j = 0; j < gridSize; j++)
+            for (int j = 0; j < gridHeight; j++)
             {
                 for (int k = 0; k < gridSize; k++)
                 {
@@ -214,14 +215,14 @@ public class PieceEditorWindow : EditorWindow
         newPiece.resident = resident;
         for (int i = 0; i < gridSize; i++)
         {
-            for (int j = 0; j < gridSize; j++)
+            for (int j = 0; j < gridHeight; j++)
             {
                 for (int k = 0; k < gridSize; k++)
                 {
                     if (checkBoxes[i, j, k])
                     {
                         Cube cube = new Cube();
-                        cube.pieceLocalPosition = new Vector3(i - 2, j, k - 2);    
+                        cube.pieceLocalPosition = new Vector3(i - 2, j - 4, k - 2);    
                         newPiece.cubes.Add(cube);
                     }
                 }

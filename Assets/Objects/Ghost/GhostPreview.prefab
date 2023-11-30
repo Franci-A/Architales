@@ -51,7 +51,14 @@ MonoBehaviour:
   ghostMaterial: {fileID: 2100000, guid: 2b6d564c490ab6f4c958e8e382b9a585, type: 2}
   validColor: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 0.7176471}
   invalidColor: {r: 0.764151, g: 0, b: 0, a: 0.7176471}
+  destroyGhostPrefab: {fileID: 2510096003879882686, guid: e5031bb5cf1dae44889adc56e6f269f3,
+    type: 3}
   maxDistance: 15
   cubeLayer:
     serializedVersion: 2
     m_Bits: 128
+  onPrevivewDeactivated: {fileID: 11400000, guid: 516898db6454aa6498ea09ff2f068f5f,
+    type: 2}
+  onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
+  onEventCancel: {fileID: 11400000, guid: 4df2789239b1fe04cb06ab5a6cebba49, type: 2}
+  onEventEnd: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b, type: 2}

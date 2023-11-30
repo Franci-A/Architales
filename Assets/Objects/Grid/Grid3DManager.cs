@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Grid3DManager : MonoBehaviour
@@ -22,6 +23,7 @@ public class Grid3DManager : MonoBehaviour
 
     bool isBalanceBroken;
     private Vector2 balance;
+    private float additionalBalance;
 
     [Header("Residents")]
     [SerializeField] private IntVariable totalNumResidents;
@@ -29,6 +31,7 @@ public class Grid3DManager : MonoBehaviour
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask cubeLayer;
+    private MouseMode mouseMode;
 
     [Header("Piece")]
     [SerializeField] PieceSO lobbyPiece;
@@ -36,6 +39,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] ListOfBlocksSO pieceListRandom; // liste des trucs random
 
     [Header("Event")]
+    [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
     [SerializeField] public EventScriptable onBalanceBroken;
@@ -57,6 +61,17 @@ public class Grid3DManager : MonoBehaviour
 
     public Vector2 BalanceValue => balance * gameplayData.balanceMultiplierVariable.value;
 
+    public float MaxDistance { get => maxDistance;}
+    public LayerMask CubeLayer { get => cubeLayer;}
+
+    [Header("AudioEvent")]
+    [SerializeField] private UnityEvent playSFX;
+
+    public enum MouseMode
+    {
+        PlacePiece,
+        AimPiece,
+    }
 
     private void Awake()
     {
@@ -72,18 +87,6 @@ public class Grid3DManager : MonoBehaviour
         SpawnBase();
     }
 
-    //INPUTS
-    public void LeftClickInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
-        TryPlacePiece();
-    }
-
-    public void RotatePieceInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed || isBalanceBroken) return;
-        RotatePiece(context.ReadValue<float>() < 0);
-    }
 
     public void PlacePiece(Vector3 gridPos)
     {
@@ -109,9 +112,10 @@ public class Grid3DManager : MonoBehaviour
 
         totalNumResidents.Add(piece.Cubes.Count);
 
-        if(!EventManager.Instance.IsEventActive)
-        ChangePieceSORandom();
-        
+
+        if (!EventManager.Instance.IsEventActive) ChangePieceSORandom();
+        else onEventEnd.Call();
+
         onPiecePlaced.Call();
         OnLayerCubeChange?.Invoke(higherBlock);
         StartCoroutine(WaitForFeedback());
@@ -155,7 +159,28 @@ public class Grid3DManager : MonoBehaviour
         Vector3 gridPos = data.WorldToGridPosition(hit.point + hit.normal / 4f);
 
         if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
+        {
             PlacePiece(validPos);
+            playSFX.Invoke();
+        }
+    }
+
+    private void TryAimPiece()
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) return;
+
+        Vector3 gridPos = data.WorldToGridPositionRounded(hit.collider.gameObject.transform.position);
+
+        if (data.IsPieceDeletable(gridPos))
+            DeletePiece(hit.collider.gameObject, gridPos);
+    }
+
+    private void DeletePiece(GameObject cube, Vector3 gridPos)
+    {
+        data.RemoveToGrid(gridPos);
+        cube.GetComponent<ResidentHandler>().parentPiece.DestroyCube(cube);
+        onEventEnd.Call();
     }
 
     private void ChangePieceSORandom()
@@ -180,6 +205,7 @@ public class Grid3DManager : MonoBehaviour
         nextPiece = _next;
 
         onPiecePlacedPiece.Call(nextPiece);
+        ChangedBlock();
     }
 
     private void UpdateWeight(Vector3 gridPosistion)
@@ -189,16 +215,18 @@ public class Grid3DManager : MonoBehaviour
 
         if (!isBalanceBroken)
         {
-            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance)
+            if (Mathf.Abs(BalanceValue.x) > gameplayData.MaxBalance + additionalBalance)
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
+                DestroyTower();
             }
 
-            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance)
+            if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance + additionalBalance)
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
+                DestroyTower();
             }
         }
     }
@@ -210,10 +238,21 @@ public class Grid3DManager : MonoBehaviour
         nextPiece = _next;
     }
 
+    
+    public void SwitchMouseMode(MouseMode newMode)
+    {
+        mouseMode = newMode;
+    }
 
     public void DestroyTower()
     {
-        feedback.DestroyTower();
+        feedback.isBalanceBroken = true;
+        //feedback.DestroyTower();
+    }
+
+    public void AddBalance(float addBalance)
+    {
+        additionalBalance += addBalance;
     }
 
 
@@ -236,5 +275,27 @@ public class Grid3DManager : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireCube(gridPos + Vector3.down * data.CellSize * .5f, new Vector3(data.CellSize, 0, data.CellSize));
         }
+    }
+    //INPUTS
+    public void LeftClickInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
+
+        if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
+        else TryAimPiece();
+    }
+
+    public void RotatePieceInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed || isBalanceBroken) return;
+        RotatePiece(context.ReadValue<float>() < 0);
+    }
+
+    public void ZoomInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) 
+            RotatePiece(context.ReadValue<float>() < 0);
     }
 }
