@@ -103,6 +103,7 @@ Material:
     - _LeaningPower: 2
     - _MaxHeight: 1
     - _Metallic: 0
+    - _ObjectRotation: 0
     - _OcclusionStrength: 1
     - _OutlineDistance: 0.7
     - _Parallax: 0.005
