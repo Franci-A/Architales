@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +8,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/ListPiece")]
 public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeOnDisable
 {
+    [Header("Events")]
+    [SerializeField] private IntVariable happinessResidentGain;
+    [SerializeField] private EventObjectScriptable lastPiecePlaced;
+
+    [Header("Initial List Values")]
+    [SerializeField] private int initialPiecesNumber;
     [SerializeField] private List<Resident> inGameResidents;
     [SerializeField] private List<PieceSO> pieceList;
-    [SerializeField] private int initialPiecesNumber;
 
     /// <summary>
     /// Library of every single piece per resident type
@@ -25,12 +31,17 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     {
         GenerateResidentSubLists();
         GeneratePiecesList();
+
+        happinessResidentGain.OnValueChanged.AddListener(() => Debug.Log($"value is {happinessResidentGain.value}"));
+        lastPiecePlaced.AddListener(OnPiecePlaced);
     }
 
     public void Uninitialize()
     {
         residentSubList?.Clear();
         gameplayPiecesSubList?.Clear();
+
+        lastPiecePlaced.RemoveListener(OnPiecePlaced);
     }
 
     /// <summary>
@@ -59,8 +70,6 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
 
         var piece = gameplayPiecesSubList[resident][index];
         gameplayPiecesSubList[resident].RemoveAt(index);
-
-        Debug.Log($"Took 1 piece from the {piece.resident.race}s, {--count} left..");
 
         return piece;
     }
@@ -94,6 +103,36 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
             for (int i = 0; i < initialPiecesNumber; ++i)
                 gameplayPiecesSubList[resident].Add(GetRandomPieceFromLibrary(resident));
         }
+    }
+
+    private void GainPieces(Resident resident, int numberOfPieces)
+    {
+        for (int i = 0; i <= numberOfPieces; ++i)
+            gameplayPiecesSubList[resident].Add(GetRandomPieceFromLibrary(resident));
+        
+    }
+
+    private void OnPiecePlaced(object lastPieceObject)
+    {
+        if (lastPieceObject == null)
+            return;
+
+        PieceSO lastPiece = lastPieceObject as PieceSO;
+        Debug.Log($"Placed piece {lastPiece.resident.name}: Value is {happinessResidentGain.value}");
+        ProcessHappinessGain(lastPiece.resident);
+    }
+
+    private void ProcessHappinessGain(Resident placedResident)
+    {
+        // Gain additional pieces if > 1
+        if (happinessResidentGain.value > 1)
+            GainPieces(placedResident, 2);
+
+        // Gain back a piece if positive
+        else if (happinessResidentGain.value > 0)
+            GainPieces(placedResident, 1);
+
+        happinessResidentGain.SetValue(0);
     }
 
     [Button("Debug Sub List")]

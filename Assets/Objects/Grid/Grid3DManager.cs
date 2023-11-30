@@ -41,6 +41,7 @@ public class Grid3DManager : MonoBehaviour
     [Header("Event")]
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventObjectScriptable lastPiecePlaced;
     [SerializeField] private EventObjectScriptable nextPieceChanged;
     [SerializeField] public EventScriptable onBalanceBroken;
     public delegate void OnCubeChangeDelegate(PieceSO newPiece);
@@ -123,8 +124,8 @@ public class Grid3DManager : MonoBehaviour
         if (!EventManager.Instance.IsEventActive) ChangePieceSORandom();
         else onEventEnd.Call();
 
-
         onPiecePlaced.Call();
+        lastPiecePlaced.Call(pieceSO);
         OnLayerCubeChange?.Invoke(higherBlock);
         StartCoroutine(WaitForFeedback());
     }

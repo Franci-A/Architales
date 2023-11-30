@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6113d1c2c05bf44b083f65f9ffd792, type: 3}
   m_Name: ListOfBlocksSO
   m_EditorClassIdentifier: 
+  happinessResidentGain: {fileID: 11400000, guid: 8456eff214b38db4ea1c9599e8433f70,
+    type: 2}
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  initialPiecesNumber: 5
   inGameResidents:
   - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
   - {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
@@ -44,4 +48,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1b4a32e91e2928842ba0c1b8db4f7617, type: 2}
   - {fileID: 11400000, guid: 5437f4bb71bd34c478e5cc0672947079, type: 2}
   - {fileID: 11400000, guid: 285a6d6414037da41b2e3fee2f0c9f29, type: 2}
-  initialPiecesNumber: 5
