@@ -12,7 +12,7 @@ public class Piece : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private PieceHappinessHandler happinessHandler;
-    [SerializeField] private PieceDecorationsHandler DecorationsHandler;
+    [SerializeField] private PieceDecorationsHandler decorationsHandler;
     [SerializeField] private Transform blocksParentTransform;
 
     List<Cube> cubes = new List<Cube>();
@@ -62,7 +62,7 @@ public class Piece : MonoBehaviour
         SpawnCubes(false);
 
         UpdateSurroundingBlocks();
-        DecorationsHandler?.Init();
+        decorationsHandler?.Init();
 
         var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
         Destroy(vfx, 3);
@@ -183,6 +183,27 @@ public class Piece : MonoBehaviour
         }
 
         return new Vector3((maxX + minX) / -2, (minY) / -2, (maxZ + minZ) / -2);
+    }
+
+    public void DestroyCube(GameObject cube)
+    {
+
+        happinessHandler.RemoveResident(cube.GetComponent<ResidentHandler>());
+        decorationsHandler.RemoveSocket(cube.GetComponent<BlockSocketHandler>());
+
+        for (int i = 0; i < cubes.Count; i++)
+        {
+            if (cubes[i].cubeGO == cube)
+            {
+                Destroy(cube);
+                cubes.RemoveAt(i);
+                break;
+            }
+        }
+        if(cubes.Count <= 0)
+        {
+            Destroy(this);
+        }
     }
 
 }

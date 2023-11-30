@@ -73,6 +73,9 @@ MonoBehaviour:
   currentResident: {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
   cube: {fileID: 4096471954504250345}
   parentPiece: {fileID: 0}
+  cubeMask:
+    serializedVersion: 2
+    m_Bits: 128
   OnNeighborsChanged:
     m_PersistentCalls:
       m_Calls: []
