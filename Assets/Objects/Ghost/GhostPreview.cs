@@ -9,7 +9,6 @@ public class GhostPreview : MonoBehaviour
 {
     [Header("Grid")]
     [SerializeField] private GridData gridData;
-    [SerializeField] private EventScriptable onPiecePlaced;
     Grid3DManager.MouseMode mouseMode;
 
     [Header("GhostObject")]
@@ -30,6 +29,7 @@ public class GhostPreview : MonoBehaviour
     bool isGhostActive = false;
 
     [Header("Event")]
+    [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] private EventScriptable onPrevivewDeactivated;
     [SerializeField] private EventScriptable onBalanceBroken;
     [SerializeField] private EventScriptable onEventCancel;
@@ -127,9 +127,13 @@ public class GhostPreview : MonoBehaviour
 
     private void OnDestroy()
     {
-        Grid3DManager.Instance.onBalanceBroken.RemoveListener(IsBalanceBroken);
         Grid3DManager.Instance.OnCubeChange -= OnPieceChange;
+
         onPiecePlaced.RemoveListener(EmptyGhost);
+        onBalanceBroken.RemoveListener(IsBalanceBroken);
+        onPrevivewDeactivated.RemoveListener(SwitchToAim);
+        onEventCancel.RemoveListener(SwitchToPlace);
+        onEventEnd.RemoveListener(SwitchToPlace);
     }
     void SwitchToAim()
     {

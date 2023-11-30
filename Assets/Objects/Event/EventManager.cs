@@ -52,6 +52,12 @@ public class EventManager : MonoBehaviour
         GetRandomEvent();
     }
 
+    private void OnDestroy()
+    {
+        onEventEnd.RemoveListener(SwitchEvent);
+        onPiecePlaced.RemoveListener(UpdateCoolDown);
+    }
+
 
     private void GetRandomEvent()
     {

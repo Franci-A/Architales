@@ -1,6 +1,7 @@
 using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEditor.Events;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+
     void GameOver()
     {
         StartCoroutine(endgame());
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         Grid3DManager.Instance.onBalanceBroken.RemoveListener(GameOver);
+        onPiecePlaced.RemoveListener(IncreaseScore);
     }
 
     private void IncreaseScore()
