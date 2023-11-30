@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
 
     private int score;
 
-
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
