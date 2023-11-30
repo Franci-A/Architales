@@ -8,20 +8,6 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioSource _MusicSource, _SFXSource;
 
-    //[SerializeField] private AudioClip[] source;
-
-
-    /*private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-    }*/
-
     public void PlayMusic(AudioClip clip)
     {
         _MusicSource.clip = clip;
