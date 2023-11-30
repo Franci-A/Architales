@@ -11,11 +11,17 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(AudioClip clip)
     {
         _MusicSource.clip = clip;
+        _MusicSource.UnPause();
         _MusicSource.Play();
     }
 
     public void PlaySFX(AudioClip clip)
     {
         _SFXSource.PlayOneShot(clip);
+    }
+
+    public void PauseMusic()
+    {
+        _MusicSource.Pause();
     }
 }

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
-    [SerializeField] private UnityEvent playMusic;
+    [SerializeField] private UnityEvent playMusic, playGameOver;
 
     private void Awake()
     {
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
+
         playMusic.Invoke();
     }
 
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator endgame() {
         yield return new WaitForSeconds(5);
+        playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);
     }
