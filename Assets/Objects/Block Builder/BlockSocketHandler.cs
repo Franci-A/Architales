@@ -14,6 +14,8 @@ public class BlockSocketHandler : MonoBehaviour
     private List<Vector3> checkDirections;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Vector3 debugPos;
+    [SerializeField] private float roofStartingHeight = 1;
+    [SerializeField] private float supportStartingHeight = 1;
 
     private void Awake()
     {
@@ -30,12 +32,13 @@ public class BlockSocketHandler : MonoBehaviour
 
     public void Init()
     {
-        if (CheckSocket(roofSocket, Vector3.up, Vector3.zero))
+        if (roofSocket.socket.transform.position.y > roofStartingHeight && CheckSocket(roofSocket, Vector3.up, Vector3.zero))
         {
-            Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
-            RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
+                Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
+                RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
+            
         }
-        if(CheckSocket(supportSocket, Vector3.down, new Vector3(0, .2f,0))) 
+        if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, .2f,0))) 
         {
             GetSupportDirection();
         }

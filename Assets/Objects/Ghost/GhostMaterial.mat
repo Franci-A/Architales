@@ -52,7 +52,7 @@ Material:
     - _BaseColor: {r: 1, g: 0.5589785, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Tilling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _ValidColor: {r: 0.21698111, g: 0.10112137, b: 0.15905124, a: 0.7176471}
+    - _ValidColor: {r: 0.2688679, g: 1, b: 0.9928409, a: 0.7176471}
   m_BuildTextureStacks: []
 --- !u!114 &3594195727390189705
 MonoBehaviour:
