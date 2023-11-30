@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4112810206748471390}
+  - component: {fileID: 8227952843306276918}
   - component: {fileID: 8861945640709154753}
   - component: {fileID: 993482265561374568}
-  - component: {fileID: 8227952843306276918}
   - component: {fileID: 2873525374267366661}
   m_Layer: 0
   m_Name: ShapedPiece
@@ -36,6 +36,27 @@ Transform:
   - {fileID: 7422813069701941080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &8227952843306276918
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940681306881663711}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d85b0d79c99e0c742934c075d33fd42d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8861945640709154753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,27 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9782cb9e3e1418498082933bf0ada07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &8227952843306276918
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2940681306881663711}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d85b0d79c99e0c742934c075d33fd42d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2873525374267366661
 MonoBehaviour:
   m_ObjectHideFlags: 0

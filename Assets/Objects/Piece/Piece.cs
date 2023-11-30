@@ -8,7 +8,6 @@ public class Piece : MonoBehaviour
     [Header("Asset Reference")]
     [SerializeField] private GridData gridData;
     [SerializeField] private BlockBuilder blockBuilder;
-    [SerializeField] private GameObject smokeVFX;
 
     [Header("Components")]
     [SerializeField] private PieceHappinessHandler happinessHandler;
@@ -62,7 +61,10 @@ public class Piece : MonoBehaviour
 
         UpdateSurroundingBlocks();
 
-        var vfx = Instantiate(smokeVFX, transform.position - centerLowerPiecePos(piece), transform.rotation);
+
+        if (piece.resident.vfxSmoke == null) return;
+
+        var vfx = Instantiate(piece.resident.vfxSmoke, transform.position - centerLowerPiecePos(piece), transform.rotation);
         Destroy(vfx, 3);
     }
 
