@@ -75,6 +75,11 @@ public class CameraManager : MonoBehaviour
         onPiecePlaced.AddListener(UpdateHigherBlock);
     }
 
+    private void OnDestroy()
+    {
+        onPiecePlaced.RemoveListener(UpdateHigherBlock);
+    }
+
     void Update()
     {
         CheckRotation();
