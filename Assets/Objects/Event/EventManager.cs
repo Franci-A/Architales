@@ -50,17 +50,27 @@ public class EventManager : MonoBehaviour
         onEventEnd.AddListener(SwitchEvent);
         onPiecePlaced.AddListener(UpdateCoolDown);
         GetRandomEvent();
+        UpdateCoolDownVisual();
+    }
+
+    private void OnDestroy()
+    {
+        onEventEnd.RemoveListener(SwitchEvent);
+        onPiecePlaced.RemoveListener(UpdateCoolDown);
     }
 
 
     private void GetRandomEvent()
     {
+        var provCooldown = 0;
+        if (currentCoolDown > 0 && currentEventSO.piece != null) provCooldown++;
+
         currentEventSO = eventListRandom.GetRandomEvent();
         eventImage.sprite = currentEventSO.eventSprite;
         currentCoolDown = currentEventSO.cooldown;
 
         if (currentCoolDown == 0) ForceEvent();
-        else if (currentCoolDown > 0) currentCoolDown++;
+        currentCoolDown += provCooldown;
         UpdateCoolDownVisual();
         
     }

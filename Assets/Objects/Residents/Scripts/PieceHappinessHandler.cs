@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PieceHappinessHandler : MonoBehaviour
 {
     private int happinnessLevel;
     private int totalResidentLevel;
-    ResidentHandler[] residentHandlers;
+    List<ResidentHandler> residentHandlers;
 
     private void Awake()
     {
@@ -17,8 +18,8 @@ public class PieceHappinessHandler : MonoBehaviour
 
     public void Init() 
     { 
-        residentHandlers = GetComponentsInChildren<ResidentHandler>();
-        for (int i = 0; i < residentHandlers.Length; i++)
+        residentHandlers = GetComponentsInChildren<ResidentHandler>().ToList();
+        for (int i = 0; i < residentHandlers.Count; i++)
         {
             residentHandlers[i].OnNeighborsChanged.AddListener(UpdateHappiness);
         }
@@ -27,7 +28,7 @@ public class PieceHappinessHandler : MonoBehaviour
     private void UpdateHappiness()
     {
         totalResidentLevel = 0;
-        for (int i = 0; i < residentHandlers.Length; i++)
+        for (int i = 0; i < residentHandlers.Count; i++)
         {
             totalResidentLevel += residentHandlers[i].BlockLikeValue;
         }
@@ -39,9 +40,14 @@ public class PieceHappinessHandler : MonoBehaviour
         else if (totalResidentLevel < 0)
             happinnessLevel = -1;
         
-        //Debug.Log(residentHandlers[0].GetResidentRace.ToString() + " piece happiness : " + happinnessLevel + " total happiness : " +  totalResidentLevel);
         currentMood = currentMood * (-1) + happinnessLevel; // remove previous value from gauge and add new value
         ResidentManager.Instance.UpdateResidentsHappiness(currentMood);
+    }
+
+    public void RemoveResident(ResidentHandler handler)
+    {
+        residentHandlers.Remove(handler);
+        UpdateHappiness();
     }
 
     private void OnDestroy()
@@ -49,7 +55,7 @@ public class PieceHappinessHandler : MonoBehaviour
         if(residentHandlers == null)
             return;
 
-        for (int i = 0; i < residentHandlers.Length; i++)
+        for (int i = 0; i < residentHandlers.Count; i++)
         {
             residentHandlers[i].OnNeighborsChanged.RemoveListener(UpdateHappiness);
         }
