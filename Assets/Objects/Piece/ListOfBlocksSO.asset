@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   happinessResidentGain: {fileID: 11400000, guid: 8456eff214b38db4ea1c9599e8433f70,
     type: 2}
-  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
   initialPiecesNumber: 5
   inGameResidents:
   - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}

@@ -21,24 +21,22 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     /// Library of every single piece per resident type
     /// </summary>
     private Dictionary<Resident, List<PieceSO>> residentSubList;
-    
-    /// <summary>
-    /// Gameplay purpose lists, populated and incremented/decremented during game
-    /// </summary>
-    private Dictionary<Resident, List<PieceSO>> gameplayPiecesSubList;
+
+    private Dictionary<Resident, int> residentPiecesCount;
 
     public void Initialize()
     {
+        Debug.Log("Init ListBlockSO");
         GenerateResidentSubLists();
-        GeneratePiecesList();
+        GenerateResidentCount();
 
         lastPiecePlaced.AddListener(OnPiecePlaced);
     }
 
     public void Uninitialize()
     {
-        residentSubList?.Clear();
-        gameplayPiecesSubList?.Clear();
+        residentSubList.Clear();
+        residentPiecesCount.Clear();
 
         lastPiecePlaced.RemoveListener(OnPiecePlaced);
     }
@@ -54,29 +52,20 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
 
     public PieceSO GetRandomPiece()
     {
-        return GetRandomPiece(inGameResidents[Random.Range(0, inGameResidents.Count)]);
-    }
-
-    /// <summary>
-    /// Take Piece from <paramref name="resident"/>'s Sub List
-    /// </summary>
-    /// <param name="resident">Piece's Type of Resident</param>
-    /// <returns></returns>
-    public PieceSO GetRandomPiece(Resident resident)
-    {
-        int count = gameplayPiecesSubList[resident].Count;
-        int index = Random.Range(0, count);
-
-        var piece = gameplayPiecesSubList[resident][index];
-        gameplayPiecesSubList[resident].RemoveAt(index);
-
+        int index = Random.Range(0, residentPiecesCount.Keys.Count);
+        var piece = GetRandomPieceFromLibrary(residentPiecesCount.ElementAt(index).Key);
         return piece;
     }
 
     private PieceSO GetRandomPieceFromLibrary(Resident resident)
     {
         int count = residentSubList[resident].Count;
-        return residentSubList[resident][Random.Range(0, count)];
+        var piece = residentSubList[resident][Random.Range(0, count)];
+
+        // Lose placed Piece
+        UpdateResidentCount(resident, -1);
+
+        return piece;
     }
 
     private void GenerateResidentSubLists()
@@ -91,44 +80,47 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
             residentSubList[item.resident].Add(item);
     }
 
-    private void GeneratePiecesList()
+    private void GenerateResidentCount()
     {
-        // Generate Dictionnary
-        gameplayPiecesSubList = new Dictionary<Resident, List<PieceSO>>();
+        residentPiecesCount = new Dictionary<Resident, int>();
         foreach (var resident in inGameResidents)
-        {
-            gameplayPiecesSubList.Add(resident, new List<PieceSO>());
-            // Populate each sub list from the "Library"'s choices
-            for (int i = 0; i < initialPiecesNumber; ++i)
-                gameplayPiecesSubList[resident].Add(GetRandomPieceFromLibrary(resident));
-        }
+            residentPiecesCount.Add(resident, initialPiecesNumber);
     }
 
-    private void GainPieces(Resident resident, int numberOfPieces)
+    private void UpdateResidentCount(Resident resident, int value)
     {
-        for (int i = 0; i <= numberOfPieces; ++i)
-            gameplayPiecesSubList[resident].Add(GetRandomPieceFromLibrary(resident));
-        
+        residentPiecesCount[resident] += value;
+        Debug.Log($"{residentPiecesCount[resident]} {resident.race} pieces left");
+
+        if (residentPiecesCount[resident] <= 0)
+            residentPiecesCount.Remove(resident);
     }
 
+    /// <summary>
+    /// Called when a piece is placed
+    /// </summary>
+    /// <param name="lastPieceObject">Piece that was placed</param>
     private void OnPiecePlaced(object lastPieceObject)
     {
         if (lastPieceObject == null)
             return;
 
         PieceSO lastPiece = lastPieceObject as PieceSO;
+        if (lastPiece == null || !inGameResidents.Contains(lastPiece.resident))
+            return;
+
         ProcessHappinessGain(lastPiece.resident);
     }
 
-    private void ProcessHappinessGain(Resident placedResident)
+    private void ProcessHappinessGain(Resident resident)
     {
-        // Gain additional pieces if > 1
-        if (happinessResidentGain.value > 1)
-            GainPieces(placedResident, 2);
+        // Gain additional pieces if positive
+        if(happinessResidentGain.value >= 1)
+            UpdateResidentCount(resident, 2);
 
-        // Gain back a piece if positive
-        else if (happinessResidentGain.value > 0)
-            GainPieces(placedResident, 1);
+        // Gain back a single piece if neutral
+        else if(happinessResidentGain.value >= 0)
+            UpdateResidentCount(resident, 1);
 
         happinessResidentGain.SetValue(0);
     }
@@ -136,15 +128,15 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     [Button("Debug Sub List")]
     private void DebugSubListContent()
     {
-        if(gameplayPiecesSubList == null || gameplayPiecesSubList.Count <= 0)
+        if(residentPiecesCount == null || residentPiecesCount.Count <= 0)
         {
-            Debug.Log("Empty Piece Sub Lists");
+            Debug.Log("No Pieces Available");
             return;
         }
 
-        string str = $"{gameplayPiecesSubList.Count} subLists:\n";
-        foreach (var item in gameplayPiecesSubList)
-            str += $" - {item.Key.race}  | {item.Value.Count} pieces\n";
+        string str = $"{residentPiecesCount.Count} subLists:\n";
+        foreach (var item in residentPiecesCount)
+            str += $" - {item.Key.race}  | {item.Value} pieces\n";
         Debug.Log(str);
     }
 }
