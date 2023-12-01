@@ -26,7 +26,6 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
 
     public void Initialize()
     {
-        Debug.Log("Init ListBlockSO");
         GenerateResidentSubLists();
         GenerateResidentCount();
 
