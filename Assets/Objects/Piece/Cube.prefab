@@ -91,6 +91,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213ff3df41a13a34c9d9425f221a7c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseBlockSocket:
+    socket: {fileID: 5289279581915164397}
+    canBeFilled: 0
+    blockOffset: {x: 0, y: 0, z: 0}
+    neighbors: []
   roofSocket:
     socket: {fileID: 5798311619698588943}
     canBeFilled: 0
@@ -121,6 +126,7 @@ GameObject:
   - component: {fileID: 5976442690287014756}
   - component: {fileID: 4096471954504250345}
   - component: {fileID: 7448513137908957904}
+  - component: {fileID: 5289279581915164397}
   m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
@@ -214,6 +220,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5289279581915164397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115960694686768393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4711b64b8f77c4eae41138261cf4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshFilter: {fileID: 5976442690287014756}
+  mesh: {fileID: -1248316090589427268, guid: 7a8cd2212e6ae0448a64703d608e96ef, type: 3}
 --- !u!1001 &73835436144687905
 PrefabInstance:
   m_ObjectHideFlags: 0

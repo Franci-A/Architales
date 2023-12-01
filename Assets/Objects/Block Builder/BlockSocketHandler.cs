@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BlockSocketHandler : MonoBehaviour
 {
+    [SerializeField] private Decoration baseBlockSocket;
     [SerializeField] private Decoration roofSocket;
     [SerializeField] private Decoration supportSocket;
     [SerializeField] private GridData data;
@@ -31,8 +32,12 @@ public class BlockSocketHandler : MonoBehaviour
 
     public void Init(Race residentRace)
     {
-        roofSocket.socket.SetMesh(assetList.GetMeshByRaceAndType(residentRace, BlockAssetType.ROOF));
-        supportSocket.socket.SetMesh(assetList.GetMeshByRaceAndType(residentRace, BlockAssetType.SUPPORT));
+        var assets = assetList.GetMeshByRace(residentRace);
+        baseBlockSocket.socket.SetMesh(assets.wallMesh);
+        roofSocket.socket.SetMesh(assets.roofMesh);
+        roofSocket.socket.SetMaterial(assets.material);
+        supportSocket.socket.SetMesh(assets.supportMesh);
+        supportSocket.socket.SetMaterial(assets.material);
 
         if (roofSocket.socket.transform.position.y > roofStartingHeight && CheckSocket(roofSocket, Vector3.up, Vector3.zero))
         {

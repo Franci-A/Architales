@@ -6,11 +6,13 @@ using UnityEngine;
 public class MeshSocket : MonoBehaviour
 {
     [SerializeField] private MeshFilter meshFilter;
+    [SerializeField] private Renderer meshRenderer;
     [SerializeField] private Mesh mesh;
 
     private void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<Renderer>();
     }
 
     public void SetMesh(Mesh mesh)
@@ -27,6 +29,11 @@ public class MeshSocket : MonoBehaviour
     public void EmptyMesh()
     {
         meshFilter.mesh = null;
+    }
+
+    public void SetMaterial(Material mat)
+    {
+        meshRenderer.material = mat;
     }
     
     private void OnTriggerEnter(Collider other)
