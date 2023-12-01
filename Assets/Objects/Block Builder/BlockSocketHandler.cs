@@ -58,7 +58,6 @@ public class BlockSocketHandler : MonoBehaviour
         RaycastHit[] hit;
 
         hit = Physics.SphereCastAll(socket.socket.transform.position + offset, .1f, direction, .1f, layerMask);
-        Debug.DrawRay(socket.socket.transform.position, direction, Color.blue, 2);
         debugPos = socket.socket.transform.position + offset;
         if (hit.Length > 0)
         {
@@ -70,8 +69,6 @@ public class BlockSocketHandler : MonoBehaviour
             }
             if (hasHit)
             {
-
-                Debug.Log("hit something");
                 socket.canBeFilled = false;
                 socket.socket.EmptyMesh();
                 socket.socket.gameObject.SetActive(false);
@@ -116,11 +113,6 @@ public class BlockSocketHandler : MonoBehaviour
     public void RemoveRoof()
     {
         roofSocket.socket.EmptyMesh();
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(debugPos, .5f);
     }
 }
 
