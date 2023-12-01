@@ -173,12 +173,13 @@ public class Grid3DManager : MonoBehaviour
         Vector3 gridPos = data.WorldToGridPositionRounded(hit.collider.gameObject.transform.position);
 
         if (data.IsPieceDeletable(gridPos))
-            DeletePiece(gridPos);
+            DeletePiece(hit.collider.gameObject, gridPos);
     }
 
-    private void DeletePiece(Vector3 gridPos)
+    private void DeletePiece(GameObject cube, Vector3 gridPos)
     {
         data.RemoveToGrid(gridPos);
+        cube.GetComponent<ResidentHandler>().parentPiece.DestroyCube(cube);
         onEventEnd.Call();
     }
 

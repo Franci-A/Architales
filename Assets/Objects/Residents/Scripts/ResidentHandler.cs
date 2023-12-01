@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ResidentHandler : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class ResidentHandler : MonoBehaviour
 
     public Piece parentPiece;
 
+    [SerializeField] private LayerMask cubeMask;
 
     public UnityEvent OnNeighborsChanged;
 
@@ -37,7 +40,12 @@ public class ResidentHandler : MonoBehaviour
         OnNeighborsChanged?.Invoke();
     }
 
-    //add change neighbor if jenga mechanic is added
+    private void RemoveFromNeighbors(Race neighbors)
+    {
+        int likes = currentResident.CheckLikes(neighbors);
+        currentBlockLikeValue -= likes;
+        OnNeighborsChanged?.Invoke();
+    }
 
     public void ShowRelationsMaterial(Vector3 position, Color color)
     {
@@ -51,5 +59,31 @@ public class ResidentHandler : MonoBehaviour
     public void RemoveRelationsMaterial()
     {
         cube?.materials[0].SetFloat("_UseOutline", 0);
+    }
+
+    private void OnDestroy()
+    {
+        RaycastHit[] hit;
+        List<Vector3> checkDirections = new List<Vector3>
+        {
+            Vector3.forward,
+            Vector3.back,
+            Vector3.left,
+            Vector3.right
+        };
+
+        for (int i = 0; i < checkDirections.Count; i++)
+        {
+            hit = Physics.RaycastAll(this.gameObject.transform.position, checkDirections[i], 1, cubeMask);
+            for (int j = 0; j < hit.Length; j++)
+            {
+                if (hit[j].collider.gameObject == gameObject)
+                    continue;
+
+                ResidentHandler collidedResident = hit[j].collider.gameObject.GetComponent<ResidentHandler>();
+                if (collidedResident.parentPiece != parentPiece)
+                    collidedResident.RemoveFromNeighbors(currentResident.race);
+            }
+        }
     }
 }

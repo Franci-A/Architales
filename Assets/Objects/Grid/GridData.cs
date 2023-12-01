@@ -140,7 +140,6 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
 
     public void RemoveToGrid(Vector3 gridPosition)
     {
-        Destroy(grid[gridPosition]);
         grid.Remove(gridPosition);
     }
 

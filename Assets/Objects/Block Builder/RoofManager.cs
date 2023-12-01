@@ -72,7 +72,8 @@ public class RoofManager : MonoBehaviour
     {
         if (IsPositionFree(gridPosition))
             return null;
-
+        if (grid[gridPosition].socketHandler == null)
+            return null;
         return grid[gridPosition];
     }
 
