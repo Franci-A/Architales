@@ -17,7 +17,8 @@ public class CameraManager : MonoBehaviour
     private float currentRotationX, currentRotationY;
     bool updateRotation = false;
     private bool smoothBracking = false;
-    private float rangeMultiplier = 20;
+    private bool cameraInvertion = false;
+    private int invertionValue = 1;
 
 
     [Header("Position / Speed")]
@@ -32,7 +33,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float elevatorMinClamp;
     [SerializeField] private int elevatorMaxClampOffset = 3;
 
-    private Vector3 velocityElevator;
 
     private float mousePositionX, mousePositionY;
 
@@ -110,57 +110,65 @@ public class CameraManager : MonoBehaviour
 
             directiony = mousePositionX - previsousPositionY;
             previsousPositionY = mousePositionX;
+
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
-
-
-            /*//CAMERA SLOW
-            if (cameraRotation.x + currentRotationX > rotationMaxClamp - 0.1f && cameraRotation.x + currentRotationX < rotationMaxClamp)
-            {
-                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
-                Debug.Log(cameraRotation.x + currentRotationX);
-                if (directionx < 0)
-                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
-                else if (directionx > 0)
-                    cameraTransform.rotation = quaternion.Euler((cameraRotation.x + currentRotationX) / Math.Abs((cameraRotation.x + currentRotationX) - rotationMaxClamp), cameraRotation.y + currentRotationY, cameraRotation.z);
-            }
-            else if (cameraRotation.x + currentRotationX < rotationMinClamp + 0.1f && cameraRotation.x + currentRotationX > rotationMinClamp)
-            {
-                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
-                Debug.Log(cameraRotation.x + currentRotationX);
-                if (directionx > 0)
-                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
-                else if (directionx < 0)
-                    cameraTransform.rotation = quaternion.Euler((cameraRotation.x + currentRotationX) / Math.Abs((cameraRotation.x + currentRotationX) - rotationMaxClamp), cameraRotation.y + currentRotationY, cameraRotation.z);
-            }
-            else*/
-
-
 
 
             //CAMERA CLAMP
             if (cameraRotation.x + currentRotationX > rotationMaxClamp)
             {
-                if (directionx < 0)
+                if (!cameraInvertion)
                 {
-                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
-                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    if (directionx < 0)
+                    {
+                        currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx > 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMaxClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
                 }
-                else if (directionx > 0)
-                    cameraTransform.rotation = quaternion.Euler(rotationMaxClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                else
+                {
+                    if (directionx > 0)
+                    {
+                        currentRotationX -= verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx < 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMaxClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
             }
             else if (cameraRotation.x + currentRotationX < rotationMinClamp)
             {
-                if (directionx > 0)
+                if (!cameraInvertion)
                 {
-                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
-                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    if (directionx > 0)
+                    {
+                        currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx < 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMinClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
                 }
-                else if (directionx < 0)
-                    cameraTransform.rotation = quaternion.Euler(rotationMinClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                else
+                {
+                    if (directionx < 0)
+                    {
+                        currentRotationX -= verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx > 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMinClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
+                
             }
             else 
             {
-                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                if (!cameraInvertion)
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                else
+                    currentRotationX -= verticalSpeed * Time.deltaTime * directionx;
+
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
         }
@@ -181,27 +189,57 @@ public class CameraManager : MonoBehaviour
 
             if (cameraRotation.x + currentRotationX > rotationMaxClamp)
             {
-                if (directionx < 0)
+                if (!cameraInvertion)
                 {
-                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
-                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    if (directionx < 0)
+                    {
+                        currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx > 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMaxClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
                 }
                 else
-                    cameraTransform.rotation = quaternion.Euler(rotationMaxClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                {
+                    if (directionx > 0)
+                    {
+                        currentRotationX -= verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx < 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMaxClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
             }
             else if (cameraRotation.x + currentRotationX < rotationMinClamp)
             {
-                if (directionx > 0)
+                if (!cameraInvertion)
                 {
-                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
-                    cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    if (directionx > 0)
+                    {
+                        currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx < 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMinClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
                 }
                 else
-                    cameraTransform.rotation = quaternion.Euler(rotationMinClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                {
+                    if (directionx < 0)
+                    {
+                        currentRotationX -= verticalSpeed * Time.deltaTime * directionx;
+                        cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+                    }
+                    else if (directionx > 0)
+                        cameraTransform.rotation = quaternion.Euler(rotationMinClamp, cameraRotation.y + currentRotationY, cameraRotation.z);
+                }
             }
             else
             {
-                currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                if (!cameraInvertion)
+                    currentRotationX += verticalSpeed * Time.deltaTime * directionx;
+                else
+                    currentRotationX -= verticalSpeed * Time.deltaTime * directionx;
+
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
         }
@@ -242,12 +280,6 @@ public class CameraManager : MonoBehaviour
         cameraTransform.position = new Vector3(0, yPositionClamped, 0);
     }
 
-    /*public void VerticalAutoMovement(float upSpeed)
-    {
-        if (velocityElevator.magnitude >= 0.01)
-            cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, new Vector3 (cameraTransform.position.x, cameraTransform.position.y + upSpeed, cameraTransform.position.z), ref velocityElevator, 0.25f);
-    }*/
-
     private void Zoom(float value)
     {
         //ZOOM CONDITIONS
@@ -279,6 +311,21 @@ public class CameraManager : MonoBehaviour
     {
         higherBlock = Grid3DManager.Instance.GetHigherBlock;
     }
+
+    public void CameraInvertion()
+    {
+        if (!cameraInvertion)
+        {
+            cameraInvertion = true;
+            invertionValue = -1;
+        }
+        else
+        {
+            cameraInvertion = false;
+            invertionValue = 1;
+        }
+    }
+
 
     //INPUTS
 
