@@ -44,7 +44,7 @@ MonoBehaviour:
   - pair:
       race: 1
       assetType: 1
-    mesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0, type: 3}
+    mesh: {fileID: 5129110042813977296, guid: d78a65ccc5f262a40a25f893933aafa7, type: 3}
   - pair:
       race: 2
       assetType: 1
@@ -64,23 +64,23 @@ MonoBehaviour:
   - pair:
       race: 0
       assetType: 2
-    mesh: {fileID: 0}
+    mesh: {fileID: 3054655961733540624, guid: 3dbf6e17361593b4193b89813ef0803d, type: 3}
   - pair:
       race: 1
       assetType: 2
-    mesh: {fileID: 0}
+    mesh: {fileID: 4291222660520964253, guid: b413c73410dbed3458738a0288c0429c, type: 3}
   - pair:
       race: 2
       assetType: 2
-    mesh: {fileID: 0}
+    mesh: {fileID: 3054655961733540624, guid: 3dbf6e17361593b4193b89813ef0803d, type: 3}
   - pair:
       race: 3
       assetType: 2
-    mesh: {fileID: 0}
+    mesh: {fileID: 3054655961733540624, guid: 3dbf6e17361593b4193b89813ef0803d, type: 3}
   - pair:
       race: 4
       assetType: 2
-    mesh: {fileID: 0}
+    mesh: {fileID: 3054655961733540624, guid: 3dbf6e17361593b4193b89813ef0803d, type: 3}
   - pair:
       race: 5
       assetType: 2

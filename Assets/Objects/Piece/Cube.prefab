@@ -102,6 +102,7 @@ MonoBehaviour:
     blockOffset: {x: 0, y: 0, z: 0}
     neighbors: []
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
+  assetList: {fileID: 11400000, guid: 74200eebbf355564f853c6f95e60238f, type: 2}
   layerMask:
     serializedVersion: 2
     m_Bits: 128

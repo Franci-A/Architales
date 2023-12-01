@@ -48,6 +48,13 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
     public Mesh GetMeshByRaceAndType(Race race, BlockAssetType type)
     {
         RaceAssetTypePair pair = new RaceAssetTypePair(race, type);
+
+        if(!assetDictionnary.ContainsKey(pair))
+        {
+            Debug.LogWarning($"AssetDictionnary doesn't contain Pair<{race},{type}>, OR a corresponding asset");
+            return null;
+        }
+
         return assetDictionnary[pair];
     }
 
