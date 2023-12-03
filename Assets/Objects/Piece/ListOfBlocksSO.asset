@@ -15,6 +15,7 @@ MonoBehaviour:
   happinessResidentGain: {fileID: 11400000, guid: 8456eff214b38db4ea1c9599e8433f70,
     type: 2}
   lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
+  updatePieceCountUI: {fileID: 11400000, guid: 0a9f556cd7d35df4594f42096e9a6d84, type: 2}
   initialPiecesNumber: 5
   inGameResidents:
   - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}

@@ -1,6 +1,5 @@
 using HelperScripts.EventSystem;
 using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +10,7 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     [Header("Events")]
     [SerializeField] private IntVariable happinessResidentGain;
     [SerializeField] private EventObjectScriptable lastPiecePlaced;
+    [SerializeField] private EventScriptable updatePieceCountUI;
 
     [Header("Initial List Values")]
     [SerializeField] private int initialPiecesNumber;
@@ -38,6 +38,16 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
         residentPiecesCount.Clear();
 
         lastPiecePlaced.RemoveListener(OnPiecePlaced);
+    }
+
+    public int GetResidentPiecesCount(Race race)
+    {
+        foreach (var item in residentPiecesCount)
+        {
+            if(item.Key.race == race)
+                return item.Value;
+        }
+        return 0;
     }
 
     /// <summary>
@@ -109,6 +119,7 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
             return;
 
         ProcessHappinessGain(lastPiece.resident);
+        updatePieceCountUI.Call();
     }
 
     private void ProcessHappinessGain(Resident resident)
