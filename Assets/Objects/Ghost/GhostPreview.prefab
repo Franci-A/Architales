@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridData: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   ghostPiecePrefab: {fileID: 3065538337238541913, guid: 7d8554371fd89534a8f7b1618ba68721,
     type: 3}
   ghostMaterial: {fileID: 2100000, guid: 2b6d564c490ab6f4c958e8e382b9a585, type: 2}
@@ -57,6 +57,7 @@ MonoBehaviour:
   cubeLayer:
     serializedVersion: 2
     m_Bits: 128
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   onPrevivewDeactivated: {fileID: 11400000, guid: 516898db6454aa6498ea09ff2f068f5f,
     type: 2}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
