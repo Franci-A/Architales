@@ -10,6 +10,7 @@ public class GhostPreview : MonoBehaviour
     [Header("Grid")]
     [SerializeField] private GridData gridData;
     Grid3DManager.MouseMode mouseMode;
+    [SerializeField] private BoolVariable isPlayerActive;
 
     [Header("GhostObject")]
     [SerializeField] Piece ghostPiecePrefab;
@@ -59,6 +60,7 @@ public class GhostPreview : MonoBehaviour
 
     void Update()
     {
+        if (!isPlayerActive.value) return;
         if (!isGhostActive) return;
         if (isBalanceBroken) return;
 
