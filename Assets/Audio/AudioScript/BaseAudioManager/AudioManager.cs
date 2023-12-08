@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,9 +34,15 @@ public class AudioManager : MonoBehaviour
     //public void PlaySFXRandom(AudioClip clip, Vector2 randomVolume, Vector2 randomPitch)
     public void PlaySFXWValues(AudioStruct audio)
     {
+        if(audio.clip == null) return;
+
         _SFXSource.pitch = audio.pitch;
         _SFXSource.volume = audio.volume;
+        _SFXSource.timeSamples = audio.timeSamples;
         _SFXSource.PlayOneShot(audio.clip);
+
+        if(audio.is3D) _SFXSource.spatialBlend = 1;
+        else _SFXSource.spatialBlend = 0;
     }
 
     public void PauseMusic()
@@ -43,11 +50,13 @@ public class AudioManager : MonoBehaviour
         _MusicSource.Pause();
     }
 
-
+    [Serializable]
     public struct AudioStruct
     {
         public AudioClip clip;
         public float volume;
         public float pitch;
+        public int timeSamples;
+        public bool is3D;
     }
 }

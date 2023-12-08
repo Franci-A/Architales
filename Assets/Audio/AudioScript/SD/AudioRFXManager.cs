@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class AudioRFXContainer
 {
-    [HideInInspector]
     public AudioClip m_selectedClip;
 
     public string RFX_Name;
@@ -19,54 +18,48 @@ public class AudioRFXContainer
     public float RFX_rndWaitTimeMax;
 
 }
-public class AudioRFXManager : MonoBehaviour
-{
-    [Space]
 
+public class AudioRFXManager : AudioScript
+{
     public bool AudioDebug = false;
 
     public List<AudioRFXContainer> rfxList;
 
 
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-        if (rfxList.Count == 0)
-            return;
-        int i = 0;
-        foreach(AudioRFXContainer rfx in rfxList)
+        base.Awake();
+
+        foreach (AudioRFXContainer rfx in rfxList)
         {
             if (rfx.RFX_Prefab != null && rfx.RFX_Zone != null)
             {
-                StartCoroutine(LaunchRFX(i));
+                StartCoroutine(LaunchRFX(rfx));
             }
-            i++;
         }
     }
-
    
-    // RFX 01 
 
-    float rndWaitTimeRFX(int rfxPrefabIndex)
+    float rndWaitTimeRFX(AudioRFXContainer rfxPrefab)
     {
-        return Random.Range(rfxList[rfxPrefabIndex].RFX_rndWaitTimeMin, rfxList[rfxPrefabIndex].RFX_rndWaitTimeMax);
+        return Random.Range(rfxPrefab.RFX_rndWaitTimeMin, rfxPrefab.RFX_rndWaitTimeMax);
     }
 
-    IEnumerator LaunchRFX(int rfxPrefabIndex)
+    IEnumerator LaunchRFX(AudioRFXContainer rfxPrefab)
     {
+        yield return new WaitForSeconds(1);
         
-        float WaitTimeRFX = rndWaitTimeRFX(rfxPrefabIndex);
-        Vector3 rndPosRFX = RandomPointInBounds(rfxList[rfxPrefabIndex].RFX_Zone.bounds);
-        yield return new WaitForSeconds(WaitTimeRFX);
-        AudioSFXOneShot rfxGO = Instantiate(rfxList[rfxPrefabIndex].RFX_Prefab, rndPosRFX , Quaternion.identity).GetComponent<AudioSFXOneShot>();
-        rfxGO.SetPreviousClip(rfxList[rfxPrefabIndex].m_selectedClip);
-        rfxList[rfxPrefabIndex].m_selectedClip = rfxGO.GetClip();
+        float WaitTimeRFX = rndWaitTimeRFX(rfxPrefab);
+        Vector3 rndPosRFX = RandomPointInBounds(rfxPrefab.RFX_Zone.bounds);
+        yield return new WaitForSeconds(WaitTimeRFX);       
+        AudioSFXOneShot rfxGO = Instantiate(rfxPrefab.RFX_Prefab, rndPosRFX , Quaternion.identity).GetComponent<AudioSFXOneShot>();
+        rfxGO.SetPreviousClip(rfxPrefab.m_selectedClip);
+        rfxPrefab.m_selectedClip = rfxGO.GetClip(false);
         rfxGO.PlaySound();
 
         if (AudioDebug)
-            Debug.Log($"RFX {rfxList[rfxPrefabIndex].m_selectedClip.name} from Container '{rfxList[rfxPrefabIndex].RFX_Name}' launched at {rndPosRFX}");
-        StartCoroutine(LaunchRFX(rfxPrefabIndex));
+            Debug.Log($"RFX {rfxPrefab.m_selectedClip.name} from Container '{rfxPrefab.RFX_Name}' launched at {rndPosRFX}");
+        StartCoroutine(LaunchRFX(rfxPrefab));
     }
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {

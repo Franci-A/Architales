@@ -6,13 +6,20 @@ using NaughtyAttributes;
 
 public class AudioPlayCollision : MonoBehaviour
 {
-    [SerializeField] private UnityEvent playSound;
+
+    public AudioClip[] AudioClip;
+
 
     [Layer] public string layer;
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
-            playSound.Invoke();
+        {
+            AudioManager.AudioStruct audioStruct;
+
+            //AudioManager.Instance.PlaySFXWValues(audioStruct);
+        }
     }
 }
