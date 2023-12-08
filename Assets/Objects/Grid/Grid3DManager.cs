@@ -108,12 +108,12 @@ public class Grid3DManager : MonoBehaviour
 
         totalNumResidents.Add(piece.Cubes.Count);
 
+        lastPiecePlaced.Call(pieceSO);
 
         if (!EventManager.Instance.IsEventActive) ChangePieceSORandom();
         else onEventEnd.Call();
 
         onPiecePlaced.Call();
-        lastPiecePlaced.Call(pieceSO);
         OnLayerCubeChange?.Invoke(higherBlock);
         StartCoroutine(WaitForFeedback());
     }
