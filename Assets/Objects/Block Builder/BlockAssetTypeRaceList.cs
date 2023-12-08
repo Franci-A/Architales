@@ -10,7 +10,9 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
     public class RaceAssetTypePair
     {
         public Race race;
-        public Material material;
+        public Material[] blockMaterial;
+        public Material[] roofMaterial;
+        public Material[] supportMaterial;
         public Mesh roofMesh;
         public Mesh wallMesh;
         public Mesh supportMesh;

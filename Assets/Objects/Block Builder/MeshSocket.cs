@@ -31,9 +31,9 @@ public class MeshSocket : MonoBehaviour
         meshFilter.mesh = null;
     }
 
-    public void SetMaterial(Material mat)
+    public void SetMaterial(Material[] mat)
     {
-        meshRenderer.material = mat;
+        meshRenderer.materials = mat;
     }
     
     private void OnTriggerEnter(Collider other)
