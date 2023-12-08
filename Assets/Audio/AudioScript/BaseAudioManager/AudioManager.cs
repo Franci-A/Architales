@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    // Singleton
+    private static AudioManager instance;
+    public static AudioManager Instance { get => instance; }
 
     [SerializeField] private AudioSource _MusicSource, _SFXSource;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     public void PlayMusic(AudioClip clip)
     {
@@ -21,10 +31,10 @@ public class AudioManager : MonoBehaviour
     }
 
     //public void PlaySFXRandom(AudioClip clip, Vector2 randomVolume, Vector2 randomPitch)
-    public void PlaySFXRandom(AudioStruct audio)
+    public void PlaySFXWValues(AudioStruct audio)
     {
-        _SFXSource.pitch = Random.Range(audio.randomPitch.x, audio.randomPitch.y);
-        _SFXSource.volume = Random.Range(audio.randomVolume.x, audio.randomVolume.y);
+        _SFXSource.pitch = audio.pitch;
+        _SFXSource.volume = audio.volume;
         _SFXSource.PlayOneShot(audio.clip);
     }
 
@@ -37,7 +47,7 @@ public class AudioManager : MonoBehaviour
     public struct AudioStruct
     {
         public AudioClip clip;
-        public Vector2 randomVolume;
-        public Vector2 randomPitch;
+        public float volume;
+        public float pitch;
     }
 }
