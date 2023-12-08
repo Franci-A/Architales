@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Device;
@@ -7,12 +5,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
     [Header("Scenes")]
     [SerializeField] private GameObject main;
     [SerializeField] private GameObject option;
+    [SerializeField] private string mainMenuSceneName;
+    [SerializeField] private string gameSceneName;
+    [SerializeField] private BoolVariable isPlayerActive;
 
     [Header("Audio")]
     [SerializeField] private UnityEvent playMusic;
@@ -24,22 +26,27 @@ public class MainMenu : MonoBehaviour
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TextMeshProUGUI resText;
-    [SerializeField] List<Vector2> resolutionList = new List<Vector2>(); // x = width, y = height
+    [SerializeField] Resolution[] resolutionList; // x = width, y = height
     private int resId;
     private bool boolFullScreen;
 
 
     private void Start()
     {
+        resolutionList = UnityEngine.Screen.resolutions;
         LoadSliderValue();
         GetScreenValue();
         playMusic.Invoke();
+        isPlayerActive.SetValue(false);
+        SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
     }
 
     #region Main
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        isPlayerActive.SetValue(true);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName));
+        SceneManager.UnloadSceneAsync(mainMenuSceneName);
     }
 
     public void Options()
@@ -64,15 +71,15 @@ public class MainMenu : MonoBehaviour
     #region Audio
     public void LoadSliderValue()
     {
-        if (!PlayerPrefs.HasKey("MasterVolume")) PlayerPrefs.SetFloat("MasterVolume", 0.7f);
+        if (!PlayerPrefs.HasKey("MasterVolume")) PlayerPrefs.SetFloat("MasterVolume", 1f);
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
         SetMasterVolume(masterVolumeSlider.value);
 
-        if (!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 0.7f);
+        if (!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 1f);
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         SetMusicVolume(musicVolumeSlider.value);
 
-        if (!PlayerPrefs.HasKey("SFXVolume")) PlayerPrefs.SetFloat("SFXVolume", 0.7f);
+        if (!PlayerPrefs.HasKey("SFXVolume")) PlayerPrefs.SetFloat("SFXVolume", 1f);
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
         SetSFXVolume(sfxVolumeSlider.value);
     }
@@ -102,9 +109,9 @@ public class MainMenu : MonoBehaviour
         boolFullScreen = PlayerPrefs.GetInt("FullScreen") > 0 ? true : false;
         fullscreenToggle.isOn = boolFullScreen;
 
-        if (!PlayerPrefs.HasKey("ResolutionId")) PlayerPrefs.SetInt("ResolutionId", 0);
+        if (!PlayerPrefs.HasKey("ResolutionId")) PlayerPrefs.SetInt("ResolutionId", resolutionList.Length -1);
         resId = PlayerPrefs.GetInt("ResolutionId");
-        resText.text = $"{resolutionList[resId].x} x {resolutionList[resId].y}";
+        resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
 
         ApplyGraphics();
     }
@@ -114,7 +121,7 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("FullScreen", boolFullScreen ? 1 : 0);
         PlayerPrefs.SetInt("ResolutionId", resId);
 
-        UnityEngine.Screen.SetResolution((int)resolutionList[resId].x, (int)resolutionList[resId].y, fullscreenToggle.isOn);
+        UnityEngine.Screen.SetResolution((int)resolutionList[resId].width, (int)resolutionList[resId].height, fullscreenToggle.isOn);
     }
 
     public void SetFullscreen(bool _bool)
@@ -127,18 +134,14 @@ public class MainMenu : MonoBehaviour
         resId--;
         if(resId < 0) resId =  0;
 
-        resText.text = $"{resolutionList[resId].x} x {resolutionList[resId].y}";
+        resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
     }
 
     public void IncreaseRes()
     {
         resId++;
-        if (resId >= resolutionList.Count) resId = resolutionList.Count - 1;
+        if (resId >= resolutionList.Length) resId = resolutionList.Length - 1;
 
-        resText.text = $"{resolutionList[resId].x} x {resolutionList[resId].y}";
+        resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
     }
-
-
-
-
 }

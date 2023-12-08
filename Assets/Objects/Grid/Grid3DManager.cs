@@ -14,7 +14,7 @@ public class Grid3DManager : MonoBehaviour
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance; }
     [SerializeField] private GameplayDataSO gameplayData;
-    [SerializeField] private BoolVariable isPlayerActive;
+    [SerializeField] private BoolVariable canPlaceBlock;
 
     [Header("Grid")]
     [SerializeField] GridData data;
@@ -88,7 +88,7 @@ public class Grid3DManager : MonoBehaviour
 
     public void PlacePiece(Vector3 gridPos)
     {
-        isPlayerActive.SetValue(false);
+        canPlaceBlock.SetValue(false);
 
         var piece = Instantiate(this.piece, transform);
 
@@ -130,7 +130,7 @@ public class Grid3DManager : MonoBehaviour
         cubeList = lobbyPiece.cubes;
         currentPiece = lobbyPiece;
         PlacePiece(Vector3.zero);
-        isPlayerActive.SetValue(true);
+        canPlaceBlock.SetValue(true);
     }
 
     private void ChangedBlock()
@@ -140,7 +140,7 @@ public class Grid3DManager : MonoBehaviour
         pieceSO.resident = currentPiece.resident;
         OnCubeChange?.Invoke(pieceSO);
         piece.ChangePiece(pieceSO);
-        isPlayerActive.SetValue(true);
+        canPlaceBlock.SetValue(true);
     }
 
     private void RotatePiece(bool rotateLeft)
@@ -261,7 +261,7 @@ public class Grid3DManager : MonoBehaviour
     //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
-        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
+        if (!context.performed || isBalanceBroken || !canPlaceBlock.value) return;
 
         if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
         else TryAimPiece();
