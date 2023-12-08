@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AudioSFXOneShot : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class AudioSFXOneShot : MonoBehaviour
     private AudioClip m_previousClip;
     private AudioClip m_selectedClip;
 
+    [SerializeField] private UnityEvent playSound;
+
     //public variables
-    public AudioSource _audioSource;
+    //public AudioSource _audioSource;
     public List<AudioClip> _audioClipList;
 
     
@@ -35,7 +38,7 @@ public class AudioSFXOneShot : MonoBehaviour
             return;
 
         // Get AudioSource component in the gameobject hierarchy
-        _audioSource = GetComponent<AudioSource>();
+        //_audioSource = GetComponent<AudioSource>();
         PlaySound();
     }
 
@@ -65,17 +68,20 @@ public class AudioSFXOneShot : MonoBehaviour
         else if (m_selectedClip == null)
             m_selectedClip = _audioClipList[Random.Range(0, _audioClipList.Count - 1)];
 
-        _audioSource.clip = m_selectedClip;
+        //_audioSource.clip = m_selectedClip;
         //Get the duration of the selected clip. 
-        m_clipLength = _audioSource.clip.length;
+        //m_clipLength = _audioSource.clip.length;
 
         //Assign a random pitch and volume to the audiosource, then play the clip
-        _audioSource.pitch = rndPitch();
-        _audioSource.volume = rndVol();
-        _audioSource.Play();
+        //_audioSource.pitch = rndPitch();
+        //_audioSource.volume = rndVol();
+        //_audioSource.Play();
+        playSound.Invoke();
 
+        Destroy(gameObject);
         //Destroy the Gameobject when the clip duration is reach.
         StartCoroutine(WaitForClipLength());
+        //StartCoroutine(WaitForClipLength());
     }
     public AudioClip GetClip()
     {

@@ -20,8 +20,24 @@ public class AudioManager : MonoBehaviour
         _SFXSource.PlayOneShot(clip);
     }
 
+    //public void PlaySFXRandom(AudioClip clip, Vector2 randomVolume, Vector2 randomPitch)
+    public void PlaySFXRandom(AudioStruct audio)
+    {
+        _SFXSource.pitch = Random.Range(audio.randomPitch.x, audio.randomPitch.y);
+        _SFXSource.volume = Random.Range(audio.randomVolume.x, audio.randomVolume.y);
+        _SFXSource.PlayOneShot(audio.clip);
+    }
+
     public void PauseMusic()
     {
         _MusicSource.Pause();
+    }
+
+
+    public struct AudioStruct
+    {
+        public AudioClip clip;
+        public Vector2 randomVolume;
+        public Vector2 randomPitch;
     }
 }
