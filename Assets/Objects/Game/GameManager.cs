@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        isPlayerActive.SetValue(false);
         StartCoroutine(endgame());
     }
 
