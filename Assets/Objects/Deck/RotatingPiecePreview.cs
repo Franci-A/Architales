@@ -31,15 +31,12 @@ public class RotatingPiecePreview : MonoBehaviour
             piece.transform.SetParent(parent);
         }
 
-        //piece.transform.SetParent(null);
-
         parent.rotation = new Quaternion(0,0,0,0);
 
         PieceSO newPiece = (PieceSO)_newPiece;
         piece.PreviewSpawnPiece(newPiece, piece.GetGridPosition);
 
         piece.transform.localPosition = piece.centerPiecePos(newPiece);
-
     }
 
     private void Update()
