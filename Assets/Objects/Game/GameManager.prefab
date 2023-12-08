@@ -91,3 +91,5 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
+  ui: {fileID: 0}

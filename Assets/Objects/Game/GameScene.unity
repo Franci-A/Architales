@@ -357,12 +357,6 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 2251334110938265310, guid: 57b5f01e4de52b84596fa13d42cde97f,
         type: 3}
-      propertyPath: isPlayerActive
-      value: 
-      objectReference: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21,
-        type: 2}
-    - target: {fileID: 2251334110938265310, guid: 57b5f01e4de52b84596fa13d42cde97f,
-        type: 3}
       propertyPath: playGameOver.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -2973,12 +2967,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1728824997}
     m_Modifications:
-    - target: {fileID: 5454861270562762822, guid: 036d2a449fc31ce4180656080ee95617,
-        type: 3}
-      propertyPath: isPlayerActive
-      value: 
-      objectReference: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21,
-        type: 2}
     - target: {fileID: 5767704123449578125, guid: 036d2a449fc31ce4180656080ee95617,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -37,6 +37,7 @@ public class MainMenu : MonoBehaviour
         LoadSliderValue();
         GetScreenValue();
         playMusic.Invoke();
+        isPlayerActive.SetValue(false);
         SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
     }
 

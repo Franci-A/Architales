@@ -56,6 +56,14 @@ public class GhostPreview : MonoBehaviour
 
         destroyGhost = Instantiate(destroyGhostPrefab, transform);
         destroyGhost.SetActive(false);
+        if(!isPlayerActive.value)
+            ghostPiece.gameObject.SetActive(false);
+        isPlayerActive.OnValueChanged.AddListener(StartGame);
+    }
+
+    private void StartGame()
+    {
+        ghostPiece.gameObject.SetActive(true);
     }
 
     void Update()
