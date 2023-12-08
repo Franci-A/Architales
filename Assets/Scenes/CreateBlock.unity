@@ -605,7 +605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1100691642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,7 +677,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6b2962dfd9f2540a999e736b599cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioClip: []
+  _audioClipList:
+  - {fileID: 8300000, guid: fe3bff51a8b33df40a59e65bec7dbb08, type: 3}
+  rndVolMin: 0.173
+  rndVolMax: 0.613
+  rndPitchMin: 0.99
+  rndPitchMax: 1
+  is3D: 0
   layer: Default
 --- !u!4 &1308799133
 Transform:
@@ -788,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1775778429
 BoxCollider:
   m_ObjectHideFlags: 0

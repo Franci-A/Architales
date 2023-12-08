@@ -4,11 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using NaughtyAttributes;
 
-public class AudioPlayCollision : MonoBehaviour
+public class AudioPlayCollision : AudioScript
 {
-
-    public AudioClip[] AudioClip;
-
 
     [Layer] public string layer;
 
@@ -17,9 +14,23 @@ public class AudioPlayCollision : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
         {
-            AudioManager.AudioStruct audioStruct;
-
-            //AudioManager.Instance.PlaySFXWValues(audioStruct);
+            PlaySound();
         }
+    }
+
+
+    public override void PlaySound()
+    {
+        m_selectedClip = GetClip(false);
+
+        AudioManager.AudioStruct audioStruct = new AudioManager.AudioStruct();
+        audioStruct.clip = m_selectedClip;
+        audioStruct.volume = rndVol();
+        audioStruct.pitch = rndPitch();
+        audioStruct.timeSamples = 0;
+        audioStruct.is3D = is3D;
+
+        AudioManager.Instance.PlaySFXWValues(audioStruct);
+
     }
 }
