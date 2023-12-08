@@ -100,9 +100,23 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     {
         residentPiecesCount[resident] += value;
         Debug.Log($"{residentPiecesCount[resident]} {resident.race} pieces left");
+    }
 
-        if (residentPiecesCount[resident] <= 0)
-            residentPiecesCount.Remove(resident);
+    private void CheckForResidentsStillAvailable()
+    {
+        List<Resident> toRemove = new List<Resident>();
+
+        foreach (var resident in residentPiecesCount)
+        {
+            if (resident.Value > 0) continue;
+
+            toRemove.Add(resident.Key);
+        }
+
+        if (toRemove.Count <= 0) return;
+
+        for (int i = 0; i < toRemove.Count; ++i)
+            residentPiecesCount.Remove(toRemove[i]);
     }
 
     /// <summary>
@@ -119,6 +133,7 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
             return;
 
         ProcessHappinessGain(lastPiece.resident);
+        CheckForResidentsStillAvailable();
         updatePieceCountUI.Call();
     }
 
