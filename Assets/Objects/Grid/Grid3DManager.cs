@@ -15,6 +15,7 @@ public class Grid3DManager : MonoBehaviour
     public static Grid3DManager Instance { get => instance; }
     [SerializeField] private GameplayDataSO gameplayData;
     [SerializeField] private BoolVariable canPlaceBlock;
+    [SerializeField] private BoolVariable isPlayerActive;
 
     [Header("Grid")]
     [SerializeField] GridData data;
@@ -261,6 +262,7 @@ public class Grid3DManager : MonoBehaviour
     //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
+        if(!isPlayerActive) return;
         if (!context.performed || isBalanceBroken || !canPlaceBlock.value) return;
 
         if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
@@ -269,12 +271,16 @@ public class Grid3DManager : MonoBehaviour
 
     public void RotatePieceInput(InputAction.CallbackContext context)
     {
+        if (!isPlayerActive) return;
+
         if (!context.performed || isBalanceBroken) return;
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
     public void ZoomInput(InputAction.CallbackContext context)
     {
+        if (!isPlayerActive) return;
+
         if (!context.performed) return;
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) 
