@@ -310,7 +310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &523205755
 AudioSource:
   m_ObjectHideFlags: 0
@@ -968,6 +968,74 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1001 &7718354008197689007
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.09084532
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.83749557
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.31372833
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416511836646928269, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162367115687695964, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+        type: 3}
+      propertyPath: m_Name
+      value: ThunderSoundOneShot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cc5dfd20b9ebf23408933c4d1ff56d22, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -984,3 +1052,4 @@ SceneRoots:
   - {fileID: 523205756}
   - {fileID: 622554342}
   - {fileID: 1308799133}
+  - {fileID: 7718354008197689007}
