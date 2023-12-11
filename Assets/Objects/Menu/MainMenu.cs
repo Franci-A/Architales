@@ -86,19 +86,19 @@ public class MainMenu : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        audioMixer.SetFloat("Master", -80 + value *100);
+        audioMixer.SetFloat("Master", Mathf.Lerp(-80 , 0,Mathf.Log(value +1)));
         PlayerPrefs.SetFloat("MasterVolume", value);
     }
 
     public void SetMusicVolume(float value)
     {
-        audioMixer.SetFloat("Music", -80 + value * 100);
+        audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
         PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
     public void SetSFXVolume(float value)
     {
-        audioMixer.SetFloat("SFX", -80 + value * 100);
+        audioMixer.SetFloat("SFX", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
         PlayerPrefs.SetFloat("SFXVolume", value);
     }
     #endregion

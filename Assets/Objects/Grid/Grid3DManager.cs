@@ -51,8 +51,6 @@ public class Grid3DManager : MonoBehaviour
     private List<Cube> cubeList; // current list
     public PieceSO CurrentPiece { get => currentPiece; }
     private PieceSO currentPiece; // current piece
-    public PieceSO NextPiece { get => nextPiece; }
-    private PieceSO nextPiece;
 
     public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
@@ -185,26 +183,18 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        if(nextPiece == null)
-        {
-            nextPiece = pieceListRandom.GetRandomPiece();
-        }
-
-        currentPiece = nextPiece;
+        currentPiece = pieceListRandom.GetRandomPiece();
         cubeList = currentPiece.cubes;
-        nextPiece = pieceListRandom.GetRandomPiece();
 
-        onPiecePlacedPiece.Call(nextPiece);
-
+        onPiecePlacedPiece.Call(currentPiece);
     }
 
-    public void ChangePieceSO(PieceSO _current, PieceSO _next)
+    public void ChangePieceSO(PieceSO _current)
     {
         currentPiece = _current;
         cubeList = currentPiece.cubes;
-        nextPiece = _next;
 
-        onPiecePlacedPiece.Call(nextPiece);
+        onPiecePlacedPiece.Call(_current);
         ChangedBlock();
     }
 
@@ -231,14 +221,6 @@ public class Grid3DManager : MonoBehaviour
         }
     }
 
-
-    public void SetSavedPiece(PieceSO _current, PieceSO _next)
-    {
-        currentPiece = _current;
-        nextPiece = _next;
-    }
-
-    
     public void SwitchMouseMode(MouseMode newMode)
     {
         mouseMode = newMode;

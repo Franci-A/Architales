@@ -22,6 +22,6 @@ public class GameplayEvent : ScriptableObject
     public void PlaceNewBlock()
     {
         EventManager.Instance.GetPieceToSave();
-        EventManager.Instance.SetSavedPiece(piece, EventManager.Instance.CurrentPieceSO);
+        EventManager.Instance.SetSavedPiece(piece);
     }
 }
