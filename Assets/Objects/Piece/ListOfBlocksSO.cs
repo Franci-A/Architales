@@ -99,7 +99,6 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     private void UpdateResidentCount(Resident resident, int value)
     {
         residentPiecesCount[resident] += value;
-        Debug.Log($"{residentPiecesCount[resident]} {resident.race} pieces left");
     }
 
     private void CheckForResidentsStillAvailable()
