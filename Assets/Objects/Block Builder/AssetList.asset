@@ -18,10 +18,10 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 907d7e0a92ecc6c428e0a5095aefe0c0, type: 2}
     roofMaterial:
     - {fileID: 2100000, guid: 796c2b024536c7a439d796f17bf7ae84, type: 2}
-    - {fileID: 2100000, guid: b4ca21d93d69611488ef340339b80216, type: 2}
+    - {fileID: 2100000, guid: 1e2db436ee838ce449bbd003dd230938, type: 2}
     supportMaterial:
     - {fileID: 2100000, guid: 796c2b024536c7a439d796f17bf7ae84, type: 2}
-    - {fileID: 2100000, guid: b4ca21d93d69611488ef340339b80216, type: 2}
+    - {fileID: 2100000, guid: 1e2db436ee838ce449bbd003dd230938, type: 2}
     roofMesh: {fileID: 1497733700407929876, guid: 4e2ebdb49528ba14f9199b598c72e981,
       type: 3}
     wallMesh: {fileID: 2711665715318746789, guid: 71d548c1ee1c58f49820eff27bfd4a33,
@@ -78,9 +78,9 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 289795d57b0913e43800445c801b8e91, type: 2}
     supportMaterial:
     - {fileID: 2100000, guid: 289795d57b0913e43800445c801b8e91, type: 2}
-    roofMesh: {fileID: -9096401120873780335, guid: f6d6ecb4a9dd83d4fabddf8ae8acabb0,
+    roofMesh: {fileID: 7450741763379908841, guid: c1034876b86cf7d468e832d67b643708,
       type: 3}
-    wallMesh: {fileID: -1248316090589427268, guid: 7a8cd2212e6ae0448a64703d608e96ef,
+    wallMesh: {fileID: -6281424698479989189, guid: dc2c05249bf161b41a57af564092b672,
       type: 3}
     supportMesh: {fileID: 3054655961733540624, guid: 3dbf6e17361593b4193b89813ef0803d,
       type: 3}
