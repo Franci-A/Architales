@@ -34,7 +34,6 @@ public class EventManager : MonoBehaviour
     //[Header("Datas from Grid3DManager")]
     public PieceSO CurrentPieceSO { get => currentPieceSO; }
     private PieceSO currentPieceSO;
-    private PieceSO nextPieceSO;
 
     private void Awake()
     {
@@ -125,16 +124,16 @@ public class EventManager : MonoBehaviour
     public void GetPieceToSave()
     {
         currentPieceSO = Grid3DManager.Instance.CurrentPiece;
-        nextPieceSO = Grid3DManager.Instance.NextPiece;
     }
-    public void SetSavedPiece(PieceSO _current, PieceSO _next)
+
+    public void SetSavedPiece(PieceSO _current)
     {
-        Grid3DManager.Instance.ChangePieceSO(_current, _next);
+        Grid3DManager.Instance.ChangePieceSO(_current);
     }
 
     public void SetSavedPiece()
     {
-        Grid3DManager.Instance.ChangePieceSO(currentPieceSO, nextPieceSO);
+        Grid3DManager.Instance.ChangePieceSO(currentPieceSO);
     }
     public void UpdateCoolDown()
     {

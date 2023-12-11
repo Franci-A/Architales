@@ -14,30 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubes:
   - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: -1, y: -1, z: -1}
+    pieceLocalPosition: {x: -2, y: 1, z: 0}
     cubeGO: {fileID: 0}
   - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: -1, y: -1, z: 1}
+    pieceLocalPosition: {x: -1, y: 0, z: 0}
     cubeGO: {fileID: 0}
   - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: -1, y: 1, z: -1}
-    cubeGO: {fileID: 0}
-  - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: -1, y: 1, z: 1}
+    pieceLocalPosition: {x: -1, y: 1, z: 0}
     cubeGO: {fileID: 0}
   - gridPosition: {x: 0, y: 0, z: 0}
     pieceLocalPosition: {x: 0, y: 0, z: 0}
     cubeGO: {fileID: 0}
   - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 1, y: -1, z: -1}
+    pieceLocalPosition: {x: 1, y: 0, z: 0}
     cubeGO: {fileID: 0}
   - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 1, y: -1, z: 1}
+    pieceLocalPosition: {x: 1, y: 1, z: 0}
     cubeGO: {fileID: 0}
   - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 1, y: 1, z: -1}
-    cubeGO: {fileID: 0}
-  - gridPosition: {x: 0, y: 0, z: 0}
-    pieceLocalPosition: {x: 1, y: 1, z: 1}
+    pieceLocalPosition: {x: 2, y: 1, z: 0}
     cubeGO: {fileID: 0}
   resident: {fileID: 11400000, guid: 4303708a7dda1664598ad86ab3733217, type: 2}

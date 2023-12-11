@@ -2,6 +2,7 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventScriptable onPiecePlaced;
 
     [SerializeField] private UnityEvent playMusic, playGameOver;
+    [SerializeField] private BoolVariable isPlayerActive;
+    [SerializeField] private GameObject ui;
 
     private void Awake()
     {
@@ -23,19 +26,29 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-
     private void Start()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene"))
+        {
+            isPlayerActive.SetValue(true);
+        }else
+            ui.SetActive(false);
+        isPlayerActive.OnValueChanged.AddListener(StartGame);
+
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
 
         playMusic.Invoke();
     }
 
-
+    public void StartGame()
+    {
+        ui.SetActive(isPlayerActive);
+    }
 
     void GameOver()
     {
+        isPlayerActive.SetValue(false);
         StartCoroutine(endgame());
     }
 
