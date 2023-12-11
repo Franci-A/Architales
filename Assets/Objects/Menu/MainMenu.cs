@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour
     private bool boolFullScreen;
 
 
-    private void Start()
+    private void Awake()
     {
         resolutionList = UnityEngine.Screen.resolutions;
         LoadSliderValue();
