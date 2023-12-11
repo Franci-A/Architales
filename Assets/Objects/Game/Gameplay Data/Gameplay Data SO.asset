@@ -12,18 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b7f6ee6eb1d824a92f0f432d361cd6, type: 3}
   m_Name: Gameplay Data SO
   m_EditorClassIdentifier: 
+  maxBalance: 40
   balanceAddedVariable: {fileID: 11400000, guid: bfc35866863c6be49a4fc505293c312f,
     type: 2}
-  balanceMultiplierVariable: {fileID: 11400000, guid: f9682c652af877343a5b7f9a327488eb,
-    type: 2}
-  maxBalance: 40
-  residentHappinessLevels:
-  - numberOfResidents: 15
-    maxBalanceAddedValue: 10
-  - numberOfResidents: 30
-    maxBalanceAddedValue: 10
-  - numberOfResidents: 3
-    maxBalanceAddedValue: 50
+  residentHappinessLevels: []
   residentAngryLevels:
   - numberOfResidents: 10
     balanceMultiplier: 0.6
@@ -33,7 +25,5 @@ MonoBehaviour:
     balanceMultiplier: 1.5
   - numberOfResidents: -10
     balanceMultiplier: 2
-  InitialPiecesNumber: 5
-  PositiveHappinessPieceGain: 2
-  NeutralHappinessPieceGain: 0
-  NegativeHappinessPieceGain: -1
+  balanceMultiplierVariable: {fileID: 11400000, guid: f9682c652af877343a5b7f9a327488eb,
+    type: 2}
