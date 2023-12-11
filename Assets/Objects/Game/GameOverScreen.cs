@@ -18,11 +18,6 @@ public class GameOverScreen : MonoBehaviour
        SceneManager.LoadScene(0);
     }
 
-    public void DestroyTower()
-    {
-        Grid3DManager.Instance.DestroyTower();
-    }
-
     public void SetScore(float _score)
     {
         scoreText.text = $"Pieces placed : {_score.ToString()}";

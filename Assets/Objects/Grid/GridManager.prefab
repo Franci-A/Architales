@@ -251,6 +251,7 @@ MonoBehaviour:
   verticalExplosionForce: 1
   explosionVFX: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
     type: 3}
+  onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}
@@ -286,5 +287,4 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  isBalanceBroken: 0
   autoDestroyTower: {fileID: 11400000, guid: ff653396ffd0cfb4f967fbb386c5b372, type: 2}

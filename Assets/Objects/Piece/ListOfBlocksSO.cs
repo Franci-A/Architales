@@ -14,6 +14,7 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     [SerializeField] private IntVariable happinessResidentGain;
     [SerializeField] private EventObjectScriptable lastPiecePlaced;
     [SerializeField] private EventScriptable updatePieceCountUI;
+    [SerializeField] private EventScriptable onBalanceBroken;
 
     [Header("Resident List")]
     [SerializeField] private List<Resident> inGameResidents;
@@ -126,7 +127,7 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     {
         if(residentPiecesCount.Count <= inGameResidents.Count - gameplayData.ResidentsToLoseGame)
         {
-            Debug.Log("Lost Game");
+            onBalanceBroken?.Call();
         }
     }
 

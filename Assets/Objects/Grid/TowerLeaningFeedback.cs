@@ -25,13 +25,14 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] float radius= 50;
     [SerializeField] float verticalExplosionForce = 1;
     [SerializeField] GameObject explosionVFX;
+    [SerializeField] EventScriptable onBalanceBroken;
 
     [Header("Debug")]
     [SerializeField] List<TextMeshProUGUI> DebugInfo = new List<TextMeshProUGUI>();
     [SerializeField] private Gradient debugWeightColors;
-
-    public bool isBalanceBroken = false;
     [SerializeField] private BoolVariable autoDestroyTower;
+
+    private bool isBalanceBroken = false;
 
     private void Awake()
     {
@@ -40,12 +41,22 @@ public class TowerLeaningFeedback : MonoBehaviour
         grid = GetComponent<Grid3DManager>();
     }
 
-    public void DestroyTower()
+    private void Start()
+    {
+        onBalanceBroken.AddListener(OnBalanceBroken);
+    }
+
+    private void OnBalanceBroken()
+    {
+        isBalanceBroken = true;
+    }
+
+    private void DestroyTower()
     {
         StartCoroutine(DestroyTowerCoroutine());
     }
 
-    public IEnumerator DestroyTowerCoroutine()
+    private IEnumerator DestroyTowerCoroutine()
     {
         List<GameObject> cubes = data.GetCubes();
         List<int> intcubes = new List<int>();
@@ -152,10 +163,11 @@ public class TowerLeaningFeedback : MonoBehaviour
         
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         onPiecePlaced.RemoveListener(UpdateWeightDebug);
+        onBalanceBroken.RemoveListener(OnBalanceBroken);
+
         ResetDisplacement();
     }
-
 }

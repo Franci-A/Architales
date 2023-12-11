@@ -17,6 +17,7 @@ MonoBehaviour:
     type: 2}
   lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
   updatePieceCountUI: {fileID: 11400000, guid: 0a9f556cd7d35df4594f42096e9a6d84, type: 2}
+  onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   inGameResidents:
   - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
   - {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
