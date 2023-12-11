@@ -7,13 +7,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/ListPiece")]
 public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeOnDisable
 {
+    [Header("Resident List")]
+    [SerializeField] private GameplayDataSO gameplayData;
+
     [Header("Events")]
     [SerializeField] private IntVariable happinessResidentGain;
     [SerializeField] private EventObjectScriptable lastPiecePlaced;
     [SerializeField] private EventScriptable updatePieceCountUI;
 
-    [Header("Initial List Values")]
-    [SerializeField] private int initialPiecesNumber;
+    [Header("Resident List")]
     [SerializeField] private List<Resident> inGameResidents;
     [SerializeField] private List<PieceSO> pieceList;
 
@@ -93,7 +95,7 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     {
         residentPiecesCount = new Dictionary<Resident, int>();
         foreach (var resident in inGameResidents)
-            residentPiecesCount.Add(resident, initialPiecesNumber);
+            residentPiecesCount.Add(resident, gameplayData.InitialPiecesNumber);
     }
 
     private void UpdateResidentCount(Resident resident, int value)
@@ -139,12 +141,15 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
     private void ProcessHappinessGain(Resident resident)
     {
         // Gain additional pieces if positive
-        if(happinessResidentGain.value >= 1)
-            UpdateResidentCount(resident, 2);
+        if (happinessResidentGain.value >= 1)
+            UpdateResidentCount(resident, gameplayData.PositiveHappinessPieceGain);
 
         // Gain back a single piece if neutral
-        else if(happinessResidentGain.value >= 0)
-            UpdateResidentCount(resident, 1);
+        else if (happinessResidentGain.value >= 0)
+            UpdateResidentCount(resident, gameplayData.NeutralHappinessPieceGain);
+
+        else
+            UpdateResidentCount(resident, gameplayData.NegativeHappinessPieceGain);
 
         happinessResidentGain.SetValue(0);
     }
