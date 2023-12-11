@@ -10,7 +10,7 @@ public class GameplayEvent : ScriptableObject
     public Sprite eventSprite;
 
     [Header("Datas")]
-    public GameObject soundPrefab;
+    public GameObject eventSFX;
     public PieceSO piece;
     public int cooldown;
 
@@ -20,7 +20,7 @@ public class GameplayEvent : ScriptableObject
 
     public virtual void EndEvent() 
     {
-        if(soundPrefab != null) Instantiate(soundPrefab);
+        if(eventSFX != null) Instantiate(eventSFX);
     }
 
     public void PlaceNewBlock()

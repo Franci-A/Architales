@@ -65,7 +65,7 @@ public class Grid3DManager : MonoBehaviour
     public LayerMask CubeLayer { get => cubeLayer;}
 
     [Header("AudioEvent")]
-    [SerializeField] private UnityEvent playSFX;
+    [SerializeField] private GameObject placeSFX;
 
     public enum MouseMode
     {
@@ -161,7 +161,7 @@ public class Grid3DManager : MonoBehaviour
         if (data.IsPiecePlaceValid(piece, gridPos, out Vector3 validPos))
         {
             PlacePiece(validPos);
-            playSFX.Invoke();
+            Instantiate(placeSFX);
         }
     }
 
