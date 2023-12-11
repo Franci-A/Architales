@@ -118,6 +118,16 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
 
         for (int i = 0; i < toRemove.Count; ++i)
             residentPiecesCount.Remove(toRemove[i]);
+
+        CheckForResidentsLost();
+    }
+
+    private void CheckForResidentsLost()
+    {
+        if(residentPiecesCount.Count <= inGameResidents.Count - gameplayData.ResidentsToLoseGame)
+        {
+            Debug.Log("Lost Game");
+        }
     }
 
     /// <summary>

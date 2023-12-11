@@ -22,6 +22,7 @@ public class GameplayDataSO : ScriptableObject
     [SerializeField] public int PositiveHappinessPieceGain;
     [SerializeField] public int NeutralHappinessPieceGain;
     [SerializeField] public int NegativeHappinessPieceGain;
+    [SerializeField] public int ResidentsToLoseGame;
 
     public float MaxBalance => maxBalance + balanceAddedVariable;
 }

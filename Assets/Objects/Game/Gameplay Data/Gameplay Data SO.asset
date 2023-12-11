@@ -37,3 +37,4 @@ MonoBehaviour:
   PositiveHappinessPieceGain: 2
   NeutralHappinessPieceGain: 0
   NegativeHappinessPieceGain: -1
+  ResidentsToLoseGame: 2
