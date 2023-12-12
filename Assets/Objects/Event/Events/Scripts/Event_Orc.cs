@@ -15,8 +15,4 @@ public class Event_Orc : GameplayEvent
         EventManager.Instance.SetSavedPiece();
     }
 
-    public override void EndEvent()
-    {
-        Debug.Log("Orc piece placed >:D");    
-    }
 }

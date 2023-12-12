@@ -24,7 +24,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056583302539447503}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.284375, y: 0.284375, z: 0.284375}
   m_ConstrainProportionsScale: 0
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4591c28ce32b0ad44a5c865b0b9cc401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxCrystalBall: {fileID: 3154580211796230299, guid: 5590e6a4acf2fba4788f167edfe19ef3,
+    type: 3}
   onEventCancel: {fileID: 11400000, guid: 4df2789239b1fe04cb06ab5a6cebba49, type: 2}
   onEventEnd: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b, type: 2}
   onPrevivewDeactivated: {fileID: 11400000, guid: 516898db6454aa6498ea09ff2f068f5f,

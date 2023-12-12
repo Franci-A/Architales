@@ -12,6 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6113d1c2c05bf44b083f65f9ffd792, type: 3}
   m_Name: ListOfBlocksSO
   m_EditorClassIdentifier: 
+  gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
+  happinessResidentGain: {fileID: 11400000, guid: 8456eff214b38db4ea1c9599e8433f70,
+    type: 2}
+  lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
+  updatePieceCountUI: {fileID: 11400000, guid: 0a9f556cd7d35df4594f42096e9a6d84, type: 2}
+  onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
+  inGameResidents:
+  - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
+  - {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
+  - {fileID: 11400000, guid: 95c364dd5fceb464e9300a562e40f8a6, type: 2}
+  - {fileID: 11400000, guid: 1ce2b3530a3e61c4697394b5587a48d6, type: 2}
+  - {fileID: 11400000, guid: 5f7609726b980ed4fb7896b7a49912e1, type: 2}
   pieceList:
   - {fileID: 11400000, guid: 03a8fd782f5fc1943acf31f841fde73e, type: 2}
   - {fileID: 11400000, guid: 006e7f943ccf2a249a2bd28473833f39, type: 2}

@@ -10,6 +10,7 @@ public class GameplayEvent : ScriptableObject
     public Sprite eventSprite;
 
     [Header("Datas")]
+    public GameObject eventSFX;
     public PieceSO piece;
     public int cooldown;
 
@@ -17,7 +18,10 @@ public class GameplayEvent : ScriptableObject
 
     public virtual void Deactivate() { }
 
-    public virtual void EndEvent() { }
+    public virtual void EndEvent() 
+    {
+        if(eventSFX != null) Instantiate(eventSFX);
+    }
 
     public void PlaceNewBlock()
     {

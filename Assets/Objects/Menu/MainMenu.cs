@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
     private CameraManager cameraManager;
 
 
-    private void Start()
+    private void Awake()
     {
         resolutionList = UnityEngine.Screen.resolutions;
         LoadSliderValue();

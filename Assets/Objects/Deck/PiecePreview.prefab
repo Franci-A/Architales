@@ -77,7 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8d20058f3869f47bb4247a89b5e0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPiecePlacedPiece: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd, type: 2}
+  previewPieceChanged: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd,
+    type: 2}
   piecePrefab: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16,
     type: 3}
   rotationVector: {x: 0, y: 1, z: 0}

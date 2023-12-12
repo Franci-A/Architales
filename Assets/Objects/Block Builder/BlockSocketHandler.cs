@@ -1,21 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BlockSocketHandler : MonoBehaviour
 {
-    [SerializeField] Decoration roofSocket;
-    [SerializeField] Decoration supportSocket;
-    [SerializeField] GridData data;
-    private List<Vector3> checkDirections;
+    [SerializeField] private Decoration baseBlockSocket;
+    [SerializeField] private Decoration roofSocket;
+    [SerializeField] private Decoration supportSocket;
+    [SerializeField] private GridData data;
+    [SerializeField] private BlockAssetTypeRaceList assetList;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Vector3 debugPos;
     [SerializeField] private float roofStartingHeight = 1;
     [SerializeField] private float supportStartingHeight = 1;
+
+    private List<Vector3> checkDirections;
 
     private void Awake()
     {
@@ -30,16 +30,25 @@ public class BlockSocketHandler : MonoBehaviour
         supportSocket.canBeFilled = true;
     }
 
-    public void Init()
+    public void Init(Race residentRace)
     {
+        var assets = assetList.GetMeshByRace(residentRace);
+        if (assets != null)
+        {
+            baseBlockSocket.socket.SetMesh(assets.wallMesh);
+        }
+
         if (roofSocket.socket.transform.position.y > roofStartingHeight && CheckSocket(roofSocket, Vector3.up, Vector3.zero))
         {
-                Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
-                RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
-            
+            roofSocket.socket.SetMesh(assets.roofMesh);
+            roofSocket.socket.SetMaterial(assets.roofMaterial);
+            Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
+            RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
         }
         if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, .2f,0))) 
         {
+            supportSocket.socket.SetMesh(assets.supportMesh);
+            supportSocket.socket.SetMaterial(assets.supportMaterial);
             GetSupportDirection();
         }
     }
@@ -52,7 +61,6 @@ public class BlockSocketHandler : MonoBehaviour
         RaycastHit[] hit;
 
         hit = Physics.SphereCastAll(socket.socket.transform.position + offset, .1f, direction, .1f, layerMask);
-        Debug.DrawRay(socket.socket.transform.position, direction, Color.blue, 2);
         debugPos = socket.socket.transform.position + offset;
         if (hit.Length > 0)
         {
@@ -64,8 +72,6 @@ public class BlockSocketHandler : MonoBehaviour
             }
             if (hasHit)
             {
-
-                Debug.Log("hit something");
                 socket.canBeFilled = false;
                 socket.socket.EmptyMesh();
                 socket.socket.gameObject.SetActive(false);
@@ -110,11 +116,6 @@ public class BlockSocketHandler : MonoBehaviour
     public void RemoveRoof()
     {
         roofSocket.socket.EmptyMesh();
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(debugPos, .5f);
     }
 }
 

@@ -28,7 +28,6 @@ public class Initializer : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
 
         InitializeObjects();
     }

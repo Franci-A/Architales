@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f4be7c8b6604f488bae730d9e39e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toInitialize:
-  - {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
-  - {fileID: 11400000, guid: 74200eebbf355564f853c6f95e60238f, type: 2}
   objects:
   - obj: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
     InitializeOnAwake: 1
@@ -54,3 +51,6 @@ MonoBehaviour:
   - obj: {fileID: 11400000, guid: 74200eebbf355564f853c6f95e60238f, type: 2}
     InitializeOnAwake: 1
     ResetOnDisable: 0
+  - obj: {fileID: 11400000, guid: d11394fdcb795b642a9f809552a0fd67, type: 2}
+    InitializeOnAwake: 1
+    ResetOnDisable: 1
