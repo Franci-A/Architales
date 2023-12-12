@@ -21,6 +21,7 @@ public class PiecesCountUIHandler : MonoBehaviour
     private void Start()
     {
         updatePieceCountUI.AddListener(UpdateCountUI);
+        UpdateCountUI();
     }
 
     private void UpdateCountUI()
