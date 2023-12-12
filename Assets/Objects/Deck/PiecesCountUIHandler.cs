@@ -18,10 +18,14 @@ public class PiecesCountUIHandler : MonoBehaviour
     [SerializeField] private EventScriptable updatePieceCountUI;
     [SerializeField] private List<ResidentCountUIText> residentCountTexts;
 
+    private void Awake()
+    {
+        UpdateCountUI();
+    }
+
     private void Start()
     {
         updatePieceCountUI.AddListener(UpdateCountUI);
-        UpdateCountUI();
     }
 
     private void UpdateCountUI()
