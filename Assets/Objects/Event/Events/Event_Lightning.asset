@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventName: Lightning
   eventSprite: {fileID: 21300000, guid: cf7dbd67b1f059844a59124b91feca59, type: 3}
+  eventSFX: {fileID: 8162367115687695964, guid: cc5dfd20b9ebf23408933c4d1ff56d22,
+    type: 3}
   piece: {fileID: 0}
   cooldown: 5

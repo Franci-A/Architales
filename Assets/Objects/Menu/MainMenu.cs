@@ -22,6 +22,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private GameObject sfxOver;
+    [SerializeField] private GameObject sfxClick;
 
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
@@ -29,6 +31,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Resolution[] resolutionList; // x = width, y = height
     private int resId;
     private bool boolFullScreen;
+    private CameraManager cameraManager;
 
 
     private void Awake()
@@ -86,19 +89,22 @@ public class MainMenu : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        audioMixer.SetFloat("Master", Mathf.Lerp(-80 , 0,Mathf.Log(value +1)));
+        audioMixer.SetFloat("Master", Mathf.Log10(value) * 20);
+        //audioMixer.SetFloat("Master", Mathf.Lerp(-80 , 0,Mathf.Log(value +1)));
         PlayerPrefs.SetFloat("MasterVolume", value);
     }
 
     public void SetMusicVolume(float value)
     {
-        audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
+        audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
+        //audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
         PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
     public void SetSFXVolume(float value)
     {
-        audioMixer.SetFloat("SFX", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
+        audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
+        //audioMixer.SetFloat("SFX", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
         PlayerPrefs.SetFloat("SFXVolume", value);
     }
     #endregion
@@ -128,6 +134,12 @@ public class MainMenu : MonoBehaviour
     {
         boolFullScreen = _bool;
     }
+    
+    public void SetInversion()
+    {
+        cameraManager = Camera.main.GetComponentInParent<CameraManager>();
+        cameraManager.CameraInvertion();
+    }
 
     public void ReduceRes()
     {
@@ -143,5 +155,15 @@ public class MainMenu : MonoBehaviour
         if (resId >= resolutionList.Length) resId = resolutionList.Length - 1;
 
         resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
+    }
+
+    public void OnOverButton()
+    {
+        Instantiate(sfxOver);
+    }
+
+    public void OnClickButton()
+    {
+        Instantiate(sfxClick);
     }
 }

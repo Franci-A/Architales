@@ -2,6 +2,7 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UnityEvent playMusic, playGameOver;
     [SerializeField] private BoolVariable isPlayerActive;
     [SerializeField] private GameObject ui;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject ghost;
 
     private void Awake()
     {
@@ -38,11 +41,30 @@ public class GameManager : MonoBehaviour
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
 
+        Cursor.lockState = CursorLockMode.None;
+
         playMusic.Invoke();
     }
 
     public void StartGame()
     {
+        ui.SetActive(isPlayerActive);
+    }
+
+    public void PauseGame()
+    {
+        isPlayerActive.SetValue(false);
+        ghost.SetActive(isPlayerActive);
+        ui.SetActive(isPlayerActive);
+        pauseMenu.SetActive(true);
+        //Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false);
+        isPlayerActive.SetValue(true);
+        ghost.SetActive(isPlayerActive);
         ui.SetActive(isPlayerActive);
     }
 

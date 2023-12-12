@@ -19,6 +19,7 @@ public class Event_SolidBlock : GameplayEvent
 
     public override void EndEvent()
     {
+        base.EndEvent();
         Grid3DManager.Instance.AddBalance(addBalance);
     }
 }
