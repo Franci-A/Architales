@@ -1,14 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Device;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
-using System.Collections;
 
-public class MainMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
+
     [Header("Scenes")]
     [SerializeField] private GameObject main;
     [SerializeField] private GameObject option;
@@ -37,17 +39,13 @@ public class MainMenu : MonoBehaviour
         resolutionList = UnityEngine.Screen.resolutions;
         LoadSliderValue();
         GetScreenValue();
-        playMusic.Invoke();
         isPlayerActive.SetValue(false);
-        SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
     }
 
     #region Main
     public void StartGame()
     {
         isPlayerActive.SetValue(true);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName));
-        SceneManager.UnloadSceneAsync(mainMenuSceneName);
     }
 
     public void Options()
@@ -87,7 +85,7 @@ public class MainMenu : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        audioMixer.SetFloat("Master", Mathf.Lerp(-80 , 0,Mathf.Log(value +1)));
+        audioMixer.SetFloat("Master", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
         PlayerPrefs.SetFloat("MasterVolume", value);
     }
 
@@ -110,7 +108,7 @@ public class MainMenu : MonoBehaviour
         boolFullScreen = PlayerPrefs.GetInt("FullScreen") > 0 ? true : false;
         fullscreenToggle.isOn = boolFullScreen;
 
-        if (!PlayerPrefs.HasKey("ResolutionId")) PlayerPrefs.SetInt("ResolutionId", resolutionList.Length -1);
+        if (!PlayerPrefs.HasKey("ResolutionId")) PlayerPrefs.SetInt("ResolutionId", resolutionList.Length - 1);
         resId = PlayerPrefs.GetInt("ResolutionId");
         resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
 
@@ -129,7 +127,7 @@ public class MainMenu : MonoBehaviour
     {
         boolFullScreen = _bool;
     }
-    
+
     public void SetInversion()
     {
         cameraManager = Camera.main.GetComponentInParent<CameraManager>();
@@ -139,7 +137,7 @@ public class MainMenu : MonoBehaviour
     public void ReduceRes()
     {
         resId--;
-        if(resId < 0) resId =  0;
+        if (resId < 0) resId = 0;
 
         resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
     }
@@ -150,5 +148,17 @@ public class MainMenu : MonoBehaviour
         if (resId >= resolutionList.Length) resId = resolutionList.Length - 1;
 
         resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
+    }
+
+    public void Resume()
+    {
+        //Time.timeScale = 1.0f;
+        gameManager.ResumeGame();
+    }
+
+    public void Menu()
+    {
+        //Time.timeScale = 1.0f;
+        SceneManager.LoadScene(0);
     }
 }

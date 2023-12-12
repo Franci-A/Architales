@@ -18,7 +18,6 @@ public class CameraManager : MonoBehaviour
     bool updateRotation = false;
     private bool smoothBracking = false;
     private bool cameraInvertion = false;
-    private int invertionValue = 1;
 
 
     [Header("Position / Speed")]
@@ -315,15 +314,9 @@ public class CameraManager : MonoBehaviour
     public void CameraInvertion()
     {
         if (!cameraInvertion)
-        {
             cameraInvertion = true;
-            invertionValue = -1;
-        }
         else
-        {
             cameraInvertion = false;
-            invertionValue = 1;
-        }
     }
 
 
