@@ -34,4 +34,9 @@ public class AudioSFXOneShot : AudioScript
     {
         m_previousClip = clip;
     }
+
+    public void AddClip(AudioClip clip)
+    {
+        _audioClipList.Add(clip);
+    }
 }

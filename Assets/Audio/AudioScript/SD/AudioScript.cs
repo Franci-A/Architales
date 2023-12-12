@@ -9,19 +9,15 @@ public class AudioScript : MonoBehaviour
 
 
     [Header("Clip values")]
-    [Range(0, 1)]
-    public float rndVolMin;
-    [Range(0, 1)]
-    public float rndVolMax;
+    [Range(0, 1), SerializeField] private float rndVolMin;
+    [Range(0, 1), SerializeField] private float rndVolMax;
 
     [Space]
 
-    [Range(0, 2)]
-    public float rndPitchMin;
-    [Range(0, 2)]
-    public float rndPitchMax;
+    [Range(0, 2), SerializeField] private float rndPitchMin;
+    [Range(0, 2), SerializeField] private float rndPitchMax;
 
-    [SerializeField]protected bool is3D;
+    [SerializeField] protected bool is3D;
 
 
 
@@ -34,17 +30,6 @@ public class AudioScript : MonoBehaviour
         if (_audioClipList.Count == 0)
             return;
     }
-
-    void Update()
-    {
-
-    }
-
-    /*IEnumerator WaitForClipLength()
-    {
-        yield return new WaitForSeconds(m_clipLength);
-        Destroy(this.gameObject);
-    }*/
 
     protected float rndPitch()
     {

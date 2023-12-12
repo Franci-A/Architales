@@ -5,10 +5,8 @@ using UnityEngine;
 public class AudioSFXRandomContainer : AudioScript
 {
     [Header("Start Position")]
-    [Range(0, 1)]
-    public float rndStartMin;
-    [Range(0, 1)]
-    public float rndStartMax;
+    [Range(0, 1), SerializeField] private float rndStartMin;
+    [Range(0, 1), SerializeField] private float rndStartMax;
 
     protected override void Awake()
     {

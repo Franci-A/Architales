@@ -7,7 +7,7 @@ using NaughtyAttributes;
 public class AudioPlayCollision : AudioScript
 {
 
-    [Layer] public string layer;
+    [Layer, SerializeField] private string layer;
 
 
     private void OnCollisionEnter(Collision collision)
