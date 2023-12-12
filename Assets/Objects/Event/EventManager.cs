@@ -11,6 +11,8 @@ public class EventManager : MonoBehaviour
     private static EventManager instance;
     public static EventManager Instance { get => instance; }
 
+    [SerializeField] private GameObject sfxCrystalBall;
+
     [Header("Event")]
     [SerializeField] private EventScriptable onEventCancel;
     [SerializeField] private EventScriptable onEventEnd;
@@ -96,7 +98,7 @@ public class EventManager : MonoBehaviour
     public void ActivateEvent()
     {
         isEventActive = true;
-
+        Instantiate(sfxCrystalBall);
         currentEventSO.Activate();
     }
 

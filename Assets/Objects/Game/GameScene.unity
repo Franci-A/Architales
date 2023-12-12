@@ -1706,22 +1706,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6b2962dfd9f2540a999e736b599cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSound:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1661120325}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySFX
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: b34cff7a81dae5b41bcfb39206d07c76,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _audioClipList: []
+  rndVolMin: 0
+  rndVolMax: 0
+  rndPitchMin: 0
+  rndPitchMax: 0
+  is3D: 0
   layer: Cube
 --- !u!1 &1514254849
 GameObject:
