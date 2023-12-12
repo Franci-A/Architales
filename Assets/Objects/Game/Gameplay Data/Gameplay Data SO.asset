@@ -33,8 +33,8 @@ MonoBehaviour:
     balanceMultiplier: 1.5
   - numberOfResidents: -10
     balanceMultiplier: 2
-  InitialPiecesNumber: 50
-  MaxPiecesNumber: 8
+  InitialPiecesNumber: 6
+  MaxPiecesNumber: 9
   PositiveHappinessPieceGain: 2
   NeutralHappinessPieceGain: 0
   NegativeHappinessPieceGain: -1
