@@ -587,6 +587,7 @@ MonoBehaviour:
   elevatorMinClamp: 0
   elevatorMaxClampOffset: 3
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   zoomMinClamp: 9
   zoomMaxClamp: 20
   zoomSpeed: 0.1

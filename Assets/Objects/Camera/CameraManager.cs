@@ -48,6 +48,7 @@ public class CameraManager : MonoBehaviour
     bool updatePosition = false;
     int higherBlock = 1;
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private BoolVariable isPlayerActive;
 
 
     [Header("Zoom")]
@@ -82,6 +83,8 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
+        if (!isPlayerActive) return;
+
         CheckRotation();
 
         VerticalMovement();

@@ -7,12 +7,12 @@ public class PieceDecorationsHandler : MonoBehaviour
 {
     private List<BlockSocketHandler> socketHandlers;
 
-    public void Init()
+    public void Init(Race residentRace)
     {
         socketHandlers = GetComponentsInChildren<BlockSocketHandler>().ToList() ;
         for (int i = 0; i < socketHandlers.Count; i++)
         {
-            socketHandlers[i].Init();
+            socketHandlers[i].Init(residentRace);
         }
     }
 

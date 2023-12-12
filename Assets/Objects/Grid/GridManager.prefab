@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
   canPlaceBlock: {fileID: 11400000, guid: f2284b432170a28418af5e67c66a5a76, type: 2}
+  isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   totalNumResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
   maxDistance: 15
@@ -162,7 +163,9 @@ MonoBehaviour:
   pieceListRandom: {fileID: 11400000, guid: d11394fdcb795b642a9f809552a0fd67, type: 2}
   onEventEnd: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
-  onPiecePlacedPiece: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd, type: 2}
+  lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
+  previewPieceChanged: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd,
+    type: 2}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   placeSFX: {fileID: 4467691593011508502, guid: 427b88071d2988043b2334b33675ca28,
     type: 3}
@@ -233,6 +236,7 @@ MonoBehaviour:
   verticalExplosionForce: 1
   explosionVFX: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
     type: 3}
+  onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}
@@ -268,5 +272,4 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  isBalanceBroken: 0
   autoDestroyTower: {fileID: 11400000, guid: ff653396ffd0cfb4f967fbb386c5b372, type: 2}
