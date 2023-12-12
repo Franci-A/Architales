@@ -101,7 +101,11 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
 
     private void UpdateResidentCount(Resident resident, int value)
     {
-        residentPiecesCount[resident] += value;
+        int count = residentPiecesCount[resident] + value;
+
+        residentPiecesCount[resident] = gameplayData.MaxPiecesNumber >= 0 ?
+            Mathf.Min(count, gameplayData.MaxPiecesNumber) :
+            count;
     }
 
     private void CheckForResidentsStillAvailable()

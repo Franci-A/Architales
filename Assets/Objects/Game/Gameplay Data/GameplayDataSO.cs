@@ -19,6 +19,8 @@ public class GameplayDataSO : ScriptableObject
     
     [Header("Resident Pieces")]
     [SerializeField] public int InitialPiecesNumber;
+    [Min(-1), Tooltip("Piece count Max Clamped Value. No Clamp if -1")]
+    [SerializeField] public int MaxPiecesNumber;
     [SerializeField] public int PositiveHappinessPieceGain;
     [SerializeField] public int NeutralHappinessPieceGain;
     [SerializeField] public int NegativeHappinessPieceGain;
