@@ -69,7 +69,7 @@ MonoBehaviour:
       type: 3}
     wallMesh: {fileID: 4964216032534037671, guid: 5ad9aa18e767ebb49b6fb30967a428b4,
       type: 3}
-    supportMesh: {fileID: -1517434215410090729, guid: 84720a1e7b459d143a1b9b6cd359847b,
+    supportMesh: {fileID: -1517434215410090729, guid: 0a44006dc8744b74e84026c226298a53,
       type: 3}
   - race: 4
     blockMaterial:
@@ -84,3 +84,25 @@ MonoBehaviour:
       type: 3}
     supportMesh: {fileID: 3054655961733540624, guid: 3dbf6e17361593b4193b89813ef0803d,
       type: 3}
+  - race: 6
+    blockMaterial:
+    - {fileID: 855434228054878152, guid: 9d7ee2d8957e3ad48bab9ca5f008d9d8, type: 3}
+    roofMaterial:
+    - {fileID: 855434228054878152, guid: 9d7ee2d8957e3ad48bab9ca5f008d9d8, type: 3}
+    supportMaterial:
+    - {fileID: 855434228054878152, guid: 9d7ee2d8957e3ad48bab9ca5f008d9d8, type: 3}
+    roofMesh: {fileID: 0}
+    wallMesh: {fileID: -1248316090589427268, guid: 7a8cd2212e6ae0448a64703d608e96ef,
+      type: 3}
+    supportMesh: {fileID: 0}
+  - race: 5
+    blockMaterial:
+    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
+    roofMaterial:
+    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
+    supportMaterial:
+    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
+    roofMesh: {fileID: 0}
+    wallMesh: {fileID: 2711665715318746789, guid: 71d548c1ee1c58f49820eff27bfd4a33,
+      type: 3}
+    supportMesh: {fileID: 0}

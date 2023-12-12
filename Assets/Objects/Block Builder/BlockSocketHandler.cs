@@ -36,19 +36,19 @@ public class BlockSocketHandler : MonoBehaviour
         if (assets != null)
         {
             baseBlockSocket.socket.SetMesh(assets.wallMesh);
-            roofSocket.socket.SetMesh(assets.roofMesh);
-            roofSocket.socket.SetMaterial(assets.roofMaterial);
-            supportSocket.socket.SetMesh(assets.supportMesh);
-            supportSocket.socket.SetMaterial(assets.supportMaterial);
         }
 
         if (roofSocket.socket.transform.position.y > roofStartingHeight && CheckSocket(roofSocket, Vector3.up, Vector3.zero))
         {
+            roofSocket.socket.SetMesh(assets.roofMesh);
+            roofSocket.socket.SetMaterial(assets.roofMaterial);
             Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
             RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
         }
         if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, .2f,0))) 
         {
+            supportSocket.socket.SetMesh(assets.supportMesh);
+            supportSocket.socket.SetMaterial(assets.supportMaterial);
             GetSupportDirection();
         }
     }
