@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8653529682973750359}
   - component: {fileID: 4528809903238875770}
   - component: {fileID: 368087417731328310}
+  - component: {fileID: 6215046941021648025}
   m_Layer: 7
   m_Name: Brick
   m_TagString: Untagged
@@ -105,6 +106,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6215046941021648025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622634151242763043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4711b64b8f77c4eae41138261cf4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshFilter: {fileID: 8653529682973750359}
+  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &9132960200103920916
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +190,9 @@ MonoBehaviour:
   currentResident: {fileID: 11400000, guid: 217319983832e7b49ad9fad54632e845, type: 2}
   cube: {fileID: 4528809903238875770}
   parentPiece: {fileID: 0}
+  cubeMask:
+    serializedVersion: 2
+    m_Bits: 0
   OnNeighborsChanged:
     m_PersistentCalls:
       m_Calls: []

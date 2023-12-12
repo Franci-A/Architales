@@ -61,7 +61,7 @@ public class Piece : MonoBehaviour
         SpawnCubes(false);
 
         UpdateSurroundingBlocks();
-        decorationsHandler?.Init();
+        decorationsHandler?.Init(currentResident.race);
 
 
         if (piece.resident.vfxSmoke == null) return;
