@@ -1,7 +1,6 @@
-using HelperScripts.EventSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CheckResidentsLikes : MonoBehaviour
@@ -14,6 +13,9 @@ public class CheckResidentsLikes : MonoBehaviour
     private List<FeedbackElement> feedbackElements;
     [SerializeField] private Color likeColor = Color.green;
     [SerializeField] private Color dislikeColor = Color.red;
+    private FeedbackPopup popup;
+
+    Vector3 previousPos;
 
     public bool isAcive =false;
 
@@ -43,9 +45,14 @@ public class CheckResidentsLikes : MonoBehaviour
 
     public void CheckRelations()
     {
+        if (Vector3.Distance(currentResident[0].gameObject.transform.position, previousPos) < .5f)
+            return;
+
+        previousPos = currentResident[0].gameObject.transform.position;
         RaycastHit[] hit;
 
         List<ResidentHandler> residents = new List<ResidentHandler>();
+        int totalLike = 0;
         for (int index = 0; index < currentResident.Count; index++)
         {
             for (int i = 0; i < checkDirections.Count; i++)
@@ -84,27 +91,26 @@ public class CheckResidentsLikes : MonoBehaviour
                             break;
                         }
                     }
-
+                    totalLike += likeAmount;
                     if (alreadyHere)
                         continue;
 
                     FeedbackElement element = new FeedbackElement();
-                    FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
-                    element.popup = obj;
                     element.neighbor = collidedResident;
                     element.currentResident = currentResident[index];
                     feedbackElements.Add(element);
-                    obj.InitPopup(likeAmount > 0);
                 }
             }
         }
 
+        popup?.DestroyPopup();
+        popup = Instantiate<FeedbackPopup>(feedbackPopup, transform.position, Quaternion.identity);
+        popup.InitPopup(totalLike);
         for (int k = feedbackElements.Count -1; k >=0; k--)
         {
             if (residents.Contains(feedbackElements[k].neighbor))
                 continue;
 
-            feedbackElements[k].popup.DestroyPopup();
             feedbackElements[k].neighbor.RemoveRelationsMaterial();
             feedbackElements.RemoveAt(k);
         }
@@ -171,9 +177,9 @@ public class CheckResidentsLikes : MonoBehaviour
         if (feedbackElements == null)
             return;
 
+        popup?.DestroyPopup();
         for (int i = 0; i < feedbackElements.Count; i++)
         {
-            feedbackElements[i].popup.DestroyPopup();
             feedbackElements[i].neighbor.RemoveRelationsMaterial();
         }
         feedbackElements.Clear();
@@ -188,17 +194,11 @@ public class CheckResidentsLikes : MonoBehaviour
         }
         Destroy(this);
     }
-
-    private void OnDestroy()
-    {
-        //ClearFeedback();
-    }
 }
 
 struct FeedbackElement
 {
     public ResidentHandler currentResident;
     public ResidentHandler neighbor;
-    public FeedbackPopup popup;
 }
  

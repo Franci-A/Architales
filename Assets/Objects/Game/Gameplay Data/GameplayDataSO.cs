@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +8,25 @@ using UnityEngine;
 
 public class GameplayDataSO : ScriptableObject
 {
-    [SerializeField] private float maxBalance;
+    [Header("Balance")]
     public FloatVariable balanceAddedVariable;
-    public float MaxBalance => maxBalance + balanceAddedVariable;
+    public FloatVariable balanceMultiplierVariable;
+    [SerializeField] private float maxBalance;
+    
+    [Header("Resident Happiness")]
     public List<ResidentHappinessLevel> residentHappinessLevels;
     public List<ResidentAngryLevel> residentAngryLevels;
-    public FloatVariable balanceMultiplierVariable;
+    
+    [Header("Resident Pieces")]
+    [SerializeField] public int InitialPiecesNumber;
+    [Min(-1), Tooltip("Piece count Max Clamped Value. No Clamp if -1")]
+    [SerializeField] public int MaxPiecesNumber;
+    [SerializeField] public int PositiveHappinessPieceGain;
+    [SerializeField] public int NeutralHappinessPieceGain;
+    [SerializeField] public int NegativeHappinessPieceGain;
+    [SerializeField] public int ResidentsToLoseGame;
+
+    public float MaxBalance => maxBalance + balanceAddedVariable;
 }
 
 [Serializable]

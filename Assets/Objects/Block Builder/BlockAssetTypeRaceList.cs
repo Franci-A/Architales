@@ -7,37 +7,25 @@ using NaughtyAttributes;
 public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
 {
     [Serializable]
-    private class RaceAssetTypeMesh
-    {
-        [SerializeField] private RaceAssetTypePair pair;
-        public RaceAssetTypePair Pair { get => pair; }
-
-        [SerializeField] private Mesh mesh;
-        public Mesh AssetMesh { get => mesh; }
-
-        public RaceAssetTypeMesh(RaceAssetTypePair pair)
-        {
-            this.pair = pair;
-            mesh = null;
-        }
-    }
-
-    [Serializable]
-    private struct RaceAssetTypePair
+    public class RaceAssetTypePair
     {
         public Race race;
-        public BlockAssetType assetType;
+        public Material[] blockMaterial;
+        public Material[] roofMaterial;
+        public Material[] supportMaterial;
+        public Mesh roofMesh;
+        public Mesh wallMesh;
+        public Mesh supportMesh;
 
-        public RaceAssetTypePair(Race race, BlockAssetType assetType)
+        public RaceAssetTypePair(Race race)
         {
             this.race = race;
-            this.assetType = assetType;
         }
     }
 
-    [SerializeField] private List<RaceAssetTypeMesh> assetDatabase;
+    [SerializeField] private List<RaceAssetTypePair> assetDatabase;
 
-    private Dictionary<RaceAssetTypePair, Mesh> assetDictionnary;
+    private Dictionary<Race, RaceAssetTypePair> assetDictionnary;
 
     public void Initialize()
     {
@@ -45,10 +33,15 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
         GenerateDictionnary();
     }
 
-    public Mesh GetMeshByRaceAndType(Race race, BlockAssetType type)
+    public RaceAssetTypePair GetMeshByRace(Race race)
     {
-        RaceAssetTypePair pair = new RaceAssetTypePair(race, type);
-        return assetDictionnary[pair];
+        if(!assetDictionnary.ContainsKey(race))
+        {
+            Debug.LogWarning($"AssetDictionnary doesn't contain Pair<{race}>, OR a corresponding asset");
+            return null;
+        }
+
+        return assetDictionnary[race];
     }
 
     [Button("Regenerate Empty Editor Database")]
@@ -60,8 +53,8 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
         {
             foreach (Race race in Enum.GetValues(typeof(Race)))
             {
-                RaceAssetTypePair pair = new RaceAssetTypePair(race, type);
-                assetDatabase.Add(new RaceAssetTypeMesh(pair));
+                RaceAssetTypePair pair = new RaceAssetTypePair(race);
+                assetDatabase.Add(pair);
             }
         }
     }
@@ -72,7 +65,7 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
         assetDictionnary = new();
         foreach (var data in assetDatabase)
         {
-            assetDictionnary.Add(data.Pair, data.AssetMesh);
+            assetDictionnary.Add(data.race, data);
         }
     }
 }

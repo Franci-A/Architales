@@ -1,9 +1,6 @@
 using HelperScripts.EventSystem;
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -14,6 +11,7 @@ public class Grid3DManager : MonoBehaviour
     private static Grid3DManager instance;
     public static Grid3DManager Instance { get => instance; }
     [SerializeField] private GameplayDataSO gameplayData;
+    [SerializeField] private BoolVariable canPlaceBlock;
     [SerializeField] private BoolVariable isPlayerActive;
 
     [Header("Grid")]
@@ -41,7 +39,8 @@ public class Grid3DManager : MonoBehaviour
     [Header("Event")]
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPiecePlaced;
-    [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
+    [SerializeField] private EventObjectScriptable lastPiecePlaced;
+    [SerializeField] private EventObjectScriptable previewPieceChanged;
     [SerializeField] public EventScriptable onBalanceBroken;
     public delegate void OnCubeChangeDelegate(PieceSO newPiece);
     public event OnCubeChangeDelegate OnCubeChange;
@@ -51,8 +50,6 @@ public class Grid3DManager : MonoBehaviour
     private List<Cube> cubeList; // current list
     public PieceSO CurrentPiece { get => currentPiece; }
     private PieceSO currentPiece; // current piece
-    public PieceSO NextPiece { get => nextPiece; }
-    private PieceSO nextPiece;
 
     public PieceSO pieceSo { get => currentPiece; } // get
     public List<Cube> CubeList { get => cubeList; } // get
@@ -90,7 +87,7 @@ public class Grid3DManager : MonoBehaviour
 
     public void PlacePiece(Vector3 gridPos)
     {
-        isPlayerActive.SetValue(false);
+        canPlaceBlock.SetValue(false);
 
         var piece = Instantiate(this.piece, transform);
 
@@ -112,6 +109,7 @@ public class Grid3DManager : MonoBehaviour
 
         totalNumResidents.Add(piece.Cubes.Count);
 
+        lastPiecePlaced.Call(pieceSO);
 
         if (!EventManager.Instance.IsEventActive) ChangePieceSORandom();
         else onEventEnd.Call();
@@ -132,7 +130,7 @@ public class Grid3DManager : MonoBehaviour
         cubeList = lobbyPiece.cubes;
         currentPiece = lobbyPiece;
         PlacePiece(Vector3.zero);
-        isPlayerActive.SetValue(true);
+        canPlaceBlock.SetValue(true);
     }
 
     private void ChangedBlock()
@@ -142,7 +140,7 @@ public class Grid3DManager : MonoBehaviour
         pieceSO.resident = currentPiece.resident;
         OnCubeChange?.Invoke(pieceSO);
         piece.ChangePiece(pieceSO);
-        isPlayerActive.SetValue(true);
+        canPlaceBlock.SetValue(true);
     }
 
     private void RotatePiece(bool rotateLeft)
@@ -185,26 +183,18 @@ public class Grid3DManager : MonoBehaviour
 
     private void ChangePieceSORandom()
     {
-        if(nextPiece == null)
-        {
-            nextPiece = pieceListRandom.GetRandomPiece();
-        }
-
-        currentPiece = nextPiece;
+        currentPiece = pieceListRandom.GetRandomPiece();
         cubeList = currentPiece.cubes;
-        nextPiece = pieceListRandom.GetRandomPiece();
 
-        onPiecePlacedPiece.Call(nextPiece);
-
+        previewPieceChanged.Call(currentPiece);
     }
 
-    public void ChangePieceSO(PieceSO _current, PieceSO _next)
+    public void ChangePieceSO(PieceSO _current)
     {
         currentPiece = _current;
         cubeList = currentPiece.cubes;
-        nextPiece = _next;
 
-        onPiecePlacedPiece.Call(nextPiece);
+        previewPieceChanged.Call(_current);
         ChangedBlock();
     }
 
@@ -219,42 +209,25 @@ public class Grid3DManager : MonoBehaviour
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
-                DestroyTower();
             }
 
             if (Mathf.Abs(BalanceValue.y) > gameplayData.MaxBalance + additionalBalance)
             {
                 isBalanceBroken = true;
                 onBalanceBroken.Call();
-                DestroyTower();
             }
         }
     }
 
-
-    public void SetSavedPiece(PieceSO _current, PieceSO _next)
-    {
-        currentPiece = _current;
-        nextPiece = _next;
-    }
-
-    
     public void SwitchMouseMode(MouseMode newMode)
     {
         mouseMode = newMode;
-    }
-
-    public void DestroyTower()
-    {
-        feedback.isBalanceBroken = true;
-        //feedback.DestroyTower();
     }
 
     public void AddBalance(float addBalance)
     {
         additionalBalance += addBalance;
     }
-
 
     private void OnDrawGizmosSelected()
     {
@@ -279,7 +252,8 @@ public class Grid3DManager : MonoBehaviour
     //INPUTS
     public void LeftClickInput(InputAction.CallbackContext context)
     {
-        if (!context.performed || isBalanceBroken || !isPlayerActive.value) return;
+        if(!isPlayerActive) return;
+        if (!context.performed || isBalanceBroken || !canPlaceBlock.value) return;
 
         if (mouseMode == MouseMode.PlacePiece) TryPlacePiece();
         else TryAimPiece();
@@ -287,12 +261,16 @@ public class Grid3DManager : MonoBehaviour
 
     public void RotatePieceInput(InputAction.CallbackContext context)
     {
+        if (!isPlayerActive) return;
+
         if (!context.performed || isBalanceBroken) return;
         RotatePiece(context.ReadValue<float>() < 0);
     }
 
     public void ZoomInput(InputAction.CallbackContext context)
     {
+        if (!isPlayerActive) return;
+
         if (!context.performed) return;
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer)) 
