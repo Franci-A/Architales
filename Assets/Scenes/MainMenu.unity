@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 21354869}
   - component: {fileID: 21354868}
   - component: {fileID: 21354867}
+  - component: {fileID: 21354870}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -257,6 +258,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21354865}
   m_CullTransparentMesh: 1
+--- !u!114 &21354870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21354865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1623559730}
+          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+          m_MethodName: OnOverButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1623559730}
+          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+          m_MethodName: OnClickButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &59354101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,6 +3848,8 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 1238373466}
   musicVolumeSlider: {fileID: 866997352}
   sfxVolumeSlider: {fileID: 1096413943}
+  sfxOver: {fileID: 4546460647385334998, guid: 954e00e3c4ec56746b0799b30604200f, type: 3}
+  sfxClick: {fileID: 88421498717134293, guid: dd96f30907ae1b8409d3eb6a304bd303, type: 3}
   fullscreenToggle: {fileID: 459660883}
   resText: {fileID: 1672054885}
 --- !u!1 &1672054883

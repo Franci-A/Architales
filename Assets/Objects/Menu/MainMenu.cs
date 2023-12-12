@@ -22,6 +22,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private GameObject sfxOver;
+    [SerializeField] private GameObject sfxClick;
 
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
@@ -143,5 +145,15 @@ public class MainMenu : MonoBehaviour
         if (resId >= resolutionList.Length) resId = resolutionList.Length - 1;
 
         resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
+    }
+
+    public void OnOverButton()
+    {
+        Instantiate(sfxOver);
+    }
+
+    public void OnClickButton()
+    {
+        Instantiate(sfxClick);
     }
 }
