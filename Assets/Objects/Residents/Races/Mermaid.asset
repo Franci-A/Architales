@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mermaid
   m_EditorClassIdentifier: 
   race: 4
-  likes: 040000000300000002000000
-  dislikes: 0000000001000000
+  likes: 0400000001000000
+  dislikes: 000000000200000006000000
   blockColor: {r: 0.2688679, g: 1, b: 0.9928409, a: 1}
   blockMaterial: {fileID: 2100000, guid: 289795d57b0913e43800445c801b8e91, type: 2}

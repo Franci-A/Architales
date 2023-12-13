@@ -1,7 +1,6 @@
-using HelperScripts.EventSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CheckResidentsLikes : MonoBehaviour
@@ -10,18 +9,19 @@ public class CheckResidentsLikes : MonoBehaviour
     [SerializeField] private LayerMask mask;
     [SerializeField] private float distance;
     [SerializeField] private FeedbackPopup feedbackPopup;
-    private Vector3 previousPos;
     private List<Vector3> checkDirections;
     private List<FeedbackElement> feedbackElements;
     [SerializeField] private Color likeColor = Color.green;
     [SerializeField] private Color dislikeColor = Color.red;
+    private FeedbackPopup popup;
+
+    Vector3 previousPos;
 
     public bool isAcive =false;
 
     public void Init(List<Cube> children)
     {
         isAcive = true;
-        previousPos = Vector3.zero;
         currentResident = new List<ResidentHandler>();
         for (int i = 0; i < children.Count; i++)
         {
@@ -36,19 +36,6 @@ public class CheckResidentsLikes : MonoBehaviour
             Vector3.left,
             Vector3.right
         };
-        CheckRelations();
-    }
-
-    private void Update()
-    {
-        if (!isAcive)
-            return;
-
-        if (Vector3.Distance(previousPos, transform.position) > .5f)
-        {
-            CheckRelations();
-            previousPos = transform.position;
-        }
     }
 
     private void OnDisable()
@@ -58,9 +45,14 @@ public class CheckResidentsLikes : MonoBehaviour
 
     public void CheckRelations()
     {
+        if (Vector3.Distance(currentResident[0].gameObject.transform.position, previousPos) < .5f)
+            return;
+
+        previousPos = currentResident[0].gameObject.transform.position;
         RaycastHit[] hit;
 
         List<ResidentHandler> residents = new List<ResidentHandler>();
+        int totalLike = 0;
         for (int index = 0; index < currentResident.Count; index++)
         {
             for (int i = 0; i < checkDirections.Count; i++)
@@ -99,30 +91,85 @@ public class CheckResidentsLikes : MonoBehaviour
                             break;
                         }
                     }
-
+                    totalLike += likeAmount;
                     if (alreadyHere)
                         continue;
 
                     FeedbackElement element = new FeedbackElement();
-                    FeedbackPopup obj = Instantiate<FeedbackPopup>(feedbackPopup, hit[j].point, Quaternion.identity);
-                    element.popup = obj;
                     element.neighbor = collidedResident;
                     element.currentResident = currentResident[index];
                     feedbackElements.Add(element);
-                    obj.InitPopup(likeAmount > 0);
                 }
             }
         }
 
+        popup?.DestroyPopup();
+        popup = Instantiate<FeedbackPopup>(feedbackPopup, transform.position, Quaternion.identity);
+        popup.InitPopup(totalLike);
         for (int k = feedbackElements.Count -1; k >=0; k--)
         {
             if (residents.Contains(feedbackElements[k].neighbor))
                 continue;
 
-            feedbackElements[k].popup.DestroyPopup();
             feedbackElements[k].neighbor.RemoveRelationsMaterial();
             feedbackElements.RemoveAt(k);
         }
+    }
+
+    public void CheckRelationsWithoutFeedback()
+    {
+
+        RaycastHit[] hit;
+
+        List<ResidentHandler> residents = new List<ResidentHandler>();
+        for (int index = 0; index < currentResident.Count; index++)
+        {
+            for (int i = 0; i < checkDirections.Count; i++)
+            {
+                hit = Physics.RaycastAll(currentResident[index].gameObject.transform.position, checkDirections[i], distance, mask);
+                for (int j = 0; j < hit.Length; j++)
+                {
+                    if (hit[j].collider.gameObject == gameObject)
+                        continue;
+
+                    ResidentHandler collidedResident = hit[j].collider.gameObject.GetComponent<ResidentHandler>();
+                    if (currentResident.Contains(collidedResident))
+                        continue;
+
+                    int likeAmount = currentResident[index].GetResident.CheckLikes(collidedResident.GetResidentRace);
+                    if (likeAmount == 0)
+                        continue;
+
+                    residents.Add(collidedResident);
+
+                    bool alreadyHere = false;
+                    for (int k = 0; k < feedbackElements.Count; k++)
+                    {
+                        if (collidedResident == feedbackElements[k].neighbor)
+                        {
+                            alreadyHere = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyHere)
+                        continue;
+
+                    FeedbackElement element = new FeedbackElement();
+                    element.neighbor = collidedResident;
+                    element.currentResident = currentResident[index];
+                    feedbackElements.Add(element);
+                }
+            }
+        }
+
+        for (int k = feedbackElements.Count - 1; k >= 0; k--)
+        {
+            feedbackElements[k].neighbor.NewNeighbors(feedbackElements[k].currentResident.GetResidentRace);
+            feedbackElements[k].currentResident.NewNeighbors(feedbackElements[k].neighbor.GetResidentRace);
+        }
+        feedbackElements.Clear();
+        Destroy(this);
     }
 
     public void ClearFeedback()
@@ -130,9 +177,9 @@ public class CheckResidentsLikes : MonoBehaviour
         if (feedbackElements == null)
             return;
 
+        popup?.DestroyPopup();
         for (int i = 0; i < feedbackElements.Count; i++)
         {
-            feedbackElements[i].popup.DestroyPopup();
             feedbackElements[i].neighbor.RemoveRelationsMaterial();
         }
         feedbackElements.Clear();
@@ -145,13 +192,7 @@ public class CheckResidentsLikes : MonoBehaviour
             feedbackElements[i].neighbor.NewNeighbors(feedbackElements[i].currentResident.GetResidentRace);
             feedbackElements[i].currentResident.NewNeighbors(feedbackElements[i].neighbor.GetResidentRace);
         }
-        ClearFeedback();
         Destroy(this);
-    }
-
-    private void OnDestroy()
-    {
-        ClearFeedback();
     }
 }
 
@@ -159,6 +200,5 @@ struct FeedbackElement
 {
     public ResidentHandler currentResident;
     public ResidentHandler neighbor;
-    public FeedbackPopup popup;
 }
  

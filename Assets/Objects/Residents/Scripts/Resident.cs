@@ -10,6 +10,7 @@ public class Resident : ScriptableObject
     public List<Race> dislikes;
     public Color blockColor;
     public Material blockMaterial;
+    public GameObject vfxSmoke;
 
     public int CheckLikes(Race race)
     {
@@ -31,5 +32,7 @@ public enum Race
     Elf,
     Fairy,
     Mermaid,
-    Empty
+    Empty,
+    Orc,
+    Lobby
 }

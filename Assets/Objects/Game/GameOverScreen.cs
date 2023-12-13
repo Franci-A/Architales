@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameOverScreen : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     public void Restart() 
     {
@@ -16,8 +18,8 @@ public class GameOverScreen : MonoBehaviour
        SceneManager.LoadScene(0);
     }
 
-    public void DestroyTower()
+    public void SetScore(float _score)
     {
-        StartCoroutine(Grid3DManager.Instance.DestroyTower());
+        scoreText.text = $"Pieces placed : {_score.ToString()}";
     }
 }

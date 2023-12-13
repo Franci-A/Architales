@@ -6,7 +6,7 @@ using UnityEngine;
 public class RotatingPiecePreview : MonoBehaviour
 {
     [Header("Event")]
-    [SerializeField] private EventObjectScriptable onPiecePlacedPiece;
+    [SerializeField] private EventObjectScriptable previewPieceChanged;
 
     [Header("Piece")]
     [SerializeField] Piece piecePrefab;
@@ -19,8 +19,7 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Add listener");
-        onPiecePlacedPiece.AddListener(OnPieceChange);
+        previewPieceChanged.AddListener(OnPieceChange);
         parent = transform.GetChild(0);
     }
 
@@ -32,15 +31,12 @@ public class RotatingPiecePreview : MonoBehaviour
             piece.transform.SetParent(parent);
         }
 
-        //piece.transform.SetParent(null);
-
         parent.rotation = new Quaternion(0,0,0,0);
+
         PieceSO newPiece = (PieceSO)_newPiece;
-        piece.ChangePiece(newPiece);
-        piece.SpawnCubes();
+        piece.PreviewSpawnPiece(newPiece, piece.GetGridPosition);
 
         piece.transform.localPosition = piece.centerPiecePos(newPiece);
-
     }
 
     private void Update()
@@ -50,6 +46,6 @@ public class RotatingPiecePreview : MonoBehaviour
 
     private void OnDestroy()
     {
-        onPiecePlacedPiece.RemoveListener(OnPieceChange);
+        previewPieceChanged.RemoveListener(OnPieceChange);
     }
 }

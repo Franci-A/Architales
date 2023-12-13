@@ -7,12 +7,14 @@ public class ResidentManager : MonoBehaviour
     public static ResidentManager Instance;
     [SerializeField] private FloatVariable balanceMultiplier;
     [SerializeField] private FloatVariable maxBalanceAdded;
+    [SerializeField] private IntVariable happinessGain;
     [SerializeField] private IntVariable numberHappyResidents;
     [SerializeField] private IntVariable totalNumResidents;
     [SerializeField] private GameplayDataSO gameplayData;
     private void Awake()
     {
         Instance = this;
+        happinessGain.SetValue(0);
         numberHappyResidents.SetValue(0);
         totalNumResidents.SetValue(0);
         maxBalanceAdded.SetValue(0);
@@ -21,6 +23,7 @@ public class ResidentManager : MonoBehaviour
 
     public void UpdateResidentsHappiness(int value)
     {
+        happinessGain.Add(value);
         numberHappyResidents.Add(value);
         if(numberHappyResidents.value > 0)
         {

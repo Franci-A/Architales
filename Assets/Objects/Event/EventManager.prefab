@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2056583302539447503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2519166383613784792}
+  - component: {fileID: 6790924563911008661}
+  m_Layer: 5
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2519166383613784792
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056583302539447503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.284375, y: 0.284375, z: 0.284375}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 273, y: 153.5}
+  m_SizeDelta: {x: 1919.9999, y: 1079.5604}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6790924563911008661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056583302539447503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4591c28ce32b0ad44a5c865b0b9cc401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxCrystalBall: {fileID: 3154580211796230299, guid: 5590e6a4acf2fba4788f167edfe19ef3,
+    type: 3}
+  onEventCancel: {fileID: 11400000, guid: 4df2789239b1fe04cb06ab5a6cebba49, type: 2}
+  onEventEnd: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b, type: 2}
+  onPrevivewDeactivated: {fileID: 11400000, guid: 516898db6454aa6498ea09ff2f068f5f,
+    type: 2}
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  eventListRandom: {fileID: 11400000, guid: 9c0e1d46ed977f94190549d99e4971ef, type: 2}
+  eventImage: {fileID: 0}
+  textCoolDown: {fileID: 0}
