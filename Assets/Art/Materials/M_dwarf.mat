@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_dwarf
-  m_Shader: {fileID: -6465566751694194690, guid: e93257fb769b487408ff90e7a1c02c61,
+  m_Shader: {fileID: -6465566751694194690, guid: 367c8c47e9600d34fa524df6ee4b56f7,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,10 +25,14 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AmbientOcclusion:
-        m_Texture: {fileID: 2800000, guid: 86fc3eccfb27bff49a0a109528c3e947, type: 3}
+        m_Texture: {fileID: 2800000, guid: fe66dfd9a0e70ac4284668d94f980a5a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: bec5f9ec9eaa1f04281314d4aa96b49f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Color:
         m_Texture: {fileID: 2800000, guid: bec5f9ec9eaa1f04281314d4aa96b49f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -54,6 +58,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: bec5f9ec9eaa1f04281314d4aa96b49f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Metal:
+        m_Texture: {fileID: 2800000, guid: 86fc3eccfb27bff49a0a109528c3e947, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -115,7 +123,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Metallic: 0
+    - _Metallic: 2.9
     - _ObjectRotation: 0
     - _OcclusionStrength: 1
     - _OutlineDistance: 0.67
@@ -123,7 +131,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 1
+    - _Smoothness: 0.9
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

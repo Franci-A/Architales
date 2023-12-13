@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Fairy_WoodenPlank
-  m_Shader: {fileID: -6465566751694194690, guid: e93257fb769b487408ff90e7a1c02c61,
+  m_Shader: {fileID: -6465566751694194690, guid: 367c8c47e9600d34fa524df6ee4b56f7,
     type: 3}
   m_Parent: {fileID: 2100000, guid: 348c24c46e03bad47a1469fceb1c0729, type: 2}
   m_ModifiedSerializedProperties: 24
@@ -40,10 +40,14 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AmbientOcclusion:
-        m_Texture: {fileID: 2800000, guid: b3b34a855cc17914a99208286d1b186c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: f462609122056474cbce8b5dc9b833b6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Base_Color:
         m_Texture: {fileID: 2800000, guid: f462609122056474cbce8b5dc9b833b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -53,6 +57,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: f462609122056474cbce8b5dc9b833b6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Metal:
+        m_Texture: {fileID: 2800000, guid: b3b34a855cc17914a99208286d1b186c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -70,6 +78,6 @@ Material:
     m_Ints: []
     m_Floats:
     - _Cull: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.2
     m_Colors: []
   m_BuildTextureStacks: []
