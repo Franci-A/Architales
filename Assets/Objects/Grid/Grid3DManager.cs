@@ -39,6 +39,7 @@ public class Grid3DManager : MonoBehaviour
     [Header("Event")]
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventObjectScriptable onPiecePlacedObject;
     [SerializeField] private EventObjectScriptable lastPiecePlaced;
     [SerializeField] private EventObjectScriptable previewPieceChanged;
     [SerializeField] public EventScriptable onBalanceBroken;
@@ -115,6 +116,7 @@ public class Grid3DManager : MonoBehaviour
         else onEventEnd.Call();
 
         onPiecePlaced.Call();
+        onPiecePlacedObject.Call(piece.GetHappinessHandler);
         OnLayerCubeChange?.Invoke(higherBlock);
         StartCoroutine(WaitForFeedback());
     }

@@ -20,8 +20,8 @@ public class HappinessSliderUpdater : MonoBehaviour
     private void Start()
     {
         numberHappyResidents.OnValueChanged.AddListener(UpdateSliderValue);
-        happySlider.minValue = - gameplayData.residentAngryLevels.OrderByDescending(x => x.numberOfResidents).First().numberOfResidents;
-        happySlider.maxValue = gameplayData.residentHappinessLevels.OrderByDescending(x => x.numberOfResidents).First().numberOfResidents;
+        //happySlider.minValue = - gameplayData.residentAngryLevels.OrderByDescending(x => x.numberOfResidents).First().numberOfResidents;
+        //happySlider.maxValue = gameplayData.residentHappinessLevels.OrderByDescending(x => x.numberOfResidents).First().numberOfResidents;
         UpdateSliderValue();
     }
 

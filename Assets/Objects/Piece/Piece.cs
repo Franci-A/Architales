@@ -22,6 +22,7 @@ public class Piece : MonoBehaviour
 
     private Vector3 baseGridPosition;
     public Vector3 GetGridPosition { get => baseGridPosition; }
+    public PieceHappinessHandler GetHappinessHandler => happinessHandler;
 
     private void SpawnCubes(bool disableCollider)
     {
@@ -190,7 +191,7 @@ public class Piece : MonoBehaviour
     public void DestroyCube(GameObject cube)
     {
 
-        happinessHandler.RemoveResident(cube.GetComponent<ResidentHandler>());
+        //happinessHandler.RemoveResident(cube.GetComponent<ResidentHandler>());
         decorationsHandler.RemoveSocket(cube.GetComponent<BlockSocketHandler>());
 
         for (int i = 0; i < cubes.Count; i++)

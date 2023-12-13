@@ -43,6 +43,22 @@ public class PieceHappinessHandler : MonoBehaviour
         currentMood = currentMood * (-1) + happinnessLevel; // remove previous value from gauge and add new value
         ResidentManager.Instance.UpdateResidentsHappiness(currentMood);
     }
+    public int GetHappinessLevel()
+    {
+        totalResidentLevel = 0;
+        happinnessLevel = 0;
+        for (int i = 0; i < residentHandlers.Count; i++)
+        {
+            totalResidentLevel += residentHandlers[i].BlockLikeValue;
+        }
+
+        if (totalResidentLevel > 0)
+            happinnessLevel = 1;
+        else if (totalResidentLevel < 0)
+            happinnessLevel = -1;
+        
+        return happinnessLevel;
+    }
 
     public void RemoveResident(ResidentHandler handler)
     {
