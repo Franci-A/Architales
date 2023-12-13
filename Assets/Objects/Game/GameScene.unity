@@ -2881,6 +2881,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5880204632523275469, guid: d73c75fdb88285f49aaf5d39055467e4,
+        type: 3}
+      propertyPath: rndWaitTimeMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880204632523275469, guid: d73c75fdb88285f49aaf5d39055467e4,
+        type: 3}
+      propertyPath: rndWaitTimeMin
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8471310569982755035, guid: d73c75fdb88285f49aaf5d39055467e4,
         type: 3}
       propertyPath: m_Name

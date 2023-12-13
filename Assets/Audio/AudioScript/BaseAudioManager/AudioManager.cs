@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     private static AudioManager instance;
     public static AudioManager Instance { get => instance; }
 
-    [SerializeField] private AudioSource _MusicSource, _SFXSource;
+    [SerializeField] private AudioSource _MusicSource, _SFXSource, _WindSource;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
 
     //public void PlaySFXRandom(AudioClip clip, Vector2 randomVolume, Vector2 randomPitch)
     public void PlaySFXWValues(AudioStruct audio)
-    {
+    { 
         if(audio.clip == null) return;
 
         _SFXSource.pitch = audio.pitch;
@@ -43,6 +43,19 @@ public class AudioManager : MonoBehaviour
 
         if(audio.is3D) _SFXSource.spatialBlend = 1;
         else _SFXSource.spatialBlend = 0;
+    }
+
+    public void PlayWindWValues(AudioStruct audio)
+    {
+        if (audio.clip == null) return;
+
+        _WindSource.pitch = audio.pitch;
+        _WindSource.volume = audio.volume;
+        _WindSource.timeSamples = audio.timeSamples;
+        _WindSource.PlayOneShot(audio.clip);
+
+        if (audio.is3D) _WindSource.spatialBlend = 1;
+        else _WindSource.spatialBlend = 0;
     }
 
     public void PauseMusic()

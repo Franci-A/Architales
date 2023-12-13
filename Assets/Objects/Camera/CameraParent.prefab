@@ -413,8 +413,8 @@ MonoBehaviour:
   Zone: {fileID: 3551449447125845960}
   emptyPrefab: {fileID: 8100743090280670399, guid: 5c70db4278654e64ab4a722b4d268339,
     type: 3}
-  rndWaitTimeMin: 45
-  rndWaitTimeMax: 50
+  rndWaitTimeMin: 3
+  rndWaitTimeMax: 5
   AudioDebug: 0
   divideIndex: 1
   switchPourcentage: 0.3
