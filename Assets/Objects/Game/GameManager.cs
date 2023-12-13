@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
-    [SerializeField] private UnityEvent playMusic, playGameOver;
+    [SerializeField] private UnityEvent playMainMusic, playGameOver;
     [SerializeField] private BoolVariable isPlayerActive;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject pauseMenu;
@@ -42,13 +42,14 @@ public class GameManager : MonoBehaviour
         onPiecePlaced.AddListener(IncreaseScore);
 
         Cursor.lockState = CursorLockMode.None;
-
-        playMusic.Invoke();
     }
 
     public void StartGame()
     {
         ui.SetActive(isPlayerActive);
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
+            playMainMusic.Invoke();
     }
 
     public void PauseGame()
