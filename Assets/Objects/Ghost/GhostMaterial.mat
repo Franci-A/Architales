@@ -49,10 +49,10 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _BaseColor: {r: 0.2688679, g: 1, b: 0.9928409, a: 1}
+    - _BaseColor: {r: 1, g: 0.5589785, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Tilling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _ValidColor: {r: 0.86058885, g: 0.98039216, b: 0.08627451, a: 0.7176471}
+    - _ValidColor: {r: 1, g: 0.5589785, b: 0, a: 0.7176471}
   m_BuildTextureStacks: []
 --- !u!114 &3594195727390189705
 MonoBehaviour:

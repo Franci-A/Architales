@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
     private int combo;
     private float score;
     [SerializeField] private FloatVariable scoreVariable;
+    [SerializeField] private ScorePopupHandler scorePopup;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class ScoreManager : MonoBehaviour
     {
         var piece = obj as PieceHappinessHandler;
         int happinessGain = piece.GetHappinessLevel();
+        string comboStr = "1";
         if (happinessGain > 0)
         {
             combo++;
@@ -38,17 +40,21 @@ public class ScoreManager : MonoBehaviour
         {
             score += Mathf.RoundToInt(gameplayData.baseScore * gameplayData.unhappyMultiplier);
             valueAdded = Mathf.RoundToInt(gameplayData.baseScore * gameplayData.unhappyMultiplier);
+            Instantiate<ScorePopupHandler>(scorePopup, piece.transform.position, Quaternion.identity).Init("" + valueAdded, combo);
         }
         else if (happinessGain > 0)
         {
             score += gameplayData.baseScore * combo;
             valueAdded = gameplayData.baseScore * combo;
+            Instantiate<ScorePopupHandler>(scorePopup, piece.transform.position, Quaternion.identity).Init(gameplayData.baseScore + " x" + combo, combo);
 
         }
         else
         {
             score += gameplayData.baseScore / 2;
             valueAdded = gameplayData.baseScore / 2;
+            Instantiate<ScorePopupHandler>(scorePopup, piece.transform.position, Quaternion.identity).Init("" + valueAdded, combo);
+
         }
 
         Debug.Log("combo : " + combo + " value add : " + valueAdded);
