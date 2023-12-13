@@ -28,8 +28,6 @@ public class ResidentHandler : MonoBehaviour
     public void SetResident(Resident res)
     {
         currentResident = res;
-
-        cube.SetMaterials(new List<Material>() { currentResident.blockMaterial });
     }
 
     public void NewNeighbors(Race neighbors)

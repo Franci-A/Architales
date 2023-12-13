@@ -43,11 +43,11 @@ MonoBehaviour:
       type: 3}
   - race: 2
     blockMaterial:
-    - {fileID: 2100000, guid: c3497a98c3762c04ca5dec366a8714a8, type: 2}
+    - {fileID: 2100000, guid: 1eed915386032da44858de63cf90dcbf, type: 2}
     roofMaterial:
     - {fileID: 2100000, guid: c3497a98c3762c04ca5dec366a8714a8, type: 2}
     supportMaterial:
-    - {fileID: 2100000, guid: c3497a98c3762c04ca5dec366a8714a8, type: 2}
+    - {fileID: 2100000, guid: d835376e957d789458f8edd5ebe90f45, type: 2}
     roofMesh: {fileID: 8338849961528421610, guid: ae8da505efdb3d14faec3a0c31c1fef4,
       type: 3}
     wallMesh: {fileID: 9107457039779095718, guid: e5ca51762db965f4f8f9263306774c5e,
@@ -74,6 +74,7 @@ MonoBehaviour:
   - race: 4
     blockMaterial:
     - {fileID: 2100000, guid: ef095e7b13c56c047885c41dfa7f6ac6, type: 2}
+    - {fileID: 2100000, guid: ade130cafd2ed33489f29cd06ff073a3, type: 2}
     roofMaterial:
     - {fileID: 2100000, guid: 1262fc7fe6426ec42a185f8749d7c288, type: 2}
     - {fileID: 2100000, guid: 1262fc7fe6426ec42a185f8749d7c288, type: 2}
