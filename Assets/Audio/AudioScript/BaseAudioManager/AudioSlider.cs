@@ -7,11 +7,12 @@ using UnityEngine.UI;
 
 public class AudioSlider : MonoBehaviour
 {
-    [SerializeField] private UnityEvent playMusic;
     [SerializeField] private AudioMixer audioMixer;
+
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
+
     [SerializeField] private GameObject sfxOver;
     [SerializeField] private GameObject sfxClick;
 

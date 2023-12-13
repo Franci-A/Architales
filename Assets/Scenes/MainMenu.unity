@@ -162,6 +162,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4908137338822786673, guid: 2e3240a9692aa854eb0408c7447c1c2b,
+        type: 3}
+      propertyPath: playMusic.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908137338822786673, guid: 2e3240a9692aa854eb0408c7447c1c2b,
+        type: 3}
+      propertyPath: playMusic.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908137338822786673, guid: 2e3240a9692aa854eb0408c7447c1c2b,
+        type: 3}
+      propertyPath: playMusic.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5063174839988911281, guid: 2e3240a9692aa854eb0408c7447c1c2b,
         type: 3}
       propertyPath: m_AnchorMax.y

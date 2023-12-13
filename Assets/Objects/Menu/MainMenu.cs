@@ -23,6 +23,9 @@ public class MainMenu : MonoBehaviour
     private int resId;
     private bool boolFullScreen;
     private CameraManager cameraManager;
+
+    [Header("Audio")]
+    [SerializeField] private UnityEvent playMenuMusic;
     private AudioSlider audioSlider;
 
 
@@ -31,6 +34,7 @@ public class MainMenu : MonoBehaviour
         resolutionList = UnityEngine.Screen.resolutions;
         audioSlider = GetComponent<AudioSlider>();
         audioSlider.LoadSliderValue();
+        playMenuMusic.Invoke();
         GetScreenValue();
         isPlayerActive.SetValue(false);
         SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);

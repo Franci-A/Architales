@@ -3255,6 +3255,40 @@ MonoBehaviour:
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   fullscreenToggle: {fileID: 7082569109522908714}
   resText: {fileID: 7144620207273982484}
+  playMenuMusic:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7426729278887049196, guid: 4e99dc1704c70d949ad38b4085e00a15,
+          type: 3}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: aec687f777ff84b44b216f2ea8a6fd32,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playMainMusic:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7426729278887049196, guid: 4e99dc1704c70d949ad38b4085e00a15,
+          type: 3}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 8eed0ce953072b9489d0873d4435a2c9,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4908137338822786673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3267,9 +3301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268a29c9d28883459c25089d8afb77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playMusic:
-    m_PersistentCalls:
-      m_Calls: []
   audioMixer: {fileID: 24100000, guid: c8d19e416b1480c439c61163746e5b9f, type: 2}
   masterVolumeSlider: {fileID: 3694056566956034916}
   musicVolumeSlider: {fileID: 1701716573061666825}
