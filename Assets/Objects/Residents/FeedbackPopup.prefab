@@ -66,7 +66,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 27bd4e572f846ba4898768ea28dfe3d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86e8974d639d064478030438ff158579, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -210,9 +210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 5292328084936478224}
   image: {fileID: 1273780198757318086}
-  happy: {fileID: 21300000, guid: 92b614b3313d973498669d77197978ca, type: 3}
-  angry: {fileID: 21300000, guid: bc01c6653a928234bb411c78a37721b9, type: 3}
-  neutral: {fileID: 21300000, guid: 4cd5d091bdbf5f046bad8831a73e5bb6, type: 3}
+  happy: {fileID: 21300000, guid: 5fa04c8acaafb3e4db23bd2dc73422f4, type: 3}
+  angry: {fileID: 21300000, guid: bb4c8cccbf49bd14a9668275a9ccf16b, type: 3}
+  neutral: {fileID: 21300000, guid: 86e8974d639d064478030438ff158579, type: 3}
   animTime: 0.5
 --- !u!1 &5292328084936478224
 GameObject:
