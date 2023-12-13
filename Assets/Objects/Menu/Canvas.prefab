@@ -1580,8 +1580,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 970539578439438198}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 4908137338822786673}
+        m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
         m_MethodName: SetSFXVolume
         m_Mode: 0
         m_Arguments:
@@ -2909,8 +2909,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 970539578439438198}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 4908137338822786673}
+        m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
@@ -3144,6 +3144,7 @@ GameObject:
   - component: {fileID: 8648198345521720798}
   - component: {fileID: 3365436443512314933}
   - component: {fileID: 970539578439438198}
+  - component: {fileID: 4908137338822786673}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3252,30 +3253,29 @@ MonoBehaviour:
   mainMenuSceneName: MainMenu
   gameSceneName: GameScene
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
+  fullscreenToggle: {fileID: 7082569109522908714}
+  resText: {fileID: 7144620207273982484}
+--- !u!114 &4908137338822786673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310308724903587108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a268a29c9d28883459c25089d8afb77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   playMusic:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayMusic
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: aec687f777ff84b44b216f2ea8a6fd32,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   audioMixer: {fileID: 24100000, guid: c8d19e416b1480c439c61163746e5b9f, type: 2}
   masterVolumeSlider: {fileID: 3694056566956034916}
   musicVolumeSlider: {fileID: 1701716573061666825}
   sfxVolumeSlider: {fileID: 2181136366292102406}
   sfxOver: {fileID: 4546460647385334998, guid: 954e00e3c4ec56746b0799b30604200f, type: 3}
   sfxClick: {fileID: 88421498717134293, guid: dd96f30907ae1b8409d3eb6a304bd303, type: 3}
-  fullscreenToggle: {fileID: 7082569109522908714}
-  resText: {fileID: 7144620207273982484}
 --- !u!1 &7335633218340875645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3945,8 +3945,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 970539578439438198}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 4908137338822786673}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
           m_MethodName: OnClickButton
           m_Mode: 1
           m_Arguments:
@@ -3961,8 +3961,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 970539578439438198}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 4908137338822786673}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
           m_MethodName: OnOverButton
           m_Mode: 1
           m_Arguments:
@@ -4640,8 +4640,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 970539578439438198}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 4908137338822786673}
+        m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
         m_MethodName: SetMasterVolume
         m_Mode: 0
         m_Arguments:
@@ -4803,8 +4803,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 970539578439438198}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 4908137338822786673}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
           m_MethodName: OnClickButton
           m_Mode: 1
           m_Arguments:
@@ -4819,8 +4819,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 970539578439438198}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 4908137338822786673}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
           m_MethodName: OnOverButton
           m_Mode: 1
           m_Arguments:
@@ -5054,8 +5054,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 970539578439438198}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 4908137338822786673}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
           m_MethodName: OnClickButton
           m_Mode: 1
           m_Arguments:
@@ -5070,8 +5070,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 970539578439438198}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 4908137338822786673}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
           m_MethodName: OnOverButton
           m_Mode: 1
           m_Arguments:
