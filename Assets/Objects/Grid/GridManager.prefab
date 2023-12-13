@@ -171,6 +171,8 @@ MonoBehaviour:
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   placeSFX: {fileID: 4467691593011508502, guid: 427b88071d2988043b2334b33675ca28,
     type: 3}
+  rotateSFX: {fileID: 2395759669116326995, guid: d79ca972023a61049814f94a85aa8fd5,
+    type: 3}
 --- !u!114 &5963694896051910344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +188,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
-  shaderAnimTime: 2
+  shaderAnimTime: 1
   shaderAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -200,23 +202,23 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.040341172
     - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0.070345424
-      outSlope: 0.070345424
+      time: 0.7708334
+      value: 1.0028303
+      inSlope: -0.031446613
+      outSlope: -0.031446613
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.0571692
+      inWeight: 0.5837838
       outWeight: 0.15490478
     - serializedVersion: 3
-      time: 0.9
+      time: 0.8958343
       value: -0.2
-      inSlope: -0.014336091
-      outSlope: -0.014336091
+      inSlope: 2.555284
+      outSlope: 2.555284
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.9323559
+      inWeight: 1
+      outWeight: 0.8399986
     - serializedVersion: 3
       time: 1
       value: 0

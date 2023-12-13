@@ -30,6 +30,23 @@ public class AudioSFXOneShot : AudioScript
 
     }
 
+    public void PlayWind()
+    {
+        m_selectedClip = GetClip(false);
+
+        AudioManager.AudioStruct audioStruct = new AudioManager.AudioStruct();
+        audioStruct.clip = m_selectedClip;
+        audioStruct.volume = rndVol();
+        audioStruct.pitch = rndPitch();
+        audioStruct.timeSamples = 0;
+        audioStruct.is3D = is3D;
+
+        AudioManager.Instance.PlayWindWValues(audioStruct);
+
+        Destroy(gameObject);
+
+    }
+
     public void SetPreviousClip(AudioClip clip)
     {
         m_previousClip = clip;
