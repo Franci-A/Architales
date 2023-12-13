@@ -63,6 +63,7 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("AudioEvent")]
     [SerializeField] private GameObject placeSFX;
+    [SerializeField] private GameObject rotateSFX;
 
     public enum MouseMode
     {
@@ -146,6 +147,7 @@ public class Grid3DManager : MonoBehaviour
     private void RotatePiece(bool rotateLeft)
     {
         cubeList = piece.Rotate(rotateLeft);
+        Instantiate(rotateSFX);
         ChangedBlock();
     }
 
