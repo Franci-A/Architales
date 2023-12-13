@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Grid Data
   m_EditorClassIdentifier: 
   cellSize: 1
+  hieghtOffSet: 0.5

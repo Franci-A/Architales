@@ -9,7 +9,7 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
     // Size of a block, WorldToGrid not working with every value
     [SerializeField] private float cellSize = 1; // WIP. DO NOT MODIFY YET
     public float CellSize { get => cellSize; }
-
+    public float hieghtOffSet;
     Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
 
     public void Initialize()
@@ -27,16 +27,16 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
     public Vector3 WorldToGridPosition(Vector3 worldPosition)
     {
         return new Vector3(
-            Mathf.Floor(worldPosition.x / cellSize + .5f * cellSize),
-            Mathf.Floor(worldPosition.y / cellSize + .5f * cellSize),
-            Mathf.Floor(worldPosition.z / cellSize + .5f * cellSize));
+            Mathf.Floor(worldPosition.x / cellSize + hieghtOffSet * cellSize),
+            Mathf.Floor(worldPosition.y / cellSize + hieghtOffSet * cellSize),
+            Mathf.Floor(worldPosition.z / cellSize + hieghtOffSet * cellSize));
     }
 
     public Vector3 WorldToGridPositionRounded(Vector3 worldPosition)
     {
         return new Vector3(
             Mathf.RoundToInt(worldPosition.x),
-            Mathf.RoundToInt(worldPosition.y / cellSize - 0.5f * cellSize),
+            Mathf.RoundToInt(worldPosition.y / cellSize - hieghtOffSet * cellSize),
             Mathf.RoundToInt(worldPosition.z));
     }
 
