@@ -36,6 +36,7 @@ public class BlockSocketHandler : MonoBehaviour
         if (assets != null)
         {
             baseBlockSocket.socket.SetMesh(assets.wallMesh);
+            baseBlockSocket.socket.SetMaterial(assets.blockMaterial);
         }
 
         if (roofSocket.socket.transform.position.y > roofStartingHeight && CheckSocket(roofSocket, Vector3.up, Vector3.zero))

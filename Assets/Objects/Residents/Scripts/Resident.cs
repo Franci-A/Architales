@@ -9,7 +9,6 @@ public class Resident : ScriptableObject
     public List<Race> likes;
     public List<Race> dislikes;
     public Color blockColor;
-    public Material blockMaterial;
     public GameObject vfxSmoke;
 
     public int CheckLikes(Race race)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FaceCameraCanva : MonoBehaviour
 {
+
     Camera cam;
     private void Start()
     {
@@ -11,7 +12,7 @@ public class FaceCameraCanva : MonoBehaviour
     }
     private void Update()
     {
-        transform.LookAt(cam.transform.position - transform.position);
+        transform.LookAt(transform.position - cam.transform.position);
 
     }
 }
