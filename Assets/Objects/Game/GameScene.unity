@@ -2881,16 +2881,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8249964787922218150, guid: d73c75fdb88285f49aaf5d39055467e4,
-        type: 3}
-      propertyPath: elevatorMouseSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8249964787922218150, guid: d73c75fdb88285f49aaf5d39055467e4,
-        type: 3}
-      propertyPath: elevatorMaxClampOffset
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8471310569982755035, guid: d73c75fdb88285f49aaf5d39055467e4,
         type: 3}
       propertyPath: m_Name

@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 5754122439514393181}
   - component: {fileID: 3551449447125845960}
   - component: {fileID: 8658420770438345985}
+  - component: {fileID: 5880204632523275469}
   m_Layer: 0
   m_Name: Ambiance
   m_TagString: Untagged
@@ -389,6 +390,35 @@ MonoBehaviour:
   rndWaitTimeMin: 10
   rndWaitTimeMax: 35
   AudioDebug: 0
+--- !u!114 &5880204632523275469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5709173704966893726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6117d7ee348a9684f868face85688041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClipList:
+  - {fileID: 8300000, guid: 6ec1b96a39d2f9543b8db79433373068, type: 3}
+  - {fileID: 8300000, guid: 68757323e5f56084a86fa5604a0a404b, type: 3}
+  rndVolMin: 0.3
+  rndVolMax: 0.5
+  rndPitchMin: 1
+  rndPitchMax: 1
+  is3D: 1
+  Zone: {fileID: 3551449447125845960}
+  emptyPrefab: {fileID: 8100743090280670399, guid: 5c70db4278654e64ab4a722b4d268339,
+    type: 3}
+  rndWaitTimeMin: 45
+  rndWaitTimeMax: 50
+  AudioDebug: 0
+  divideIndex: 1
+  switchPourcentage: 0.3
+  gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
 --- !u!1 &8471310569982755035
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +613,7 @@ MonoBehaviour:
   rotationMinClamp: -0.8
   rotationMaxClamp: 0.65
   elevatorSpeed: 2
-  elevatorMouseSpeed: 0.25
+  elevatorMouseSpeed: 0.5
   elevatorMinClamp: 0
   elevatorMaxClampOffset: 3
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
