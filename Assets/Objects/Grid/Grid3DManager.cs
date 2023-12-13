@@ -39,6 +39,7 @@ public class Grid3DManager : MonoBehaviour
     [Header("Event")]
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventObjectScriptable onPiecePlacedObject;
     [SerializeField] private EventObjectScriptable lastPiecePlaced;
     [SerializeField] private EventObjectScriptable previewPieceChanged;
     [SerializeField] public EventScriptable onBalanceBroken;
@@ -63,6 +64,7 @@ public class Grid3DManager : MonoBehaviour
 
     [Header("AudioEvent")]
     [SerializeField] private GameObject placeSFX;
+    [SerializeField] private GameObject rotateSFX;
 
     public enum MouseMode
     {
@@ -115,6 +117,7 @@ public class Grid3DManager : MonoBehaviour
         else onEventEnd.Call();
 
         onPiecePlaced.Call();
+        onPiecePlacedObject.Call(piece.GetHappinessHandler);
         OnLayerCubeChange?.Invoke(higherBlock);
         StartCoroutine(WaitForFeedback());
     }
@@ -146,6 +149,7 @@ public class Grid3DManager : MonoBehaviour
     private void RotatePiece(bool rotateLeft)
     {
         cubeList = piece.Rotate(rotateLeft);
+        Instantiate(rotateSFX);
         ChangedBlock();
     }
 

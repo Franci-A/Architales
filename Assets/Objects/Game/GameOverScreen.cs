@@ -23,6 +23,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void SetScore(float _score)
     {
-        scoreText.text = $"Pieces placed : {_score.ToString()}";
+        scoreText.text = $"{_score.ToString()}";
     }
 }
