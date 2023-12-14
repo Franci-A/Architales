@@ -634,6 +634,6 @@ MonoBehaviour:
   zoomMaxClamp: 20
   zoomSpeed: 0.1
   distanceAFKZoom: 0.8
-  horizontalAFKSpeed: 0.5
+  horizontalAFKSpeed: 0.2
   speedAFKZoom: 5
   afkTimer: 15
