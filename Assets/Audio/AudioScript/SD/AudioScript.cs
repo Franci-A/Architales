@@ -46,7 +46,7 @@ public class AudioScript : MonoBehaviour
 
     }
 
-    public AudioClip GetClip(bool canHaveSameSoundTwice)
+    public virtual AudioClip GetClip(bool canHaveSameSoundTwice)
     {
         if (_audioClipList.Count == 0) return null;
 

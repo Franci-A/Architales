@@ -17,11 +17,12 @@ MonoBehaviour:
   balanceMultiplierVariable: {fileID: 11400000, guid: f9682c652af877343a5b7f9a327488eb,
     type: 2}
   maxBalance: 40
-  residentHappinessLevels: []
-  residentAngryLevels: []
-  InitialPiecesNumber: 4
+  InitialPiecesNumber: 6
   MaxPiecesNumber: 9
   PositiveHappinessPieceGain: 2
   NeutralHappinessPieceGain: 0
   NegativeHappinessPieceGain: -1
-  ResidentsToLoseGame: 1
+  ResidentsToLoseGame: 2
+  baseScore: 100
+  unhappyMultiplier: 0.25
+  maxCombo: 8

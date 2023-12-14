@@ -47,22 +47,9 @@ MonoBehaviour:
   gameOverScreen: {fileID: 8132497892863759991, guid: 3994857e2a4c2d44fb950a581839ee5f,
     type: 3}
   onPiecePlaced: {fileID: 0}
-  playMusic:
+  playMainMusic:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayMusic
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 8eed0ce953072b9489d0873d4435a2c9,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   playGameOver:
     m_PersistentCalls:
       m_Calls:
@@ -85,7 +72,7 @@ MonoBehaviour:
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -93,3 +80,5 @@ MonoBehaviour:
         m_CallState: 2
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   ui: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  ghost: {fileID: 0}
