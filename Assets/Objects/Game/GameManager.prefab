@@ -44,18 +44,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce024e09435b61944baf014d6b6af415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 8132497892863759991, guid: 3994857e2a4c2d44fb950a581839ee5f,
+  gameOverScreen: {fileID: 3813135171586370304, guid: 3994857e2a4c2d44fb950a581839ee5f,
     type: 3}
-  onPiecePlaced: {fileID: 0}
+  onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   playMainMusic:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: fb5534497d71aff4cb4d03fa28740c99,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   playGameOver:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySFX
+        m_MethodName: PlayMusicOne
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: a3251cf2882ce9a4383216d46377bb82,

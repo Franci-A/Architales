@@ -57,7 +57,6 @@ public class ScoreManager : MonoBehaviour
 
         }
 
-        Debug.Log("combo : " + combo + " value add : " + valueAdded);
         scoreVariable.SetValue(score);
     }
 

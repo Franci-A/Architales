@@ -202,8 +202,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.040341172
     - serializedVersion: 3
-      time: 0.7708334
-      value: 1.0028303
+      time: 0.7374929
+      value: 0.9743116
       inSlope: -0.031446613
       outSlope: -0.031446613
       tangentMode: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
     m_PostInfinity: 0
     m_RotationOrder: 4
   beginDisplacementValue: 0.35
-  displacementPower: 1.8
+  displacementPower: 1.5
   cubeDestroyProba: 40
   delayBtwBlast: 0.001
   explosionForce: 500
