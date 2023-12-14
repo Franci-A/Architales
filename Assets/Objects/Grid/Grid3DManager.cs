@@ -29,6 +29,7 @@ public class Grid3DManager : MonoBehaviour
     [Header("Mouse Check")]
     [SerializeField] private float maxDistance = 15;
     [SerializeField] private LayerMask cubeLayer;
+    [SerializeField] private CameraManager cameraManager;
     private MouseMode mouseMode;
 
     [Header("Piece")]
@@ -151,6 +152,8 @@ public class Grid3DManager : MonoBehaviour
         cubeList = piece.Rotate(rotateLeft);
         Instantiate(rotateSFX);
         ChangedBlock();
+
+        cameraManager.resetTimer();
     }
 
     private void TryPlacePiece()
@@ -164,6 +167,7 @@ public class Grid3DManager : MonoBehaviour
         {
             PlacePiece(validPos);
             Instantiate(placeSFX);
+            cameraManager.resetTimer();
         }
     }
 
