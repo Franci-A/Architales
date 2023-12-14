@@ -29,7 +29,7 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] EventScriptable onBalanceBroken;
 
     [Header("Weight")]
-    [SerializeField] List<Image> DebugInfo = new List<Image>();
+    [SerializeField] List<SpriteRenderer> weightSprites = new List<SpriteRenderer>();
     [SerializeField] private Gradient debugWeightColors;
     [SerializeField] private BoolVariable autoDestroyTower;
 
@@ -132,7 +132,7 @@ public class TowerLeaningFeedback : MonoBehaviour
 
     private void UpdateWeight()
     {
-        for (int i = 0; i < DebugInfo.Count; i++)
+        for (int i = 0; i < weightSprites.Count; i++)
         {
             //DebugInfo[i].transform.rotation = Quaternion.LookRotation(DebugInfo[i].transform.position - Camera.main.transform.position);
             float value = 0;
@@ -155,7 +155,7 @@ public class TowerLeaningFeedback : MonoBehaviour
                     value = Mathf.InverseLerp(0, gameplayData.MaxBalance, Mathf.Max(grid.BalanceValue.y, 0));
                     break;
             }
-            DebugInfo[i].color = debugWeightColors.Evaluate(value);
+            weightSprites[i].color = debugWeightColors.Evaluate(value);
         }
         
     }

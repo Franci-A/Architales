@@ -11,14 +11,12 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Transform targetZoom;
 
-
     //Rotation
     private Vector3 cameraRotation;
     private float currentRotationX, currentRotationY;
     bool updateRotation = false;
     private bool smoothBracking = false;
     private bool cameraInvertion = false;
-
 
     [Header("Position / Speed")]
     [SerializeField] private float horizontalSpeed;
@@ -58,13 +56,13 @@ public class CameraManager : MonoBehaviour
     private Vector3 velocity;
     private float targetT;
 
+    [Header("Events")]
+    [SerializeField] private FloatVariable onCameraMovedHeight;
+
     //Vertical Input
     private float verticalInput;
-
-    [Header("Mouse Check")]
     private float maxDistance = 15;
     private LayerMask cubeLayer;
-
 
     private void Start()
     {
@@ -78,6 +76,7 @@ public class CameraManager : MonoBehaviour
     private void OnDestroy()
     {
         onPiecePlaced.RemoveListener(UpdateHigherBlock);
+        onCameraMovedHeight.SetValue(0);
     }
 
     void Update()
@@ -280,6 +279,8 @@ public class CameraManager : MonoBehaviour
 
         var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
         cameraTransform.position = new Vector3(0, yPositionClamped, 0);
+        
+        onCameraMovedHeight.SetValue(cameraTransform.position.y);
     }
 
     private void Zoom(float value)

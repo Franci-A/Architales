@@ -633,3 +633,5 @@ MonoBehaviour:
   zoomMinClamp: 9
   zoomMaxClamp: 20
   zoomSpeed: 0.1
+  onCameraMovedHeight: {fileID: 11400000, guid: 94ae9f1984b9f404db94ea65a22c21fe,
+    type: 2}

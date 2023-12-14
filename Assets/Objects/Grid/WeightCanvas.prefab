@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 998644443777369178}
   - component: {fileID: 5891123082592919530}
   - component: {fileID: 8658638926775027505}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5065935150615243045}
   - component: {fileID: 3182038265231591948}
   - component: {fileID: 4951771573343616177}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: WeightCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4951771573343616177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3293234455052375791}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 9035265842948892412}
   - component: {fileID: 8378378693249268383}
   - component: {fileID: 928526103229385076}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 3252803061005213357}
   - component: {fileID: 3535624445381376425}
   - component: {fileID: 6464522800810837265}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 5092407014115523649}
   - component: {fileID: 1147439194414510259}
   - component: {fileID: 2897496544512981682}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
