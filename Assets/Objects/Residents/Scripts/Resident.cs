@@ -33,5 +33,6 @@ public enum Race
     Mermaid,
     Empty,
     Orc,
-    Lobby
+    Lobby,
+    Solid
 }

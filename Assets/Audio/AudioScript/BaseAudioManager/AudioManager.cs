@@ -24,6 +24,15 @@ public class AudioManager : MonoBehaviour
         _MusicSource.clip = clip;
         _MusicSource.UnPause();
         _MusicSource.Play();
+        _MusicSource.loop = true;
+    }
+
+    public void PlayMusicOnce(AudioClip clip)
+    {
+        _MusicSource.loop = false;
+        _MusicSource.clip = clip;
+        _MusicSource.UnPause();
+        _MusicSource.Play();
     }
 
     public void PlaySFX(AudioClip clip)
