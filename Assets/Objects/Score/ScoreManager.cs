@@ -12,6 +12,10 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private FloatVariable scoreVariable;
     [SerializeField] private ScorePopupHandler scorePopup;
 
+    [Header("SFX")]
+    [SerializeField] GameObject happySFX;
+    [SerializeField] GameObject angrySFX;
+
     private void Start()
     {
         score = 0;
@@ -29,10 +33,12 @@ public class ScoreManager : MonoBehaviour
         {
             combo++;
             combo = Mathf.Clamp(combo, 0, gameplayData.maxCombo);
+            Instantiate(happySFX);
         }
         else if (happinessGain < 0)
         {
             combo = 0;
+            Instantiate(angrySFX);
         }
 
         float valueAdded = 0;

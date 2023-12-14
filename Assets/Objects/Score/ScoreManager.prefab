@@ -49,3 +49,7 @@ MonoBehaviour:
   scoreVariable: {fileID: 11400000, guid: 401ba01d435b0f9408a2d40e377e6527, type: 2}
   scorePopup: {fileID: 2483988623614628945, guid: 4186c67556b063f4c950026173c2b84d,
     type: 3}
+  happySFX: {fileID: 3531790640578526892, guid: 75bef1db3c7da92468824fd32a41d57d,
+    type: 3}
+  angrySFX: {fileID: 1005200480483986875, guid: ce54cc96d07035a45a212130daeedc52,
+    type: 3}
