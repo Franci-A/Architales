@@ -27,6 +27,7 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] float verticalExplosionForce = 1;
     [SerializeField] GameObject explosionVFX;
     [SerializeField] EventScriptable onBalanceBroken;
+    [SerializeField] AudioPlayCollision audioPlayCollision;
 
     [Header("Weight")]
     [SerializeField] List<Image> DebugInfo = new List<Image>();
@@ -64,11 +65,15 @@ public class TowerLeaningFeedback : MonoBehaviour
 
         for (int i = 0; i < cubes.Count; i++)
         {
+
             cubes[i].AddComponent<Rigidbody>();
             if (Random.Range(0, 100) < cubeDestroyProba)
             {
                 intcubes.Add(i);
             }
+
+            AudioPlayCollision apc = cubes[i].AddComponent<AudioPlayCollision>();
+            apc.SetData(audioPlayCollision);
         }
 
         for (int i = 0; i < intcubes.Count; i++)

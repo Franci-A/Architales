@@ -241,6 +241,8 @@ MonoBehaviour:
   explosionVFX: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
     type: 3}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
+  audioPlayCollision: {fileID: 2561545574594273009, guid: e5adaec3673912d43aea260d08e7a126,
+    type: 3}
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}

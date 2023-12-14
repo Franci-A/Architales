@@ -5,17 +5,17 @@ using UnityEngine;
 public class AudioScript : MonoBehaviour
 {
     [Header("Clips")]
-    [SerializeField] protected List<AudioClip> _audioClipList;
+    [SerializeField] protected List<AudioClip> _audioClipList = new List<AudioClip>();
 
 
     [Header("Clip values")]
-    [Range(0, 1), SerializeField] private float rndVolMin;
-    [Range(0, 1), SerializeField] private float rndVolMax;
+    [Range(0, 1), SerializeField] protected float rndVolMin;
+    [Range(0, 1), SerializeField] protected float rndVolMax;
 
     [Space]
 
-    [Range(0, 2), SerializeField] private float rndPitchMin;
-    [Range(0, 2), SerializeField] private float rndPitchMax;
+    [Range(0, 2), SerializeField] protected float rndPitchMin;
+    [Range(0, 2), SerializeField] protected float rndPitchMax;
 
     [SerializeField] protected bool is3D;
 
