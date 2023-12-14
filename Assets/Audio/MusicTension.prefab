@@ -47,9 +47,9 @@ MonoBehaviour:
   LowTensionMusic: {fileID: 8300000, guid: fb5534497d71aff4cb4d03fa28740c99, type: 3}
   TransitionToMedMusic: {fileID: 8300000, guid: ecfc1f4fe29c54346816e21abacc17d7,
     type: 3}
-  levelToMedium: 5
+  levelToMedium: 8
   MedTensionMusic: {fileID: 8300000, guid: 6e6c523cc58fcbf4ebe3d91c001a50fc, type: 3}
   TransitionToHighMusic: {fileID: 8300000, guid: 688e4efd3a36a03439780c8070e41692,
     type: 3}
-  levelToHigh: 10
+  levelToHigh: 16
   HighTensionMusic: {fileID: 8300000, guid: 34dc863d301b65b4ba684503ef2edcfd, type: 3}
