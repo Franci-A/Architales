@@ -127,7 +127,7 @@ public class CameraManager : MonoBehaviour
 
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
-            timer = 0;
+            resetTimer();
 
             #region CAMERA CLAMP
             if (cameraRotation.x + currentRotationX > rotationMaxClamp)
@@ -318,7 +318,7 @@ public class CameraManager : MonoBehaviour
         if (velocity.magnitude <= 0.01f)
             zoomActive = false;
 
-        timer = 0;
+        resetTimer();
     }
 
     public void ZoomSetClamp(float upMin, float upMax)
@@ -340,6 +340,11 @@ public class CameraManager : MonoBehaviour
             cameraInvertion = false;
     }
 
+    public void resetTimer()
+    {
+        timer = 0;
+    }
+
     private void AFKCamera()
     {
         currentRotationY -= horizontalAFKSpeed * Time.deltaTime;
@@ -349,6 +354,7 @@ public class CameraManager : MonoBehaviour
         var minPos = targetZoom.position - mainCamera.transform.forward * zoomMinClamp;
         var maxPos = targetZoom.position - mainCamera.transform.forward * zoomMaxClamp;
         var targetPosition = Vector3.Lerp(minPos, maxPos, distanceAFKZoom);
+        targetT = distanceAFKZoom;
 
         mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, targetPosition, ref velocity, speedAFKZoom);
     }
