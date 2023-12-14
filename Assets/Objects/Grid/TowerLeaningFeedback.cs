@@ -28,6 +28,7 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] GameObject explosionVFX;
     [SerializeField] EventScriptable onBalanceBroken;
     [SerializeField] AudioPlayCollision audioPlayCollision;
+    [SerializeField] GameObject destructionSfx;
 
     [Header("Weight")]
     [SerializeField] List<Image> DebugInfo = new List<Image>();
@@ -81,6 +82,8 @@ public class TowerLeaningFeedback : MonoBehaviour
             cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
             var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
             Destroy(vfx, 3);
+
+            Instantiate(destructionSfx);
             yield return new WaitForSeconds(delayBtwBlast);
         }
 

@@ -243,6 +243,8 @@ MonoBehaviour:
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   audioPlayCollision: {fileID: 2561545574594273009, guid: e5adaec3673912d43aea260d08e7a126,
     type: 3}
+  destructionSfx: {fileID: 6354662430167613053, guid: 1aac1896fdd09ab41badda5f338e30ad,
+    type: 3}
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}
