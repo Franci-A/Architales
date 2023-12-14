@@ -163,6 +163,8 @@ MonoBehaviour:
   pieceListRandom: {fileID: 11400000, guid: d11394fdcb795b642a9f809552a0fd67, type: 2}
   onEventEnd: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  onPiecePlacedObject: {fileID: 11400000, guid: 3d2ec12e32c169741a2f6559705f64ac,
+    type: 2}
   lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
   previewPieceChanged: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd,
     type: 2}
@@ -200,8 +202,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.040341172
     - serializedVersion: 3
-      time: 0.7708334
-      value: 1.0028303
+      time: 0.7374929
+      value: 0.9743116
       inSlope: -0.031446613
       outSlope: -0.031446613
       tangentMode: 0
@@ -230,7 +232,7 @@ MonoBehaviour:
     m_PostInfinity: 0
     m_RotationOrder: 4
   beginDisplacementValue: 0.35
-  displacementPower: 1.8
+  displacementPower: 1.5
   cubeDestroyProba: 40
   delayBtwBlast: 0.001
   explosionForce: 500

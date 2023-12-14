@@ -13,9 +13,9 @@ public class GameplayDataSO : ScriptableObject
     public FloatVariable balanceMultiplierVariable;
     [SerializeField] private float maxBalance;
     
-    [Header("Resident Happiness")]
-    public List<ResidentHappinessLevel> residentHappinessLevels;
-    public List<ResidentAngryLevel> residentAngryLevels;
+    //[Header("Resident Happiness")]
+    //public List<ResidentHappinessLevel> residentHappinessLevels;
+    //public List<ResidentAngryLevel> residentAngryLevels;
     
     [Header("Resident Pieces")]
     [SerializeField] public int InitialPiecesNumber;
@@ -25,6 +25,11 @@ public class GameplayDataSO : ScriptableObject
     [SerializeField] public int NeutralHappinessPieceGain;
     [SerializeField] public int NegativeHappinessPieceGain;
     [SerializeField] public int ResidentsToLoseGame;
+
+    [Header("Scoreing")]
+    [SerializeField] public float baseScore;
+    [SerializeField] public float unhappyMultiplier;
+    [SerializeField] public int maxCombo;
 
     public float MaxBalance => maxBalance + balanceAddedVariable;
 }
