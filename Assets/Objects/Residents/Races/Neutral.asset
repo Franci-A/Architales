@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abcd3f669d313d644b7b36f48164e290, type: 3}
   m_Name: Neutral
   m_EditorClassIdentifier: 
-  race: 5
+  race: 8
   likes: 
   dislikes: 
   blockColor: {r: 1, g: 1, b: 1, a: 1}
-  blockMaterial: {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
+  vfxSmoke: {fileID: 0}
