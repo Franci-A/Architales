@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abcd3f669d313d644b7b36f48164e290, type: 3}
   m_Name: Lobby
   m_EditorClassIdentifier: 
-  race: 7
+  race: 5
   likes: 
   dislikes: 
   blockColor: {r: 0, g: 0, b: 0, a: 0}
-  blockMaterial: {fileID: 2100000, guid: b83934a02c85b8046bb7c433d1000caa, type: 2}
   vfxSmoke: {fileID: 0}
