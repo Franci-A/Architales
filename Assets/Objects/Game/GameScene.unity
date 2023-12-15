@@ -3301,10 +3301,70 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 147435151}
+    - target: {fileID: 4542783228342372599, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542783228342372599, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542783228342372599, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542783228342372599, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542783228342372599, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542783228342372599, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4783460646274783878, guid: 451976427c68f9c44ad512d6936a9caa,
         type: 3}
       propertyPath: m_Name
       value: ---Pause---
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7779981532708171773, guid: 451976427c68f9c44ad512d6936a9caa,
         type: 3}
@@ -3404,6 +3464,66 @@ PrefabInstance:
     - target: {fileID: 7779981532708171773, guid: 451976427c68f9c44ad512d6936a9caa,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810374057418090568, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810374057418090568, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810374057418090568, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810374057418090568, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810374057418090568, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7810374057418090568, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748328611009609977, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748328611009609977, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748328611009609977, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748328611009609977, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748328611009609977, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748328611009609977, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5118,6 +5238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6205482893668769233, guid: 4e99dc1704c70d949ad38b4085e00a15,
+        type: 3}
+      propertyPath: Priority
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6644957229902590448, guid: 4e99dc1704c70d949ad38b4085e00a15,
         type: 3}
@@ -7857,6 +7982,11 @@ PrefabInstance:
       propertyPath: cameraManager
       value: 
       objectReference: {fileID: 999218667}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: ReleaseTime
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
       propertyPath: DebugInfo.Array.data[0]

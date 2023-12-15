@@ -30,7 +30,7 @@ public class AudioPlayCollision : AudioScript
         audioStruct.timeSamples = 0;
         audioStruct.is3D = is3D;
 
-        AudioManager.Instance.PlaySFXWValues(audioStruct);
+        AudioManager.Instance.PlaySFXWValues(audioStruct, false);
 
     }
 

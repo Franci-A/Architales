@@ -51,3 +51,4 @@ MonoBehaviour:
   rndPitchMin: 1
   rndPitchMax: 1
   is3D: 0
+  usePlay: 1

@@ -36,6 +36,7 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] private BoolVariable autoDestroyTower;
 
     [Header("Audio")]
+    [Range(0,1), SerializeField] private float ReleaseTime;
     //[SerializeField] private AudioSFXOneShot oneShotSound;
     [SerializeField] private GameObject Tension;
     [SerializeField] private GameObject Release;
@@ -117,7 +118,7 @@ public class TowerLeaningFeedback : MonoBehaviour
         Shader.SetGlobalFloat("_MaxHeight", grid.GetHigherBlock);
         float maxValue = Mathf.Max(Mathf.Abs(grid.BalanceValue.x), Mathf.Abs(grid.BalanceValue.y));
         float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, maxValue);
-
+        bool once = false;
         
         
         if (value >= beginDisplacementValue)
@@ -133,12 +134,18 @@ public class TowerLeaningFeedback : MonoBehaviour
                 t = Mathf.InverseLerp(maxTimer, 0, timer);
                 SetDisplacementValue(shaderAnimCurve.Evaluate(t) * value);
 
+                if(t > ReleaseTime && !once)
+                {
+                    once = true;
+                    Instantiate(Release);
+                }
+
                 timer -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);
             } while (!isBalanceBroken && timer > 0 || (isBalanceBroken && autoDestroyTower.value) && timer > maxTimer * .2f);
 
             SetDisplacementValue(0f);
-            Instantiate(Release);
+            
         }
 
 
