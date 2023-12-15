@@ -111,7 +111,7 @@ public class CheckResidentsLikes : MonoBehaviour
             if (residents.Contains(feedbackElements[k].neighbor))
                 continue;
 
-            feedbackElements[k].neighbor.RemoveRelationsMaterial();
+            feedbackElements[k].neighbor?.RemoveRelationsMaterial();
             feedbackElements.RemoveAt(k);
         }
     }
