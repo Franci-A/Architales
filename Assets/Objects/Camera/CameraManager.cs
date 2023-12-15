@@ -66,6 +66,7 @@ public class CameraManager : MonoBehaviour
     private LayerMask cubeLayer;
 
     [Header("AFKCamera")]
+    [SerializeField] private GameObject ui;
     [SerializeField, Range(0, 1f)] private float distanceAFKZoom;
     [SerializeField] private float horizontalAFKSpeed;
     [SerializeField] private float speedAFKZoom;
@@ -342,11 +343,13 @@ public class CameraManager : MonoBehaviour
 
     public void resetTimer()
     {
+        ui.SetActive(true);
         timer = 0;
     }
 
     private void AFKCamera()
     {
+        ui.SetActive(false);
         currentRotationY -= horizontalAFKSpeed * Time.deltaTime;
 
         cameraTransform.rotation = quaternion.Euler(currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
