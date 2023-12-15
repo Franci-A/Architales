@@ -45,7 +45,7 @@ MonoBehaviour:
     blockMaterial:
     - {fileID: 2100000, guid: 1eed915386032da44858de63cf90dcbf, type: 2}
     roofMaterial:
-    - {fileID: 2100000, guid: c3497a98c3762c04ca5dec366a8714a8, type: 2}
+    - {fileID: 2100000, guid: 456134ec439f891408e4c438e8eddcda, type: 2}
     supportMaterial:
     - {fileID: 2100000, guid: d835376e957d789458f8edd5ebe90f45, type: 2}
     roofMesh: {fileID: 8338849961528421610, guid: ae8da505efdb3d14faec3a0c31c1fef4,
