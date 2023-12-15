@@ -71,12 +71,13 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        isPlayerActive.SetValue(false);
         StartCoroutine(endgame());
     }
 
     IEnumerator endgame() {
         yield return new WaitForSeconds(5);
+        isPlayerActive.SetValue(false);
+        ghost.SetActive(isPlayerActive);
         playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);
