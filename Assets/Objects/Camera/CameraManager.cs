@@ -31,6 +31,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float elevatorMouseSpeed;
     [SerializeField] private float elevatorMinClamp;
     [SerializeField] private int elevatorMaxClampOffset = 3;
+    [SerializeField, Range(0, 0.5f)] private float verticalLimit;
 
 
     private float mousePositionX, mousePositionY;
@@ -277,24 +278,25 @@ public class CameraManager : MonoBehaviour
         {
             if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0)
                 cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
-        }
+            resetTimer();
+        }        
 
-        if (leftClickPushed && leftClickOnce)
+        if (mousePositionY / (float)Screen.height >= 1 - verticalLimit)
         {
-            leftClickOnce = false;
-
             updatePosition = true;
-            previsousPositionYVertical = mousePositionY;
-        }
-        else if (!leftClickPushed) updatePosition = false;
-
-        if (updatePosition)
-        {
-            directionyVertical = mousePositionY - previsousPositionYVertical;
-            previsousPositionYVertical = mousePositionY;
+            directionyVertical = mousePositionY / (float)Screen.height;
             cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
-            timer = 0;
+            resetTimer();
         }
+        else if (mousePositionY / (float)Screen.height <= verticalLimit)
+        {
+            updatePosition = true;
+            directionyVertical = -1 + mousePositionY / (float)Screen.height;
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
+            resetTimer();
+        }
+        else updatePosition = false;
+
 
         var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
         cameraTransform.position = new Vector3(0, yPositionClamped, 0);

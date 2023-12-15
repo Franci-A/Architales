@@ -675,9 +675,10 @@ MonoBehaviour:
   rotationMinClamp: -0.8
   rotationMaxClamp: 0.65
   elevatorSpeed: 2
-  elevatorMouseSpeed: 0.5
+  elevatorMouseSpeed: 2
   elevatorMinClamp: 0
   elevatorMaxClampOffset: 3
+  verticalLimit: 0.15
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   zoomMinClamp: 9
