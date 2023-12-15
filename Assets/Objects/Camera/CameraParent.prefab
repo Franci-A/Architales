@@ -683,6 +683,7 @@ MonoBehaviour:
   zoomMinClamp: 9
   zoomMaxClamp: 20
   zoomSpeed: 0.1
+  ui: {fileID: 0}
   distanceAFKZoom: 0.8
   horizontalAFKSpeed: 0.2
   speedAFKZoom: 5

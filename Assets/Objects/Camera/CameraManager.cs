@@ -103,6 +103,8 @@ public class CameraManager : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= afkTimer)
             AFKCamera();
+        else if (ui.GetComponent<CanvasGroup>().alpha < 1f)
+            ui.GetComponent<CanvasGroup>().alpha += 0.05f;
     }
 
 
@@ -343,13 +345,13 @@ public class CameraManager : MonoBehaviour
 
     public void resetTimer()
     {
-        ui.SetActive(true);
         timer = 0;
     }
 
     private void AFKCamera()
     {
-        ui.SetActive(false);
+        if (ui.GetComponent<CanvasGroup>().alpha > 0f)
+            ui.GetComponent<CanvasGroup>().alpha -= 0.01f;
         currentRotationY -= horizontalAFKSpeed * Time.deltaTime;
 
         cameraTransform.rotation = quaternion.Euler(currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
