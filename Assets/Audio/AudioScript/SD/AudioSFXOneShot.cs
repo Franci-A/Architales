@@ -56,4 +56,12 @@ public class AudioSFXOneShot : AudioScript
     {
         _audioClipList.Add(clip);
     }
+
+/*
+    public void ChangeClipAndSpeed(AudioClip clip, float speed)
+    {
+        m_selectedClip = clip;
+        rndPitchMax = speed;
+        rndPitchMax = speed;
+    }*/
 }

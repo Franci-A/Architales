@@ -30,6 +30,7 @@ public class AudioSlider : MonoBehaviour
         if (!PlayerPrefs.HasKey("SFXVolume")) PlayerPrefs.SetFloat("SFXVolume", 1f);
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
         SetSFXVolume(sfxVolumeSlider.value);
+
     }
 
     public void SetMasterVolume(float value)
@@ -41,6 +42,7 @@ public class AudioSlider : MonoBehaviour
 
     public void SetMusicVolume(float value)
     {
+        Debug.Log(value);
         audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
         //audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
         PlayerPrefs.SetFloat("MusicVolume", value);

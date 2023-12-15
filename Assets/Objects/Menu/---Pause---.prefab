@@ -3314,7 +3314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7779981532708171773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3437,7 +3437,8 @@ MonoBehaviour:
   sfxVolumeSlider: {fileID: 3960301839347449841}
   sfxOver: {fileID: 4546460647385334998, guid: 954e00e3c4ec56746b0799b30604200f, type: 3}
   sfxClick: {fileID: 88421498717134293, guid: dd96f30907ae1b8409d3eb6a304bd303, type: 3}
-  sfxClickPlay: {fileID: 0}
+  sfxClickPlay: {fileID: 2297585106968825760, guid: efb0cf84d4d4f0c4d9ebbde7c1f1adee,
+    type: 3}
 --- !u!1 &4814217550950082941
 GameObject:
   m_ObjectHideFlags: 0
