@@ -15,6 +15,7 @@ public class AudioSlider : MonoBehaviour
 
     [SerializeField] private GameObject sfxOver;
     [SerializeField] private GameObject sfxClick;
+    [SerializeField] private GameObject sfxClickPlay;
 
     public void LoadSliderValue()
     {
@@ -60,5 +61,10 @@ public class AudioSlider : MonoBehaviour
     public void OnClickButton()
     {
         Instantiate(sfxClick);
+    }
+
+    public void OnClickPlayButton()
+    {
+        Instantiate(sfxClickPlay);
     }
 }
