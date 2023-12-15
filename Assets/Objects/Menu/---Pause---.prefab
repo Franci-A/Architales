@@ -1581,6 +1581,7 @@ GameObject:
   - component: {fileID: 8245853842888679503}
   - component: {fileID: 8322699972331490223}
   - component: {fileID: 8493727537591678941}
+  - component: {fileID: 3115668933556238276}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1702,6 +1703,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3115668933556238276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114385088706570148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnClickButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnOverButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2276105288544677653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +1966,7 @@ GameObject:
   - component: {fileID: 6168574539316607402}
   - component: {fileID: 7575110449187205425}
   - component: {fileID: 3377169086544138364}
+  - component: {fileID: 6914871682229538301}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
@@ -2041,6 +2088,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6914871682229538301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547714358124531347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnClickButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnOverButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2630076472270185117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2415,7 @@ GameObject:
   - component: {fileID: 9086013487966204841}
   - component: {fileID: 4480988623162897406}
   - component: {fileID: 7502971801557246152}
+  - component: {fileID: 5615582211517954282}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -2444,6 +2537,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5615582211517954282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329274830504519557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnClickButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnOverButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &3338468247067259054
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,15 +3431,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268a29c9d28883459c25089d8afb77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playMusic:
-    m_PersistentCalls:
-      m_Calls: []
   audioMixer: {fileID: 24100000, guid: c8d19e416b1480c439c61163746e5b9f, type: 2}
   masterVolumeSlider: {fileID: 8334197009630245409}
   musicVolumeSlider: {fileID: 6580640048945988199}
   sfxVolumeSlider: {fileID: 3960301839347449841}
   sfxOver: {fileID: 4546460647385334998, guid: 954e00e3c4ec56746b0799b30604200f, type: 3}
   sfxClick: {fileID: 88421498717134293, guid: dd96f30907ae1b8409d3eb6a304bd303, type: 3}
+  sfxClickPlay: {fileID: 0}
 --- !u!1 &4814217550950082941
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,7 +3837,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 9095016331195066033}
           m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
-          m_MethodName: OnClickButton
+          m_MethodName: OnClickPlayButton
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4545,6 +4681,7 @@ GameObject:
   - component: {fileID: 3603225880566329212}
   - component: {fileID: 6642090413459999465}
   - component: {fileID: 1703392323784538700}
+  - component: {fileID: 2874389052443450489}
   m_Layer: 5
   m_Name: ApplyButton
   m_TagString: Untagged
@@ -4666,6 +4803,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2874389052443450489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064662827935522339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnClickButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9095016331195066033}
+          m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
+          m_MethodName: OnOverButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8073028214317428677
 GameObject:
   m_ObjectHideFlags: 0
