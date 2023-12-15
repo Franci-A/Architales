@@ -48,7 +48,6 @@ public class WindAmbiance : AudioAmbiance
     bool IsTowerStable()
     {
         float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, Mathf.Max(Mathf.Abs(grid.BalanceValue.x), 0));
-        Debug.Log($"value : {value}, % : {switchPourcentage}");
         if (value > switchPourcentage) return false;
         return true;
     }

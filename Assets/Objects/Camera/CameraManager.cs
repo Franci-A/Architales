@@ -65,6 +65,14 @@ public class CameraManager : MonoBehaviour
     private float maxDistance = 15;
     private LayerMask cubeLayer;
 
+    [Header("AFKCamera")]
+    [SerializeField, Range(0, 1f)] private float distanceAFKZoom;
+    [SerializeField] private float horizontalAFKSpeed;
+    [SerializeField] private float speedAFKZoom;
+    [SerializeField] private float afkTimer;
+    private float timer;
+
+
 
     private void Start()
     {
@@ -90,6 +98,10 @@ public class CameraManager : MonoBehaviour
 
         if (zoomActive)
             ZoomUpdate();
+
+        timer += Time.deltaTime;
+        if (timer >= afkTimer)
+            AFKCamera();
     }
 
 
@@ -115,8 +127,9 @@ public class CameraManager : MonoBehaviour
 
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
+            resetTimer();
 
-            //CAMERA CLAMP
+            #region CAMERA CLAMP
             if (cameraRotation.x + currentRotationX > rotationMaxClamp)
             {
                 if (!cameraInvertion)
@@ -173,10 +186,11 @@ public class CameraManager : MonoBehaviour
 
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
+            #endregion
         }
 
 
-        //SMOOTH SLOW
+        #region SMOOTH SLOW
         if (smoothBracking)
         {
 
@@ -245,6 +259,7 @@ public class CameraManager : MonoBehaviour
                 cameraTransform.rotation = quaternion.Euler(cameraRotation.x + currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
             }
         }
+        #endregion
     }
 
     private void ResetCamera()
@@ -276,6 +291,7 @@ public class CameraManager : MonoBehaviour
             directionyVertical = mousePositionY - previsousPositionYVertical;
             previsousPositionYVertical = mousePositionY;
             cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
+            timer = 0;
         }
 
         var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
@@ -301,6 +317,8 @@ public class CameraManager : MonoBehaviour
 
         if (velocity.magnitude <= 0.01f)
             zoomActive = false;
+
+        resetTimer();
     }
 
     public void ZoomSetClamp(float upMin, float upMax)
@@ -322,9 +340,28 @@ public class CameraManager : MonoBehaviour
             cameraInvertion = false;
     }
 
+    public void resetTimer()
+    {
+        timer = 0;
+    }
+
+    private void AFKCamera()
+    {
+        currentRotationY -= horizontalAFKSpeed * Time.deltaTime;
+
+        cameraTransform.rotation = quaternion.Euler(currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
+
+        var minPos = targetZoom.position - mainCamera.transform.forward * zoomMinClamp;
+        var maxPos = targetZoom.position - mainCamera.transform.forward * zoomMaxClamp;
+        var targetPosition = Vector3.Lerp(minPos, maxPos, distanceAFKZoom);
+        targetT = distanceAFKZoom;
+
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, targetPosition, ref velocity, speedAFKZoom);
+    }
+
+
 
     //INPUTS
-
     public void LeftClickInput(InputAction.CallbackContext context)
     {
         RaycastHit hit;

@@ -12,9 +12,9 @@ public class AudioPlayCollision : AudioScript
 
     private void OnCollisionEnter(Collision collision)
     {
+            PlaySound();
         if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
         {
-            PlaySound();
         }
     }
 
@@ -31,6 +31,18 @@ public class AudioPlayCollision : AudioScript
         audioStruct.is3D = is3D;
 
         AudioManager.Instance.PlaySFXWValues(audioStruct);
+
+    }
+
+    public void SetData(AudioPlayCollision apc)
+    {
+        _audioClipList = apc._audioClipList;
+        rndVolMin = apc.rndVolMin;
+        rndVolMax = apc.rndVolMax;
+        rndPitchMin = apc.rndPitchMin;
+        rndPitchMax = apc.rndPitchMax;
+        is3D = apc.is3D;
+        layer = apc.layer;
 
     }
 }
