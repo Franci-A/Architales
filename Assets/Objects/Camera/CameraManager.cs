@@ -130,7 +130,6 @@ public class CameraManager : MonoBehaviour
 
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
-            resetTimer();
 
             #region CAMERA CLAMP
             if (cameraRotation.x + currentRotationX > rotationMaxClamp)
@@ -321,7 +320,6 @@ public class CameraManager : MonoBehaviour
         if (velocity.magnitude <= 0.01f)
             zoomActive = false;
 
-        resetTimer();
     }
 
     public void ZoomSetClamp(float upMin, float upMax)
@@ -382,6 +380,7 @@ public class CameraManager : MonoBehaviour
                 leftClickPushed = false;
             }
         }
+        resetTimer();
     }
     public void RightClickInput(InputAction.CallbackContext context)
     {
@@ -396,6 +395,7 @@ public class CameraManager : MonoBehaviour
             rightClickPushed = false;
             smoothBracking = true;
         }
+        resetTimer();
     }
 
     public void MousePositionInput(InputAction.CallbackContext context)
@@ -410,16 +410,19 @@ public class CameraManager : MonoBehaviour
         RaycastHit hit;
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
             Zoom(Mathf.Sign(context.ReadValue<float>()));
+        resetTimer();
     }
 
     public void VerticalMovementInput(InputAction.CallbackContext context)
     {
         if (context.performed || context.canceled) verticalInput = context.ReadValue<float>();
+        resetTimer();
     }
 
     public void ResetCameraInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
         ResetCamera();
+        resetTimer();
     }
 }
