@@ -418,8 +418,8 @@ MonoBehaviour:
   _audioClipList:
   - {fileID: 8300000, guid: 6ec1b96a39d2f9543b8db79433373068, type: 3}
   - {fileID: 8300000, guid: 68757323e5f56084a86fa5604a0a404b, type: 3}
-  rndVolMin: 0.3
-  rndVolMax: 0.5
+  rndVolMin: 0.25
+  rndVolMax: 0.3
   rndPitchMin: 1
   rndPitchMax: 1
   is3D: 1
@@ -480,7 +480,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: a730793ccdc70f04783c000799799fcd, type: 2}
+  sharedProfile: {fileID: 0}
 --- !u!1 &8471310569982755035
 GameObject:
   m_ObjectHideFlags: 0
