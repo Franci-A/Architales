@@ -56,7 +56,9 @@ public class ResidentHandler : MonoBehaviour
     
     public void RemoveRelationsMaterial()
     {
-        cube?.materials[0].SetFloat("_UseOutline", 0);
+        if(cube == null)
+            return;
+        cube.materials[0].SetFloat("_UseOutline", 0);
     }
 
     private void OnDestroy()

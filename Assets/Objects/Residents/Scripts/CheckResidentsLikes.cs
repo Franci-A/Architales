@@ -106,12 +106,12 @@ public class CheckResidentsLikes : MonoBehaviour
         popup?.DestroyPopup();
         popup = Instantiate<FeedbackPopup>(feedbackPopup, transform.position, Quaternion.identity);
         popup.InitPopup(totalLike);
-        for (int k = feedbackElements.Count -1; k >=0; k--)
+        for (int k = feedbackElements.Count -1; k >= 0; k--)
         {
             if (residents.Contains(feedbackElements[k].neighbor))
                 continue;
 
-            feedbackElements[k].neighbor?.RemoveRelationsMaterial();
+            feedbackElements[k].neighbor.RemoveRelationsMaterial();
             feedbackElements.RemoveAt(k);
         }
     }
