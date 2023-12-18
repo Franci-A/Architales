@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4467691593011508502
+--- !u!1 &2297585106968825760
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2352527934192843250}
-  - component: {fileID: 2048248141837343691}
+  - component: {fileID: 444031949879260256}
+  - component: {fileID: 4276724498170271041}
   m_Layer: 0
-  m_Name: PlaceSound
+  m_Name: clickOneShotPlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2352527934192843250
+--- !u!4 &444031949879260256
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4467691593011508502}
+  m_GameObject: {fileID: 2297585106968825760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.09084532, y: 0.83749557, z: -0.31372833}
@@ -32,28 +32,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2048248141837343691
+--- !u!114 &4276724498170271041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4467691593011508502}
+  m_GameObject: {fileID: 2297585106968825760}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b65ac664a2b1dca45b408f3cc92ad36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _audioClipList:
-  - {fileID: 8300000, guid: d80a8100c5ab76f4da5bc4f1b9438863, type: 3}
-  - {fileID: 8300000, guid: f2622ebb2fb235f4498cfa1fd7c5a3d5, type: 3}
-  - {fileID: 8300000, guid: bc7048ee7170c1a4d8186c3f4511d56e, type: 3}
-  - {fileID: 8300000, guid: 00b57e01bead3a546ad20f6ae6933696, type: 3}
-  - {fileID: 8300000, guid: 110bd648268ee1d428ec6d8501664d39, type: 3}
-  - {fileID: 8300000, guid: 5ddac1780c055784f90791110af81289, type: 3}
-  rndVolMin: 0.5
-  rndVolMax: 0.9
+  - {fileID: 8300000, guid: 0c7c2b82f8a2a584da6a9f70e8cedbd6, type: 3}
+  - {fileID: 8300000, guid: 2d091d806e96d2541a7a0c7c955a7b88, type: 3}
+  - {fileID: 8300000, guid: e7158a4873081ea40a9d4c1eb1cd654c, type: 3}
+  rndVolMin: 1
+  rndVolMax: 1
   rndPitchMin: 1
   rndPitchMax: 1
   is3D: 0
-  usePlay: 0

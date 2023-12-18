@@ -154,10 +154,11 @@ MonoBehaviour:
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   totalNumResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
-  maxDistance: 15
+  maxDistance: 30
   cubeLayer:
     serializedVersion: 2
     m_Bits: 128
+  cameraManager: {fileID: 0}
   lobbyPiece: {fileID: 11400000, guid: ce811b4e2a39cf749ae6e01e2c7f3249, type: 2}
   piece: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
   pieceListRandom: {fileID: 11400000, guid: d11394fdcb795b642a9f809552a0fd67, type: 2}
@@ -281,3 +282,6 @@ MonoBehaviour:
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   autoDestroyTower: {fileID: 11400000, guid: ff653396ffd0cfb4f967fbb386c5b372, type: 2}
+  ReleaseTime: 0
+  Tension: {fileID: 5598666862171392063, guid: e18ab263a4cc4e14a8cab2de72949b02, type: 3}
+  Release: {fileID: 6937253043119647376, guid: 18dab83017187614080443f052de3efd, type: 3}

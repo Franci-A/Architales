@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -41,16 +42,22 @@ public class AudioManager : MonoBehaviour
     }
 
     //public void PlaySFXRandom(AudioClip clip, Vector2 randomVolume, Vector2 randomPitch)
-    public void PlaySFXWValues(AudioStruct audio)
+    public void PlaySFXWValues(AudioStruct audio, bool usePlay)
     { 
         if(audio.clip == null) return;
 
         _SFXSource.pitch = audio.pitch;
         _SFXSource.volume = audio.volume;
         _SFXSource.timeSamples = audio.timeSamples;
-        _SFXSource.PlayOneShot(audio.clip);
 
-        if(audio.is3D) _SFXSource.spatialBlend = 1;
+        if (!usePlay) _SFXSource.PlayOneShot(audio.clip);
+        else
+        {
+            _SFXSource.clip = audio.clip;
+            _SFXSource.Play();
+        }
+
+        if (audio.is3D) _SFXSource.spatialBlend = 1;
         else _SFXSource.spatialBlend = 0;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class AudioSFXOneShot : AudioScript
 {
+    [SerializeField] private bool usePlay;
 
     protected override void Awake()
     {
@@ -24,7 +25,7 @@ public class AudioSFXOneShot : AudioScript
         audioStruct.timeSamples = 0;
         audioStruct.is3D = is3D;
 
-        AudioManager.Instance.PlaySFXWValues(audioStruct);
+        AudioManager.Instance.PlaySFXWValues(audioStruct, usePlay);
 
         Destroy(gameObject);
 
@@ -56,4 +57,12 @@ public class AudioSFXOneShot : AudioScript
     {
         _audioClipList.Add(clip);
     }
+
+/*
+    public void ChangeClipAndSpeed(AudioClip clip, float speed)
+    {
+        m_selectedClip = clip;
+        rndPitchMax = speed;
+        rndPitchMax = speed;
+    }*/
 }
