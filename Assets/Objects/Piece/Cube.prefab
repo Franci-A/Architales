@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentResident: {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
   cube: {fileID: 4096471954504250345}
+  socketHandler: {fileID: 5527737548314219103}
   parentPiece: {fileID: 0}
   cubeMask:
     serializedVersion: 2

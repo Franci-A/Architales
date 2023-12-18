@@ -14,7 +14,7 @@ public class BlockSocketHandler : MonoBehaviour
     [SerializeField] private Vector3 debugPos;
     [SerializeField] private float roofStartingHeight = 1;
     [SerializeField] private float supportStartingHeight = 1;
-
+    private Race currentRace;
     private List<Vector3> checkDirections;
 
     private void Awake()
@@ -32,6 +32,7 @@ public class BlockSocketHandler : MonoBehaviour
 
     public void Init(Race residentRace)
     {
+        currentRace = residentRace;
         var assets = assetList.GetMeshByRace(residentRace);
         if (assets != null)
         {
@@ -121,6 +122,12 @@ public class BlockSocketHandler : MonoBehaviour
     public void RemoveRoof()
     {
         roofSocket.socket.EmptyMesh();
+    }
+
+    public void ResetBlockMaterial()
+    {
+        var assets = assetList.GetMeshByRace(currentRace);
+        baseBlockSocket.socket.SetMaterial(assets.blockMaterial);
     }
 }
 

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class ResidentHandler : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ResidentHandler : MonoBehaviour
     public Race GetResidentRace => currentResident.race;
     
     [SerializeField] private Renderer cube;
+    [SerializeField] private BlockSocketHandler socketHandler;
 
     private int currentBlockLikeValue = 0;
     public int BlockLikeValue => currentBlockLikeValue;
@@ -23,8 +25,6 @@ public class ResidentHandler : MonoBehaviour
     public UnityEvent OnNeighborsChanged;
 
 
-    private Vector3 debugPosition;
-    private float debugDistance = .5f;
     public void SetResident(Resident res)
     {
         currentResident = res;
@@ -50,8 +50,6 @@ public class ResidentHandler : MonoBehaviour
         cube.materials[0].SetFloat("_UseOutline", 1);
         cube.materials[0].SetVector("_Position", position);
         cube.materials[0].SetColor("_OutlineColor", color);
-        debugPosition = position;
-        debugDistance= cube.materials[0].GetFloat("_OutlineDistance");
     }
     
     public void RemoveRelationsMaterial()
@@ -59,6 +57,8 @@ public class ResidentHandler : MonoBehaviour
         if(cube == null)
             return;
         cube.materials[0].SetFloat("_UseOutline", 0);
+        if(socketHandler != null)
+            socketHandler.ResetBlockMaterial();
     }
 
     private void OnDestroy()
