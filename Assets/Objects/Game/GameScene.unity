@@ -8269,6 +8269,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
+      propertyPath: displacementPower
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
       propertyPath: DebugInfo.Array.data[0]
       value: 
       objectReference: {fileID: 487838245071334436}

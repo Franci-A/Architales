@@ -1,7 +1,7 @@
 using HelperScripts.EventSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +18,7 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] private AnimationCurve shaderAnimCurve;
     [SerializeField, Range(0, 1)] private float beginDisplacementValue = .35f;
     [SerializeField] private float displacementPower = 1.8f;
+    [SerializeField] private float heightMax = 10;
 
     [Header("GameOver")]
     [SerializeField] int cubeDestroyProba = 40;
@@ -74,7 +75,7 @@ public class TowerLeaningFeedback : MonoBehaviour
         {
 
             cubes[i].AddComponent<Rigidbody>();
-            if (Random.Range(0, 100) < cubeDestroyProba)
+            if (UnityEngine.Random.Range(0, 100) < cubeDestroyProba)
             {
                 intcubes.Add(i);
             }
@@ -85,7 +86,7 @@ public class TowerLeaningFeedback : MonoBehaviour
 
         for (int i = 0; i < intcubes.Count; i++)
         {
-            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
+            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce); //change direction
             var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
             Destroy(vfx, 3);
 
@@ -124,7 +125,10 @@ public class TowerLeaningFeedback : MonoBehaviour
         if (value >= beginDisplacementValue)
         {
             Instantiate(Tension);
-            Shader.SetGlobalFloat("_LeaningPower", Mathf.Lerp(0, displacementPower, value));
+            float height = Mathf.Clamp01(Grid3DManager.Instance.GetHigherBlock / heightMax);
+            float disPowerWithHeight = Mathf.Lerp(0, displacementPower, height);
+            float displacment = Mathf.Lerp(0, disPowerWithHeight, value);
+            Shader.SetGlobalFloat("_LeaningPower",displacment);
             float maxTimer = Mathf.Lerp(0, shaderAnimTime, value);
             float timer = maxTimer;
             float t;

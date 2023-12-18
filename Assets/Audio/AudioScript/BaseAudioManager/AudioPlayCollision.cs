@@ -22,7 +22,6 @@ public class AudioPlayCollision : AudioScript
 
     public override void PlaySound()
     {
-        Debug.Log("test");
         m_selectedClip = GetClip(false);
 
         AudioManager.AudioStruct audioStruct = new AudioManager.AudioStruct();

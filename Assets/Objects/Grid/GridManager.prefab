@@ -234,6 +234,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   beginDisplacementValue: 0.35
   displacementPower: 1.5
+  heightMax: 5
   cubeDestroyProba: 40
   delayBtwBlast: 0.001
   explosionForce: 500
