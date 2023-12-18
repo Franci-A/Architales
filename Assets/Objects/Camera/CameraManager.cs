@@ -3,6 +3,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.PlayerSettings;
 
 public class CameraManager : MonoBehaviour
 {
@@ -285,14 +286,24 @@ public class CameraManager : MonoBehaviour
         {
             updatePosition = true;
             directionyVertical = mousePositionY / (float)Screen.height;
-            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
+
+            var minPos = 1 - verticalLimit;
+            var maxPos = 1;
+            var currentSpeed = (directionyVertical - minPos) / (maxPos - minPos);
+
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (currentSpeed * elevatorMouseSpeed), 0);
             resetTimer();
         }
         else if (mousePositionY / (float)Screen.height <= verticalLimit)
         {
             updatePosition = true;
-            directionyVertical = -1 + mousePositionY / (float)Screen.height;
-            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
+            directionyVertical = mousePositionY / (float)Screen.height;
+
+            var minPos = 0;
+            var maxPos = verticalLimit;
+            var currentSpeed =  (directionyVertical - maxPos) / (minPos - maxPos);
+
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (-currentSpeed * elevatorMouseSpeed), 0);
             resetTimer();
         }
         else updatePosition = false;
@@ -352,6 +363,7 @@ public class CameraManager : MonoBehaviour
     {
         if (ui.GetComponent<CanvasGroup>().alpha > 0f)
             ui.GetComponent<CanvasGroup>().alpha -= 0.01f;
+
         currentRotationY -= horizontalAFKSpeed * Time.deltaTime;
 
         cameraTransform.rotation = quaternion.Euler(currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);

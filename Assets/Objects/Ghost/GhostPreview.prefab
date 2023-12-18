@@ -53,7 +53,7 @@ MonoBehaviour:
   invalidColor: {r: 0.764151, g: 0, b: 0, a: 0.7176471}
   destroyGhostPrefab: {fileID: 2510096003879882686, guid: e5031bb5cf1dae44889adc56e6f269f3,
     type: 3}
-  maxDistance: 15
+  maxDistance: 30
   cubeLayer:
     serializedVersion: 2
     m_Bits: 128
