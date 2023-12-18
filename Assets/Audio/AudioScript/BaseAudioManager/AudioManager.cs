@@ -12,12 +12,22 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioSource _MusicSource, _SFXSource, _WindSource;
 
+    private float saveSoundVolume;
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
+
+        saveSoundVolume = _MusicSource.volume;
+    }
+
+    public void StopMusic()
+    {
+        saveSoundVolume = _MusicSource.volume;
+        _MusicSource.volume = 0;
     }
 
     public void PlayMusic(AudioClip clip)
@@ -26,6 +36,15 @@ public class AudioManager : MonoBehaviour
         _MusicSource.UnPause();
         _MusicSource.Play();
         _MusicSource.loop = true;
+    }
+
+    public void PlayMusicSetSound(AudioClip clip)
+    {
+        _MusicSource.volume = saveSoundVolume;
+        _MusicSource.clip = clip;
+        _MusicSource.UnPause();
+        _MusicSource.Play();
+        _MusicSource.loop = false;
     }
 
     public void PlayMusicOnce(AudioClip clip)
