@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private UnityEvent playMainMusic, playGameOver, StopSound;
     [SerializeField] private BoolVariable isPlayerActive;
+    [SerializeField] private FloatVariable happiness;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ghost;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
         playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);
+        go.SetHappiness(happiness);
     }
 
     private void OnDestroy()

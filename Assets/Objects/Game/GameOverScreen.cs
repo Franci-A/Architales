@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class GameOverScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI happinessText;
     [SerializeField] private UnityEvent playMainMusic;
 
     public void Restart() 
@@ -24,5 +25,10 @@ public class GameOverScreen : MonoBehaviour
     public void SetScore(float _score)
     {
         scoreText.text = $"{_score.ToString()}";
+    }
+    
+    public void SetHappiness(float _score)
+    {
+        happinessText.text = $"{_score.ToString()}";
     }
 }
