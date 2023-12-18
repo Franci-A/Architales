@@ -8,6 +8,7 @@ public class BlockSocketHandler : MonoBehaviour
     [SerializeField] private Decoration baseBlockSocket;
     [SerializeField] private Decoration roofSocket;
     [SerializeField] private Decoration supportSocket;
+    [SerializeField] private Decoration[] windowSockets;
     [SerializeField] private GridData data;
     [SerializeField] private BlockAssetTypeRaceList assetList;
     [SerializeField] private LayerMask layerMask;
@@ -47,15 +48,16 @@ public class BlockSocketHandler : MonoBehaviour
             Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
             RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
         }
-        if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, .2f,0))) 
+        if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, -.2f,0))) 
         {
             supportSocket.socket.SetMesh(assets.supportMesh);
             supportSocket.socket.SetMaterial(assets.supportMaterial);
             GetSupportDirection();
         }
+        InitWindows();
     }
 
-    private bool CheckSocket(Decoration socket, Vector3 direction, Vector3 offset)
+    private bool CheckSocket(Decoration socket, Vector3 direction, Vector3 offset, bool debug = false)
     {
         if (!socket.canBeFilled)
             return false;
@@ -63,7 +65,8 @@ public class BlockSocketHandler : MonoBehaviour
         RaycastHit[] hit;
 
         hit = Physics.SphereCastAll(socket.socket.transform.position + offset, .1f, direction, .1f, layerMask);
-        debugPos = socket.socket.transform.position + offset;
+        if(debug)
+            debugPos = socket.socket.transform.position + offset;
         if (hit.Length > 0)
         {
             bool hasHit = false;
@@ -124,10 +127,34 @@ public class BlockSocketHandler : MonoBehaviour
         roofSocket.socket.EmptyMesh();
     }
 
+    public void InitWindows()
+    {
+        for (int i = 0; i < windowSockets.Length; i++)
+        {
+            windowSockets[i].canBeFilled = true;
+            if (CheckSocket(windowSockets[i], windowSockets[i].direction, Vector3.zero, true))
+            {
+                if (UnityEngine.Random.Range(0f, 1f) > .7f)
+                {
+                    var assets = assetList.GetMeshByRace(currentRace);
+                    windowSockets[i].socket.SetMesh(assets.windowMesh);
+                    windowSockets[i].socket.SetMaterial(assets.windowMaterial);
+                    windowSockets[i].socket.transform.LookAt( windowSockets[i].socket.transform.position + windowSockets[i].direction);
+                }
+            }
+        }
+    }
+
     public void ResetBlockMaterial()
     {
         var assets = assetList.GetMeshByRace(currentRace);
         baseBlockSocket.socket.SetMaterial(assets.blockMaterial);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(debugPos, .5f);
     }
 }
 
@@ -135,6 +162,7 @@ public class BlockSocketHandler : MonoBehaviour
 struct Decoration
 {
     public MeshSocket socket;
+    public Vector3 direction;
     public bool canBeFilled;
     public Vector3 blockOffset;
     public List<GameObject> neighbors;

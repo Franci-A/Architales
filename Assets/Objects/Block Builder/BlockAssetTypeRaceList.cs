@@ -13,9 +13,11 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
         public Material[] blockMaterial;
         public Material[] roofMaterial;
         public Material[] supportMaterial;
-        public Mesh roofMesh;
+        public Material[] windowMaterial;
         public Mesh wallMesh;
+        public Mesh roofMesh;
         public Mesh supportMesh;
+        public Mesh windowMesh;
 
         public RaceAssetTypePair(Race race)
         {
