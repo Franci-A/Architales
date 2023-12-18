@@ -16,15 +16,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string gameSceneName;
     [SerializeField] private BoolVariable isPlayerActive;
 
-    [Header("Audio")]
-    [SerializeField] private UnityEvent playMusic;
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private Slider masterVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;
-    [SerializeField] private GameObject sfxOver;
-    [SerializeField] private GameObject sfxClick;
-
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TextMeshProUGUI resText;
@@ -33,15 +24,23 @@ public class MainMenu : MonoBehaviour
     private bool boolFullScreen;
     private CameraManager cameraManager;
 
+    [Header("Audio")]
+    [SerializeField] private UnityEvent playMenuMusic;
+    private AudioSlider audioSlider;
+
 
     private void Awake()
     {
         resolutionList = UnityEngine.Screen.resolutions;
-        LoadSliderValue();
         GetScreenValue();
-        playMusic.Invoke();
         isPlayerActive.SetValue(false);
+
+        audioSlider = GetComponent<AudioSlider>();
+        audioSlider.LoadSliderValue();
+        
+        playMenuMusic.Invoke();
         SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
+
     }
 
     #region Main
@@ -67,45 +66,6 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         UnityEngine.Application.Quit();
-    }
-    #endregion
-
-
-    #region Audio
-    public void LoadSliderValue()
-    {
-        if (!PlayerPrefs.HasKey("MasterVolume")) PlayerPrefs.SetFloat("MasterVolume", 1f);
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
-        SetMasterVolume(masterVolumeSlider.value);
-
-        if (!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 1f);
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
-        SetMusicVolume(musicVolumeSlider.value);
-
-        if (!PlayerPrefs.HasKey("SFXVolume")) PlayerPrefs.SetFloat("SFXVolume", 1f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
-        SetSFXVolume(sfxVolumeSlider.value);
-    }
-
-    public void SetMasterVolume(float value)
-    {
-        audioMixer.SetFloat("Master", Mathf.Log10(value) * 20);
-        //audioMixer.SetFloat("Master", Mathf.Lerp(-80 , 0,Mathf.Log(value +1)));
-        PlayerPrefs.SetFloat("MasterVolume", value);
-    }
-
-    public void SetMusicVolume(float value)
-    {
-        audioMixer.SetFloat("Music", Mathf.Log10(value) * 20);
-        //audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
-        PlayerPrefs.SetFloat("MusicVolume", value);
-    }
-
-    public void SetSFXVolume(float value)
-    {
-        audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
-        //audioMixer.SetFloat("SFX", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
-        PlayerPrefs.SetFloat("SFXVolume", value);
     }
     #endregion
 
@@ -155,15 +115,5 @@ public class MainMenu : MonoBehaviour
         if (resId >= resolutionList.Length) resId = resolutionList.Length - 1;
 
         resText.text = $"{resolutionList[resId].width} x {resolutionList[resId].height}";
-    }
-
-    public void OnOverButton()
-    {
-        Instantiate(sfxOver);
-    }
-
-    public void OnClickButton()
-    {
-        Instantiate(sfxClick);
     }
 }

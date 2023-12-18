@@ -14,3 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   residents:
   - {fileID: 11400000, guid: 6953d71d8d60aab45beb71f2eecb4e34, type: 2}
+  - {fileID: 11400000, guid: 95c364dd5fceb464e9300a562e40f8a6, type: 2}
+  - {fileID: 11400000, guid: 1ce2b3530a3e61c4697394b5587a48d6, type: 2}
+  - {fileID: 11400000, guid: 5bb4329cfbb825242b00a5f36a7ad45d, type: 2}
+  - {fileID: 11400000, guid: dc14673a03cd55041bcfdd2d7672912c, type: 2}
+  - {fileID: 11400000, guid: 5f7609726b980ed4fb7896b7a49912e1, type: 2}
+  - {fileID: 11400000, guid: 217319983832e7b49ad9fad54632e845, type: 2}
+  - {fileID: 11400000, guid: 4303708a7dda1664598ad86ab3733217, type: 2}

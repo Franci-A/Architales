@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class AudioAmbiance : AudioScript
 {
-    [SerializeField] private BoxCollider Zone;
-    [SerializeField] private AudioSFXOneShot emptyPrefab;
+    [SerializeField] protected BoxCollider Zone;
+    [SerializeField] protected AudioSFXOneShot emptyPrefab;
+
+    [Space]
+    [Range(0, 120), SerializeField] protected float timeBeforeStart;
+
+    [Range(0, 120), SerializeField] protected float rndWaitTimeMin;
+    [Range(0, 120), SerializeField] protected float rndWaitTimeMax;
 
     [Space]
 
-    [Range(0, 120), SerializeField] private float rndWaitTimeMin;
-    [Range(0, 120), SerializeField] private float rndWaitTimeMax;
-
-    [Space]
-
-    [SerializeField] private bool AudioDebug = false;
+    [SerializeField] protected bool AudioDebug = false;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         base.Awake();
+        StartCoroutine(StartTime());
+    }
+    
+    protected IEnumerator StartTime()
+    {
+        yield return new WaitForSeconds(timeBeforeStart);
         StartCoroutine(LaunchRFX());
     }
 
-    IEnumerator LaunchRFX()
+    protected virtual IEnumerator LaunchRFX()
     {
         yield return new WaitForSeconds(1);
 
