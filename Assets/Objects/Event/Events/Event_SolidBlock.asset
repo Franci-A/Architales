@@ -17,5 +17,5 @@ MonoBehaviour:
   eventSFX: {fileID: 3116975608468139921, guid: c3712c04bd69dc84f8bba2033c99f272,
     type: 3}
   piece: {fileID: 11400000, guid: 07b5359eb9fe04a4b9fcb068fe996ccd, type: 2}
-  cooldown: 2
-  addBalance: 2
+  cooldown: 4
+  addBalance: 1

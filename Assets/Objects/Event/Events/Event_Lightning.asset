@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 3}
   piece: {fileID: 0}
   cooldown: 5
+  lightningEffect: {fileID: 6723507786663641556, guid: 118fe4d2bbf64f24fa933dee589e4e32,
+    type: 3}

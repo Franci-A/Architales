@@ -68,7 +68,7 @@ MonoBehaviour:
   numberHappyResidents: {fileID: 11400000, guid: 8535633ab17ffdb42b6b8f7ba9ec041c,
     type: 2}
   image: {fileID: 0}
-  happyImage: {fileID: 21300000, guid: 92b614b3313d973498669d77197978ca, type: 3}
-  angryImage: {fileID: 21300000, guid: bc01c6653a928234bb411c78a37721b9, type: 3}
+  happyImage: {fileID: 21300000, guid: 5fa04c8acaafb3e4db23bd2dc73422f4, type: 3}
+  angryImage: {fileID: 21300000, guid: bb4c8cccbf49bd14a9668275a9ccf16b, type: 3}
   currentNumberText: {fileID: 0}
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IsPlayerActive
   m_EditorClassIdentifier: 
   defaultValue: 1
-  value: 1
+  value: 0
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

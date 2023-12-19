@@ -25,7 +25,7 @@ public class ResidentManager : MonoBehaviour
     {
         happinessGain.Add(value);
         numberHappyResidents.Add(value);
-        if(numberHappyResidents.value > 0)
+        /*if(numberHappyResidents.value > 0)
         {
             float max = 0;
             for (int i = 0; i < gameplayData.residentHappinessLevels.Count; i++)
@@ -76,6 +76,6 @@ public class ResidentManager : MonoBehaviour
         else
         {
             balanceMultiplier.SetValue(1);
-        }
+        }*/
     }
 }

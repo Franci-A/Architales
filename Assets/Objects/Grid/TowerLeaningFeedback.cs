@@ -27,11 +27,19 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] float verticalExplosionForce = 1;
     [SerializeField] GameObject explosionVFX;
     [SerializeField] EventScriptable onBalanceBroken;
+    [SerializeField] AudioPlayCollision audioPlayCollision;
+    [SerializeField] GameObject destructionSfx;
 
     [Header("Weight")]
     [SerializeField] List<Image> DebugInfo = new List<Image>();
     [SerializeField] private Gradient debugWeightColors;
     [SerializeField] private BoolVariable autoDestroyTower;
+
+    [Header("Audio")]
+    [Range(0,1), SerializeField] private float ReleaseTime;
+    //[SerializeField] private AudioSFXOneShot oneShotSound;
+    [SerializeField] private GameObject Tension;
+    [SerializeField] private GameObject Release;
 
     private bool isBalanceBroken = false;
 
@@ -64,11 +72,15 @@ public class TowerLeaningFeedback : MonoBehaviour
 
         for (int i = 0; i < cubes.Count; i++)
         {
+
             cubes[i].AddComponent<Rigidbody>();
             if (Random.Range(0, 100) < cubeDestroyProba)
             {
                 intcubes.Add(i);
             }
+
+            AudioPlayCollision apc = cubes[i].AddComponent<AudioPlayCollision>();
+            apc.SetData(audioPlayCollision);
         }
 
         for (int i = 0; i < intcubes.Count; i++)
@@ -76,6 +88,8 @@ public class TowerLeaningFeedback : MonoBehaviour
             cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce);
             var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
             Destroy(vfx, 3);
+
+            Instantiate(destructionSfx);
             yield return new WaitForSeconds(delayBtwBlast);
         }
 
@@ -104,8 +118,12 @@ public class TowerLeaningFeedback : MonoBehaviour
         Shader.SetGlobalFloat("_MaxHeight", grid.GetHigherBlock);
         float maxValue = Mathf.Max(Mathf.Abs(grid.BalanceValue.x), Mathf.Abs(grid.BalanceValue.y));
         float value = Mathf.InverseLerp(0, gameplayData.MaxBalance, maxValue);
+        bool once = false;
+        
+        
         if (value >= beginDisplacementValue)
         {
+            Instantiate(Tension);
             Shader.SetGlobalFloat("_LeaningPower", Mathf.Lerp(0, displacementPower, value));
             float maxTimer = Mathf.Lerp(0, shaderAnimTime, value);
             float timer = maxTimer;
@@ -116,17 +134,26 @@ public class TowerLeaningFeedback : MonoBehaviour
                 t = Mathf.InverseLerp(maxTimer, 0, timer);
                 SetDisplacementValue(shaderAnimCurve.Evaluate(t) * value);
 
+                if(t > ReleaseTime && !once)
+                {
+                    once = true;
+                    Instantiate(Release);
+                }
+
                 timer -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);
             } while (!isBalanceBroken && timer > 0 || (isBalanceBroken && autoDestroyTower.value) && timer > maxTimer * .2f);
 
             SetDisplacementValue(0f);
+            
         }
+
 
         if (isBalanceBroken && autoDestroyTower.value)
         {
             DestroyTower();
         }
+
     }
 
 

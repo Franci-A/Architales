@@ -36,6 +36,7 @@ public class BlockSocketHandler : MonoBehaviour
         if (assets != null)
         {
             baseBlockSocket.socket.SetMesh(assets.wallMesh);
+            baseBlockSocket.socket.SetMaterial(assets.blockMaterial);
         }
 
         if (roofSocket.socket.transform.position.y > roofStartingHeight && CheckSocket(roofSocket, Vector3.up, Vector3.zero))
@@ -102,7 +103,11 @@ public class BlockSocketHandler : MonoBehaviour
             {
                 supportSocket.socket.ActivateMesh();
                 supportSocket.socket.transform.localEulerAngles = new Vector3(0, 90 * i, 0);
-                supportSocket.socket.gameObject.GetComponent<MeshRenderer>().material.SetFloat("_ObjectRotation", i * 90);
+                var renderer = supportSocket.socket.gameObject.GetComponent<MeshRenderer>();
+                for (int j = 0; j < renderer.materials.Length; j++)
+                {
+                    renderer.materials[j].SetFloat("_ObjectRotation", i * 90);
+                }
                 break;
             }
         }

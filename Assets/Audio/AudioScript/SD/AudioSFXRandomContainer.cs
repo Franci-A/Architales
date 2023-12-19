@@ -25,6 +25,6 @@ public class AudioSFXRandomContainer : AudioScript
         audioStruct.timeSamples = (m_selectedClip.samples - 1) * Random.Range((int)rndStartMin, (int)rndStartMax);
         audioStruct.is3D = is3D;
 
-        AudioManager.Instance.PlaySFXWValues(audioStruct);
+        AudioManager.Instance.PlaySFXWValues(audioStruct, false);
     }    
 }

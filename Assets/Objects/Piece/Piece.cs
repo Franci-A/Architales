@@ -22,6 +22,7 @@ public class Piece : MonoBehaviour
 
     private Vector3 baseGridPosition;
     public Vector3 GetGridPosition { get => baseGridPosition; }
+    public PieceHappinessHandler GetHappinessHandler => happinessHandler;
 
     private void SpawnCubes(bool disableCollider)
     {
@@ -30,9 +31,6 @@ public class Piece : MonoBehaviour
             cube.gridPosition = baseGridPosition + cube.pieceLocalPosition;
 
             var instance = blockBuilder.CreateBlock(this, cube.gridPosition, blocksParentTransform, disableCollider);
-/*
-            if(disableCollider)
-                instance.GetComponent<Collider>().enabled = false;*/
 
             var residentHandler = instance.GetComponent<ResidentHandler>();
             residentHandler.SetResident(currentResident);
@@ -40,7 +38,6 @@ public class Piece : MonoBehaviour
             
             cube.cubeGO = instance.gameObject;
         }
-
         happinessHandler.Init();
     }
 
@@ -70,13 +67,23 @@ public class Piece : MonoBehaviour
         Destroy(vfx, 3);
     }
 
-    public void PreviewSpawnPiece(PieceSO piece, Vector3 gridPos)
+    public void SpawnGhostPiece(PieceSO piece, Vector3 gridPos)
     {
         baseGridPosition = gridPos;
         transform.position = gridData.GridToWorldPosition(baseGridPosition);
 
         ChangePiece(piece);
         SpawnCubes(true);
+    }
+    
+    public void PreviewSpawnPiece(PieceSO piece, Vector3 gridPos)
+    {
+        baseGridPosition = gridPos;
+        transform.position = gridData.GridToWorldPosition(baseGridPosition);
+
+        ChangePiece(piece);
+        SpawnCubes(false);
+        decorationsHandler?.Init(currentResident.race);
     }
 
     public void ChangePiece(PieceSO piece)
@@ -190,7 +197,7 @@ public class Piece : MonoBehaviour
     public void DestroyCube(GameObject cube)
     {
 
-        happinessHandler.RemoveResident(cube.GetComponent<ResidentHandler>());
+        //happinessHandler.RemoveResident(cube.GetComponent<ResidentHandler>());
         decorationsHandler.RemoveSocket(cube.GetComponent<BlockSocketHandler>());
 
         for (int i = 0; i < cubes.Count; i++)

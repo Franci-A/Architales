@@ -8,19 +8,21 @@ public class AudioPlayCollision : AudioScript
 {
 
     [Layer, SerializeField] private string layer;
+    [Range(0f, 1f)] public float proba;
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
+           if(Random.Range(0f, 1f) < proba) PlaySound();
+        /*if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
         {
-            PlaySound();
-        }
+        }*/
     }
 
 
     public override void PlaySound()
     {
+        Debug.Log("test");
         m_selectedClip = GetClip(false);
 
         AudioManager.AudioStruct audioStruct = new AudioManager.AudioStruct();
@@ -30,7 +32,20 @@ public class AudioPlayCollision : AudioScript
         audioStruct.timeSamples = 0;
         audioStruct.is3D = is3D;
 
-        AudioManager.Instance.PlaySFXWValues(audioStruct);
+        AudioManager.Instance.PlaySFXWValues(audioStruct, false);
+
+    }
+
+    public void SetData(AudioPlayCollision apc)
+    {
+        _audioClipList = apc._audioClipList;
+        rndVolMin = apc.rndVolMin;
+        rndVolMax = apc.rndVolMax;
+        rndPitchMin = apc.rndPitchMin;
+        rndPitchMax = apc.rndPitchMax;
+        is3D = apc.is3D;
+        layer = apc.layer;
+        proba = apc.proba;
 
     }
 }

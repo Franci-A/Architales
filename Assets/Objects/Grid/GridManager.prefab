@@ -154,20 +154,25 @@ MonoBehaviour:
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   totalNumResidents: {fileID: 11400000, guid: 048e01d2449d549498d6677ae56b8834, type: 2}
-  maxDistance: 15
+  maxDistance: 30
   cubeLayer:
     serializedVersion: 2
     m_Bits: 128
+  cameraManager: {fileID: 0}
   lobbyPiece: {fileID: 11400000, guid: ce811b4e2a39cf749ae6e01e2c7f3249, type: 2}
   piece: {fileID: 8861945640709154753, guid: 44944f594a6d986429de49d5c0f67f16, type: 3}
   pieceListRandom: {fileID: 11400000, guid: d11394fdcb795b642a9f809552a0fd67, type: 2}
   onEventEnd: {fileID: 11400000, guid: f6aa8b2883ff5ae4685922c03398e73b, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
+  onPiecePlacedObject: {fileID: 11400000, guid: 3d2ec12e32c169741a2f6559705f64ac,
+    type: 2}
   lastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
   previewPieceChanged: {fileID: 11400000, guid: 3759092181f79cf498feb866c030b1dd,
     type: 2}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
   placeSFX: {fileID: 4467691593011508502, guid: 427b88071d2988043b2334b33675ca28,
+    type: 3}
+  rotateSFX: {fileID: 2395759669116326995, guid: d79ca972023a61049814f94a85aa8fd5,
     type: 3}
 --- !u!114 &5963694896051910344
 MonoBehaviour:
@@ -184,7 +189,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: ee9c7ec8e55c45c4c84edf172585aa8d, type: 2}
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
-  shaderAnimTime: 2
+  shaderAnimTime: 1
   shaderAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -198,23 +203,23 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.040341172
     - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0.070345424
-      outSlope: 0.070345424
+      time: 0.7374929
+      value: 0.9743116
+      inSlope: -0.031446613
+      outSlope: -0.031446613
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.0571692
+      inWeight: 0.5837838
       outWeight: 0.15490478
     - serializedVersion: 3
-      time: 0.9
+      time: 0.8958343
       value: -0.2
-      inSlope: -0.014336091
-      outSlope: -0.014336091
+      inSlope: 2.555284
+      outSlope: 2.555284
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.9323559
+      inWeight: 1
+      outWeight: 0.8399986
     - serializedVersion: 3
       time: 1
       value: 0
@@ -228,7 +233,7 @@ MonoBehaviour:
     m_PostInfinity: 0
     m_RotationOrder: 4
   beginDisplacementValue: 0.35
-  displacementPower: 1.8
+  displacementPower: 1.5
   cubeDestroyProba: 40
   delayBtwBlast: 0.001
   explosionForce: 500
@@ -237,6 +242,10 @@ MonoBehaviour:
   explosionVFX: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
     type: 3}
   onBalanceBroken: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc, type: 2}
+  audioPlayCollision: {fileID: 2561545574594273009, guid: e5adaec3673912d43aea260d08e7a126,
+    type: 3}
+  destructionSfx: {fileID: 6354662430167613053, guid: 1aac1896fdd09ab41badda5f338e30ad,
+    type: 3}
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}
@@ -273,3 +282,6 @@ MonoBehaviour:
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   autoDestroyTower: {fileID: 11400000, guid: ff653396ffd0cfb4f967fbb386c5b372, type: 2}
+  ReleaseTime: 0
+  Tension: {fileID: 5598666862171392063, guid: e18ab263a4cc4e14a8cab2de72949b02, type: 3}
+  Release: {fileID: 6937253043119647376, guid: 18dab83017187614080443f052de3efd, type: 3}

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Properties;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Events;
+
+
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,13 +19,6 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private string gameSceneName;
     [SerializeField] private BoolVariable isPlayerActive;
 
-    [Header("Audio")]
-    [SerializeField] private UnityEvent playMusic;
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private Slider masterVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;
-
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TextMeshProUGUI resText;
@@ -32,14 +26,17 @@ public class PauseMenu : MonoBehaviour
     private int resId;
     private bool boolFullScreen;
     private CameraManager cameraManager;
+    private AudioSlider audioSlider;
 
 
     private void Start()
     {
         resolutionList = UnityEngine.Screen.resolutions;
-        LoadSliderValue();
         GetScreenValue();
-        isPlayerActive.SetValue(false);
+
+        audioSlider = GetComponent<AudioSlider>();
+        audioSlider.LoadSliderValue();
+        gameObject.SetActive(false);
     }
 
     #region Main
@@ -52,6 +49,8 @@ public class PauseMenu : MonoBehaviour
     {
         main.SetActive(false);
         option.SetActive(true);
+
+        audioSlider.LoadSliderValue();
     }
 
     public void BackToMain()
@@ -63,42 +62,6 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         UnityEngine.Application.Quit();
-    }
-    #endregion
-
-
-    #region Audio
-    public void LoadSliderValue()
-    {
-        if (!PlayerPrefs.HasKey("MasterVolume")) PlayerPrefs.SetFloat("MasterVolume", 1f);
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
-        SetMasterVolume(masterVolumeSlider.value);
-
-        if (!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 1f);
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
-        SetMusicVolume(musicVolumeSlider.value);
-
-        if (!PlayerPrefs.HasKey("SFXVolume")) PlayerPrefs.SetFloat("SFXVolume", 1f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume");
-        SetSFXVolume(sfxVolumeSlider.value);
-    }
-
-    public void SetMasterVolume(float value)
-    {
-        audioMixer.SetFloat("Master", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
-        PlayerPrefs.SetFloat("MasterVolume", value);
-    }
-
-    public void SetMusicVolume(float value)
-    {
-        audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
-        PlayerPrefs.SetFloat("MusicVolume", value);
-    }
-
-    public void SetSFXVolume(float value)
-    {
-        audioMixer.SetFloat("SFX", Mathf.Lerp(-80, 0, Mathf.Log(value + 1)));
-        PlayerPrefs.SetFloat("SFXVolume", value);
     }
     #endregion
 
