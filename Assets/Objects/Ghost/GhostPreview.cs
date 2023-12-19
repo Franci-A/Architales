@@ -51,7 +51,7 @@ public class GhostPreview : MonoBehaviour
         onEventEnd.AddListener(SwitchToPlace);
 
         ghostPiece = Instantiate(ghostPiecePrefab, transform);
-        ghostPiece.PreviewSpawnPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
+        ghostPiece.SpawnGhostPiece(Grid3DManager.Instance.pieceSo, ghostPiece.GetGridPosition);
         likes = GetComponentInChildren<CheckResidentsLikes>();
 
         destroyGhost = Instantiate(destroyGhostPrefab, transform);
@@ -112,7 +112,7 @@ public class GhostPreview : MonoBehaviour
     {
         likes.isAcive = false;
         likes.ClearFeedback();
-        ghostPiece.PreviewSpawnPiece(newPiece, ghostPiece.GetGridPosition);
+        ghostPiece.SpawnGhostPiece(newPiece, ghostPiece.GetGridPosition);
 
         for (int i = 0; i < ghostPiece.Cubes.Count; i++)
         {

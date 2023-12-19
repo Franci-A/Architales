@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abcd3f669d313d644b7b36f48164e290, type: 3}
   m_Name: Lobby
   m_EditorClassIdentifier: 
-  race: 5
+  race: 7
   likes: 
   dislikes: 
   blockColor: {r: 0, g: 0, b: 0, a: 0}

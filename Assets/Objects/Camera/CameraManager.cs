@@ -31,6 +31,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float elevatorMouseSpeed;
     [SerializeField] private float elevatorMinClamp;
     [SerializeField] private int elevatorMaxClampOffset = 3;
+    [SerializeField, Range(0, 0.5f)] private float verticalLimit;
 
 
     private float mousePositionX, mousePositionY;
@@ -66,6 +67,7 @@ public class CameraManager : MonoBehaviour
     private LayerMask cubeLayer;
 
     [Header("AFKCamera")]
+    [SerializeField] private GameObject ui;
     [SerializeField, Range(0, 1f)] private float distanceAFKZoom;
     [SerializeField] private float horizontalAFKSpeed;
     [SerializeField] private float speedAFKZoom;
@@ -102,6 +104,8 @@ public class CameraManager : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= afkTimer)
             AFKCamera();
+        else if (ui.GetComponent<CanvasGroup>().alpha < 1f)
+            ui.GetComponent<CanvasGroup>().alpha += 0.05f;
     }
 
 
@@ -127,7 +131,6 @@ public class CameraManager : MonoBehaviour
 
             currentRotationY += horizontalSpeed * Time.deltaTime * directiony;
 
-            resetTimer();
 
             #region CAMERA CLAMP
             if (cameraRotation.x + currentRotationX > rotationMaxClamp)
@@ -275,24 +278,35 @@ public class CameraManager : MonoBehaviour
         {
             if (verticalInput > 0 && cameraTransform.position.y <= elevatorMinClamp || verticalInput < 0 && cameraTransform.position.y >= elevatorMinClamp || verticalInput > 0)
                 cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (Mathf.Sign(verticalInput) * elevatorSpeed), 0);
-        }
+            resetTimer();
+        }        
 
-        if (leftClickPushed && leftClickOnce)
+        if (mousePositionY / (float)Screen.height >= 1 - verticalLimit)
         {
-            leftClickOnce = false;
-
             updatePosition = true;
-            previsousPositionYVertical = mousePositionY;
-        }
-        else if (!leftClickPushed) updatePosition = false;
+            directionyVertical = mousePositionY / (float)Screen.height;
 
-        if (updatePosition)
-        {
-            directionyVertical = mousePositionY - previsousPositionYVertical;
-            previsousPositionYVertical = mousePositionY;
-            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (directionyVertical * elevatorMouseSpeed), 0);
-            timer = 0;
+            var minPos = 1 - verticalLimit;
+            var maxPos = 1;
+            var currentSpeed = (directionyVertical - minPos) / (maxPos - minPos);
+
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (currentSpeed * elevatorMouseSpeed), 0);
+            resetTimer();
         }
+        else if (mousePositionY / (float)Screen.height <= verticalLimit)
+        {
+            updatePosition = true;
+            directionyVertical = mousePositionY / (float)Screen.height;
+
+            var minPos = 0;
+            var maxPos = verticalLimit;
+            var currentSpeed =  (directionyVertical - maxPos) / (minPos - maxPos);
+
+            cameraTransform.position = new Vector3(0, cameraTransform.position.y + Time.deltaTime * (-currentSpeed * elevatorMouseSpeed), 0);
+            resetTimer();
+        }
+        else updatePosition = false;
+
 
         var yPositionClamped = Mathf.Clamp(cameraTransform.position.y, elevatorMinClamp, higherBlock + elevatorMaxClampOffset);
         cameraTransform.position = new Vector3(0, yPositionClamped, 0);
@@ -318,7 +332,6 @@ public class CameraManager : MonoBehaviour
         if (velocity.magnitude <= 0.01f)
             zoomActive = false;
 
-        resetTimer();
     }
 
     public void ZoomSetClamp(float upMin, float upMax)
@@ -347,6 +360,9 @@ public class CameraManager : MonoBehaviour
 
     private void AFKCamera()
     {
+        if (ui.GetComponent<CanvasGroup>().alpha > 0f)
+            ui.GetComponent<CanvasGroup>().alpha -= 0.01f;
+
         currentRotationY -= horizontalAFKSpeed * Time.deltaTime;
 
         cameraTransform.rotation = quaternion.Euler(currentRotationX, cameraRotation.y + currentRotationY, cameraRotation.z);
@@ -377,6 +393,7 @@ public class CameraManager : MonoBehaviour
                 leftClickPushed = false;
             }
         }
+        resetTimer();
     }
     public void RightClickInput(InputAction.CallbackContext context)
     {
@@ -391,6 +408,7 @@ public class CameraManager : MonoBehaviour
             rightClickPushed = false;
             smoothBracking = true;
         }
+        resetTimer();
     }
 
     public void MousePositionInput(InputAction.CallbackContext context)
@@ -405,16 +423,19 @@ public class CameraManager : MonoBehaviour
         RaycastHit hit;
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, maxDistance, cubeLayer))
             Zoom(Mathf.Sign(context.ReadValue<float>()));
+        resetTimer();
     }
 
     public void VerticalMovementInput(InputAction.CallbackContext context)
     {
         if (context.performed || context.canceled) verticalInput = context.ReadValue<float>();
+        resetTimer();
     }
 
     public void ResetCameraInput(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
         ResetCamera();
+        resetTimer();
     }
 }

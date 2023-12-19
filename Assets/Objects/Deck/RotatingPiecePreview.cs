@@ -1,7 +1,10 @@
 using HelperScripts.EventSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RotatingPiecePreview : MonoBehaviour
 {
@@ -16,6 +19,8 @@ public class RotatingPiecePreview : MonoBehaviour
     [SerializeField] Vector3 rotationVector;
     [SerializeField] float rotationSpeed;
     Transform parent;
+    [SerializeField] private Image currentIcon;
+    [SerializeField] private List<RaceIcon> raceIcons;
 
     private void Awake()
     {
@@ -37,6 +42,7 @@ public class RotatingPiecePreview : MonoBehaviour
         piece.PreviewSpawnPiece(newPiece, piece.GetGridPosition);
 
         piece.transform.localPosition = piece.centerPiecePos(newPiece);
+        currentIcon.sprite = raceIcons.Find(x => x.race == newPiece.resident.race).icon;
     }
 
     private void Update()
@@ -48,4 +54,10 @@ public class RotatingPiecePreview : MonoBehaviour
     {
         previewPieceChanged.RemoveListener(OnPieceChange);
     }
+}
+[Serializable]
+struct RaceIcon
+{
+    public Race race;
+    public Sprite icon;
 }

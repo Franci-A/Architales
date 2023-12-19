@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
-    [SerializeField] private UnityEvent playMainMusic, playGameOver;
+    [SerializeField] private UnityEvent playMainMusic, playGameOver, StopSound;
     [SerializeField] private BoolVariable isPlayerActive;
+    [SerializeField] private FloatVariable happiness;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ghost;
@@ -71,15 +72,19 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        isPlayerActive.SetValue(false);
         StartCoroutine(endgame());
     }
 
     IEnumerator endgame() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
+        StopSound.Invoke();
+        isPlayerActive.SetValue(false);
+        ghost.SetActive(isPlayerActive);
+        yield return new WaitForSeconds(4);
         playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);
+        go.SetHappiness(happiness);
     }
 
     private void OnDestroy()

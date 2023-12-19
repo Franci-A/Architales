@@ -8,6 +8,7 @@ public class AudioAmbiance : AudioScript
     [SerializeField] protected AudioSFXOneShot emptyPrefab;
 
     [Space]
+    [Range(0, 120), SerializeField] protected float timeBeforeStart;
 
     [Range(0, 120), SerializeField] protected float rndWaitTimeMin;
     [Range(0, 120), SerializeField] protected float rndWaitTimeMax;
@@ -15,11 +16,18 @@ public class AudioAmbiance : AudioScript
     [Space]
 
     [SerializeField] protected bool AudioDebug = false;
+    [SerializeField] protected AudioManager.AmbianceType ambianceType;
 
     // Start is called before the first frame update
     protected void Start()
     {
         base.Awake();
+        StartCoroutine(StartTime());
+    }
+    
+    protected IEnumerator StartTime()
+    {
+        yield return new WaitForSeconds(timeBeforeStart);
         StartCoroutine(LaunchRFX());
     }
 
@@ -33,7 +41,7 @@ public class AudioAmbiance : AudioScript
         AudioSFXOneShot rfxGO = Instantiate(emptyPrefab, rndPosRFX, Quaternion.identity).GetComponent<AudioSFXOneShot>();
         m_selectedClip = GetClip(true);
         rfxGO.AddClip(m_selectedClip);
-        rfxGO.PlaySound();
+        rfxGO.PlayAmbiance(ambianceType);
 
         if (AudioDebug)
             Debug.Log($"RFX {m_selectedClip.name} from Container '{this.gameObject}' launched at {rndPosRFX}");

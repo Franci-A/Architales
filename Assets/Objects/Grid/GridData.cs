@@ -12,8 +12,12 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
     public float hieghtOffSet;
     Dictionary<Vector3, GameObject> grid = new Dictionary<Vector3, GameObject>(); // x = right; y = up; z = forward;
 
+    List<CubeHandler> allCubes = new List<CubeHandler>();
+    public List<CubeHandler> GetCubeHandlers => allCubes;
+
     public void Initialize()
     {
+        allCubes.Clear();
         if (grid.Count == 0)
             return;
         grid.Clear();
@@ -22,6 +26,7 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
     public void Uninitialize()
     {
         grid.Clear();
+        allCubes.Clear();
     }
 
     public Vector3 WorldToGridPosition(Vector3 worldPosition)
@@ -136,6 +141,7 @@ public class GridData : ScriptableObject, InitializeOnAwake, UninitializeOnDisab
             throw new Exception($"Already existing block at position {gridPosition} !");
 
         grid.Add(gridPosition, go);
+        allCubes.Add(go.GetComponent<CubeHandler>());
     }
 
     public void RemoveToGrid(Vector3 gridPosition)

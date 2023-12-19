@@ -32,12 +32,15 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         resolutionList = UnityEngine.Screen.resolutions;
-        audioSlider = GetComponent<AudioSlider>();
-        audioSlider.LoadSliderValue();
-        playMenuMusic.Invoke();
         GetScreenValue();
         isPlayerActive.SetValue(false);
+
+        audioSlider = GetComponent<AudioSlider>();
+        audioSlider.LoadSliderValue();
+        
+        playMenuMusic.Invoke();
         SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
+
     }
 
     #region Main
