@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
 public class Piece : MonoBehaviour
 {
     [Header("Asset Reference")]
     [SerializeField] private GridData gridData;
     [SerializeField] private BlockBuilder blockBuilder;
+    [SerializeField] private List<GameObject> VFX_placed;
 
     [Header("Components")]
     [SerializeField] private PieceHappinessHandler happinessHandler;
@@ -215,6 +218,15 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public void OnAnimationPiecePlaced()
+    {
+        if (VFX_placed.Count <= 0) return;
+
+        int i = Random.Range(0, VFX_placed.Count);
+        if (!VFX_placed[i]) return;
+
+        Instantiate(VFX_placed[i], transform.position, Quaternion.identity);
+    }
 }
 
 [Serializable]
