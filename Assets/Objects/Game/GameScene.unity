@@ -8269,6 +8269,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
         type: 3}
+      propertyPath: shaderAnimTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
+      propertyPath: heightMultiplier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5963694896051910344, guid: 701b1d8c296fb314b96d6c87bee18f35,
+        type: 3}
       propertyPath: displacementPower
       value: 1.6
       objectReference: {fileID: 0}

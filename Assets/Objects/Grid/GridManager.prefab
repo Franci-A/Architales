@@ -247,6 +247,8 @@ MonoBehaviour:
     type: 3}
   destructionSfx: {fileID: 6354662430167613053, guid: 1aac1896fdd09ab41badda5f338e30ad,
     type: 3}
+  pushPower: 3.5
+  heightMultiplier: 6
   DebugInfo:
   - {fileID: 0}
   - {fileID: 0}

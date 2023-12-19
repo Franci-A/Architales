@@ -81,6 +81,9 @@ public class TowerLeaningFeedback : MonoBehaviour
         {
             if (cubes[i] == null)
                 continue;
+            if (cubes[i].GetResident.GetResidentRace == Race.Lobby)
+                continue;
+
             cubes[i].GetRigidBody.isKinematic = false;
             cubes[i].GetAudioCollision.SetData(audioPlayCollision);
             float cubeHeightMultiplier = Mathf.Lerp(0, heightMultiplier, cubes[i].transform.position.y / maxHieght);
