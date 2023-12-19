@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dwarf
   m_EditorClassIdentifier: 
   race: 1
-  likes: 0100000004000000
-  dislikes: 000000000200000006000000
+  likes: 01000000
+  dislikes: 000000000300000006000000
   blockColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
-  blockMaterial: {fileID: 2100000, guid: 732c555d59adf064e9fbc97586771bf5, type: 2}
+  vfxSmoke: {fileID: 0}
