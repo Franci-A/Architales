@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dragon
   m_EditorClassIdentifier: 
   race: 0
-  likes: 0000000002000000
-  dislikes: 03000000040000000600000001000000
-  blockColor: {r: 1, g: 0.5589785, b: 0, a: 1}
-  blockMaterial: {fileID: 2100000, guid: 907d7e0a92ecc6c428e0a5095aefe0c0, type: 2}
+  likes: 0000000003000000
+  dislikes: 01000000040000000600000002000000
+  blockColor: {r: 0.62759984, g: 0.05817023, b: 0.8113208, a: 1}
+  vfxSmoke: {fileID: 0}

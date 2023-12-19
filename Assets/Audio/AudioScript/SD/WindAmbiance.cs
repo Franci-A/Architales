@@ -38,7 +38,7 @@ public class WindAmbiance : AudioAmbiance
         rndWaitTimeMin = m_selectedClip.length - 1;
 
         rfxGO.AddClip(m_selectedClip);
-        rfxGO.PlayWind();
+        rfxGO.PlayAmbiance(AudioManager.AmbianceType.Wind);
 
         if (AudioDebug)
             Debug.Log($"RFX {m_selectedClip.name} from Container '{this.gameObject}' launched at {rndPosRFX}");

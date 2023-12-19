@@ -31,7 +31,7 @@ public class AudioSFXOneShot : AudioScript
 
     }
 
-    public void PlayWind()
+    public void PlayAmbiance(AudioManager.AmbianceType type)
     {
         m_selectedClip = GetClip(false);
 
@@ -42,7 +42,7 @@ public class AudioSFXOneShot : AudioScript
         audioStruct.timeSamples = 0;
         audioStruct.is3D = is3D;
 
-        AudioManager.Instance.PlayWindWValues(audioStruct);
+        AudioManager.Instance.PlayAmbiance(audioStruct, type);
 
         Destroy(gameObject);
 

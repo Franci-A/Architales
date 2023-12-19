@@ -134,7 +134,7 @@ Material:
     - _Metallic: 0
     - _ObjectRotation: 0
     - _OcclusionStrength: 1
-    - _OutlineDistance: 0.7
+    - _OutlineDistance: 2
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
