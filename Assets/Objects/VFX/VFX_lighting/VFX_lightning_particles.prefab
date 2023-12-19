@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 2085812959102391793}
   - component: {fileID: 6597655344730629673}
   m_Layer: 0
-  m_Name: VFX_lightnig
+  m_Name: VFX_lightning_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
