@@ -95,7 +95,7 @@ public class Grid3DManager : MonoBehaviour
         var piece = Instantiate(this.piece, transform);
 
         PieceSO pieceSO = ScriptableObject.CreateInstance<PieceSO>();
-        pieceSO.cubes = CubeList;
+        pieceSO.cubes = new List<Cube>(CubeList);
         pieceSO.resident = currentPiece.resident;
 
         piece.SpawnPiece(pieceSO, gridPos);

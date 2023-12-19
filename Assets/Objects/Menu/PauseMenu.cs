@@ -33,7 +33,6 @@ public class PauseMenu : MonoBehaviour
     {
         resolutionList = UnityEngine.Screen.resolutions;
         GetScreenValue();
-        isPlayerActive.SetValue(false);
 
         audioSlider = GetComponent<AudioSlider>();
         audioSlider.LoadSliderValue();

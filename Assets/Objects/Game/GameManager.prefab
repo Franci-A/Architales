@@ -55,7 +55,7 @@ MonoBehaviour:
         m_MethodName: PlayMusic
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: fb5534497d71aff4cb4d03fa28740c99,
+          m_ObjectArgument: {fileID: 8300000, guid: 8eed0ce953072b9489d0873d4435a2c9,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayMusicOne
+        m_MethodName: PlayMusicSetSound
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: a3251cf2882ce9a4383216d46377bb82,
@@ -79,9 +79,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  StopSound:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PauseMusic
+        m_MethodName: StopMusic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -92,6 +95,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
+  happiness: {fileID: 11400000, guid: 401ba01d435b0f9408a2d40e377e6527, type: 2}
   ui: {fileID: 0}
   pauseMenu: {fileID: 0}
   ghost: {fileID: 0}
