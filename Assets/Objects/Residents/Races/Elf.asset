@@ -15,5 +15,5 @@ MonoBehaviour:
   race: 2
   likes: 02000000
   dislikes: 000000000600000003000000
-  blockColor: {r: 0.7628169, g: 0.22241013, b: 0.9622642, a: 1}
+  blockColor: {r: 0.106514804, g: 0.5380924, b: 0.8301887, a: 1}
   vfxSmoke: {fileID: 0}

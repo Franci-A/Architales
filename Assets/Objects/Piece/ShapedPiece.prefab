@@ -75,6 +75,11 @@ MonoBehaviour:
   happinessHandler: {fileID: 993482265561374568}
   decorationsHandler: {fileID: -5630199477725555432}
   blocksParentTransform: {fileID: 7422813069701941080}
+  VFX_placed:
+  - {fileID: 1907484227110686994, guid: b07bc0b208c88f04dac5f89bf0352604, type: 3}
+  - {fileID: 1532410707769987001, guid: de4fa2b941bdf6e408f965cb8ce87429, type: 3}
+  VFX_lightning: {fileID: 6136806216937672895, guid: 4d6997a114ced9a45a27c41e73e68351,
+    type: 3}
 --- !u!114 &993482265561374568
 MonoBehaviour:
   m_ObjectHideFlags: 0
