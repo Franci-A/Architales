@@ -8,6 +8,7 @@ public class AudioAmbiance : AudioScript
     [SerializeField] protected AudioSFXOneShot emptyPrefab;
 
     [Space]
+    [Range(0, 120), SerializeField] protected float timeBeforeStart;
 
     [Range(0, 120), SerializeField] protected float rndWaitTimeMin;
     [Range(0, 120), SerializeField] protected float rndWaitTimeMax;
@@ -20,6 +21,12 @@ public class AudioAmbiance : AudioScript
     protected void Start()
     {
         base.Awake();
+        StartCoroutine(StartTime());
+    }
+    
+    protected IEnumerator StartTime()
+    {
+        yield return new WaitForSeconds(timeBeforeStart);
         StartCoroutine(LaunchRFX());
     }
 
