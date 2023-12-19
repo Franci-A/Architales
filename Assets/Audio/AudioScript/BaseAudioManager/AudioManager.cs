@@ -10,9 +10,18 @@ public class AudioManager : MonoBehaviour
     private static AudioManager instance;
     public static AudioManager Instance { get => instance; }
 
-    [SerializeField] private AudioSource _MusicSource, _SFXSource, _WindSource;
+    [SerializeField] private AudioSource _MusicSource, _SFXSource, _WindSource, _BirdSource, _GrassSource, _EagleSource, _DragonSource;
 
     private float saveSoundVolume;
+
+    public enum AmbianceType
+    {
+        Wind, 
+        Bird,
+        Grass,
+        Eagle,
+        Dragon
+    }
 
     private void Awake()
     {
@@ -80,17 +89,40 @@ public class AudioManager : MonoBehaviour
         else _SFXSource.spatialBlend = 0;
     }
 
-    public void PlayWindWValues(AudioStruct audio)
+    public void PlayAmbiance(AudioStruct audio, AmbianceType ambianceType)
     {
         if (audio.clip == null) return;
 
-        _WindSource.pitch = audio.pitch;
-        _WindSource.volume = audio.volume;
-        _WindSource.timeSamples = audio.timeSamples;
-        _WindSource.PlayOneShot(audio.clip);
+        AudioSource audioSource = null;
 
-        if (audio.is3D) _WindSource.spatialBlend = 1;
-        else _WindSource.spatialBlend = 0;
+        switch (ambianceType)
+        {
+            case AmbianceType.Wind:
+                audioSource = _WindSource;
+                break;
+            case AmbianceType.Bird:
+                audioSource = _BirdSource;
+                break;
+            case AmbianceType.Grass:
+                audioSource = _GrassSource;
+                break;
+            case AmbianceType.Eagle:
+                audioSource = _EagleSource;
+                break;
+            case AmbianceType.Dragon:
+                audioSource = _DragonSource;
+                break;
+            default:
+                break;
+        }
+
+        audioSource.pitch = audio.pitch;
+        audioSource.volume = audio.volume;
+        audioSource.timeSamples = audio.timeSamples;
+        audioSource.PlayOneShot(audio.clip);
+
+        if (audio.is3D) audioSource.spatialBlend = 1;
+        else audioSource.spatialBlend = 0;
     }
 
     public void PauseMusic()

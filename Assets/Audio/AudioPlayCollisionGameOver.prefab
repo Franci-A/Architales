@@ -63,3 +63,4 @@ MonoBehaviour:
   rndPitchMax: 1
   is3D: 0
   layer: Terrain
+  proba: 0.2

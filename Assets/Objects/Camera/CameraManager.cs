@@ -3,7 +3,6 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 public class CameraManager : MonoBehaviour
 {

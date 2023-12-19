@@ -15,5 +15,5 @@ MonoBehaviour:
   race: 6
   likes: 
   dislikes: 000000000100000002000000030000000400000006000000
-  blockColor: {r: 0.21698111, g: 0.10112137, b: 0.15905124, a: 1}
-  blockMaterial: {fileID: 2100000, guid: 858cf963091a93549b62c8dcced712a7, type: 2}
+  blockColor: {r: 0.5754717, g: 0.035831288, b: 0.11940387, a: 1}
+  vfxSmoke: {fileID: 0}

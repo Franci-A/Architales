@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8510101290814484681}
+  - component: {fileID: -8877104851785217003}
   - component: {fileID: 2458965553353682385}
   - component: {fileID: 1505284695434127131}
   - component: {fileID: 5527737548314219103}
+  - component: {fileID: 6813030572262406988}
+  - component: {fileID: 5024142789319872914}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Cube
@@ -41,6 +44,22 @@ Transform:
   - {fileID: 45099169010241220}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8877104851785217003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256096350784185207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a844b2adad1d42245b10d152b5ca8742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 6813030572262406988}
+  residentHandler: {fileID: 1505284695434127131}
+  socketHandler: {fileID: 5527737548314219103}
+  collisionAudioPlayer: {fileID: 5024142789319872914}
 --- !u!65 &2458965553353682385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -143,6 +162,53 @@ MonoBehaviour:
   debugPos: {x: 0, y: 0, z: 0}
   roofStartingHeight: 1
   supportStartingHeight: 1
+--- !u!54 &6813030572262406988
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256096350784185207}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5024142789319872914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256096350784185207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6b2962dfd9f2540a999e736b599cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioClipList: []
+  rndVolMin: 0
+  rndVolMax: 0
+  rndPitchMin: 0
+  rndPitchMax: 0
+  is3D: 0
+  layer: Default
+  proba: 0
 --- !u!1 &7115960694686768393
 GameObject:
   m_ObjectHideFlags: 0

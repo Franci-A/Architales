@@ -8,14 +8,15 @@ public class AudioPlayCollision : AudioScript
 {
 
     [Layer, SerializeField] private string layer;
+    [Range(0f, 1f)] public float proba;
 
 
     private void OnCollisionEnter(Collision collision)
     {
-            PlaySound();
-        if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
+           if(Random.Range(0f, 1f) < proba) PlaySound();
+        /*if (collision.gameObject.layer == LayerMask.NameToLayer(layer))
         {
-        }
+        }*/
     }
 
 
@@ -43,6 +44,7 @@ public class AudioPlayCollision : AudioScript
         rndPitchMax = apc.rndPitchMax;
         is3D = apc.is3D;
         layer = apc.layer;
+        proba = apc.proba;
 
     }
 }

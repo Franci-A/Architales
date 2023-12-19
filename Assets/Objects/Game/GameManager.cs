@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private UnityEvent playMainMusic, playGameOver, StopSound;
     [SerializeField] private BoolVariable isPlayerActive;
+    [SerializeField] private FloatVariable happiness;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ghost;
@@ -74,15 +75,18 @@ public class GameManager : MonoBehaviour
         StartCoroutine(endgame());
     }
 
-    IEnumerator endgame() {
-        yield return new WaitForSeconds(1);
+    IEnumerator endgame() 
+    {
+        float animTime = Grid3DManager.Instance.GetComponent<TowerLeaningFeedback>().ShaderAnimTime + 0.37f ;
+        yield return new WaitForSeconds(animTime);
         StopSound.Invoke();
-        yield return new WaitForSeconds(4);
         isPlayerActive.SetValue(false);
         ghost.SetActive(isPlayerActive);
+        yield return new WaitForSeconds(5 - animTime);
         playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);
+        go.SetHappiness(happiness);
     }
 
     private void OnDestroy()

@@ -51,8 +51,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 198ae7b14fe227448a8f1dcd488c0c9d, type: 3}
   - {fileID: 8300000, guid: 40d8931a96a2c9c41b25daf559d91817, type: 3}
   - {fileID: 8300000, guid: 8e4ca3f17fff544479bfe8e93b148ec3, type: 3}
-  rndVolMin: 0.3
-  rndVolMax: 0.7
+  rndVolMin: 0.2
+  rndVolMax: 0.4
   rndPitchMin: 1
   rndPitchMax: 1
   is3D: 0
+  usePlay: 0
