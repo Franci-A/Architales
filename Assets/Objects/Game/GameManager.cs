@@ -78,9 +78,9 @@ public class GameManager : MonoBehaviour
     IEnumerator endgame() {
         yield return new WaitForSeconds(1);
         StopSound.Invoke();
-        yield return new WaitForSeconds(4);
         isPlayerActive.SetValue(false);
         ghost.SetActive(isPlayerActive);
+        yield return new WaitForSeconds(4);
         playGameOver.Invoke();
         var go = Instantiate(gameOverScreen);
         go.SetScore(score);

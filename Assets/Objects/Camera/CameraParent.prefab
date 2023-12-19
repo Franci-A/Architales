@@ -385,6 +385,7 @@ MonoBehaviour:
   rndWaitTimeMin: 3
   rndWaitTimeMax: 5
   AudioDebug: 0
+  ambianceType: 0
   divideIndex: 1
   switchPourcentage: 0.3
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
@@ -470,6 +471,7 @@ MonoBehaviour:
   rndWaitTimeMin: 10
   rndWaitTimeMax: 35
   AudioDebug: 0
+  ambianceType: 3
 --- !u!1 &7179827778445559212
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +557,7 @@ MonoBehaviour:
   rndWaitTimeMin: 10
   rndWaitTimeMax: 35
   AudioDebug: 0
+  ambianceType: 2
 --- !u!1 &7279797773900466878
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +649,7 @@ MonoBehaviour:
   rndWaitTimeMin: 10
   rndWaitTimeMax: 35
   AudioDebug: 0
+  ambianceType: 1
 --- !u!1 &7837642981306787661
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +732,7 @@ MonoBehaviour:
   rndWaitTimeMin: 10
   rndWaitTimeMax: 35
   AudioDebug: 0
+  ambianceType: 4
 --- !u!1 &7949637274607939900
 GameObject:
   m_ObjectHideFlags: 0
