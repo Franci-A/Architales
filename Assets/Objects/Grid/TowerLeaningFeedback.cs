@@ -31,6 +31,10 @@ public class TowerLeaningFeedback : MonoBehaviour
     [SerializeField] AudioPlayCollision audioPlayCollision;
     [SerializeField] GameObject destructionSfx;
 
+    [Header("Tower Fall")]
+    [SerializeField] private float pushPower;
+    [SerializeField] private float heightMultiplier;
+
     [Header("Weight")]
     [SerializeField] List<Image> DebugInfo = new List<Image>();
     [SerializeField] private Gradient debugWeightColors;
@@ -63,30 +67,55 @@ public class TowerLeaningFeedback : MonoBehaviour
 
     private void DestroyTower()
     {
-        StartCoroutine(DestroyTowerCoroutine());
+        StartCoroutine(TowerFallCoroutine());
+        // StartCoroutine(ExplodeTowerCoroutine());
     }
 
-    private IEnumerator DestroyTowerCoroutine()
+    private IEnumerator TowerFallCoroutine()
     {
-        List<GameObject> cubes = data.GetCubes();
+        List<CubeHandler> cubes = new List<CubeHandler>(data.GetCubeHandlers);
+        Vector3 direction = new Vector3(grid.BalanceValue.normalized.x, 0 ,grid.BalanceValue.normalized.y);
+        Debug.Log(direction);
+        float maxHieght = Grid3DManager.Instance.GetHigherBlock;
+        for (int i = 0; i < cubes.Count; i++)
+        {
+            if (cubes[i] == null)
+                continue;
+            cubes[i].GetRigidBody.isKinematic = false;
+            cubes[i].GetAudioCollision.SetData(audioPlayCollision);
+            float cubeHeightMultiplier = Mathf.Lerp(0, heightMultiplier, cubes[i].transform.position.y / maxHieght);
+            cubes[i].GetRigidBody.AddForce(direction * pushPower * cubeHeightMultiplier, ForceMode.Impulse); //change direction
+        }
+        yield return new WaitForSeconds(.2f);
+        float t = .75f;
+        while (t > 0)
+        {
+            yield return new WaitForFixedUpdate();
+            t -= Time.fixedDeltaTime * .8f;
+            SetDisplacementValue(t);
+        }
+
+    }
+
+
+    private IEnumerator ExplodeTowerCoroutine()
+    {
+        List<CubeHandler> cubes = data.GetCubeHandlers;
         List<int> intcubes = new List<int>();
 
         for (int i = 0; i < cubes.Count; i++)
         {
-
-            cubes[i].AddComponent<Rigidbody>();
+            cubes[i].GetRigidBody.isKinematic = false;
             if (UnityEngine.Random.Range(0, 100) < cubeDestroyProba)
             {
                 intcubes.Add(i);
             }
-
-            AudioPlayCollision apc = cubes[i].AddComponent<AudioPlayCollision>();
-            apc.SetData(audioPlayCollision);
+            cubes[i].GetAudioCollision.SetData(audioPlayCollision);
         }
 
         for (int i = 0; i < intcubes.Count; i++)
         {
-            cubes[intcubes[i]].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce); //change direction
+            cubes[intcubes[i]].GetRigidBody.AddExplosionForce(explosionForce, cubes[intcubes[i]].transform.position, radius, verticalExplosionForce); //change direction
             var vfx = Instantiate(explosionVFX, cubes[intcubes[i]].transform.position, transform.rotation);
             Destroy(vfx, 3);
 
@@ -146,10 +175,10 @@ public class TowerLeaningFeedback : MonoBehaviour
 
                 timer -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);
-            } while (!isBalanceBroken && timer > 0 || (isBalanceBroken && autoDestroyTower.value) && timer > maxTimer * .2f);
+            } while (!isBalanceBroken && timer > 0 || (isBalanceBroken && autoDestroyTower.value) && timer > maxTimer * .25f);
 
-            SetDisplacementValue(0f);
-            
+            if(!(isBalanceBroken && autoDestroyTower.value))
+                SetDisplacementValue(0f);
         }
 
 
