@@ -48,6 +48,8 @@ public class TowerLeaningFeedback : MonoBehaviour
 
     private bool isBalanceBroken = false;
 
+    public float ShaderAnimTime { get => shaderAnimTime;}
+
     private void Awake()
     {
         onPiecePlaced.AddListener(UpdateWeight);
