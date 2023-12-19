@@ -73,7 +73,6 @@ public class EventManager : MonoBehaviour
         if (currentCoolDown == 0) ForceEvent();
         currentCoolDown += provCooldown;
         UpdateCoolDownVisual();
-        
     }
 
     public void EventButton()
