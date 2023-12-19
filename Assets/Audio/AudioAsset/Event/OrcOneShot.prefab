@@ -46,8 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioClipList:
   - {fileID: 8300000, guid: f1610db9b1c509e41976e1590d0cae71, type: 3}
-  rndVolMin: 0.3
-  rndVolMax: 0.7
+  rndVolMin: 0.2
+  rndVolMax: 0.5
   rndPitchMin: 1
   rndPitchMax: 1
   is3D: 0
+  usePlay: 0
