@@ -18,6 +18,7 @@ public class BlockAssetTypeRaceList : ScriptableObject, InitializeOnAwake
         public Mesh roofMesh;
         public Mesh supportMesh;
         public Mesh windowMesh;
+        public Vector3 windowOffset;
 
         public RaceAssetTypePair(Race race)
         {

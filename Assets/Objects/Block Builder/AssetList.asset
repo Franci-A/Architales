@@ -24,14 +24,16 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 1e2db436ee838ce449bbd003dd230938, type: 2}
     windowMaterial:
     - {fileID: 2100000, guid: 53c8adb2cb0e02545b2ec661ae741720, type: 2}
+    - {fileID: 2100000, guid: e3413f8937faec54d8f888b3b87997ad, type: 2}
     wallMesh: {fileID: 2711665715318746789, guid: c8aa266b51e3d5145b2c65504141e625,
       type: 3}
     roofMesh: {fileID: 1497733700407929876, guid: 4e2ebdb49528ba14f9199b598c72e981,
       type: 3}
     supportMesh: {fileID: -4147029251030657372, guid: 5e9bfca1e46229c4998ce63897d5bac0,
       type: 3}
-    windowMesh: {fileID: -8429489704275616702, guid: 7d11ad09a31d5904980a7f5ccb916c9f,
+    windowMesh: {fileID: 7478561364360854413, guid: 7d11ad09a31d5904980a7f5ccb916c9f,
       type: 3}
+    windowOffset: {x: 0, y: -0.15, z: 0}
   - race: 1
     blockMaterial:
     - {fileID: 2100000, guid: eafd2ac8981923a4ab960fbe40b8a6cd, type: 2}
@@ -41,6 +43,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: eafd2ac8981923a4ab960fbe40b8a6cd, type: 2}
     windowMaterial:
     - {fileID: 2100000, guid: eafd2ac8981923a4ab960fbe40b8a6cd, type: 2}
+    - {fileID: 2100000, guid: e3413f8937faec54d8f888b3b87997ad, type: 2}
     wallMesh: {fileID: -6281424698479989189, guid: ff26b339df8b0d341950e0f466db6dc5,
       type: 3}
     roofMesh: {fileID: 5129110042813977296, guid: d78a65ccc5f262a40a25f893933aafa7,
@@ -49,6 +52,7 @@ MonoBehaviour:
       type: 3}
     windowMesh: {fileID: 1049928748687988745, guid: 18e415ec15cba9344a05fe296342465a,
       type: 3}
+    windowOffset: {x: 0.015, y: 0.2, z: 0.015}
   - race: 2
     blockMaterial:
     - {fileID: 2100000, guid: 1eed915386032da44858de63cf90dcbf, type: 2}
@@ -66,6 +70,7 @@ MonoBehaviour:
       type: 3}
     windowMesh: {fileID: -998522852948324304, guid: 3db0fa356cec9f64894cfe1cfaeb0a15,
       type: 3}
+    windowOffset: {x: 0, y: 0.03, z: 0}
   - race: 3
     blockMaterial:
     - {fileID: 2100000, guid: a39acc3cf2324f74e84c6b6e72887284, type: 2}
@@ -85,6 +90,7 @@ MonoBehaviour:
     supportMesh: {fileID: -1517434215410090729, guid: 84720a1e7b459d143a1b9b6cd359847b,
       type: 3}
     windowMesh: {fileID: 0}
+    windowOffset: {x: 0, y: 0, z: 0}
   - race: 4
     blockMaterial:
     - {fileID: 2100000, guid: ef095e7b13c56c047885c41dfa7f6ac6, type: 2}
@@ -94,15 +100,14 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 1262fc7fe6426ec42a185f8749d7c288, type: 2}
     supportMaterial:
     - {fileID: 2100000, guid: ef095e7b13c56c047885c41dfa7f6ac6, type: 2}
-    windowMaterial:
-    - {fileID: 2100000, guid: ef095e7b13c56c047885c41dfa7f6ac6, type: 2}
+    windowMaterial: []
     wallMesh: {fileID: -6281424698479989189, guid: dc2c05249bf161b41a57af564092b672,
       type: 3}
     roofMesh: {fileID: 7450741763379908841, guid: c1034876b86cf7d468e832d67b643708,
       type: 3}
     supportMesh: {fileID: 0}
-    windowMesh: {fileID: -8429489704275616702, guid: 7d11ad09a31d5904980a7f5ccb916c9f,
-      type: 3}
+    windowMesh: {fileID: 0}
+    windowOffset: {x: 0, y: 0, z: 0}
   - race: 6
     blockMaterial:
     - {fileID: 2100000, guid: 858cf963091a93549b62c8dcced712a7, type: 2}
@@ -116,6 +121,7 @@ MonoBehaviour:
     roofMesh: {fileID: 0}
     supportMesh: {fileID: 0}
     windowMesh: {fileID: 0}
+    windowOffset: {x: 0, y: 0, z: 0}
   - race: 8
     blockMaterial:
     - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
@@ -129,6 +135,7 @@ MonoBehaviour:
     roofMesh: {fileID: 0}
     supportMesh: {fileID: 0}
     windowMesh: {fileID: 0}
+    windowOffset: {x: 0, y: 0, z: 0}
   - race: 5
     blockMaterial:
     - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
@@ -141,3 +148,4 @@ MonoBehaviour:
     roofMesh: {fileID: 0}
     supportMesh: {fileID: 0}
     windowMesh: {fileID: 0}
+    windowOffset: {x: 0, y: 0, z: 0}

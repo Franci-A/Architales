@@ -146,7 +146,15 @@ public class BlockSocketHandler : MonoBehaviour
                     windowSockets[i].socket.SetMesh(assets.windowMesh);
                     windowSockets[i].socket.SetMaterial(assets.windowMaterial);
                     windowSockets[i].socket.transform.LookAt( windowSockets[i].socket.transform.position + windowSockets[i].direction);
-                    windowSockets[i].socket.gameObject.GetComponent<MeshRenderer>().materials[0].SetFloat("_ObjectRotation", Vector3.Angle(Vector3.forward, windowSockets[i].direction));
+                    Vector3 localPos = windowSockets[i].socket.transform.localPosition;
+                    //windowSockets[i].socket.transform.localPosition = localPos + assets.windowOffset;
+                    windowSockets[i].socket.transform.localPosition = new Vector3( localPos.x + assets.windowOffset.x * windowSockets[i].direction.x,
+                                                                                   localPos.y + assets.windowOffset.y,
+                                                                                   localPos.z + assets.windowOffset.z * windowSockets[i].direction.z);
+                    foreach (var mat in windowSockets[i].socket.gameObject.GetComponent<MeshRenderer>().materials)
+                    {
+                        mat.SetFloat("_ObjectRotation", Vector3.Angle(Vector3.forward, windowSockets[i].direction));
+                    }
                 }
             }
         }
