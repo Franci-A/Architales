@@ -34,9 +34,9 @@ Transform:
   - {fileID: 5014288921443763459}
   - {fileID: 405150218123295338}
   - {fileID: 8865561655248311151}
-  - {fileID: 7516587949010259087}
   - {fileID: 1250771499405046889}
   - {fileID: 7156333467947534992}
+  - {fileID: 7516587949010259087}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7426729278887049196
@@ -54,6 +54,10 @@ MonoBehaviour:
   _MusicSource: {fileID: 6205482893668769233}
   _SFXSource: {fileID: 9195663560163300942}
   _WindSource: {fileID: 6348366453630744329}
+  _BirdSource: {fileID: 8879443729285513996}
+  _GrassSource: {fileID: 1403920037214021932}
+  _EagleSource: {fileID: 1427097828117131160}
+  _DragonSource: {fileID: 3383416956046447420}
 --- !u!1 &3113803792314517054
 GameObject:
   m_ObjectHideFlags: 0
