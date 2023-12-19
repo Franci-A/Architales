@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class BlockSocketHandler : MonoBehaviour
@@ -129,6 +130,12 @@ public class BlockSocketHandler : MonoBehaviour
 
     public void InitWindows()
     {
+        var assets = assetList.GetMeshByRace(currentRace);
+        if (assets == null)
+            return;
+        if (assets.windowMesh == null)
+            return;
+
         for (int i = 0; i < windowSockets.Length; i++)
         {
             windowSockets[i].canBeFilled = true;
@@ -136,10 +143,10 @@ public class BlockSocketHandler : MonoBehaviour
             {
                 if (UnityEngine.Random.Range(0f, 1f) > .7f)
                 {
-                    var assets = assetList.GetMeshByRace(currentRace);
                     windowSockets[i].socket.SetMesh(assets.windowMesh);
                     windowSockets[i].socket.SetMaterial(assets.windowMaterial);
                     windowSockets[i].socket.transform.LookAt( windowSockets[i].socket.transform.position + windowSockets[i].direction);
+                    windowSockets[i].socket.gameObject.GetComponent<MeshRenderer>().materials[0].SetFloat("_ObjectRotation", Vector3.Angle(Vector3.forward, windowSockets[i].direction));
                 }
             }
         }
