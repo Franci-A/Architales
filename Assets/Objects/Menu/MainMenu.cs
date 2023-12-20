@@ -1,11 +1,9 @@
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Device;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {

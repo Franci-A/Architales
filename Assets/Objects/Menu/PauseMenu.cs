@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Properties;
 using UnityEngine;
 
 
@@ -31,7 +30,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        resolutionList = UnityEngine.Screen.resolutions;
+        resolutionList = Screen.resolutions;
         GetScreenValue();
 
         audioSlider = GetComponent<AudioSlider>();

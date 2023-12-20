@@ -2,7 +2,6 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -41,7 +40,6 @@ public class GameManager : MonoBehaviour
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
 
-        Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene"))
         {
             isPlayerActive.SetValue(true);
@@ -53,8 +51,7 @@ public class GameManager : MonoBehaviour
             playMenuMusic.Invoke();
         }
 
-
-            Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void StartGame()
