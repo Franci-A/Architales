@@ -52,7 +52,7 @@ public class EventManager : MonoBehaviour
     {
         onEventEnd.AddListener(SwitchEvent);
         onPiecePlaced.AddListener(UpdateCoolDown);
-        onBalanceBroken.AddListener(DeactivateEvent);
+        onBalanceBroken.AddListener(GameoverDeactiveEvent);
         GetRandomEvent();
         UpdateCoolDownVisual();
     }
@@ -61,6 +61,7 @@ public class EventManager : MonoBehaviour
     {
         onEventEnd.RemoveListener(SwitchEvent);
         onPiecePlaced.RemoveListener(UpdateCoolDown);
+        onBalanceBroken.RemoveListener(GameoverDeactiveEvent);
     }
 
 
@@ -114,6 +115,14 @@ public class EventManager : MonoBehaviour
     public void DeactivateEvent()
     {
         eventAnim.GetComponent<EventAnimation>().EndEvent();
+        currentEventSO.EndEvent();
+        CancelEvent();
+    }
+
+    public void GameoverDeactiveEvent()
+    {
+        if (!isEventActive)
+            return;
         currentEventSO.EndEvent();
         CancelEvent();
     }
