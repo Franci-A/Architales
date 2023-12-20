@@ -120,9 +120,9 @@ MonoBehaviour:
     windowOffset: {x: 0, y: 0, z: 0}
   - race: 8
     blockMaterial:
-    - {fileID: 2100000, guid: ade130cafd2ed33489f29cd06ff073a3, type: 2}
-    - {fileID: 2100000, guid: a5326956bb7867a489fa8226831d6449, type: 2}
     - {fileID: 2100000, guid: 56b5448ed8d5b6c4db6d9fccda240887, type: 2}
+    - {fileID: 2100000, guid: 4a902ca1ab3d6b241a189d8dde554c25, type: 2}
+    - {fileID: 2100000, guid: ade130cafd2ed33489f29cd06ff073a3, type: 2}
     roofMaterial: []
     supportMaterial: []
     windowMaterial: []
