@@ -124,13 +124,13 @@ MonoBehaviour:
     windowOffset: {x: 0, y: 0, z: 0}
   - race: 8
     blockMaterial:
-    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
-    roofMaterial:
-    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
-    supportMaterial:
-    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
+    - {fileID: 2100000, guid: ade130cafd2ed33489f29cd06ff073a3, type: 2}
+    - {fileID: 2100000, guid: a5326956bb7867a489fa8226831d6449, type: 2}
+    - {fileID: 2100000, guid: 56b5448ed8d5b6c4db6d9fccda240887, type: 2}
+    roofMaterial: []
+    supportMaterial: []
     windowMaterial: []
-    wallMesh: {fileID: 4964216032534037671, guid: 5ad9aa18e767ebb49b6fb30967a428b4,
+    wallMesh: {fileID: -5495902117074765545, guid: ff0c1bdf1593f8b4cba3beac5c8a6abc,
       type: 3}
     roofMesh: {fileID: 0}
     supportMesh: {fileID: 0}
