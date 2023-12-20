@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 387
     y: -556
     width: 1899
-    height: 2375
+    height: 1674
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -868,7 +868,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":7450741763379908841,"guid":"0507ff430bc941348bc96524facd85b3","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":-462981019419857548,"guid":"945279a01dbfa8c43aa846d19a266357","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mesh
@@ -964,7 +964,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.75
+      m_SerializableObject: 2
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -1295,7 +1295,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Mesh, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":7450741763379908841,"guid":"0507ff430bc941348bc96524facd85b3","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":-462981019419857548,"guid":"945279a01dbfa8c43aa846d19a266357","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mesh
@@ -1391,7 +1391,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.75
+      m_SerializableObject: 2
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -3479,7 +3479,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
+      m_SerializableObject: 0.5
     m_Space: 2147483647
   m_Property:
     name: Lifetime

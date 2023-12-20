@@ -20,7 +20,6 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] private EventScriptable onBalanceBroken;
     [SerializeField] private ListOfGameplayEvent eventListRandom;
-    [SerializeField] private GameObject eventAnim;
     private GameplayEvent currentEventSO;
     public bool IsEventActive { get => isEventActive;}
 
@@ -29,6 +28,7 @@ public class EventManager : MonoBehaviour
     [Header("Scene references")]
     [SerializeField] Image eventImage;
     [SerializeField] TextMeshProUGUI textCoolDown;
+    [SerializeField] private EventAnimation eventAnim;
 
 
     //[Header("CoolDown")]
@@ -114,7 +114,7 @@ public class EventManager : MonoBehaviour
 
     public void DeactivateEvent()
     {
-        eventAnim.GetComponent<EventAnimation>().EndEvent();
+        eventAnim.EndEvent();
         currentEventSO.EndEvent();
         CancelEvent();
     }
@@ -168,7 +168,8 @@ public class EventManager : MonoBehaviour
 
     private void ForceEvent()
     {
-        eventAnim.SetActive(true);
+        eventAnim.InitiateText(currentEventSO);
+
         currentCoolDown = 0;
         mustUseEvent = true;
         ActivateEvent();
