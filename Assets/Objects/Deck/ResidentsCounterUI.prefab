@@ -83,14 +83,19 @@ MonoBehaviour:
   backgrounds:
   - image: {fileID: 8003643580989334877}
     race: 0
+    ValueAdded: {fileID: 0}
   - image: {fileID: 8271327209625383909}
     race: 1
+    ValueAdded: {fileID: 0}
   - image: {fileID: 1225734775466464491}
     race: 2
+    ValueAdded: {fileID: 0}
   - image: {fileID: 8853708421965938512}
     race: 3
+    ValueAdded: {fileID: 0}
   - image: {fileID: 7294243364172436322}
     race: 4
+    ValueAdded: {fileID: 0}
   happyColor: {r: 0.10670447, g: 1, b: 0, a: 1}
   angryColor: {r: 1, g: 0, b: 0, a: 1}
   selectedColor: {r: 0.5707547, g: 1, b: 0.8807333, a: 1}

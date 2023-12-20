@@ -73,21 +73,17 @@ MonoBehaviour:
     windowOffset: {x: 0, y: 0.03, z: 0}
   - race: 3
     blockMaterial:
-    - {fileID: 2100000, guid: a39acc3cf2324f74e84c6b6e72887284, type: 2}
+    - {fileID: 2100000, guid: 91684620cbbb17744bf8d2d8c0e2b625, type: 2}
     roofMaterial:
-    - {fileID: 2100000, guid: f69519885987b134cbaf63f3eae1c9cc, type: 2}
-    - {fileID: 2100000, guid: 0337993a11c4b2a4f9d46651465e4069, type: 2}
-    - {fileID: 2100000, guid: 0337993a11c4b2a4f9d46651465e4069, type: 2}
-    - {fileID: 2100000, guid: 0a54b5f27de9bdc489d12957b2a1628d, type: 2}
+    - {fileID: 2100000, guid: 6efde14dc284c464c9fa093fe10bdcc5, type: 2}
     supportMaterial:
-    - {fileID: 2100000, guid: 348c24c46e03bad47a1469fceb1c0729, type: 2}
-    - {fileID: 2100000, guid: 0337993a11c4b2a4f9d46651465e4069, type: 2}
+    - {fileID: 2100000, guid: f983490c0232b5948a6f42020d33622f, type: 2}
     windowMaterial: []
-    wallMesh: {fileID: 4964216032534037671, guid: 5ad9aa18e767ebb49b6fb30967a428b4,
+    wallMesh: {fileID: -5495902117074765545, guid: 129379a5f9e286f4bb0398eb16a43ea7,
       type: 3}
-    roofMesh: {fileID: 1461984118993310485, guid: 2b2e9f2754d3ddf45a8c7095dbf2f0f9,
+    roofMesh: {fileID: 731348074074637744, guid: df043d6f866e36b49be9f384b41d75ab,
       type: 3}
-    supportMesh: {fileID: -1517434215410090729, guid: 84720a1e7b459d143a1b9b6cd359847b,
+    supportMesh: {fileID: 6515836102126902507, guid: 0150b14f94552d24791482b3e5005d8f,
       type: 3}
     windowMesh: {fileID: 0}
     windowOffset: {x: 0, y: 0, z: 0}
@@ -124,13 +120,13 @@ MonoBehaviour:
     windowOffset: {x: 0, y: 0, z: 0}
   - race: 8
     blockMaterial:
-    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
-    roofMaterial:
-    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
-    supportMaterial:
-    - {fileID: 2100000, guid: ebca17b452b97e840baf50fdf80eb327, type: 2}
+    - {fileID: 2100000, guid: ade130cafd2ed33489f29cd06ff073a3, type: 2}
+    - {fileID: 2100000, guid: a5326956bb7867a489fa8226831d6449, type: 2}
+    - {fileID: 2100000, guid: 56b5448ed8d5b6c4db6d9fccda240887, type: 2}
+    roofMaterial: []
+    supportMaterial: []
     windowMaterial: []
-    wallMesh: {fileID: 4964216032534037671, guid: 5ad9aa18e767ebb49b6fb30967a428b4,
+    wallMesh: {fileID: -5495902117074765545, guid: ff0c1bdf1593f8b4cba3beac5c8a6abc,
       type: 3}
     roofMesh: {fileID: 0}
     supportMesh: {fileID: 0}

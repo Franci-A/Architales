@@ -153,7 +153,9 @@ public class BlockSocketHandler : MonoBehaviour
                                                                                    localPos.z + assets.windowOffset.z * windowSockets[i].direction.z);
                     foreach (var mat in windowSockets[i].socket.gameObject.GetComponent<MeshRenderer>().materials)
                     {
-                        mat.SetFloat("_ObjectRotation", Vector3.Angle(Vector3.forward, windowSockets[i].direction));
+                        float rotation = Vector3.Angle(Vector3.forward, windowSockets[i].direction);
+                        rotation = rotation == -90 ? 270 : rotation;
+                        mat.SetFloat("_ObjectRotation", rotation);
                     }
                 }
             }
