@@ -1,9 +1,7 @@
 using System;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UIResidentLikes : MonoBehaviour
 {
@@ -72,7 +70,7 @@ public class UIResidentLikes : MonoBehaviour
                 backgrounds[i].image.color = neutralColor;
             }
         }
-        HideGain();
+        currentRace = piece.resident.race;
     }
 }
 
