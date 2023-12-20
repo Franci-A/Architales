@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class CheckResidentsLikes : MonoBehaviour
 {
+    [SerializeField] private PieceHappinessHandler pieceHappinessHandler;
     private List<ResidentHandler> currentResident;
     [SerializeField] private LayerMask mask;
     [SerializeField] private float distance;
     [SerializeField] private FeedbackPopup feedbackPopup;
     private List<Vector3> checkDirections;
-    private List<FeedbackElement> feedbackElements;
+    private List<ResidentHandler> feedbackElements;
     [SerializeField] private Color likeColor = Color.green;
     [SerializeField] private Color dislikeColor = Color.red;
     private FeedbackPopup popup;
@@ -27,7 +28,7 @@ public class CheckResidentsLikes : MonoBehaviour
         {
             currentResident.Add(children[i].cubeGO.GetComponent<ResidentHandler>());
         }
-        feedbackElements = new List<FeedbackElement>();
+        feedbackElements = new List<ResidentHandler>();
 
         checkDirections = new List<Vector3>
         {
@@ -81,24 +82,8 @@ public class CheckResidentsLikes : MonoBehaviour
                     {
                         collidedResident.ShowRelationsMaterial(hit[j].point, dislikeColor);
                     }
-
-                    bool alreadyHere = false;
-                    for (int k = 0; k < feedbackElements.Count; k++)
-                    {
-                        if (collidedResident == feedbackElements[k].neighbor)
-                        {
-                            alreadyHere = true;
-                            break;
-                        }
-                    }
+                    feedbackElements.Add(collidedResident);
                     totalLike += likeAmount;
-                    if (alreadyHere)
-                        continue;
-
-                    FeedbackElement element = new FeedbackElement();
-                    element.neighbor = collidedResident;
-                    element.currentResident = currentResident[index];
-                    feedbackElements.Add(element);
                 }
             }
         }
@@ -108,22 +93,24 @@ public class CheckResidentsLikes : MonoBehaviour
         popup.InitPopup(totalLike);
         for (int k = feedbackElements.Count -1; k >= 0; k--)
         {
-            if (residents.Contains(feedbackElements[k].neighbor))
+            if (residents.Contains(feedbackElements[k]))
                 continue;
 
-            feedbackElements[k].neighbor.RemoveRelationsMaterial();
+            feedbackElements[k].RemoveRelationsMaterial();
             feedbackElements.RemoveAt(k);
         }
+        int value = -1;
+        if(totalLike != 0) 
+            value = totalLike > 0? 1 : -2;
+        UIResidentLikes.instance.ShowGain(currentResident[0].GetResident.race, value);
     }
 
     public void CheckRelationsWithoutFeedback()
     {
-
         RaycastHit[] hit;
-
-        List<ResidentHandler> residents = new List<ResidentHandler>();
         for (int index = 0; index < currentResident.Count; index++)
         {
+            int totalLikeAmount = 0;
             for (int i = 0; i < checkDirections.Count; i++)
             {
                 hit = Physics.RaycastAll(currentResident[index].gameObject.transform.position, checkDirections[i], distance, mask);
@@ -139,36 +126,13 @@ public class CheckResidentsLikes : MonoBehaviour
                     int likeAmount = currentResident[index].GetResident.CheckLikes(collidedResident.GetResidentRace);
                     if (likeAmount == 0)
                         continue;
-
-                    residents.Add(collidedResident);
-
-                    bool alreadyHere = false;
-                    for (int k = 0; k < feedbackElements.Count; k++)
-                    {
-                        if (collidedResident == feedbackElements[k].neighbor)
-                        {
-                            alreadyHere = true;
-                            break;
-                        }
-                    }
-
-                    if (alreadyHere)
-                        continue;
-
-                    FeedbackElement element = new FeedbackElement();
-                    element.neighbor = collidedResident;
-                    element.currentResident = currentResident[index];
-                    feedbackElements.Add(element);
+                    totalLikeAmount += likeAmount;
                 }
             }
+            currentResident[index].BlockLikeValue = totalLikeAmount;
         }
 
-        for (int k = feedbackElements.Count - 1; k >= 0; k--)
-        {
-            feedbackElements[k].neighbor.NewNeighbors(feedbackElements[k].currentResident.GetResidentRace);
-            feedbackElements[k].currentResident.NewNeighbors(feedbackElements[k].neighbor.GetResidentRace);
-        }
-        feedbackElements.Clear();
+        pieceHappinessHandler.SetHappinessLevel();
         Destroy(this);
     }
 
@@ -180,25 +144,9 @@ public class CheckResidentsLikes : MonoBehaviour
         popup?.DestroyPopup();
         for (int i = 0; i < feedbackElements.Count; i++)
         {
-            feedbackElements[i].neighbor.RemoveRelationsMaterial();
+            feedbackElements[i].RemoveRelationsMaterial();
         }
         feedbackElements.Clear();
     }
-
-    public void ValidatePosition()
-    {
-        for (int i = 0; i < feedbackElements.Count; i++)
-        {
-            feedbackElements[i].neighbor.NewNeighbors(feedbackElements[i].currentResident.GetResidentRace);
-            feedbackElements[i].currentResident.NewNeighbors(feedbackElements[i].neighbor.GetResidentRace);
-        }
-        Destroy(this);
-    }
-}
-
-struct FeedbackElement
-{
-    public ResidentHandler currentResident;
-    public ResidentHandler neighbor;
 }
  

@@ -4893,6 +4893,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5303684162782254862, guid: a57d5c3829b7be3438e61d5d3fb75c44,
+        type: 3}
+      propertyPath: stopAction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6342789702194790418, guid: a57d5c3829b7be3438e61d5d3fb75c44,
         type: 3}
       propertyPath: m_Name
@@ -4977,6 +4982,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_wind_loop
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589639433915756953, guid: 490bfe9bc0d1bf34e96fdaed13a0a6a2,
+        type: 3}
+      propertyPath: stopAction
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

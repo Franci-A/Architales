@@ -2,7 +2,6 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -16,12 +15,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
-    [SerializeField] private UnityEvent playMainMusic, playGameOver, StopSound;
+    [SerializeField] private UnityEvent playGameOver, StopSound, playMainMusic, playMenuMusic;
     [SerializeField] private BoolVariable isPlayerActive;
     [SerializeField] private FloatVariable happiness;
     [SerializeField] private GameObject ui;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ghost;
+
+    [SerializeField] private GameObject Tuto;
+    [SerializeField] private GameObject Tuto2;
+
+    private bool playMusicOnce;
 
     private void Awake()
     {
@@ -32,25 +36,43 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        isPlayerActive.OnValueChanged.AddListener(StartGame);
+        Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
+        onPiecePlaced.AddListener(IncreaseScore);
+
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene"))
         {
             isPlayerActive.SetValue(true);
-        }else
+            playMainMusic.Invoke();
+        }
+        else
+        {
             ui.SetActive(false);
-        isPlayerActive.OnValueChanged.AddListener(StartGame);
-
-        Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
-        onPiecePlaced.AddListener(IncreaseScore);
+            playMenuMusic.Invoke();
+        }
 
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void StartGame()
     {
-        ui.SetActive(isPlayerActive);
+        if (isPlayerActive && PlayerPrefs.GetInt("FirstTime") == 0)
+        {
+            PlayerPrefs.SetInt("FirstTime", 1);
+            Instantiate(Tuto, this.transform);
+            isPlayerActive.SetValue(false);
+        }
+        else
+        {
+            ui.SetActive(isPlayerActive);
 
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
-            playMainMusic.Invoke();
+            if (!playMusicOnce)
+            {
+                playMusicOnce = true;
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu")) playMenuMusic.Invoke();
+                else playMainMusic.Invoke();
+            }
+        }
     }
 
     public void PauseGame()
@@ -98,5 +120,10 @@ public class GameManager : MonoBehaviour
     private void IncreaseScore()
     {
         score++;
+    }
+
+    public void EndTuto()
+    {
+        isPlayerActive.SetValue(true);
     }
 }
