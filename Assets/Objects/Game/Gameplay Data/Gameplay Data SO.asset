@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 2}
   balanceMultiplierVariable: {fileID: 11400000, guid: f9682c652af877343a5b7f9a327488eb,
     type: 2}
-  maxBalance: 40
+  maxBalance: 35
   InitialPiecesNumber: 4
   MaxPiecesNumber: 8
   PositiveHappinessPieceGain: 2

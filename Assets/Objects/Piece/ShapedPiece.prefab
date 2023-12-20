@@ -80,6 +80,8 @@ MonoBehaviour:
   - {fileID: 1532410707769987001, guid: de4fa2b941bdf6e408f965cb8ce87429, type: 3}
   VFX_lightning: {fileID: 6136806216937672895, guid: 4d6997a114ced9a45a27c41e73e68351,
     type: 3}
+  VFX_exlposion: {fileID: 1714789871843598086, guid: 407671317bc57fd4981024f668d598c6,
+    type: 3}
 --- !u!114 &993482265561374568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3ddc52040347646a0078ad5968d955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceHappinessHandler: {fileID: 993482265561374568}
   mask:
     serializedVersion: 2
     m_Bits: 128

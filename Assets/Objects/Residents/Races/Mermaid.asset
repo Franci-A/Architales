@@ -16,4 +16,5 @@ MonoBehaviour:
   likes: 04000000
   dislikes: 000000000300000006000000
   blockColor: {r: 0.9150943, g: 0.4113918, b: 0.048344634, a: 1}
-  vfxSmoke: {fileID: 0}
+  vfxSmoke: {fileID: 1907484227110686994, guid: b07bc0b208c88f04dac5f89bf0352604,
+    type: 3}

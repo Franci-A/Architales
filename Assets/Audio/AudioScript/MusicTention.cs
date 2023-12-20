@@ -8,7 +8,6 @@ public class MusicTention : MonoBehaviour
     private HighState state;
 
     [Header("Low Tention")]
-    [SerializeField] AudioClip LowTensionMusic;
     [SerializeField] AudioClip TransitionToMedMusic;
     [SerializeField] int levelToMedium;
 
@@ -31,7 +30,6 @@ public class MusicTention : MonoBehaviour
     private void Start()
     {
         Grid3DManager.Instance.OnLayerCubeChange += UpdateMaximumHigh;
-        AudioManager.Instance.PlayMusic(LowTensionMusic);
     }
 
     void UpdateMaximumHigh(int higherValue)

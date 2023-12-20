@@ -100,9 +100,6 @@ MonoBehaviour:
   cubeMask:
     serializedVersion: 2
     m_Bits: 128
-  OnNeighborsChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &5527737548314219103
 MonoBehaviour:
   m_ObjectHideFlags: 0

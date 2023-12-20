@@ -2,7 +2,6 @@ using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Grid3DManager : MonoBehaviour
@@ -43,7 +42,7 @@ public class Grid3DManager : MonoBehaviour
     [SerializeField] private EventObjectScriptable onPiecePlacedObject;
     [SerializeField] private EventObjectScriptable lastPiecePlaced;
     [SerializeField] private EventObjectScriptable previewPieceChanged;
-    [SerializeField] public EventScriptable onBalanceBroken;
+    public EventScriptable onBalanceBroken;
     public delegate void OnCubeChangeDelegate(PieceSO newPiece);
     public event OnCubeChangeDelegate OnCubeChange;
     public delegate void OnLayerCubeChangeDelegate(int higherCubeValue);

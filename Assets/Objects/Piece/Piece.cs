@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -18,7 +17,6 @@ public class Piece : MonoBehaviour
     [SerializeField] private Transform blocksParentTransform;
 
     [Header("Visual FX")]
-    [SerializeField] private List<GameObject> VFX_placed;
     [SerializeField] private GameObject VFX_lightning;
 
     List<Cube> cubes = new List<Cube>();
@@ -67,11 +65,9 @@ public class Piece : MonoBehaviour
         UpdateSurroundingBlocks();
         decorationsHandler?.Init(currentResident.race);
 
-
         if (piece.resident.vfxSmoke == null) return;
 
-        var vfx = Instantiate(piece.resident.vfxSmoke, transform.position - centerLowerPiecePos(piece), transform.rotation);
-        Destroy(vfx, 3);
+        Instantiate(piece.resident.vfxSmoke, transform.position - centerLowerPiecePos(piece), transform.rotation);
     }
 
     public void SpawnGhostPiece(PieceSO piece, Vector3 gridPos)
@@ -222,16 +218,6 @@ public class Piece : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    public void OnAnimationPiecePlaced()
-    {
-        if (VFX_placed.Count <= 0) return;
-
-        int i = Random.Range(0, VFX_placed.Count);
-        if (!VFX_placed[i]) return;
-
-        Instantiate(VFX_placed[i], transform.position, Quaternion.identity);
     }
 }
 

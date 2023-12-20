@@ -18,6 +18,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPrevivewDeactivated;
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventScriptable onBalanceBroken;
     [SerializeField] private ListOfGameplayEvent eventListRandom;
     private GameplayEvent currentEventSO;
     public bool IsEventActive { get => isEventActive;}
@@ -27,6 +28,7 @@ public class EventManager : MonoBehaviour
     [Header("Scene references")]
     [SerializeField] Image eventImage;
     [SerializeField] TextMeshProUGUI textCoolDown;
+    [SerializeField] private EventAnimation eventAnim;
 
 
     //[Header("CoolDown")]
@@ -50,6 +52,7 @@ public class EventManager : MonoBehaviour
     {
         onEventEnd.AddListener(SwitchEvent);
         onPiecePlaced.AddListener(UpdateCoolDown);
+        onBalanceBroken.AddListener(GameoverDeactiveEvent);
         GetRandomEvent();
         UpdateCoolDownVisual();
     }
@@ -58,6 +61,7 @@ public class EventManager : MonoBehaviour
     {
         onEventEnd.RemoveListener(SwitchEvent);
         onPiecePlaced.RemoveListener(UpdateCoolDown);
+        onBalanceBroken.RemoveListener(GameoverDeactiveEvent);
     }
 
 
@@ -73,7 +77,6 @@ public class EventManager : MonoBehaviour
         if (currentCoolDown == 0) ForceEvent();
         currentCoolDown += provCooldown;
         UpdateCoolDownVisual();
-        
     }
 
     public void EventButton()
@@ -111,6 +114,15 @@ public class EventManager : MonoBehaviour
 
     public void DeactivateEvent()
     {
+        eventAnim.EndEvent();
+        currentEventSO.EndEvent();
+        CancelEvent();
+    }
+
+    public void GameoverDeactiveEvent()
+    {
+        if (!isEventActive)
+            return;
         currentEventSO.EndEvent();
         CancelEvent();
     }
@@ -156,6 +168,8 @@ public class EventManager : MonoBehaviour
 
     private void ForceEvent()
     {
+        eventAnim.InitiateText(currentEventSO);
+
         currentCoolDown = 0;
         mustUseEvent = true;
         ActivateEvent();

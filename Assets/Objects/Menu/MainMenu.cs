@@ -1,11 +1,9 @@
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Device;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -46,9 +44,9 @@ public class MainMenu : MonoBehaviour
     #region Main
     public void StartGame()
     {
-        isPlayerActive.SetValue(true);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName));
         SceneManager.UnloadSceneAsync(mainMenuSceneName);
+        isPlayerActive.SetValue(true);
     }
 
     public void Options()

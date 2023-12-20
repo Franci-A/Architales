@@ -1,7 +1,6 @@
 using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -105,6 +104,7 @@ public class GhostPreview : MonoBehaviour
 
             ghostPiece.gameObject.SetActive(false);
             destroyGhost.SetActive(false);
+            UIResidentLikes.instance.HideGain();
         }
     }
 

@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour
     private float score;
     [SerializeField] private FloatVariable scoreVariable;
     [SerializeField] private ScorePopupHandler scorePopup;
+    [SerializeField] private IntVariable happinessGain;
 
     [Header("SFX")]
     [SerializeField] GameObject happySFX;
@@ -27,7 +28,6 @@ public class ScoreManager : MonoBehaviour
     private void OnScoreUpdated(object obj)
     {
         var piece = obj as PieceHappinessHandler;
-        int happinessGain = piece.GetHappinessLevel();
         string comboStr = "1";
         if (happinessGain > 0)
         {

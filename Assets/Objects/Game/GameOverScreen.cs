@@ -9,11 +9,9 @@ public class GameOverScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI happinessText;
-    [SerializeField] private UnityEvent playMainMusic;
 
     public void Restart() 
     {
-        playMainMusic.Invoke();
         SceneManager.LoadScene(1);
     }
 
