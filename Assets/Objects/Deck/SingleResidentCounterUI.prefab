@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 345969404564398071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.095000006, y: 0}
+  m_AnchorMin: {x: 0.019000001, y: 0}
   m_AnchorMax: {x: 0.425, y: 1}
-  m_AnchoredPosition: {x: -0.14710236, y: 0}
-  m_SizeDelta: {x: -1.8625984, y: 0}
+  m_AnchoredPosition: {x: 2.199997, y: 0}
+  m_SizeDelta: {x: 0.52140045, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7263500478147873021
 CanvasRenderer:
@@ -107,10 +107,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 345969404564398071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.665, y: 0}
-  m_AnchorMax: {x: 0.94500005, y: 1}
-  m_AnchoredPosition: {x: 0.041000366, y: 0}
-  m_SizeDelta: {x: 2.130001, y: 0}
+  m_AnchorMin: {x: 0.68100005, y: 0}
+  m_AnchorMax: {x: 0.97300005, y: 1}
+  m_AnchoredPosition: {x: 0.19999695, y: 0}
+  m_SizeDelta: {x: 0.19919991, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2981175238834872777
 CanvasRenderer:
@@ -168,8 +168,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -243,9 +243,9 @@ RectTransform:
   m_Father: {fileID: 345969404564398071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.425, y: 0}
-  m_AnchorMax: {x: 0.665, y: 1}
-  m_AnchoredPosition: {x: -1.0509987, y: 0}
-  m_SizeDelta: {x: 0.054397583, y: 0}
+  m_AnchorMax: {x: 0.725, y: 1}
+  m_AnchoredPosition: {x: 1.7594995, y: 0}
+  m_SizeDelta: {x: -1.4024, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7537907873694140618
 CanvasRenderer:
@@ -384,7 +384,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 150}
+  m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1792018827708074189
 MonoBehaviour:
@@ -434,8 +434,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff491cfa1d896744489bda704c2cc274, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ba378758c42af014bb5cbc4de0e7f118, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
