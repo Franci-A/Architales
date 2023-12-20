@@ -16,6 +16,7 @@ public class AudioAmbiance : AudioScript
     [Space]
 
     [SerializeField] protected bool AudioDebug = false;
+    [SerializeField] protected AudioManager.AmbianceType ambianceType;
 
     // Start is called before the first frame update
     protected void Start()
@@ -40,7 +41,7 @@ public class AudioAmbiance : AudioScript
         AudioSFXOneShot rfxGO = Instantiate(emptyPrefab, rndPosRFX, Quaternion.identity).GetComponent<AudioSFXOneShot>();
         m_selectedClip = GetClip(true);
         rfxGO.AddClip(m_selectedClip);
-        rfxGO.PlaySound();
+        rfxGO.PlayAmbiance(ambianceType);
 
         if (AudioDebug)
             Debug.Log($"RFX {m_selectedClip.name} from Container '{this.gameObject}' launched at {rndPosRFX}");

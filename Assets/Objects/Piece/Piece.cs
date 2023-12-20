@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+
+using Random = UnityEngine.Random;
 
 public class Piece : MonoBehaviour
 {
@@ -13,6 +16,10 @@ public class Piece : MonoBehaviour
     [SerializeField] private PieceHappinessHandler happinessHandler;
     [SerializeField] private PieceDecorationsHandler decorationsHandler;
     [SerializeField] private Transform blocksParentTransform;
+
+    [Header("Visual FX")]
+    [SerializeField] private List<GameObject> VFX_placed;
+    [SerializeField] private GameObject VFX_lightning;
 
     List<Cube> cubes = new List<Cube>();
     public List<Cube> Cubes { get => cubes; }
@@ -196,7 +203,6 @@ public class Piece : MonoBehaviour
 
     public void DestroyCube(GameObject cube)
     {
-
         //happinessHandler.RemoveResident(cube.GetComponent<ResidentHandler>());
         decorationsHandler.RemoveSocket(cube.GetComponent<BlockSocketHandler>());
 
@@ -204,17 +210,29 @@ public class Piece : MonoBehaviour
         {
             if (cubes[i].cubeGO == cube)
             {
+                Instantiate(VFX_lightning, cube.transform.position, Quaternion.identity);
+         
                 Destroy(cube);
                 cubes.RemoveAt(i);
                 break;
             }
         }
+
         if(cubes.Count <= 0)
         {
             Destroy(this);
         }
     }
 
+    public void OnAnimationPiecePlaced()
+    {
+        if (VFX_placed.Count <= 0) return;
+
+        int i = Random.Range(0, VFX_placed.Count);
+        if (!VFX_placed[i]) return;
+
+        Instantiate(VFX_placed[i], transform.position, Quaternion.identity);
+    }
 }
 
 [Serializable]

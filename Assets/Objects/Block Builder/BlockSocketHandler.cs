@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class BlockSocketHandler : MonoBehaviour
@@ -8,13 +9,14 @@ public class BlockSocketHandler : MonoBehaviour
     [SerializeField] private Decoration baseBlockSocket;
     [SerializeField] private Decoration roofSocket;
     [SerializeField] private Decoration supportSocket;
+    [SerializeField] private Decoration[] windowSockets;
     [SerializeField] private GridData data;
     [SerializeField] private BlockAssetTypeRaceList assetList;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Vector3 debugPos;
     [SerializeField] private float roofStartingHeight = 1;
     [SerializeField] private float supportStartingHeight = 1;
-
+    private Race currentRace;
     private List<Vector3> checkDirections;
 
     private void Awake()
@@ -32,6 +34,7 @@ public class BlockSocketHandler : MonoBehaviour
 
     public void Init(Race residentRace)
     {
+        currentRace = residentRace;
         var assets = assetList.GetMeshByRace(residentRace);
         if (assets != null)
         {
@@ -46,15 +49,16 @@ public class BlockSocketHandler : MonoBehaviour
             Vector2 gridPos = new Vector2(data.WorldToGridPositionRounded(roofSocket.socket.transform.position).x, data.WorldToGridPositionRounded(roofSocket.socket.transform.position).z);
             RoofManager.Instance.PiecePlaced(new RoofObject(roofSocket.socket.transform.position.y, this), gridPos);
         }
-        if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, .2f,0))) 
+        if(supportSocket.socket.transform.position.y > supportStartingHeight && CheckSocket(supportSocket, Vector3.down, new Vector3(0, -.2f,0))) 
         {
             supportSocket.socket.SetMesh(assets.supportMesh);
             supportSocket.socket.SetMaterial(assets.supportMaterial);
             GetSupportDirection();
         }
+        InitWindows();
     }
 
-    private bool CheckSocket(Decoration socket, Vector3 direction, Vector3 offset)
+    private bool CheckSocket(Decoration socket, Vector3 direction, Vector3 offset, bool debug = false)
     {
         if (!socket.canBeFilled)
             return false;
@@ -62,7 +66,8 @@ public class BlockSocketHandler : MonoBehaviour
         RaycastHit[] hit;
 
         hit = Physics.SphereCastAll(socket.socket.transform.position + offset, .1f, direction, .1f, layerMask);
-        debugPos = socket.socket.transform.position + offset;
+        if(debug)
+            debugPos = socket.socket.transform.position + offset;
         if (hit.Length > 0)
         {
             bool hasHit = false;
@@ -122,12 +127,57 @@ public class BlockSocketHandler : MonoBehaviour
     {
         roofSocket.socket.EmptyMesh();
     }
+
+    public void InitWindows()
+    {
+        var assets = assetList.GetMeshByRace(currentRace);
+        if (assets == null)
+            return;
+        if (assets.windowMesh == null)
+            return;
+
+        for (int i = 0; i < windowSockets.Length; i++)
+        {
+            windowSockets[i].canBeFilled = true;
+            if (CheckSocket(windowSockets[i], windowSockets[i].direction, Vector3.zero, true))
+            {
+                if (UnityEngine.Random.Range(0f, 1f) > .7f)
+                {
+                    windowSockets[i].socket.SetMesh(assets.windowMesh);
+                    windowSockets[i].socket.SetMaterial(assets.windowMaterial);
+                    windowSockets[i].socket.transform.LookAt( windowSockets[i].socket.transform.position + windowSockets[i].direction);
+                    Vector3 localPos = windowSockets[i].socket.transform.localPosition;
+                    //windowSockets[i].socket.transform.localPosition = localPos + assets.windowOffset;
+                    windowSockets[i].socket.transform.localPosition = new Vector3( localPos.x + assets.windowOffset.x * windowSockets[i].direction.x,
+                                                                                   localPos.y + assets.windowOffset.y,
+                                                                                   localPos.z + assets.windowOffset.z * windowSockets[i].direction.z);
+                    foreach (var mat in windowSockets[i].socket.gameObject.GetComponent<MeshRenderer>().materials)
+                    {
+                        mat.SetFloat("_ObjectRotation", Vector3.Angle(Vector3.forward, windowSockets[i].direction));
+                    }
+                }
+            }
+        }
+    }
+
+    public void ResetBlockMaterial()
+    {
+        var assets = assetList.GetMeshByRace(currentRace);
+        baseBlockSocket.socket.SetMaterial(assets.blockMaterial);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(debugPos, .5f);
+    }
 }
 
 [Serializable]
 struct Decoration
 {
     public MeshSocket socket;
+    public Vector3 direction;
     public bool canBeFilled;
     public Vector3 blockOffset;
     public List<GameObject> neighbors;

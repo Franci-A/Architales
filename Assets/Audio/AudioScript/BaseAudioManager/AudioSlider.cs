@@ -23,7 +23,7 @@ public class AudioSlider : MonoBehaviour
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume");
         SetMasterVolume(masterVolumeSlider.value);
 
-        if (!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 1f);
+        if (!PlayerPrefs.HasKey("MusicVolume")) PlayerPrefs.SetFloat("MusicVolume", 0.45f);
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
         SetMusicVolume(musicVolumeSlider.value);
 
