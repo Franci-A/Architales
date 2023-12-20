@@ -47,10 +47,18 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        ui.SetActive(isPlayerActive);
+        if (isPlayerActive && PlayerPrefs.GetInt("FirstTime") == 0)
+        {
+            PlayerPrefs.SetInt("FirstTime", 0);
+            isPlayerActive.SetValue(false);
+        }
+        else
+        {
+            ui.SetActive(isPlayerActive);
 
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
-            playMainMusic.Invoke();
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
+                playMainMusic.Invoke();
+        }
     }
 
     public void PauseGame()
