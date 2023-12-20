@@ -3399,7 +3399,7 @@ PrefabInstance:
     - target: {fileID: 3260251638334261536, guid: 451976427c68f9c44ad512d6936a9caa,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.7489319
+      value: 0.74890137
       objectReference: {fileID: 0}
     - target: {fileID: 3758504246230806610, guid: 451976427c68f9c44ad512d6936a9caa,
         type: 3}
@@ -9165,6 +9165,12 @@ PrefabInstance:
       propertyPath: textCoolDown
       value: 
       objectReference: {fileID: 5080272100556709842}
+    - target: {fileID: 6790924563911008661, guid: 40d0716b7e1307349a343ba1a4e252c2,
+        type: 3}
+      propertyPath: onBalanceBroken
+      value: 
+      objectReference: {fileID: 11400000, guid: d4340c2be8ff5324ea508524ccc153fc,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

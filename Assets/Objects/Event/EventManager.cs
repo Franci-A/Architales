@@ -18,6 +18,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventScriptable onEventEnd;
     [SerializeField] private EventScriptable onPrevivewDeactivated;
     [SerializeField] private EventScriptable onPiecePlaced;
+    [SerializeField] private EventScriptable onBalanceBroken;
     [SerializeField] private ListOfGameplayEvent eventListRandom;
     [SerializeField] private GameObject eventAnim;
     private GameplayEvent currentEventSO;
@@ -51,6 +52,7 @@ public class EventManager : MonoBehaviour
     {
         onEventEnd.AddListener(SwitchEvent);
         onPiecePlaced.AddListener(UpdateCoolDown);
+        onBalanceBroken.AddListener(DeactivateEvent);
         GetRandomEvent();
         UpdateCoolDownVisual();
     }
