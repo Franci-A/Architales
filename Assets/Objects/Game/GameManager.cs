@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Tuto;
     [SerializeField] private GameObject Tuto2;
 
+    private bool playMusicOnce;
+
     private void Awake()
     {
         if (instance == null)
@@ -66,8 +68,13 @@ public class GameManager : MonoBehaviour
         else
         {
             ui.SetActive(isPlayerActive);
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu")) playMenuMusic.Invoke();
-            else playMainMusic.Invoke();
+
+            if (!playMusicOnce)
+            {
+                playMusicOnce = true;
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu")) playMenuMusic.Invoke();
+                else playMainMusic.Invoke();
+            }
         }
     }
 
