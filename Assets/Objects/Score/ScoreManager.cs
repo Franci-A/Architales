@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private GameplayDataSO gameplayData;
+    [SerializeField] private EventObjectScriptable onLastPiecePlaced;
     [SerializeField] private EventObjectScriptable onPiecePlaced;
     private int combo;
     private float score;
@@ -21,14 +22,14 @@ public class ScoreManager : MonoBehaviour
     {
         score = 0;
         combo = 0;
+
+        onLastPiecePlaced.AddListener(OnLastPiecePlaced);
         onPiecePlaced.AddListener(OnScoreUpdated);
         scoreVariable.SetValue(0);
     }
 
-    private void OnScoreUpdated(object obj)
+    private void OnLastPiecePlaced(object obj)
     {
-        var piece = obj as PieceHappinessHandler;
-        string comboStr = "1";
         if (happinessGain > 0)
         {
             combo++;
@@ -40,6 +41,11 @@ public class ScoreManager : MonoBehaviour
             combo = 0;
             Instantiate(angrySFX);
         }
+    }
+
+    private void OnScoreUpdated(object obj)
+    {
+        var piece = obj as PieceHappinessHandler;
 
         float valueAdded = 0;
         if(combo == 0 && happinessGain < 0)
@@ -64,11 +70,15 @@ public class ScoreManager : MonoBehaviour
         }
 
         scoreVariable.SetValue(score);
+        // Reset Happiness OnPiecePlaced Event
+        // AFTER Every call to LastPlacedPiece callbacks
+        happinessGain.SetValue(0);
     }
 
 
     private void OnDestroy()
     {
         onPiecePlaced.RemoveListener(OnScoreUpdated);
+        onLastPiecePlaced.RemoveListener(OnLastPiecePlaced);
     }
 }

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayData: {fileID: 11400000, guid: 40f2b03c5b6a46a43a011465ecf4eaa2, type: 2}
+  onLastPiecePlaced: {fileID: 11400000, guid: 0145450748b85f147a0b60d9adbad175, type: 2}
   onPiecePlaced: {fileID: 11400000, guid: 3d2ec12e32c169741a2f6559705f64ac, type: 2}
   scoreVariable: {fileID: 11400000, guid: 401ba01d435b0f9408a2d40e377e6527, type: 2}
   scorePopup: {fileID: 2483988623614628945, guid: 4186c67556b063f4c950026173c2b84d,

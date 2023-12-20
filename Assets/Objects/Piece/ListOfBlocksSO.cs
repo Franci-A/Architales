@@ -165,8 +165,6 @@ public class ListOfBlocksSO : ScriptableObject, InitializeOnAwake, UninitializeO
 
         else
             UpdateResidentCount(resident, gameplayData.NegativeHappinessPieceGain);
-
-        happinessResidentGain.SetValue(0);
     }
 
     [Button("Debug Sub List")]
