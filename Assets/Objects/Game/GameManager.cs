@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
-    [SerializeField] private UnityEvent playMainMusic, playGameOver, StopSound;
+    [SerializeField] private UnityEvent playGameOver, StopSound;
     [SerializeField] private BoolVariable isPlayerActive;
     [SerializeField] private FloatVariable happiness;
     [SerializeField] private GameObject ui;
@@ -48,9 +48,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         ui.SetActive(isPlayerActive);
-
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
-            playMainMusic.Invoke();
     }
 
     public void PauseGame()
