@@ -2200,6 +2200,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 551096512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &613763865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5262836701507038244, guid: 9012da7da6591c04cb3a5757f2a8e4aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1955146030}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619387954
 GameObject:
   m_ObjectHideFlags: 0
@@ -6199,12 +6205,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1955146030}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1955146032 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2532845781151699924, guid: 9012da7da6591c04cb3a5757f2a8e4aa,
-    type: 3}
-  m_PrefabInstance: {fileID: 1955146030}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1976702109
 GameObject:
   m_ObjectHideFlags: 0
@@ -6719,7 +6719,7 @@ PrefabInstance:
         type: 3}
       propertyPath: crystalBall
       value: 
-      objectReference: {fileID: 1955146032}
+      objectReference: {fileID: 613763865}
     - target: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
       propertyPath: toDesactive
@@ -6734,6 +6734,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EventUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303920963692796109, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303920963692796109, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8965,6 +8980,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6790924563911008661, guid: 40d0716b7e1307349a343ba1a4e252c2,
+        type: 3}
+      propertyPath: eventAnim
+      value: 
+      objectReference: {fileID: 2028128681}
     - target: {fileID: 6790924563911008661, guid: 40d0716b7e1307349a343ba1a4e252c2,
         type: 3}
       propertyPath: eventImage

@@ -101,6 +101,14 @@ public class EventAnimation : MonoBehaviour
     public void EndEvent()
     {
         endSlide = true;
+
+        if (startSlide)
+        {
+            startSlide = false;
+            canvasGroup.alpha = 0f;
+            targetLerp = 0f;
+            targetLerpScale = 0f;
+        }
     }
 
     private void EndUI()
