@@ -168,7 +168,6 @@ public class EventManager : MonoBehaviour
 
     private void ForceEvent()
     {
-        Debug.Log(currentEventSO.name);
         eventAnim.InitiateText(currentEventSO);
 
         currentCoolDown = 0;

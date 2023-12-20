@@ -50,7 +50,6 @@ public class EventAnimation : MonoBehaviour
 
     public void InitiateText(GameplayEvent currentEventSO)
     {
-        Debug.Log(currentEventSO);
         if (currentEventSO.name == "Event_Lightning")
         {
             eventThunder.SetActive(true);
