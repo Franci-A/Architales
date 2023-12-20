@@ -9,10 +9,20 @@ public class Tuto : MonoBehaviour
     private int slideId;
     private int previousSlideId;
 
+    private void Start()
+    {
+        Debug.Log("tuto spawned");
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("tuto ded"); 
+    }
     public void NextSlide()
     {
         slideId++;
-        ChangeSlide();
+        if(slideId >= list.Count) EndTuto();
+        else ChangeSlide();
     }
 
     public void PrevSlide() 
@@ -27,5 +37,12 @@ public class Tuto : MonoBehaviour
         list[slideId].SetActive(true);
 
         previousSlideId = slideId;
+    }
+
+    void EndTuto()
+    {
+        GameManager.Instance.EndTuto();
+        Debug.Log("endtuto");
+        Destroy(gameObject);
     }
 }

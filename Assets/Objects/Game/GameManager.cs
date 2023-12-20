@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject ghost;
 
+    [SerializeField] private GameObject Tuto;
+    [SerializeField] private GameObject Tuto2;
+
     private void Awake()
     {
         if (instance == null)
@@ -32,15 +35,13 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene"))
-        {
-            isPlayerActive.SetValue(true);
-        }else
-            ui.SetActive(false);
         isPlayerActive.OnValueChanged.AddListener(StartGame);
-
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene")) isPlayerActive.SetValue(true);
+        else ui.SetActive(false);
+
 
         Cursor.lockState = CursorLockMode.None;
     }
@@ -49,7 +50,8 @@ public class GameManager : MonoBehaviour
     {
         if (isPlayerActive && PlayerPrefs.GetInt("FirstTime") == 0)
         {
-            PlayerPrefs.SetInt("FirstTime", 0);
+            PlayerPrefs.SetInt("FirstTime", 1);
+            Instantiate(Tuto, this.transform);
             isPlayerActive.SetValue(false);
         }
         else
@@ -106,5 +108,10 @@ public class GameManager : MonoBehaviour
     private void IncreaseScore()
     {
         score++;
+    }
+
+    public void EndTuto()
+    {
+        isPlayerActive.SetValue(true);
     }
 }
