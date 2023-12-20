@@ -6974,9 +6974,9 @@ PrefabInstance:
       objectReference: {fileID: 613763865}
     - target: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
-      propertyPath: toDesactive
+      propertyPath: eventManager
       value: 
-      objectReference: {fileID: 2028128681}
+      objectReference: {fileID: 7649162496361339002}
     - target: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
       propertyPath: ambianceLight
@@ -6990,7 +6990,7 @@ PrefabInstance:
     - target: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8303920963692796109, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
@@ -7013,12 +7013,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2028128679}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2028128681 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
+--- !u!114 &2028128682 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
     type: 3}
   m_PrefabInstance: {fileID: 2028128679}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cc08d6e36497743ad4f76310b25e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2036169597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9236,7 +9242,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventAnim
       value: 
-      objectReference: {fileID: 2028128681}
+      objectReference: {fileID: 2028128682}
     - target: {fileID: 6790924563911008661, guid: 40d0716b7e1307349a343ba1a4e252c2,
         type: 3}
       propertyPath: eventImage
