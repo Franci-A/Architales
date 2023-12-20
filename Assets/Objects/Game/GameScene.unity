@@ -1981,44 +1981,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 535806525}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &540647613 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5811612345321374408}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &540647614 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1616223428667591458, guid: 7964064343b001a4ebb5a65d1c884ee8,
     type: 3}
   m_PrefabInstance: {fileID: 5811612345321374408}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &540647615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540647613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93cc08d6e36497743ad4f76310b25e33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crystalBall: {fileID: 1352636396}
-  eventText: {fileID: 773121321}
---- !u!225 &540647616
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540647613}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &551096511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,12 +2630,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671819374}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &773121321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4845010157136478250, guid: 7964064343b001a4ebb5a65d1c884ee8,
-    type: 3}
-  m_PrefabInstance: {fileID: 5811612345321374408}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &780473538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3393,6 +3355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ---Pause---
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783460646274783878, guid: 451976427c68f9c44ad512d6936a9caa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5940858582321831784, guid: 451976427c68f9c44ad512d6936a9caa,
         type: 3}
@@ -5279,6 +5246,12 @@ Transform:
   - {fileID: 2122243121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1542951922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5811612345321374408}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1570496850 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3677633156489932692, guid: 1be51571b7dfb4945ab416fb049462f8,
@@ -8802,10 +8775,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: crystalBall
+      value: 
+      objectReference: {fileID: 1352636396}
+    - target: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: toDesactive
+      value: 
+      objectReference: {fileID: 1542951922}
+    - target: {fileID: 2119294806488458447, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: ambianceLight
+      value: 
+      objectReference: {fileID: 1837025542}
     - target: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
       propertyPath: m_Name
       value: EventUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7074125300733694879, guid: 7964064343b001a4ebb5a65d1c884ee8,
         type: 3}
@@ -8892,15 +8885,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 540647616}
-    - targetCorrespondingSourceObject: {fileID: 6105011465148256731, guid: 7964064343b001a4ebb5a65d1c884ee8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 540647615}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7964064343b001a4ebb5a65d1c884ee8, type: 3}
 --- !u!1 &6023511125148939560
 GameObject:
@@ -9271,6 +9256,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6790924563911008661, guid: 40d0716b7e1307349a343ba1a4e252c2,
+        type: 3}
+      propertyPath: eventAnim
+      value: 
+      objectReference: {fileID: 1542951922}
     - target: {fileID: 6790924563911008661, guid: 40d0716b7e1307349a343ba1a4e252c2,
         type: 3}
       propertyPath: eventImage

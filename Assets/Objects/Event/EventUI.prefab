@@ -146,6 +146,8 @@ GameObject:
   - component: {fileID: 3575524546418186432}
   - component: {fileID: 8301088394680343286}
   - component: {fileID: 3555248096553795004}
+  - component: {fileID: 3445661366988158129}
+  - component: {fileID: 2119294806488458447}
   m_Layer: 5
   m_Name: EventUI
   m_TagString: Untagged
@@ -236,3 +238,33 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &3445661366988158129
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105011465148256731}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2119294806488458447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105011465148256731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cc08d6e36497743ad4f76310b25e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalBall: {fileID: 0}
+  eventText: {fileID: 4845010157136478250}
+  toDestroy: {fileID: 6105011465148256731}
+  exposureEnd: 1.25
+  ambianceLight: {fileID: 0}
+  endColor: {r: 0, g: 0, b: 0, a: 0}
