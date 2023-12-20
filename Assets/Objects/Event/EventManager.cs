@@ -19,6 +19,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private EventScriptable onPrevivewDeactivated;
     [SerializeField] private EventScriptable onPiecePlaced;
     [SerializeField] private ListOfGameplayEvent eventListRandom;
+    [SerializeField] private GameObject eventAnim;
     private GameplayEvent currentEventSO;
     public bool IsEventActive { get => isEventActive;}
 
@@ -73,7 +74,6 @@ public class EventManager : MonoBehaviour
         if (currentCoolDown == 0) ForceEvent();
         currentCoolDown += provCooldown;
         UpdateCoolDownVisual();
-        
     }
 
     public void EventButton()
@@ -111,6 +111,7 @@ public class EventManager : MonoBehaviour
 
     public void DeactivateEvent()
     {
+        eventAnim.GetComponent<EventAnimation>().EndEvent();
         currentEventSO.EndEvent();
         CancelEvent();
     }
@@ -156,6 +157,7 @@ public class EventManager : MonoBehaviour
 
     private void ForceEvent()
     {
+        eventAnim.SetActive(true);
         currentCoolDown = 0;
         mustUseEvent = true;
         ActivateEvent();
