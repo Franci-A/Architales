@@ -99,6 +99,10 @@ public class CheckResidentsLikes : MonoBehaviour
             feedbackElements[k].RemoveRelationsMaterial();
             feedbackElements.RemoveAt(k);
         }
+        int value = -1;
+        if(totalLike != 0) 
+            value = totalLike > 0? 1 : -2;
+        UIResidentLikes.instance.ShowGain(currentResident[0].GetResident.race, value);
     }
 
     public void CheckRelationsWithoutFeedback()
