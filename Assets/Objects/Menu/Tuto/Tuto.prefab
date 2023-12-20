@@ -6433,7 +6433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc8658a6eddd0e8478b6bda2023f9fe6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecaf301a3f7c72843aad84dd45366925, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6967,7 +6967,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a71d56b5fa636754fa41038429c5be01,
+      objectReference: {fileID: 21300000, guid: 227bd75954fcd1a408ad42e7f1fc5df0,
         type: 3}
     - target: {fileID: 7977466520956316118, guid: 82deff03146cd2749b44eafff0d24dc1,
         type: 3}
@@ -7097,7 +7097,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a5d8a9b939feee340957e6b2157e9ae1,
+      objectReference: {fileID: 21300000, guid: 17a502aee69e8594da06ee24c1bc34ee,
         type: 3}
     - target: {fileID: 7977466520956316118, guid: 82deff03146cd2749b44eafff0d24dc1,
         type: 3}
@@ -7223,6 +7223,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4950231370356036514, guid: 82deff03146cd2749b44eafff0d24dc1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07d6d53e10999e04c99024870b1b3f43,
+        type: 3}
     - target: {fileID: 7977466520956316118, guid: 82deff03146cd2749b44eafff0d24dc1,
         type: 3}
       propertyPath: m_Name
@@ -7351,7 +7357,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1da11679af168514b85e49e68d385457,
+      objectReference: {fileID: 21300000, guid: e9e534f8d5fffa04f9c770657f4d732e,
         type: 3}
     - target: {fileID: 7977466520956316118, guid: 82deff03146cd2749b44eafff0d24dc1,
         type: 3}
@@ -7481,7 +7487,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: bc8658a6eddd0e8478b6bda2023f9fe6,
+      objectReference: {fileID: 21300000, guid: ecaf301a3f7c72843aad84dd45366925,
         type: 3}
     - target: {fileID: 7977466520956316118, guid: 82deff03146cd2749b44eafff0d24dc1,
         type: 3}
