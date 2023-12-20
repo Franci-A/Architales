@@ -47,22 +47,6 @@ MonoBehaviour:
   gameOverScreen: {fileID: 3813135171586370304, guid: 3994857e2a4c2d44fb950a581839ee5f,
     type: 3}
   onPiecePlaced: {fileID: 11400000, guid: 3597a80e671ca034f8c3e3f4887e5e4c, type: 2}
-  playMainMusic:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayMusic
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 8eed0ce953072b9489d0873d4435a2c9,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   playGameOver:
     m_PersistentCalls:
       m_Calls:
@@ -94,9 +78,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  playMainMusic:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: fb5534497d71aff4cb4d03fa28740c99,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playMenuMusic:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: aec687f777ff84b44b216f2ea8a6fd32,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isPlayerActive: {fileID: 11400000, guid: 76401ab7d61fe134d8efa6394e0e2c21, type: 2}
   happiness: {fileID: 11400000, guid: 401ba01d435b0f9408a2d40e377e6527, type: 2}
   ui: {fileID: 0}
   pauseMenu: {fileID: 0}
   ghost: {fileID: 0}
   Tuto: {fileID: 5186866572262465044, guid: 4dbcb557ca4146b43937bc134aa43952, type: 3}
+  Tuto2: {fileID: 0}

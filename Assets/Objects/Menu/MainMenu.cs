@@ -46,9 +46,9 @@ public class MainMenu : MonoBehaviour
     #region Main
     public void StartGame()
     {
-        isPlayerActive.SetValue(true);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName));
         SceneManager.UnloadSceneAsync(mainMenuSceneName);
+        isPlayerActive.SetValue(true);
     }
 
     public void Options()

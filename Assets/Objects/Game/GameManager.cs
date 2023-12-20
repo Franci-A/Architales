@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameOverScreen gameOverScreen;
     [SerializeField] EventScriptable onPiecePlaced;
 
-    [SerializeField] private UnityEvent playGameOver, StopSound;
+    [SerializeField] private UnityEvent playGameOver, StopSound, playMainMusic, playMenuMusic;
     [SerializeField] private BoolVariable isPlayerActive;
     [SerializeField] private FloatVariable happiness;
     [SerializeField] private GameObject ui;
@@ -39,11 +39,20 @@ public class GameManager : MonoBehaviour
         Grid3DManager.Instance.onBalanceBroken.AddListener(GameOver);
         onPiecePlaced.AddListener(IncreaseScore);
 
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene")) isPlayerActive.SetValue(true);
-        else ui.SetActive(false);
+        Debug.Log(SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("GameScene"))
+        {
+            isPlayerActive.SetValue(true);
+            playMainMusic.Invoke();
+        }
+        else
+        {
+            ui.SetActive(false);
+            playMenuMusic.Invoke();
+        }
 
 
-        Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.None;
     }
 
     public void StartGame()
@@ -57,9 +66,8 @@ public class GameManager : MonoBehaviour
         else
         {
             ui.SetActive(isPlayerActive);
-
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu"))
-                playMainMusic.Invoke();
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu")) playMenuMusic.Invoke();
+            else playMainMusic.Invoke();
         }
     }
 
