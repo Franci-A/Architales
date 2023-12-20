@@ -16,10 +16,12 @@ public class MainMenu : MonoBehaviour
 
     [Header("Screen")]
     [SerializeField] private Toggle fullscreenToggle;
+    [SerializeField] private Toggle tutorialToggle;
     [SerializeField] private TextMeshProUGUI resText;
     [SerializeField] Resolution[] resolutionList; // x = width, y = height
     private int resId;
     private bool boolFullScreen;
+    private bool boolTuto;
     private CameraManager cameraManager;
 
     [Header("Audio")]
@@ -31,6 +33,7 @@ public class MainMenu : MonoBehaviour
     {
         resolutionList = UnityEngine.Screen.resolutions;
         GetScreenValue();
+        GetTutorialValue();
         isPlayerActive.SetValue(false);
 
         audioSlider = GetComponent<AudioSlider>();
@@ -38,7 +41,6 @@ public class MainMenu : MonoBehaviour
         
         playMenuMusic.Invoke();
         SceneManager.LoadSceneAsync(gameSceneName, LoadSceneMode.Additive);
-
     }
 
     #region Main
@@ -80,6 +82,13 @@ public class MainMenu : MonoBehaviour
         ApplyGraphics();
     }
 
+    private void GetTutorialValue()
+    {
+        if (!PlayerPrefs.HasKey("FirstTime")) PlayerPrefs.SetInt("FirstTime", 0);
+        boolTuto = PlayerPrefs.GetInt("FirstTime") <= 0;
+        tutorialToggle.isOn = boolTuto;
+    }
+
     public void ApplyGraphics()
     {
         PlayerPrefs.SetInt("FullScreen", boolFullScreen ? 1 : 0);
@@ -97,6 +106,12 @@ public class MainMenu : MonoBehaviour
     {
         cameraManager = Camera.main.GetComponentInParent<CameraManager>();
         cameraManager.CameraInvertion();
+    }
+
+    public void SetTutorialStart(bool startWithTutorial)
+    {
+        // 0 to Start With, 1 to Skip tuto
+        PlayerPrefs.SetInt("FirstTime", startWithTutorial ? 0 : 1);
     }
 
     public void ReduceRes()
