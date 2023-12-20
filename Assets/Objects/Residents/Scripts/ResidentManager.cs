@@ -1,3 +1,4 @@
+using HelperScripts.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,77 +6,60 @@ using UnityEngine;
 public class ResidentManager : MonoBehaviour
 {
     public static ResidentManager Instance;
-    [SerializeField] private FloatVariable balanceMultiplier;
-    [SerializeField] private FloatVariable maxBalanceAdded;
     [SerializeField] private IntVariable happinessGain;
-    [SerializeField] private IntVariable numberHappyResidents;
-    [SerializeField] private IntVariable totalNumResidents;
     [SerializeField] private GameplayDataSO gameplayData;
+    [SerializeField] private EventObjectScriptable onPiecePlaced;
+    [SerializeField] private EventObjectScriptable onHappinessWithResident;
+
+    private int value = -1;
+    private Resident resident = null;
+
     private void Awake()
     {
         Instance = this;
         happinessGain.SetValue(0);
-        numberHappyResidents.SetValue(0);
-        totalNumResidents.SetValue(0);
-        maxBalanceAdded.SetValue(0);
-        balanceMultiplier.SetValue(1);
+        onPiecePlaced.AddListener(UpdateResident);
     }
 
-    public void UpdateResidentsHappiness(int value)
+    public void UpdateHappiness(int value)
     {
-        happinessGain.Add(value);
-        numberHappyResidents.Add(value);
-        /*if(numberHappyResidents.value > 0)
-        {
-            float max = 0;
-            for (int i = 0; i < gameplayData.residentHappinessLevels.Count; i++)
-            {
-                if(numberHappyResidents.value > gameplayData.residentHappinessLevels[i].numberOfResidents && gameplayData.residentHappinessLevels[i].maxBalanceAddedValue > max)
-                {
-                    max = gameplayData.residentHappinessLevels[i].maxBalanceAddedValue;
-                }
-            }
-            maxBalanceAdded.SetValue(max);
-
-        }
-        else
-        {
-            maxBalanceAdded.SetValue(0);
-        }
+        happinessGain.SetValue(value);
+        this.value = value;
+        SendInfo();
+    }
+    
+    public void UpdateResident(object obj)
+    {
+        PieceHappinessHandler piece = obj as PieceHappinessHandler;
+        resident = piece.GetResident;
+        SendInfo();
+    }
 
 
-        if (numberHappyResidents.value > 0)
-        {
-            float multiplier = 1;
-            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
-            {
-                if (gameplayData.residentAngryLevels[i].numberOfResidents < 0)
-                    continue;
-                if (numberHappyResidents.value >= gameplayData.residentAngryLevels[i].numberOfResidents && multiplier > gameplayData.residentAngryLevels[i].balanceMultiplier)
-                {
-                    multiplier = gameplayData.residentAngryLevels[i].balanceMultiplier;
-                }
-            }
-            balanceMultiplier.SetValue(multiplier);
+    private void SendInfo()
+    {
+        if (resident == null || value == -1)
+            return;
 
-        }
-        else if(numberHappyResidents.value < 0)
-        {
-            float multiplier = 1;
-            for (int i = 0; i < gameplayData.residentAngryLevels.Count; i++)
-            {
-                if (gameplayData.residentAngryLevels[i].numberOfResidents > 0)
-                    continue;
-                if (numberHappyResidents.value <= gameplayData.residentAngryLevels[i].numberOfResidents && multiplier < gameplayData.residentAngryLevels[i].balanceMultiplier)
-                {
-                    multiplier = gameplayData.residentAngryLevels[i].balanceMultiplier;
-                }
-            }
-            balanceMultiplier.SetValue(multiplier);
-        }
-        else
-        {
-            balanceMultiplier.SetValue(1);
-        }*/
+        onHappinessWithResident.Call(new ResidentInfo(value, resident));
+        value = -1;
+        resident = null;
+    }
+
+    private void OnDestroy()
+    {
+        onPiecePlaced.RemoveListener(UpdateResident);
+
+    }
+}
+class ResidentInfo
+{
+    public int value;
+    public Resident resident;
+
+    public ResidentInfo(int value, Resident resident)
+    {
+        this.value = value; 
+        this.resident = resident;
     }
 }

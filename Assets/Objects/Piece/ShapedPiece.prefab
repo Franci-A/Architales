@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3ddc52040347646a0078ad5968d955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceHappinessHandler: {fileID: 993482265561374568}
   mask:
     serializedVersion: 2
     m_Bits: 128

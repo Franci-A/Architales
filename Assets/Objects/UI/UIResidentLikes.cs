@@ -10,6 +10,7 @@ public class UIResidentLikes : MonoBehaviour
     [SerializeField] private Color happyColor;
     [SerializeField] private Color angryColor;
     [SerializeField] private Color selectedColor;
+    [SerializeField] private Color neutralColor;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class UIResidentLikes : MonoBehaviour
             }
             else
             {
-                backgrounds[i].image.color = Color.clear;
+                backgrounds[i].image.color = neutralColor;
             }
         }
     }
