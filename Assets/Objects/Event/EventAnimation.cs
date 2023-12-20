@@ -10,11 +10,15 @@ public class EventAnimation : MonoBehaviour
     private Vector3 startPosition;
 
     [SerializeField] private GameObject crystalBall;
-    [SerializeField] private GameObject eventText;
+    [SerializeField] private GameObject eventThunder;
+    [SerializeField] private GameObject eventOrc;
+    [SerializeField] private GameObject eventBloc;
+     private GameObject eventText;
 
     private bool initiate, startSlide, endSlide = false;    
 
     [SerializeField] private GameObject toDesactive;
+    [SerializeField] private EventManager eventManager;
 
     [Header("Light")]
     private float exposureStart = 1.681691f;
@@ -24,17 +28,12 @@ public class EventAnimation : MonoBehaviour
     private Color startColor;
     [SerializeField] private Color endColor;
 
-    private void OnEnable()
-    {
-        initiate = true;
-    }
-
 
     private void Start()
     {
         startColor = ambianceLight.color;
         canvasGroup = GetComponent<CanvasGroup>();
-        startPosition = eventText.transform.position;
+        startPosition = eventThunder.transform.position;
     }
 
     private void Update()
@@ -47,6 +46,28 @@ public class EventAnimation : MonoBehaviour
 
         if (endSlide)
             EndUI();
+    }
+
+    public void InitiateText(GameplayEvent currentEventSO)
+    {
+        Debug.Log(currentEventSO);
+        if (currentEventSO.name == "Event_Lightning")
+        {
+            eventThunder.SetActive(true);
+            eventText = eventThunder;
+        }
+        else if (currentEventSO.name == "Event_Orc")
+        {
+            eventOrc.SetActive(true);
+            eventText = eventOrc;
+        }
+        else if (currentEventSO.name == "Event_SolidBlock")
+        {
+            eventBloc.SetActive(true);
+            eventText = eventBloc;
+        }
+
+        initiate = true;
     }
 
     public void StartUI()
@@ -124,7 +145,7 @@ public class EventAnimation : MonoBehaviour
             targetLerp = 0;
             eventText.transform.localScale = new Vector3(1, 1, 1);
             eventText.transform.position = startPosition;
-            toDesactive.SetActive(false);
+            eventText.SetActive(false);
         }
     }
 }
